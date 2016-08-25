@@ -1,0 +1,217 @@
+@media only screen and (min-device-width: 980px)
+{
+  form
+  {
+    margin: 0 0 1em 0;
+    padding: 0;
+    width: 75%;
+    border-bottom: 1px solid #00314c;
+  }
+  
+  fieldset
+  {
+    margin: 0 0 0.4em 0;
+    padding: 0;
+    border: 0;
+    clear: both;
+    padding-bottom: 1em;
+    border-bottom: 1px dashed #00314c;
+  }
+
+  fieldset:last-of-type
+  {
+    border-bottom: 1px solid #00314c;
+  }
+ 
+  legend
+  {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #00314c;
+    text-transform: capitalize;
+  }
+
+  fieldset > div
+  {
+    margin: 0 0 0 2%;
+    padding: 0;
+    float: left;
+    width: 46%;
+  }
+
+  fieldset > div > input, fieldset > div > label, fieldset > div > select, fieldset > div > textarea, form > div > div > input
+  {
+    display: block;
+    width: 100%;
+    margin: 0 0 0.3em 0;
+    padding: 0.1em 0.2em;
+    background: #ededed;
+    border-radius: 5px;
+
+  }
+
+  fieldset > div > label
+  {
+    background: transparent;
+    margin-bottom: 0.1em;
+    text-transform: capitalize;
+  }
+
+  .submit
+  {
+    font-size: 1.2em;
+    background: #00314c;
+    border: 0;
+    border-radius: 2px;
+    width: 46%;
+    margin: 0.2em 0 0.5em 1.8%;
+    padding: 0.2em 0;
+    color: white;
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+
+  .empBanking
+  {
+    height: 128px;
+  }
+
+  .empPhysical
+  {
+    height: 104px;
+  }
+  
+  #patBankging
+  {
+    height: 104px;
+  }
+
+  .check
+  {
+    display: inline;
+    max-width: 49%;
+    color: black;
+  }
+
+  .procDesc
+  {
+    height: 72px;
+  }
+
+  .prodDesc
+  {
+    height: 71px;
+  }
+
+  .addSuppAddress
+  {
+    height: 74px;
+  }
+
+  #orderProdSubmit
+  {
+    margin: 0.6em 0 0 0;
+  }
+
+  form > ul
+  {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  form > ul > li
+  {
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+    border-bottom: 0;
+    background: #00314c;
+    float: left;
+    list-style: none;
+  }
+
+  form > ul > li:first-of-type
+  {/*
+    border: 0;*/
+  }
+
+  form > ul > li > a
+  {
+    margin: 0;
+    padding: 0.3em 0.4em;
+    font-size: 1.3em;
+    color: white;
+    text-transform: capitalize;
+    text-decoration: none;
+  }
+
+  form > div
+  {
+    width: 100%;
+    height: 300px;
+    margin: 0;
+    padding: 1em 0 0 0;
+    border: 1px solid black;
+    border-top: 0;
+  }
+
+  form > div > label, .fDiv > label
+  {
+    width: 60%;
+    margin: 0 0 0 1.2em;
+    padding: 0;
+    font-size: 1em;
+  }
+
+  form > div > textarea, .fDiv > textarea
+  {
+    width: 60%;
+    margin: 0.4em 0 4em 1.2em;
+    height: 150px;
+    padding: 0.3em;
+  }
+
+  .submitt
+  {
+    display: block;
+    width: 30%;
+    text-align: center;
+    text-transform: capitalize;
+    text-decoration: none;
+    margin: 0 0 0 65%;
+    color: white;
+    padding: 0.2em 0;
+    font-size: 1.2em;
+    border-radius: 3px;
+    background: #00314c;
+  }
+
+  .active
+  {
+    color: #00314c;
+    background: white;
+  }
+
+  form > div > div
+  {
+    margin: 0;
+    padding: 0;
+  }
+
+  form > div > div:nth-of-type(1), form > div > div:nth-of-type(3)
+  {
+    width: 30%;
+    padding: 0 0.4em;
+    display: inline-block;
+  }
+
+  form > div > div:nth-of-type(2), form > div > div:nth-of-type(4)
+  {
+    width: 65%;
+    display: inline-block;
+  }
+
+}

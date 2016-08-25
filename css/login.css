@@ -1,0 +1,57 @@
+body
+{
+  margin: 0;
+  padding: 0;
+  background: #00314c;
+  overflow: hidden;
+}
+
+form
+{
+  background: white;
+  margin: 10% 0 0 0;
+  padding: 1em 37.5%;
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 1px 1px 1px #646464;
+}
+
+form > img
+{
+  margin: 0;
+  padding: 0;
+  width: 25%;
+  display: block;
+}
+
+form > input
+{
+  width: 25%;
+  margin: 0 0 1em 0;
+  padding: 0 0 0.1em 0;
+  border: 0;
+  display: block;
+  border-bottom: 2px dashed #00314c;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+form > input[type="submit"]
+{
+  border: 0;
+  padding: 0.3em 0;
+  border-radius: 2px;
+  background: #00314c;
+  text-transform: capitalize;
+  color: white;
+  cursor: pointer;
+}
+
+form > p
+{
+  width: 25%;
+  margin: 0;
+  padding: 0;
+  color: red;
+  text-align: center;
+}
