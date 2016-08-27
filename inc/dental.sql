@@ -94,8 +94,8 @@ INSERT INTO `address_pyhsical` (`id`, `number`, `street`, `suburb`, `area_code`,
 
 CREATE TABLE IF NOT EXISTS `audit_log` (
 `id` int(11) NOT NULL,
-  `trans_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `trans_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `trans_date` datetime NOT NULL,
+  `trans_time` datetime NOT NULL,
   `process` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
   `v_old` varchar(35) COLLATE utf8_unicode_ci DEFAULT NULL,
   `v_new` varchar(35) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -327,7 +327,7 @@ INSERT INTO `medical_aid` (`id`, `name`, `address_postal`, `address_physical`, `
 CREATE TABLE IF NOT EXISTS `order` (
 `id` int(11) NOT NULL,
   `number` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-  `order_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `order_date` datetime NOT NULL,
   `status` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `supplierID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
