@@ -25,6 +25,7 @@
     <script type="text/javascript" src="../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
+    <script type="text/javascript" src="../../js/daily_app_report.js"></script>
   </head>
   
   <body>
@@ -130,13 +131,18 @@
     </div>
     <div id="cont">
       <form method="post" action="">
-        <fieldset>
+        <!--<fieldset>
          <legend>doctors details</legend>
          <div>
             <label for="pat">surname:</label>
             <input type="text" name="pat" placeholder="enter doctors surname" />            
          </div>
-        </fieldset>
+        </fieldset>-->
+        
+        <select id="DrSelect" onchange="getDrSchedule()">
+          <option name="jpMaponya">Dr J.P. Maponya</option>
+          <option name="yMaponya">Dr Y. Maponya</option>
+        </select>
 
         <input type="submit" name="s_new_daily_app" value="print" class="submit"/>
       </form>

@@ -423,7 +423,7 @@
     
     try
     {
-      $s = "insert into patient (titleID, name, surname, genderID, identity, cell, tell, email, postal, physical) values (" . $title . ",'" . $name . "','" .  $surname . "'," . $gender . "," . $id . "," . $cell . "," . $tell . ",'" . $email . "','" . $postal . "','" . $physical . "')";
+      $s = "insert into patient (titleID, name, surname, genderID, id_number, cellphone, telephone, email, address_postalID, address_physicalID) values (" . $title . ",'" . $name . "','" .  $surname . "'," . $gender . "," . $id . "," . $cell . "," . $tell . ",'" . $email . "'," . $postal . "," . $physical . ")";
       $r = $pdo->exec($s);
       
       return true;
@@ -809,6 +809,113 @@ function loadPayList($in)
   {
     return false;
   }
+}
+
+function loadTimeSlots() {
+  require 'dbconn.php';
+
+  $s = "select * from timeslot";
+
+  try
+  {
+    $r = $pdo->query($s);
+  }
+  catch(PDOException $e)
+  {
+    return false;
+  }
+
+  if ($r->rowCount() > 0)
+  {
+    while ($row = $r->fetch()) {
+      $ids[] = $row["id"];
+      $descriptions[] = $row["description"];
+    }
+    
+    $timeSlots["ids"] = $ids;
+    $timeSlots["descriptions"] = $descriptions;
+    return $timeSlots;
+  }
+  return false;
+}
+
+function bookConsultation($idNum, $patientName, $patientSurname, $medicalAidID, $dentistID, $practiceLocationID, $date, $timeslot) {
+  require 'dbconn.php';
+
+  if ($dentistID == "Dr J.P. Maponya") {
+    $dentistID = 1;
+  }
+  else {
+    $dentistID = 2;
+  }
+
+  $sql = "select id from timeslot where description='$timeslot'";
+
+  try
+  {
+    $r = $pdo->query($sql);
+  }
+  catch(PDOException $e)
+  {
+    return false;
+  }
+
+  if ($r->rowCount() > 0) {
+    $row = $r->fetch();
+    $timeslot = $row["id"];
+  }
+
+  $sql = "select id from patient where id_number='$idNum'";
+  try
+  {
+    $r = $pdo->query($sql);
+  }
+  catch(PDOException $e)
+  {
+    return false;
+  }
+
+  if ($r->rowCount() > 0) {
+    $row = $r->fetch();
+    $idNum = $row["id"];
+  }
+
+  $sql = "select id from schedule where available_date='$date'";
+  try
+  {
+    $r = $pdo->query($sql);
+  }
+  catch(PDOException $e)
+  {
+    return false;
+  }
+
+  if ($r->rowCount() > 0) {
+    $row = $r->fetch();
+    $date = $row["id"];
+  }
+
+  //setting the locationID
+  if ($practiceLocationID == "Tembisa") {
+    $practiceLocationID=1;
+  }
+  else {
+    $practiceLocationID=2;
+  }
+
+  $s = "INSERT INTO `consultation`(`notes`, `status`, `booking_typeID`,
+ `employeeID`, `timeslotID`, `practice_locationID`, `patientID`, `scheduleID`, `employee_typeID`)
+ VALUES ('', 'Pending', 3, '$dentistID',$timeslot, $practiceLocationID,$idNum,$date,2)";
+
+  try
+  {
+    $r = $pdo->query($s);
+  }
+  catch(PDOException $e)
+  {
+    return false;
+  }
+  return true;
 }
 
 ?>

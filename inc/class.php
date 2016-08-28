@@ -74,8 +74,9 @@
     public $cell;
     public $physical;
     public $postal;
+    public $medicalAid;
     
-    public function __construct($id, $title, $name, $surname, $gender, $identity, $email, $tell, $cell, $physical, $postal)
+    public function __construct($id, $title, $name, $surname, $gender, $identity, $email, $tell, $cell, $physical, $postal, $medicalAid)
     {
       $this->id = $id;
       $this->title = $title;
@@ -88,6 +89,7 @@
       $this->cell = $cell;
       $this->physical = $physical;
       $this->postal = $postal;
+      $this->medicalAid = $medicalAid;
     }
   }
 
