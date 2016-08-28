@@ -206,4 +206,34 @@
       $this->status = $status;
     }
   }
+
+  class Consultation
+  {
+    public $id;
+    public $notes;
+    public $status;
+    public $booking_type;
+    public $employee;
+    public $timeslot;
+    public $practice_location;
+    public $pat_name;
+    public $pat_sur;
+    public $schedule;
+    public $emp_type;
+
+    public function __construct($id, $notes, $status, $booking_type, $employee, $timeslot, $practice_location, $pat_name, $pat_sur, $schedule, $emp_type)
+    {
+      $this->id = $id;
+      $this->notes = $notes;
+      $this->status = $status;
+      $this->booking_type = $booking_type;
+      $this->employee = $employee;
+      $this->timeslot = $timeslot;
+      $this->practice_location = $practice_location;
+      $this->pat_name = $pat_name;
+      $this->pat_sur = $pat_sur;
+      $this->schedule = $schedule;
+      $this->schedule = $emp_type;
+    }
+  }
 ?>

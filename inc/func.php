@@ -2,6 +2,30 @@
   require 'class.php';
   //require 'dbconn.php';
 
+  function auditlog($trans_date, $trans_time, $process, $v_old, $v_new, $emp)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "insert into audit_log (trans_date, trans_time, process, v_old, v_new, employeeID) values ('" . date("Y-m-d") . "', '" . date("h:i:s") . "', '" . $process . "', '" . $v_old . "', '" . $v_new . "', '" . $emp . "')";
+      $r = $pdo->exec($s);
+    }
+    catch(PDOException $e)
+    {
+      return false;
+    }
+
+    if ($r > 0)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
   function login($user, $pass)
   {
     require 'dbconn.php';
@@ -119,7 +143,7 @@
     
     try
     {
-      $s = "select * from status";
+      $s = "select * from type_employee";
       $r = $pdo->query($s);
     }
     catch(PDOException $e)
@@ -150,7 +174,7 @@
   {
     require 'dbconn.php';
     
-    $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, employeeType.description as type from employee join title on employee.title = title.id join gender on employee.gender = gender.id join employeeType on employee.empType = employeeType.id order by id";
+    $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, type_employee.description as type from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id order by id";
     
     if ($in != null)
     {
@@ -195,13 +219,13 @@
 
         if (isset($t))
         {
-          $idnum[$c] = $row['idnum'];
+          $idnum[$c] = $row['id_number'];
           $bank[$c] = $row['bank'];
-          $cell[$c] = $row['cell'];
+          $cell[$c] = $row['cellphone'];
           $email[$c] = $row['email'];
-          $postal[$c] = $row['postal'];
-          $tel[$c] = $row['tel'];
-          $physical[$c] = $row['physical'];
+          $postal[$c] = $row['address_postalID'];
+          $tel[$c] = $row['telephone'];
+          $physical[$c] = $row['address_physicalID'];
 
           $emp = $emp::loadRest($idnum[$c], $bank[$c], $cell[$c], $email[$c], $postal[$c], $tel[$c], $physical[$c]);
         }
@@ -232,14 +256,21 @@
     
     try
     {
-      $s = "insert into employee (title, name, surname, username, password, gender, idNumber, banking, cell, tell, email, postal, physical, empType) values (" . $title . ",'" . $name . "','" .  $surname . "','" .  $user . "','" . $pass . "'," . $gender . "," . $id . ",'" . $banking . "'," . $cell . "," . $tell . ",'" . $email . "','" . $postal . "','" . $physical . "'," . $type . ")";
+      $s = "insert into employee (titleID, name, surname, username, password, genderID, id_number, banking_details, cellphone, email, address_postalID, address_physicalID, employee_typeID) values (" . $title . ",'" . $name . "','" .  $surname . "','" .  $user . "','" . $pass . "'," . $gender . "," . $id . ",'" . $banking . "'," . $cell . ",'" . $email . "','" . $postal . "','" . $physical . "'," . $type . ")";
       $r = $pdo->exec($s);
-      
-      return array($user, $pas);
     }
     catch(PDOException $e)
     {
-      return null;
+      return false;
+    }
+
+    if ($r > 0)
+    {
+      return array($user, $pas);
+    }
+    else
+    {
+      return false;
     }
   }
 
