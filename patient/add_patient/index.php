@@ -21,7 +21,7 @@
 
   if (isset($_POST['s_new_pat']))
   {
-    $patient = addPatient($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['gender'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical']);
+    $patient = addPatient($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['dob'], $_POST['gender'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical']);
     
     if (count($patient) == true)
     {
@@ -167,10 +167,10 @@
             <label for="id">iD number:</label>
             <input type="text" name="id" placeholder="enter patent id number" required />
             <label for="DoB">Date of Birth:</label>
-            <input type="text" name="DoB" placeholder="enter date of birth" required />
+            <input type="text" name="dob" placeholder="enter date of birth" required />
           </div>
           <div>
-            <label for="surname">surame:</label>
+            <label for="surname">surname:</label>
             <input type="text" name="surname" placeholder="enter patient surname" required />
             <label>gender:</label>
             <input type="radio" name="gender" value=1 class="check"/>

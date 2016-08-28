@@ -370,11 +370,11 @@
   {
     require 'dbconn.php';
 
-    $s = "select patient.id, title.description as title, name, surname, gender.description as gender, identity, email, cell, tell, physical, postal from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id order by patient.id";
+    $s = "select patient.id, title.description as title, name, surname, dob, gender.description as gender, id_number, email, cellphone, telephone, address_physicalID, address_postalID from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id order by patient.id";
 
     if ($in != null)
     {
-       $s = "select patient.id, title.description as title, name, surname, gender.description as gender, identity, email, cell, tell, physical, postal from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id where id = " . $in;
+       $s = "select patient.id, title.description as title, name, surname, dob, gender.description as gender, id_number, email, cellphone, telephone, address_physicalID, address_postalID from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id where id = " . $in;
     }
 
     try
@@ -417,13 +417,13 @@
     }
   }
 
-  function addPatient($title, $name, $surname, $gender, $id, $cell, $tell, $email, $postal, $physical)
+  function addPatient($title, $name, $surname, $dob, $gender, $id, $cell, $tell, $email, $postal, $physical)
   {
     require 'dbconn.php';
     
     try
     {
-      $s = "insert into patient (titleID, name, surname, genderID, id_number, cellphone, telephone, email, address_postalID, address_physicalID) values (" . $title . ",'" . $name . "','" .  $surname . "'," . $gender . "," . $id . "," . $cell . "," . $tell . ",'" . $email . "'," . $postal . "," . $physical . ")";
+      $s = "insert into patient (titleID, name, surname, dob, genderID, id_number, cellphone, telephone, email, address_postalID, address_physicalID) values (" . $title . ",'" . $name . "','" .  $surname . "','" . $dob . "'," . $gender . "," . $id . "," . $cell . "," . $tell . ",'" . $email . "'," . $postal . "," . $physical . ")";
       $r = $pdo->exec($s);
       
       return true;
