@@ -130,23 +130,20 @@
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
     </div>
     <div id="cont">
-      <form method="post" action="">
-        <!--<fieldset>
-         <legend>doctors details</legend>
-         <div>
-            <label for="pat">surname:</label>
-            <input type="text" name="pat" placeholder="enter doctors surname" />            
-         </div>
-        </fieldset>-->
-        
-        <select id="DrSelect" onchange="getDrSchedule()">
-          <option name="jpMaponya">Dr J.P. Maponya</option>
-          <option name="yMaponya">Dr Y. Maponya</option>
-        </select>
+      <br>
+      <br>
+      <br>
+      <br>
+      <select id="DrSelect" onchange="getDrSchedule()">
+        <option >-- Select Dentist --</option>
+        <option name="jpMaponya">Dr J.P. Maponya</option>
+        <option name="yMaponya">Dr Y. Maponya</option>
+      </select>
 
-        <input type="submit" name="s_new_daily_app" value="print" class="submit"/>
-      </form>
-
+      <br>
+      <br>
+      <br>
+      <br>
       <div id="noti"></div>
     </div>
     
