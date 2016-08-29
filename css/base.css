@@ -154,5 +154,17 @@
     margin: 0 0 0 5%;
     color: red;
   }
-  
+
+  table, th, td {
+    border-collapse: collapse;
+    border: solid darkgrey 1px;
+    text-align: center;
+    padding: 15px;
+    font-size: larger;
+  }
+
+  th{
+    background-color: lightblue;
+  }
+
 }

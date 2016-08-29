@@ -90,8 +90,8 @@
 
   .check
   {
-    display: inline;
-    max-width: 49%;
+    display: inline-block;
+    width: 40%;
     color: black;
   }
 

@@ -2,6 +2,30 @@
   require 'class.php';
   //require 'dbconn.php';
 
+  function auditlog($trans_date, $trans_time, $process, $v_old, $v_new, $emp)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "insert into audit_log (trans_date, trans_time, process, v_old, v_new, employeeID) values ('" . date("Y-m-d") . "', '" . date("h:i:s") . "', '" . $process . "', '" . $v_old . "', '" . $v_new . "', '" . $emp . "')";
+      $r = $pdo->exec($s);
+    }
+    catch(PDOException $e)
+    {
+      return false;
+    }
+
+    if ($r > 0)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
   function login($user, $pass)
   {
     require 'dbconn.php';
@@ -119,7 +143,7 @@
     
     try
     {
-      $s = "select * from status";
+      $s = "select * from type_employee";
       $r = $pdo->query($s);
     }
     catch(PDOException $e)
@@ -150,7 +174,7 @@
   {
     require 'dbconn.php';
     
-    $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, employeeType.description as type from employee join title on employee.title = title.id join gender on employee.gender = gender.id join employeeType on employee.empType = employeeType.id order by id";
+    $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, type_employee.description as type from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id order by id";
     
     if ($in != null)
     {
@@ -195,13 +219,13 @@
 
         if (isset($t))
         {
-          $idnum[$c] = $row['idnum'];
+          $idnum[$c] = $row['id_number'];
           $bank[$c] = $row['bank'];
-          $cell[$c] = $row['cell'];
+          $cell[$c] = $row['cellphone'];
           $email[$c] = $row['email'];
-          $postal[$c] = $row['postal'];
-          $tel[$c] = $row['tel'];
-          $physical[$c] = $row['physical'];
+          $postal[$c] = $row['address_postalID'];
+          $tel[$c] = $row['telephone'];
+          $physical[$c] = $row['address_physicalID'];
 
           $emp = $emp::loadRest($idnum[$c], $bank[$c], $cell[$c], $email[$c], $postal[$c], $tel[$c], $physical[$c]);
         }
@@ -232,14 +256,21 @@
     
     try
     {
-      $s = "insert into employee (title, name, surname, username, password, gender, idNumber, banking, cell, tell, email, postal, physical, empType) values (" . $title . ",'" . $name . "','" .  $surname . "','" .  $user . "','" . $pass . "'," . $gender . "," . $id . ",'" . $banking . "'," . $cell . "," . $tell . ",'" . $email . "','" . $postal . "','" . $physical . "'," . $type . ")";
+      $s = "insert into employee (titleID, name, surname, username, password, genderID, id_number, banking_details, cellphone, email, address_postalID, address_physicalID, employee_typeID) values (" . $title . ",'" . $name . "','" .  $surname . "','" .  $user . "','" . $pass . "'," . $gender . "," . $id . ",'" . $banking . "'," . $cell . ",'" . $email . "','" . $postal . "','" . $physical . "'," . $type . ")";
       $r = $pdo->exec($s);
-      
-      return array($user, $pas);
     }
     catch(PDOException $e)
     {
-      return null;
+      return false;
+    }
+
+    if ($r > 0)
+    {
+      return array($user, $pas);
+    }
+    else
+    {
+      return false;
     }
   }
 
@@ -370,11 +401,11 @@
   {
     require 'dbconn.php';
 
-    $s = "select patient.id, title.description as title, name, surname, gender.description as gender, identity, email, cell, tell, physical, postal from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id order by patient.id";
+    $s = "select patient.id, title.description as title, patient.name, patient.surname, dob, gender.description as gender, id_number, email, img, file_number, cellphone, telephone, address_physicalID, address_postalID, type_member.description as member_type, type_medical_aid.description as medical_aid_type from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id join type_member on patient.member_typeID = type_member.id join type_medical_aid on patient.medical_aid_typeID = type_medical_aid.id order by patient.id";
 
     if ($in != null)
     {
-       $s = "select patient.id, title.description as title, name, surname, gender.description as gender, identity, email, cell, tell, physical, postal from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id where id = " . $in;
+       $s = "select patient.id, title.description as title, name, surname, dob, gender.description as gender, id_number, email, cellphone, telephone, address_physicalID, address_postalID from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id where id = " . $in;
     }
 
     try
@@ -396,14 +427,19 @@
         $name[$c] = $row['name'];
         $surname[$c] = $row['surname'];
         $gender[$c] = $row['gender'];
-        $identity[$c] = $row['identity'];
+        $id_num[$c] = $row['id_number'];
+        $dob[$c] = $row['dob'];
         $email[$c] = $row['email'];
-        $tell[$c] = $row['tell'];
-        $cell[$c] = $row['cell'];
-        $physical[$c] = $row['physical'];
-        $postal[$c] = $row['postal'];
+        $img[$c] = $row['img'];
+        $file[$c] = $row['file_number'];
+        $tell[$c] = $row['telephone'];
+        $cell[$c] = $row['cellphone'];
+        $physical[$c] = $row['address_physicalID'];
+        $postal[$c] = $row['address_postalID'];
+        $med_type[$c] = $row['medical_aid_type'];
+        $mem_type[$c] = $row['member_type']; 
 
-        $pat = new Patient($id[$c], $title[$c], $name[$c], $surname[$c], $gender[$c], $identity[$c], $email[$c], $tell[$c], $cell[$c], $physical[$c], $postal[$c]);
+        $pat = new Patient($id[$c], $title[$c], $name[$c], $surname[$c], $gender[$c], $id_num[$c], $dob[$c], $email[$c], $img[$c], $file[$c], $tell[$c], $cell[$c], $physical[$c], $postal[$c], $med_type[$c], $mem_type[$c]);
         $pList[] = $pat;
 
         $c = $c + 1;
@@ -417,13 +453,13 @@
     }
   }
 
-  function addPatient($title, $name, $surname, $gender, $id, $cell, $tell, $email, $postal, $physical)
+  function addPatient($title, $name, $surname, $dob, $gender, $id, $cell, $tell, $email, $postal, $physical)
   {
     require 'dbconn.php';
     
     try
     {
-      $s = "insert into patient (titleID, name, surname, genderID, identity, cell, tell, email, postal, physical) values (" . $title . ",'" . $name . "','" .  $surname . "'," . $gender . "," . $id . "," . $cell . "," . $tell . ",'" . $email . "','" . $postal . "','" . $physical . "')";
+      $s = "insert into patient (titleID, name, surname, dob, genderID, id_number, cellphone, telephone, email, address_postalID, address_physicalID) values (" . $title . ",'" . $name . "','" .  $surname . "','" . $dob . "'," . $gender . "," . $id . "," . $cell . "," . $tell . ",'" . $email . "'," . $postal . "," . $physical . ")";
       $r = $pdo->exec($s);
       
       return true;
@@ -809,6 +845,113 @@ function loadPayList($in)
   {
     return false;
   }
+}
+
+function loadTimeSlots() {
+  require 'dbconn.php';
+
+  $s = "select * from timeslot";
+
+  try
+  {
+    $r = $pdo->query($s);
+  }
+  catch(PDOException $e)
+  {
+    return false;
+  }
+
+  if ($r->rowCount() > 0)
+  {
+    while ($row = $r->fetch()) {
+      $ids[] = $row["id"];
+      $descriptions[] = $row["description"];
+    }
+    
+    $timeSlots["ids"] = $ids;
+    $timeSlots["descriptions"] = $descriptions;
+    return $timeSlots;
+  }
+  return false;
+}
+
+function bookConsultation($idNum, $patientName, $patientSurname, $medicalAidID, $dentistID, $practiceLocationID, $date, $timeslot) {
+  require 'dbconn.php';
+
+  if ($dentistID == "Dr J.P. Maponya") {
+    $dentistID = 1;
+  }
+  else {
+    $dentistID = 2;
+  }
+
+  $sql = "select id from timeslot where description='$timeslot'";
+
+  try
+  {
+    $r = $pdo->query($sql);
+  }
+  catch(PDOException $e)
+  {
+    return false;
+  }
+
+  if ($r->rowCount() > 0) {
+    $row = $r->fetch();
+    $timeslot = $row["id"];
+  }
+
+  $sql = "select id from patient where id_number='$idNum'";
+  try
+  {
+    $r = $pdo->query($sql);
+  }
+  catch(PDOException $e)
+  {
+    return false;
+  }
+
+  if ($r->rowCount() > 0) {
+    $row = $r->fetch();
+    $idNum = $row["id"];
+  }
+
+  $sql = "select id from schedule where available_date='$date'";
+  try
+  {
+    $r = $pdo->query($sql);
+  }
+  catch(PDOException $e)
+  {
+    return false;
+  }
+
+  if ($r->rowCount() > 0) {
+    $row = $r->fetch();
+    $date = $row["id"];
+  }
+
+  //setting the locationID
+  if ($practiceLocationID == "Tembisa") {
+    $practiceLocationID=1;
+  }
+  else {
+    $practiceLocationID=2;
+  }
+
+  $s = "INSERT INTO `consultation`(`notes`, `status`, `booking_typeID`,
+ `employeeID`, `timeslotID`, `practice_locationID`, `patientID`, `scheduleID`, `employee_typeID`)
+ VALUES ('', 'Pending', 3, '$dentistID',$timeslot, $practiceLocationID,$idNum,$date,2)";
+
+  try
+  {
+    $r = $pdo->query($s);
+  }
+  catch(PDOException $e)
+  {
+    return false;
+  }
+  return true;
 }
 
 ?>

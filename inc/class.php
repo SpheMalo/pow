@@ -68,26 +68,36 @@
     public $name;
     public $surname;
     public $gender;
-    public $identity;
+    public $id_num;
+    public $dob;
     public $email;
+    public $img;
+    public $file;
     public $tell;
     public $cell;
     public $physical;
     public $postal;
+    public $medical_aid_type;
+    public $member_type;
     
-    public function __construct($id, $title, $name, $surname, $gender, $identity, $email, $tell, $cell, $physical, $postal)
+    public function __construct($id, $title, $name, $surname, $gender, $id_num, $dob, $email, $img, $file, $tell, $cell, $physical, $postal, $medical_aid_type, $member_type)
     {
       $this->id = $id;
       $this->title = $title;
       $this->name = $name;
       $this->surname = $surname;
       $this->gender = $gender;
-      $this->identity = $identity;
+      $this->id_num = $id_num;
+      $this->dob = $dob;
       $this->email = $email;
+      $this->img = $img;
+      $this->file = $file;
       $this->tell = $tell;
       $this->cell = $cell;
       $this->physical = $physical;
       $this->postal = $postal;
+      $this->medical_aid_type = $medical_aid_type;
+      $this->member_type = $member_type;
     }
   }
 
@@ -202,6 +212,36 @@
       $this->amount = $amount;
       $this->date = $date;
       $this->status = $status;
+    }
+  }
+
+  class Consultation
+  {
+    public $id;
+    public $notes;
+    public $status;
+    public $booking_type;
+    public $employee;
+    public $timeslot;
+    public $practice_location;
+    public $pat_name;
+    public $pat_sur;
+    public $schedule;
+    public $emp_type;
+
+    public function __construct($id, $notes, $status, $booking_type, $employee, $timeslot, $practice_location, $pat_name, $pat_sur, $schedule, $emp_type)
+    {
+      $this->id = $id;
+      $this->notes = $notes;
+      $this->status = $status;
+      $this->booking_type = $booking_type;
+      $this->employee = $employee;
+      $this->timeslot = $timeslot;
+      $this->practice_location = $practice_location;
+      $this->pat_name = $pat_name;
+      $this->pat_sur = $pat_sur;
+      $this->schedule = $schedule;
+      $this->schedule = $emp_type;
     }
   }
 ?>
