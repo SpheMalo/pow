@@ -401,7 +401,7 @@
   {
     require 'dbconn.php';
 
-    $s = "select patient.id, title.description as title, name, surname, dob, gender.description as gender, id_number, email, cellphone, telephone, address_physicalID, address_postalID from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id order by patient.id";
+    $s = "select patient.id, title.description as title, patient.name, patient.surname, dob, gender.description as gender, id_number, email, img, file_number, cellphone, telephone, address_physicalID, address_postalID, type_member.description as member_type, type_medical_aid.description as medical_aid_type from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id join type_member on patient.member_typeID = type_member.id join type_medical_aid on patient.medical_aid_typeID = type_medical_aid.id order by patient.id";
 
     if ($in != null)
     {
@@ -427,14 +427,19 @@
         $name[$c] = $row['name'];
         $surname[$c] = $row['surname'];
         $gender[$c] = $row['gender'];
-        $identity[$c] = $row['identity'];
+        $id_num[$c] = $row['id_number'];
+        $dob[$c] = $row['dob'];
         $email[$c] = $row['email'];
-        $tell[$c] = $row['tell'];
-        $cell[$c] = $row['cell'];
-        $physical[$c] = $row['physical'];
-        $postal[$c] = $row['postal'];
+        $img[$c] = $row['img'];
+        $file[$c] = $row['file_number'];
+        $tell[$c] = $row['telephone'];
+        $cell[$c] = $row['cellphone'];
+        $physical[$c] = $row['address_physicalID'];
+        $postal[$c] = $row['address_postalID'];
+        $med_type[$c] = $row['medical_aid_type'];
+        $mem_type[$c] = $row['member_type']; 
 
-        $pat = new Patient($id[$c], $title[$c], $name[$c], $surname[$c], $gender[$c], $identity[$c], $email[$c], $tell[$c], $cell[$c], $physical[$c], $postal[$c]);
+        $pat = new Patient($id[$c], $title[$c], $name[$c], $surname[$c], $gender[$c], $id_num[$c], $dob[$c], $email[$c], $img[$c], $file[$c], $tell[$c], $cell[$c], $physical[$c], $postal[$c], $med_type[$c], $mem_type[$c]);
         $pList[] = $pat;
 
         $c = $c + 1;

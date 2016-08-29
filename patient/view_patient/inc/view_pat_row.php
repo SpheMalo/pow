@@ -3,7 +3,7 @@
   <td><?php echo $pat->title;?></td>
   <td><?php echo $pat->name;?></td>
   <td><?php echo $pat->surname;?></td>
-  <td><?php echo $pat->identity;?></td>
+  <td><?php echo $pat->id_num;?></td>
   <td><?php echo $pat->gender;?></td>
   <td><?php echo $pat->cell;?></td>
   <td><?php echo $pat->tell;?></td>

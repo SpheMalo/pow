@@ -68,28 +68,36 @@
     public $name;
     public $surname;
     public $gender;
-    public $identity;
+    public $id_num;
+    public $dob;
     public $email;
+    public $img;
+    public $file;
     public $tell;
     public $cell;
     public $physical;
     public $postal;
-    public $medicalAid;
+    public $medical_aid_type;
+    public $member_type;
     
-    public function __construct($id, $title, $name, $surname, $gender, $identity, $email, $tell, $cell, $physical, $postal, $medicalAid)
+    public function __construct($id, $title, $name, $surname, $gender, $id_num, $dob, $email, $img, $file, $tell, $cell, $physical, $postal, $medical_aid_type, $member_type)
     {
       $this->id = $id;
       $this->title = $title;
       $this->name = $name;
       $this->surname = $surname;
       $this->gender = $gender;
-      $this->identity = $identity;
+      $this->id_num = $id_num;
+      $this->dob = $dob;
       $this->email = $email;
+      $this->img = $img;
+      $this->file = $file;
       $this->tell = $tell;
       $this->cell = $cell;
       $this->physical = $physical;
       $this->postal = $postal;
-      $this->medicalAid = $medicalAid;
+      $this->medical_aid_type = $medical_aid_type;
+      $this->member_type = $member_type;
     }
   }
 
