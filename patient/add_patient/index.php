@@ -21,9 +21,9 @@
 
   if (isset($_POST['s_new_pat']))
   {
-    $patient = addPatient($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['dob'], $_POST['gender'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical']);
+    $patient = addPatient($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['dob'], $_POST['gender'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical'], $_POST['standing'], $_POST['medical'], NULL);
     
-    if (count($patient) == true)
+    if ($patient == true)
     {
       $o = "The patient has been added successfuly";
       //header("Location: ?u=" . $empDet[0] . "&p=" . $empDet[1]);
@@ -119,7 +119,7 @@
             <select name="medical">
               <option>select medical aid</option>
               <?php foreach ($mList as $med):?>
-                <option value="<?php echo $med['id'];?>"><?php echo $med['name'];?></option>
+                <option value="<?php echo $med['id'];?>"><?php echo $med['name'] . "-" . $med['desc'];?></option>
               <?php endforeach;?>
             </select>
 

@@ -42,6 +42,7 @@
   class MedicalAid
   {
     public $id;
+    public $description;
     public $name;
     public $email;
     public $tell;
@@ -49,9 +50,10 @@
     public $physical;
     public $postal;
     
-    public function __construct($id, $name, $email, $tell, $fax, $physical, $postal)
+    public function __construct($id, $description, $name, $email, $tell, $fax, $physical, $postal)
     {
       $this->id = $id;
+      $this->description = $description;
       $this->name = $name;
       $this->email = $email;
       $this->tell = $tell;

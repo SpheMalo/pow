@@ -1,6 +1,5 @@
 table
 {
-  margin: 0.1em 0 1em 0;
   padding: 0; 
   border-collapse: collapse;
 }
@@ -8,11 +7,13 @@ table
 th
 {
   margin: 0;
-  padding: 0.2em 0.5em 0 0.5em;
-  font-size: 1.3em;
+  padding: 0.2em 1em 0 1em;
+  font-size: 1.4vw;
   text-transform: capitalize;
-  border-bottom: 1px dashed blue;
-  border-left: 1px dashed blue;
+  /*border-bottom: 1px dashed blue;*/
+  border-left: 1px dashed white;
+  background: #00314c;
+  color: white;
 }
 
 th:first-of-type
@@ -24,7 +25,7 @@ th:first-of-type
 td
 {
   margin: 0;
-  padding: 0;
+  padding: 0.3em 0;
   font-size: 1em;
   text-align: center;
   border-bottom: 1px dashed orangered;
@@ -35,3 +36,20 @@ td:first-of-type
 {
   border-left: 0;
 }
+
+tr:nth-of-type(2n + 1)
+{
+  background: lightslategrey;
+}
+
+/*table, th, td {
+    border-collapse: collapse;
+    border: solid darkgrey 1px;
+    text-align: center;
+    padding: 15px;
+    font-size: larger;
+  }
+
+  th{
+    background-color: lightblue;
+  }*/

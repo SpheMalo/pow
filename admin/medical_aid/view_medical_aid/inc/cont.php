@@ -1,6 +1,7 @@
 <table>
   <tr>
     <th>id</th>
+    <th>description</th>
     <th>name</th>
     <th>email</th>
     <th>tell</th>

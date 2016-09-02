@@ -3,7 +3,7 @@ $(document).ready(function(){
     display: "none",
     left: "auto"
   });
-  $('#nav > li').hoverIntent(function() {
+  $('#nav > li').hover(function() {
     $(this)
       .find('ul')
       .stop(true, true)

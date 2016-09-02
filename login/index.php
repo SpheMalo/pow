@@ -37,8 +37,8 @@
   <body>
     <form method="post" action="">
       <img src="../img/logo.png" alt="logo"/>
-      <input type="text" name="user" placeholder="username" required />
-      <input type="password" name="pass" placeholder="password" required />
+      <input type="text" name="user" placeholder="username" pattern="[a-zA-Z0-9-]+{7}" required />
+      <input type="password" name="pass" placeholder="password" pattern="[a-zA-Z0-9-]+{7}" required />
       <input type="submit" name="login" value="login" />
       <p><?php echo $o;?></p>
     </form>

@@ -1,5 +1,6 @@
 <tr>
   <td><?php echo $med->id;?></td>
+  <td><?php echo $med->description;?></td>
   <td><?php echo $med->name;?></td>
   <td><?php echo $med->email;?></td>
   <td><?php echo $med->tell;?></td>

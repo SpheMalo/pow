@@ -302,7 +302,7 @@
   {
     require 'dbconn.php';
     
-    $s  = "select * from medicalaid order by id";
+    $s  = "select type_medical_aid.id, description, medical_aid.name, medical_aid.email, medical_aid.telephone, medical_aid.fax, medical_aid.address_postal, medical_aid.address_physical from type_medical_aid join medical_aid on type_medical_aid.medical_aidID = medical_aid.id";
     
     if ($in != null)
     {
@@ -315,7 +315,6 @@
     }
     catch(PDOException $e)
     {
-      $o = "" . $e;
       return false;
     }
     
@@ -325,14 +324,15 @@
       while ($row = $r->fetch()) 
       {
         $id[$c] = $row['id'];
+        $desc[$c] = $row['description'];
         $name[$c] = $row['name'];
         $email[$c] = $row['email'];
-        $tell[$c] = $row['tell'];
+        $tell[$c] = $row['telephone'];
         $fax[$c] = $row['fax'];
-        $physical[$c] = $row['physical'];
-        $postal[$c] = $row['postal'];
+        $physical[$c] = $row['address_physical'];
+        $postal[$c] = $row['address_postal'];
 
-        $med = new MedicalAid($id[$c], $name[$c], $email[$c], $tell[$c], $fax[$c], $physical[$c], $postal[$c]);
+        $med = new MedicalAid($id[$c], $desc[$c], $name[$c], $email[$c], $tell[$c], $fax[$c], $physical[$c], $postal[$c]);
         $mList[] = $med;
 
         $c = $c + 1;
@@ -353,7 +353,7 @@
     
     try
     {
-      $s = "select id, name from medicalaid order by name";
+      $s = "select type_medical_aid.id, description, medical_aid.name from type_medical_aid join medical_aid on type_medical_aid.medical_aidID = medical_aid.id order by description";
       $r = $pdo->query($s);
     }
     catch(PDOException $e)
@@ -368,6 +368,7 @@
       {
         $mList[] = array(
           'id' => $row['id'],
+          'desc' => $row['description'],
           'name' => $row['name']);
       }
       
@@ -453,18 +454,46 @@
     }
   }
 
-  function addPatient($title, $name, $surname, $dob, $gender, $id, $cell, $tell, $email, $postal, $physical)
+  function addPatient($title, $name, $surname, $dob, $gender, $id, $cell, $tell, $email, $postal, $physical, $mem_type, $med_type, $img)
   {
     require 'dbconn.php';
     
+    $t = loadPatList(NULL);
+
+    if (count($t) < 10)
+    {
+      $file = "f00" . count($t);
+    }
+    else if (count($t) < 100)
+    {
+      $file = "f0" . count($t);
+    }
+    else
+    {
+      $file = "f" . count($t);
+    }
+
+    if ($img == NULL)
+    {
+      $img = "new.png";
+    }
+
     try
     {
-      $s = "insert into patient (titleID, name, surname, dob, genderID, id_number, cellphone, telephone, email, address_postalID, address_physicalID) values (" . $title . ",'" . $name . "','" .  $surname . "','" . $dob . "'," . $gender . "," . $id . "," . $cell . "," . $tell . ",'" . $email . "'," . $postal . "," . $physical . ")";
+      $s = "insert into patient (titleID, name, surname, dob, genderID, id_number, cellphone, telephone, email, address_postalID, address_physicalID, member_typeID, medical_aid_typeID, file_number, img) values (" . $title . ",'" . $name . "','" .  $surname . "','" . $dob . "'," . $gender . "," . $id . "," . $cell . "," . $tell . ",'" . $email . "'," . $postal . "," . $physical .  "," . $mem_type .  "," . $med_type .  ",'" . $file .   "','" . $img . "')";
       $r = $pdo->exec($s);
       
-      return true;
     }
     catch(PDOException $e)
+    {
+      return false;
+    }
+
+    if ($r > 0)
+    {
+      return true;
+    }
+    else
     {
       return false;
     }
@@ -952,6 +981,13 @@ function bookConsultation($idNum, $patientName, $patientSurname, $medicalAidID, 
     return false;
   }
   return true;
+}
+
+function loadConsult($in)
+{
+  require 'dbconn.php';
+
+  
 }
 
 ?>

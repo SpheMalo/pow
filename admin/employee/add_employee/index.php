@@ -43,7 +43,7 @@
 <html>
   <head>
     <title>D+M Dental Practice System - <?php echo $_SESSION['page'];?></title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" type="text/css" media="all" href="../../../css/base.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../../../css/addUpd.css" />
     <script type="text/javascript" src="../../../js/jquery-1.10.2.js"></script>
@@ -63,7 +63,7 @@
     </div>
     
     <div id="cont">
-      <form method="post" action="">
+      <form method="post" action="" enctype="multipart/form-data">
         <fieldset>
         <legend>personal details</legend>
           <div>
