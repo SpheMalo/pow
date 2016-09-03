@@ -117,7 +117,7 @@
   .check
   {
     display: inline-block;
-    width: 40%;
+    width: auto;
     color: black;
   }
 
@@ -128,12 +128,17 @@
 
   .prodDesc
   {
-    height: 71px;
+    height: 121px;
   }
 
   .addSuppAddress
   {
     height: 74px;
+  }
+
+  .reason
+  {
+    height: 72px;
   }
 
   #orderProdSubmit
