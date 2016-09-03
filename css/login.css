@@ -1,9 +1,12 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700';
+
 body
 {
   margin: 0;
   padding: 0;
   background: #00314c;
   overflow: hidden;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 form
@@ -34,6 +37,7 @@ form > input
   border-bottom: 2px dashed #00314c;
   font-size: 1.2em;
   text-align: center;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 form > input[type="submit"]

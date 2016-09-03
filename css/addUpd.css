@@ -1,4 +1,4 @@
-@media only screen and (min-device-width: 980px)
+@media only screen and (min-device-width: 640px)
 {
   form
   {
@@ -6,12 +6,11 @@
     padding: 0;
     width: 75%;
     border-bottom: 1px solid #00314c;
-    border: 1px dashed lime;
   }
   
   fieldset
   {
-    margin: 0 0 0.4em 0;
+    margin: 0 0 0.2em 0;
     padding: 0;
     border: 0;
     clear: both;
@@ -42,14 +41,29 @@
     width: 46%;
   }
 
+  fieldset > div > img{
+    margin: 0 0 0.3em 0;
+    padding: 0;
+    width: 30%;
+    height: 100px;
+    border-radius: 5px;
+    border: 0;
+  }
+
+  .display{
+    visibility: hidden;
+  }
+
   fieldset > div > input, fieldset > div > label, fieldset > div > select, fieldset > div > textarea, form > div > div > input
   {
     display: block;
     width: 100%;
     margin: 0 0 0.3em 0;
-    padding: 0.1em 0.2em;
-    background: #ededed;
+    padding: 0.2em 0 0.2em 1%;
+    background: transparent;
     border-radius: 5px;
+    border: 1px dashed #00314c;
+    font-family: 'Roboto Condensed', sans-serif;
 
   }
 
@@ -58,6 +72,13 @@
     background: transparent;
     margin-bottom: 0.1em;
     text-transform: capitalize;
+    border: 0;
+    padding: 0;
+  }
+
+  fieldset > div > select option{
+    border: 0;
+    font-family: 'Roboto Condensed', sans-serif;
   }
 
   .submit
@@ -74,6 +95,10 @@
     text-transform: capitalize;
   }
 
+  button.submit{
+    font-size: 0.9em;
+  }
+
   .empBanking
   {
     height: 128px;
@@ -81,7 +106,7 @@
 
   .empPhysical
   {
-    height: 104px;
+    height: 113px;
   }
   
   #patBankging

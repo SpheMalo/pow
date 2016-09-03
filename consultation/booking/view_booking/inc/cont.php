@@ -8,6 +8,7 @@
     <th>appointment date</th>
     <th>appointment time</th>
     <th>Consultation status</th>
+    <th>booking type</th>
     <th>Action</th>
   </tr>
   <?php

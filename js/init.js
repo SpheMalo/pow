@@ -15,4 +15,13 @@ $(document).ready(function(){
       .fadeOut('fast');
   });
 
+  function getUserImg()
+  {
+    //var img = $(this).attr('');
+
+    /*$.ajax({
+      type: "post"
+    });*/
+  }
+
 });

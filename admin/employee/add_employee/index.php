@@ -67,8 +67,12 @@
         <fieldset>
         <legend>personal details</legend>
           <div>
+            <label for="proPic" >profile picture:</label>
+            <img src="" alt="" />
+            <input type="file" name="proPic"/>
+
             <label for="name" >name:</label>
-            <input type="text" name="name" placeholder="enter employees name" required  />
+            <input type="text" name="name" placeholder="enter employee name eg. Simon" required  />
             
             <label for="title" >title:</label>
             <select name="title" >
@@ -86,15 +90,19 @@
               <?php endforeach;?>
             </select>
             
-            <label for="id" >id number:</label>
-            <input type="text" name="id" placeholder="enter employees id number" required />
+            <label for="id" >id/passport number:</label>
+            <input type="text" name="id" placeholder="enter employee id/passport number eg. 8612170554087" required />
           </div>
 
           <div>
+            <label for="proPic" class="display">profile picture:</label>
+            <img src="" alt="" class="display"/>
+            <input type="file" name="proPic" class="display"/>
+
             <label for="surname" >surame:</label>
-            <input type="text" name="surname" placeholder="enter employees surname" required  />
+            <input type="text" name="surname" placeholder="enter employee surname eg. Kekana" required  />
             <label for="banking" >banking details:</label>
-            <textarea name="banking" class="empBanking">enter employees banking details</textarea>
+            <textarea name="banking" class="empBanking" placeholder="enter employee banking details eg. 4078080733 ABSA, Hatfield 687453"></textarea>
           </div>
           
         </fieldset>
@@ -103,20 +111,21 @@
         <legend>contact details</legend>
           <div>
             <label for="cell">cellphone:</label>
-            <input type="tel" name="cell" placeholder="enter employees cellphone number" required />
+            <input type="tel" name="cell" placeholder="enter employee cellphone number eg. 0824897654" required />
             
             <label for="email">email:</label>
-            <input type="email" name="email" placeholder="enter employees eployee" required />
+            <input type="email" name="email" placeholder="enter employee email eg. employee@example.co.za" required />
             
             <label for="postal">postal address:</label>
-            <textarea name="postal">enter employees postal address</textarea>
+            <textarea name="postal" placeholder="enter employee postal address eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code"></textarea>
+            <button class="submit">same postal as physical</button>
           </div>
 
           <div>
             <label for="tell">telephone:</label>
-            <input type="tel" name="tell" placeholder="enter employees telephone number" required />
+            <input type="tel" name="tell" placeholder="enter employee telephone number eg. 0112478832" required />
             <label for="physical" >physical address:</label>
-            <textarea name="physical" class="empPhysical">enter employees physical address</textarea>
+            <textarea name="physical" class="empPhysical" placeholder="enter employee physical address eg. 1234 some street, suburb, city - postal code"></textarea>
           </div>
           
         </fieldset>

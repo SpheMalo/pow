@@ -20,7 +20,7 @@
 <html>
   <head>
     <title>D+M Dental Practice System - <?php echo $_SESSION['page'];?></title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" type="text/css" media="all" href="../../../css/base.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../../../css/addUpd.css" />
     <script type="text/javascript" src="../../../js/jquery-1.10.2.js"></script>
@@ -39,25 +39,38 @@
       <h5 id="head_o"><p><?php echo $o; ?></p></h5>
     </div>
     <div id="cont">
-      <form method="post" action="">
+      <form method="post" action="" enctype="multipart/form-data">
         <fieldset>
           <legend>medical aid details</legend>
           <div>
             <label for="name">name:</label>
-            <input type="text" name="name" placeholder="enter medical aid name" required />
+            <input type="text" name="name" placeholder="enter medical aid name eg. Bonitas" required />
             <label for="tel">telephone:</label>
-            <input type="tel" name="tel" placeholder="enter telephone number" required />
+            <input type="tel" name="tel" placeholder="enter medical aid telephone number eg. 0112478832" required />
             <label for="physical">physical address:</label>
-            <textarea name="physical">enter physical address</textarea>
+            <textarea name="physical" placeholder="enter physical address eg. 1234 some street, suburb, city - postal code"></textarea>
           </div>
 
           <div>
             <label for="email">email:</label>
-            <input type="email" name="email" placeholder="enter medical aid email" required />
+            <input type="email" name="email" placeholder="enter medical aid email eg. example@medicalaid.co.za" required />
             <label for="fax">fax:</label>
-            <input type="tel" name="fax" placeholder="enter medical aid fax number" required />
+            <input type="tel" name="fax" placeholder="enter medical aid fax number eg. 0112478832" required />
             <label for="postal">postal address:</label>
-            <textarea name="postal">enter postal details</textarea>
+            <textarea name="postal" placeholder="enter postal details eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code"></textarea>
+            <button class="submit">same postal as physical</button>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>medical aid packages</legend>
+          <div>
+            <label>types:</label>
+            <input type="text" name="type1" placeHolder="type1"/>
+            <input type="text" name="type2" placeHolder="type2"/>
+            <input type="text" name="type3" placeHolder="type3"/>
+            <input type="text" name="type4" placeHolder="type4"/>
+            <input type="text" name="type5" placeHolder="type5"/>
           </div>
         </fieldset>
         

@@ -2,13 +2,15 @@ table
 {
   padding: 0; 
   border-collapse: collapse;
+  width: 82.5%;
+  overflow: auto;
 }
 
 th
 {
   margin: 0;
   padding: 0.2em 1em 0 1em;
-  font-size: 1.4vw;
+  font-size: 1.2vw;
   text-transform: capitalize;
   /*border-bottom: 1px dashed blue;*/
   border-left: 1px dashed white;
@@ -28,8 +30,8 @@ td
   padding: 0.3em 0;
   font-size: 1em;
   text-align: center;
-  border-bottom: 1px dashed orangered;
-  border-left: 1px dashed orangered;
+  /*border-bottom: 1px dashed orangered;*/
+  border-left: 1px dashed black;
 }
 
 td:first-of-type

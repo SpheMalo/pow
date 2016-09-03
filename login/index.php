@@ -9,20 +9,28 @@
     $pass = $_POST['pass'];
     $emp = login($user, $pass);
     
-    if ($emp != false)
+    if ($emp == "server")
     {
-      header("Location: ../");
-      $_SESSION['emp'] = $emp;
+      $o = "Unable to log in, there was a problem connecting to the db server";
+    }
+    else if ($emp == "user")
+    {
+      $o = "Unable to log in, the user does not exist. Contact the practice manager";
+    }
+    else if ($emp == "pass")
+    {
+      $o = "Unable to log in, the password provided does not check out";
     }
     else
     {
-      $o = "either your username or password is incorrect, or there was a problem connecting to the db server";
+      header("Location: ../");
+      $_SESSION['emp'] = $emp;
     }
     
   }
   else
   {
-    $o = "login maybe?";
+    $o = "Both username and password are required";
   }
 
   $_SESSION['page'] = "login";

@@ -7,6 +7,7 @@
   {
     $_SESSION['page'] = "home";
     $emp = $_SESSION['emp'];
+    $o = "";
   }
   else
   {
@@ -32,6 +33,7 @@
     <div id="head">
       <h1 id="head_m">Welcome</h1>
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
+      <h5 id="head_o"><p><?php echo $o; ?></p></h5>
     </div>
     
     <div id="cont">

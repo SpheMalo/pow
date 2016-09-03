@@ -222,28 +222,62 @@
     public $id;
     public $notes;
     public $status;
-    public $booking_type;
+    public $book_type;
     public $employee;
     public $timeslot;
-    public $practice_location;
+    public $location;
     public $pat_name;
     public $pat_sur;
     public $schedule;
-    public $emp_type;
+    public $c_date;
+    public $pat;
 
-    public function __construct($id, $notes, $status, $booking_type, $employee, $timeslot, $practice_location, $pat_name, $pat_sur, $schedule, $emp_type)
+    public function __construct($id, $notes, $status, $book_type, $employee, $timeslot, $location, $pat_name, $pat_sur, $schedule, $c_date, $pat)
     {
       $this->id = $id;
       $this->notes = $notes;
       $this->status = $status;
-      $this->booking_type = $booking_type;
+      $this->book_type = $book_type;
       $this->employee = $employee;
       $this->timeslot = $timeslot;
-      $this->practice_location = $practice_location;
+      $this->location = $location;
       $this->pat_name = $pat_name;
       $this->pat_sur = $pat_sur;
       $this->schedule = $schedule;
-      $this->schedule = $emp_type;
+      $this->c_date = $c_date;
+      $this->pat = $pat;
+    }
+
+    public function getMedicalAid($pat)
+    {
+      require 'dbconn.php';
+
+      try
+      {
+        $s = "select type_medical_aid.decription as med_type from patient where patientID = " . $pat;
+        $r = $pdo->query($s); 
+      }
+      catch(PDOException $e)
+      {
+        return false;
+      }
+
+      if ($r->rowCount() > 0)
+      {
+        $c = 0;
+        while ($row = $r->fetch())
+        {
+          $med_type[] = $row['med_type'];
+
+          $c++;
+        }
+
+        return $med_type[0];
+      }
+      else
+      {
+        return false;
+      }
     }
   }
 ?>

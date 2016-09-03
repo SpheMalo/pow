@@ -37,8 +37,8 @@
     }
     catch(PDOException $e)
     {
-      $o = "unable to retrieve employee username" . $e;
-      return false;
+      $o = "server";
+      return $o;
     }
     
     if ($r->rowCount() > 0)
@@ -48,7 +48,7 @@
         $id[] = $row['id'];
         $name[] = $row['name'];
         $surname[] = $row['surname'];
-        $empType[] = $row['empType'];
+        $empType[] = $row['employee_typeID'];
         $p[] = $row['password'];
       }
 
@@ -60,13 +60,14 @@
       }
       else
       {
-        return false;
+        $o = "pass";
+        return $o;
       }
     }
     else
     {
-      $o = "";
-      return false;
+      $o = "user";
+      return $o;
     }
     
   }
@@ -987,7 +988,52 @@ function loadConsult($in)
 {
   require 'dbconn.php';
 
-  
+  $s = "select consultation.id, notes, status, type_booking.description as book_type, consultation.employeeID, timeslot.description as timeslot, practice_location.description as location, patient.name as pat_name, patient.surname as pat_sur, scheduleID, schedule.available_date as c_date, patientID from consultation join type_booking on consultation.booking_typeID = type_booking.id join timeslot on consultation.timeslotID = timeslot.id join practice_location on consultation.practice_locationID = practice_location.id join patient on consultation.patientID = patient.ID join schedule on consultation.scheduleID = schedule.id order by c_date desc";
+
+  if ($in !== null)
+  {
+    $s = "select consultation.id, notes, status, type_booking.description as book_type, consultation.employeeID, timeslot.description as timeslot, practice_location.description as location, patient.name as pat_name, patient.surname as pat_sur, scheduleID, schedule.available_date as c_date, patientID from consultation join type_booking on consultation.booking_typeID = type_booking.id join timeslot on consultation.timeslotID = timeslot.id join practice_location on consultation.practice_locationID = practice_location.id join patient on consultation.patientID = patient.ID join schedule on consultation.scheduleID = schedule.id where consultation.id = " . $in . " order by c_date desc";
+  }
+
+  try
+  {
+    $r = $pdo->query($s);
+  }
+  catch(PDOException $e)
+  {
+    return false;
+  }
+
+  if ($r->rowCount() > 0)
+  {
+    $c = 0;
+    while ($row = $r->fetch())
+    {
+      $id[$c] = $row['id'];
+      $notes[$c] = $row['notes'];
+      $status[$c] = $row['status']; 
+      $book_type[$c] = $row['book_type'];
+      $emp[$c] = $row['employeeID'];
+      $timeslot[$c] = $row['timeslot'];
+      $loc[$c] = $row['location'];
+      $pat_n[$c] = $row['pat_name'];
+      $pat_s[$c] = $row['pat_sur'];
+      $schedule[$c] = $row['scheduleID'];
+      $c_date[$c] = $row['c_date'];
+      $pat[$c] = $row['patientID'];
+
+      $consul = new Consultation($id[$c], $notes[$c], $status[$c], $book_type[$c], $emp[$c], $timeslot[$c], $loc[$c], $pat_n[$c], $pat_s[$c], $schedule[$c], $c_date[$c], $pat[$c]);
+      $cList[$c] = $consul; 
+
+      $c++;
+    }
+
+    return $cList;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 ?>
