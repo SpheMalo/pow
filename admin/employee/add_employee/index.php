@@ -72,7 +72,7 @@
             <input type="file" name="proPic"/>
 
             <label for="name" >name:</label>
-            <input type="text" name="name" placeholder="enter employee name eg. Simon" required  />
+            <input type="text" name="name" placeholder="enter employee name eg. Simon" required pattern="[A-Za-z]{1,35}" title="a maximum of 35 letters with no spaces"/>
             
             <label for="title" >title:</label>
             <select name="title" >
@@ -91,7 +91,7 @@
             </select>
             
             <label for="id" >id/passport number:</label>
-            <input type="text" name="id" placeholder="enter employee id/passport number eg. 8612170554087" required />
+            <input type="text" name="id" placeholder="enter employee id/passport number eg. 8612170554087" required pattern="[0-9]{13}" title="a number of 13 characters"/>
           </div>
 
           <div>
@@ -100,9 +100,9 @@
             <input type="file" name="proPic" class="display"/>
 
             <label for="surname" >surame:</label>
-            <input type="text" name="surname" placeholder="enter employee surname eg. Kekana" required  />
+            <input type="text" name="surname" placeholder="enter employee surname eg. Kekana" required pattern="[A-Za-z]{1,35}" title="a maximum of 35 letters with no spaces"/>
             <label for="banking" >banking details:</label>
-            <textarea name="banking" class="empBanking" placeholder="enter employee banking details eg. 4078080733 ABSA, Hatfield 687453"></textarea>
+            <textarea name="banking" class="empBanking" placeholder="enter employee banking details eg. 4078080733 ABSA, Hatfield 687453" title="must match provided example format"></textarea>
           </div>
           
         </fieldset>
@@ -111,21 +111,21 @@
         <legend>contact details</legend>
           <div>
             <label for="cell">cellphone:</label>
-            <input type="tel" name="cell" placeholder="enter employee cellphone number eg. 0824897654" required />
+            <input type="tel" name="cell" placeholder="enter employee cellphone number eg. 0824897654" required pattern="[0-9]{10,10}" title="a number of 10 characters"/>
             
             <label for="email">email:</label>
             <input type="email" name="email" placeholder="enter employee email eg. employee@example.co.za" required />
             
             <label for="postal">postal address:</label>
-            <textarea name="postal" placeholder="enter employee postal address eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code"></textarea>
-            <button class="submit">same postal as physical</button>
+            <textarea name="postal" placeholder="enter employee postal address eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>
+            <button class="submit" title="copy physical address to postal address">same postal as physical</button>
           </div>
 
           <div>
             <label for="tell">telephone:</label>
-            <input type="tel" name="tell" placeholder="enter employee telephone number eg. 0112478832" required />
+            <input type="tel" name="tell" placeholder="enter employee telephone number eg. 0112478832" required pattern="[0-9]{10,10}" title="a number of 10 characters"/>
             <label for="physical" >physical address:</label>
-            <textarea name="physical" class="empPhysical" placeholder="enter employee physical address eg. 1234 some street, suburb, city - postal code"></textarea>
+            <textarea name="physical" class="empPhysical" placeholder="enter employee physical address eg. 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>
           </div>
           
         </fieldset>

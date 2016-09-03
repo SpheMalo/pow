@@ -59,21 +59,21 @@
           <legend>medical aid details</legend>
           <div>
             <label for="name">name:</label>
-            <input type="text" name="name" placeholder="enter medical aid name eg. Bonitas" required />
+            <input type="text" name="name" placeholder="enter medical aid name eg. Bonitas" pattern="[a-zA-Z0-9-]" required title="only alphanumeric characters with no spaces" />
             <label for="tel">telephone:</label>
-            <input type="tel" name="tel" placeholder="enter medical aid telephone number eg. 0112478832" required />
+            <input type="tel" name="tel" placeholder="enter medical aid telephone number eg. 0112478832" required pattern="[0-9]{10}" title="a number of 10 characters"/>
             <label for="physical">physical address:</label>
-            <textarea name="physical" placeholder="enter physical address eg. 1234 some street, suburb, city - postal code"></textarea>
+            <textarea name="physical" placeholder="enter physical address eg. 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>
           </div>
 
           <div>
             <label for="email">email:</label>
             <input type="email" name="email" placeholder="enter medical aid email eg. example@medicalaid.co.za" required />
             <label for="fax">fax:</label>
-            <input type="tel" name="fax" placeholder="enter medical aid fax number eg. 0112478832" required />
+            <input type="tel" name="fax" placeholder="enter medical aid fax number eg. 0112478832" required pattern="[0-9]{10}" title="a number of 10 characters"/>
             <label for="postal">postal address:</label>
-            <textarea name="postal" placeholder="enter postal details eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code"></textarea>
-            <button class="submit">same postal as physical</button>
+            <textarea name="postal" placeholder="enter postal details eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>
+            <button class="submit" title="copy physical address to postal address">same postal as physical</button>
           </div>
         </fieldset>
 
@@ -81,11 +81,11 @@
           <legend>medical aid packages</legend>
           <div>
             <label>types:</label>
-            <input type="text" name="type1" placeHolder="type1"/>
-            <input type="text" name="type2" placeHolder="type2"/>
-            <input type="text" name="type3" placeHolder="type3"/>
-            <input type="text" name="type4" placeHolder="type4"/>
-            <input type="text" name="type5" placeHolder="type5"/>
+            <input type="text" name="type1" placeHolder="type1" pattern="[a-zA-Z0-9-]" required title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type2" placeHolder="type2" pattern="[a-zA-Z0-9-]" required title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type3" placeHolder="type3" pattern="[a-zA-Z0-9-]" required title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type4" placeHolder="type4" pattern="[a-zA-Z0-9-]" required title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type5" placeHolder="type5" pattern="[a-zA-Z0-9-]" required title="only alphanumeric characters with no spaces"/>
           </div>
         </fieldset>
         

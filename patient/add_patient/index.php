@@ -11,13 +11,13 @@
     $tList = loadTitleList();
     $gList = loadGenderList();
     $mList = loadMedListS();
+
+    $o = "";
   }
   else
   {
     header("Location: ../../login/");
   }
-
-  $o = "";
 
   if (isset($_POST['s_new_pat']))
   {
@@ -38,7 +38,7 @@
 <html>
   <head>
     <title>D+M Dental Practice System - <?php echo $_SESSION['page'];?></title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" type="text/css" media="all" href="../../css/base.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../../css/addUpd.css" />
     <script type="text/javascript" src="../../js/jquery-1.10.2.js"></script>
@@ -58,13 +58,30 @@
     </div>
     
     <div id="cont">
-      <form method="post" action="">
+      <form method="post" action="" enctype="multipart/form-data">
         <fieldset>
         <legend>personal details</legend>
           <div>
+            <label for="proPic" >profile picture:</label>
+            <img src="" alt="" />
+            <input type="file" name="proPic"/>
+
             <label for="name" >name:</label>
-            <input type="text" name="name" placeholder="enter patient name" required />
+            <input type="text" name="name" placeholder="enter patient name eg. Sarah" required pattern="[A-Za-z]{1,35}" title="a maximum of 35 letters with no spaces"/>
             
+            <label for="id">id/passport number:</label>
+            <input type="text" name="id" placeholder="enter patent id/passport number eg. 8612170554087" required pattern="[0-9]{13}" title="a number of 13 characters"/>
+            <label for="DoB">Date of Birth:</label>
+            <input type="date" name="dob" placeholder="enter date of birth eg. 1992-11-30" required title="must match provided example format"/>
+          </div>
+          <div>
+            <label for="proPic" class="display">profile picture:</label>
+            <img src="" alt="" class="display"/>
+            <input type="file" name="proPic" class="display"/>
+
+            <label for="surname">surname:</label>
+            <input type="text" name="surname" placeholder="enter patient surname eg. Moeng" required pattern="[A-Za-z]{1,35}" title="a maximum of 35 letters with no spaces"/>
+
             <label for="title">title:</label>
             <select name="title">
               <option>select title</option>
@@ -72,20 +89,14 @@
                 <option value="<?php echo $ti['id'];?>"><?php echo $ti['desc'];?></option>
               <?php endforeach;?>
             </select>
-            
-            <label for="id">iD number:</label>
-            <input type="text" name="id" placeholder="enter patent id number" required />
-            <label for="DoB">Date of Birth:</label>
-            <input type="text" name="dob" placeholder="enter date of birth" required />
-          </div>
-          <div>
-            <label for="surname">surname:</label>
-            <input type="text" name="surname" placeholder="enter patient surname" required />
-            <label>gender:</label>
-            <input type="radio" name="gender" value=1 class="check"/>
-            <label for="gender" id="patGenderLabel" class="check">male</label>
-            <input type="radio" name="gender" value=2 class="check"/>
-            <label for="gender" id="patGenderLabel" class="check">female</label>
+
+            <label for="gender" >gender:</label>
+            <select name="gender" >
+              <option>select gender</option>
+              <?php foreach ($gList as $ge):?>
+                <option value="<?php echo $ge['id'];?>"><?php echo $ge['desc'];?></option>
+              <?php endforeach;?>
+            </select>
           </div>         
           
         </fieldset>
@@ -94,20 +105,21 @@
         <legend>contact details</legend>
           <div>
             <label for="cell">cellphone:</label>
-            <input type="tel" name="cell" placeholder="enter patient cellphone number" required />
+            <input type="tel" name="cell" placeholder="enter patient cellphone number eg. 0824897654" required pattern="[0-9]{10,10}" title="a number of 10 characters"/>
             
             <label for="email">email:</label>
-            <input type="email" name="email" placeholder="enter patient eployee" required />
+            <input type="email" name="email" placeholder="enter patient email address eg. sarah@gmail.com" required />
             
             <label for="postal">postal address:</label>
-            <textarea name="postal">enter patient postal address</textarea>
+            <textarea name="postal" placeholder="enter employee postal address eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>
+            <button class="submit" title="copy physical address to postal address">same postal as physical</button>
           </div>
           
           <div>
             <label for="tell">telephone:</label>
-            <input type="tel" name="tell" placeholder="enter patient telephone number" required />
+            <input type="tel" name="tell" placeholder="enter patient telephone number eg. 0112478832" required pattern="[0-9]{10,10}" title="a number of 10 characters"/>
             <label for="physical">physical address:</label>
-            <textarea name="physical" id="patBankging">enter patient physical address</textarea>
+            <textarea name="physical" id="patBankging" title="must match provided example format" placeholder="enter employee physical address eg. 1234 some street, suburb, city - postal code"></textarea>
           </div>
           
         </fieldset>

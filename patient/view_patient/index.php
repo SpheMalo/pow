@@ -7,6 +7,7 @@
   {
     $_SESSION['page'] = "view patient";
     $emp = $_SESSION['emp'];
+    $o = "";
 
     if (isset($_GET['id']))
     {
@@ -28,7 +29,7 @@
 <html>
   <head>
     <title>D+M Dental Practice System - <?php echo $_SESSION['page'];?></title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" type="text/css" media="all" href="../../css/base.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../../css/viewBase.css" />
     <script type="text/javascript" src="../../js/jquery-1.10.2.js"></script>
@@ -44,6 +45,7 @@
     <div id="head">
       <h1 id="head_m">Patient</h1>
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
+      <h5 id="head_o"><?php echo $o;?></h5>
     </div>
     
     <div id="cont">
@@ -68,8 +70,6 @@
           }
         }
       ?>
-      
-      <div id="noti"></div>
     </div>
     
     <footer></footer>
