@@ -16,16 +16,24 @@
           , $_POST["dentist"], $_POST["location"],$_POST["date"] , $_POST["time"]);
       //check above form to see what I do with $result
     }
+
+    if ($result == true) 
+    {
+      $o =  "Successfully booked consultation";
+    }
+    else
+    {
+      if (isset($_POST["id"])) 
+      {
+        $o = "Error booking Consultation. Please try again";
+      }
+    }
   }
 
   else
   {
     header("Location: ../../../login/");
   }
-
-  $o = "";
-
-
 
 ?>
 
@@ -53,16 +61,6 @@
     </div>
     
     <div id="cont">
-      <?php
-      if ($result == true) {
-        echo "<p style='color:green;'>Successfully booked consultation</p>";
-      }
-      else {
-        if (isset($_POST["id"])) {
-          echo "<p style='color:red;'>Error booking Consultation. Please try again</p>";
-        }
-      }
-      ?>
       <form method="post" action="">
         <fieldset>
           <legend>patient details</legend>

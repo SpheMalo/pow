@@ -1,3 +1,15 @@
+<?php
+  if (isset($_POST['month']))
+  {
+    $z = mktime(0, 0, 0, $_POST['month'], date("d"), date("Y"));
+    echo "<h2>" . date("F 'y", $z) . "</h2>";
+  }
+  else
+  {
+    echo "<h2>" . date("F 'y") . "</h2>";
+  }
+?>
+
 <ul id="cal">
   <li>monday</li>
   <li>tuesday</li>
@@ -35,9 +47,9 @@
 
       $s = "select * from schedule where available_date = '" . $date . "' and available != 1";
 
-      if ($time == NULL)
+      if ($time != NULL)
       {
-        $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $time . " and available != 1";
+        $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $time;
       }
 
       try
@@ -81,7 +93,7 @@
 
       try
       {
-        $s = "select * from consultation where scheduleID = " . $id;
+        $s = "select consultation.id, notesm status, type_booking.description as type, employeeID, timeslotID, practice_locationID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, employee_typeID, patientID as pat from consultation where scheduleID = " . $id;
         $r = $pdo->query($s);
       }
       catch(PDOException $e)
@@ -94,18 +106,20 @@
         $c = 0;
         while ($row = $r->fetch())
         {
-          $id[] = $row['id'];
-          $notes[] = $row['notes'];
-          $status[] = $row['status'];
-          $booking_type[] = $row['booking_type'];
-          $employee[] = $row['employeeID'];
-          $timeslot[] = $row['timeslotID'];
-          $location[] = $row['practice_locationID'];
-          $patient[] = $row['patientID'];
-          $schedule[] = $row['scheduleID'];
-          $empType[] = $row['empoyee_typeID'];
+          $id[$c] = $row['id'];
+          $notes[$c] = $row['notes'];
+          $status[$c] = $row['status']; 
+          $book_type[$c] = $row['book_type'];
+          $emp[$c] = $row['employeeID'];
+          $timeslot[$c] = $row['timeslot'];
+          $loc[$c] = $row['location'];
+          $pat_n[$c] = $row['pat_name'];
+          $pat_s[$c] = $row['pat_sur'];
+          $schedule[$c] = $row['scheduleID'];
+          $c_date[$c] = $row['c_date'];
+          $pat[$c] = $row['pat'];
 
-          $con = new Consultation($id, $notes, $status, $booking_type, $employee, $timeslot, $practice_location, $patient, $schedule, $emp_type);
+          $con = new Consultation($id[$c], $notes[$c], $status[$c], $book_type[$c], $emp[$c], $timeslot[$c], $loc[$c], $pat_n[$c], $pat_s[$c], $schedule[$c], $c_date[$c], $pat[$c]);
           $conList[] = $con;
 
           $c++;
@@ -148,8 +162,9 @@
         $a = abs($month_p - $first_d + $c + 1);
         $li = date("Y-m", $first_day);
         $lid = $li . "-" . $a;
+        //$lii = mktime(0,0,0, date("m", strtotime($lid)) - 1, date("d", strtotime($lid)), date("Y", strtotime($lid)));
 
-        echo "<li id=" . $lid . ">" . $a . "</li>";
+        echo "<li id=" . $lid . "><div><p>" . $a . " " . date("M", mktime(0,0,0,$m - 1, 1, date("y"))) . "</p><br><p onclick=getWeek('" . $lid . "')>review week</p></div></li>";
         $c++;
       }
 
@@ -159,8 +174,21 @@
         $b = abs(($month_c - $c1 + 1) - $month_c - 1);
         $li = date("Y-m", $first_day);
         $lid = $li . "-" . $b;
+        $lid = date("Y-m-d", strtotime($lid));
 
-        echo "<li id=" . $lid . ">" . $b . "</li>";
+        $app = loadShed($lid, NULL);
+
+        if ($app != false)
+        {
+          $app = count($app);
+          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>" . $app . "/10</p></div></li>";
+        }
+        else
+        {
+          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lid . "')></a>ma</p></div></li>";
+        }
+
+        //echo "<li id=" . $lid . ">" . $b . "</li>";
         $c1++;
       }
 
@@ -169,7 +197,7 @@
       {
         while ($c2 < 37 - $first_d - $month_c)
         {
-          echo "<li>" . $c2 . "</li>";
+          echo "<li id=" . $lid . "><div><p>" . $c2 . " " . date("M", mktime(0,0,0,$m + 1, 1, date("y"))) . "</p><br><p><br></p></div></li>";
           $c2++;
         }
       }
@@ -189,8 +217,12 @@
         {
           $app = 0;
         }
+        else
+        {
+          $app = count($app);
+        }
 
-        echo "<li id=" . $lid . ">" . $a . "<div><p>" . count($app) . "/10</p></div></li>";
+        echo "<li id=" . $lid . ">" . $a . "<div><p>" . $app . "/10</p></div></li>";
         $c++;
       }
 

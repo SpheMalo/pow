@@ -6,6 +6,10 @@ table
   overflow: auto;
 }
 
+.tblBig{
+  width: 100%;
+}
+
 th
 {
   margin: 0;

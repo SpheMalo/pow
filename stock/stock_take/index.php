@@ -54,7 +54,7 @@
         </fieldset>
         <fieldset>
           <legend>product details</legend>
-          <table>
+          <table class="tblBig">
             <tr>
               <th>product number</th>
               <th>product name</th>

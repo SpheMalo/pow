@@ -1,3 +1,60 @@
+function getCal()
+{
+  $.ajax({
+    type: "post",
+    url: "../../../inc/cal.php",
+    cache: false,
+    //data: dat,
+    success: function(result){
+      $('#calendar > div').filter(':first').html(result);
+    },
+    error: function(){
+      alert('something went wrong');
+    }
+  });
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    cache: false,
+    //data: dat,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+    },
+    error: function(){
+      alert('something went wrong');
+    }
+  });
+}
+
+function getWeek(datt)
+{
+  var dat = 'date=' + datt;
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      $('#nav_c > li > a')
+      .filter('.active')
+      .removeClass();
+
+      $('#nav_c > li > a')
+      .filter(':last')
+      .addClass('active');
+      
+      $('#calendar div').filter(':first').fadeOut('fast', function(){
+        $('#calendar div').filter(':last').fadeIn('slow');
+      });
+    },
+    error: function(){
+      alert('something went wrong');
+    } 
+  });
+}
+
 $(document).ready(function(){
   $('#nav > li > ul').css({
     display: "none",
@@ -13,6 +70,67 @@ $(document).ready(function(){
       .find('ul')
       .stop(true,true)
       .fadeOut('fast');
+  });
+
+  $('form > div > div, #calendar > div')
+      .click(function(event) {
+        event.stopPropagation();
+      })
+      .filter(':not(:first)')
+      .hide();
+
+  $('form > div > ul > li > a').click(function(e){
+    var div = $(this).attr('href');
+    $('form > div > ul > li > a')
+    .filter('.active')
+    .removeClass();
+
+    if (div == "note")
+    {
+      $('form > div > div:nth-of-type(2), form > div > div:last-of-type').fadeOut('fast');
+
+      $('form > div > div:first-of-type').fadeIn('slow');
+    }
+    else if (div == "inv")
+    {
+      $('form > div > div:first-of-type, form > div > div:last-of-type').fadeOut('fast');
+
+      $('form > div > div:nth-of-type(2)').fadeIn('slow');
+    }
+    else if (div == "pre")
+    {
+      $('form > div > div:nth-of-type(2), form > div > div:first-of-type').fadeOut('fast');
+
+      $('form > div > div:last-of-type').fadeIn('slow');
+    }
+
+    $(this).addClass('active');
+
+    e.preventDefault();
+  });
+
+  $('#nav_c > li > a').click(function(e){
+    var div = $(this).attr('href');
+    $('#nav_c > li > a')
+    .filter('.active')
+    .removeClass();
+    
+    if (div == "week")
+    {
+      $('#calendar div').filter(':first').fadeOut('fast', function(){
+        $('#calendar div').filter(':last').fadeIn('slow');
+      });
+    }
+    else if (div == "month")
+    {
+      $('#calendar div').filter(':last').fadeOut('fast', function(){
+        $('#calendar div').filter(':first').fadeIn('slow');
+      });
+      
+    }
+
+    $(this).addClass('active');
+    e.preventDefault();
   });
 
   function getUserImg()

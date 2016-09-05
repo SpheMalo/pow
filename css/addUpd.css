@@ -54,7 +54,7 @@
     visibility: hidden;
   }
 
-  fieldset > div > input, fieldset > div > label, fieldset > div > select, fieldset > div > textarea, form > div > div > input
+  fieldset > div > input, fieldset > div > label, fieldset > div > select, fieldset > div > textarea, form > div > div > input, form > div > div > textarea, form > div > div > div:first-of-type > input, form > div > div > div:nth-of-type(3) > input
   {
     display: block;
     width: 100%;
@@ -93,6 +93,22 @@
     color: white;
     cursor: pointer;
     text-transform: capitalize;
+  }
+
+  .submitt
+  {
+    display: block;
+    width: 30%;
+    text-align: center;
+    text-transform: capitalize;
+    text-decoration: none;
+    margin: 0 0 0 65%;
+    color: white;
+    padding: 0.2em 0;
+    font-size: 1.2em;
+    border-radius: 3px;
+    background: #00314c;
+    clear: both;
   }
 
   button.submit{
@@ -146,7 +162,85 @@
     margin: 0.6em 0 0 0;
   }
 
-  form > ul
+  form > ul > li > a
+  {
+    margin: 0;
+    padding: 0.3em 0.4em;
+    font-size: 1.3em;
+    color: white;
+    text-transform: capitalize;
+    text-decoration: none;
+  }
+
+  form > div{
+    margin: 0;
+    padding: 0;
+  }
+
+  form > div > ul, form > div > ul > li, form > div > div, form > div > div > label{
+    margin: 0;
+    padding: 0;
+  }
+
+  form > div > ul > li{
+    background: #00314c;
+    list-style: none;
+    float: left;
+  }
+
+  form > div > ul > li > a{
+    margin: 0;
+    padding: 0.3em 0.5em;
+    display: block;
+    color: white;
+    text-decoration: none;
+  }
+
+  form > div > div{
+    border-top: 1px solid #00314c;
+    padding: 1em;
+    min-height: 57.2%;
+  }
+
+  form > div > div > label{
+    display: block;
+  }
+
+  /*form > div > div > label:first-of-type{
+
+  }*/
+
+  form > div > div > textarea, form > div > div > input[type="file"]{
+    width: 98%;
+    margin: 0.5em 0 1em 0;
+  }
+
+  form > div > div > textarea{
+    height: 30%;
+  }
+
+  form > div > div > div{
+    float: left;
+    width: 78%;
+    margin: 0;
+    padding: 0.5%;
+  }
+
+  form > div > div > div:first-of-type, form > div > div > div:nth-of-type(3){
+    width: 18%;
+    clear: left;
+  }
+
+  form > div > div > legend{
+    display: block;
+    clear: left;
+  }
+
+  form > div > div > div:last-of-type{
+    margin-bottom: 1em;
+  }
+
+  /*form > ul
   {
     margin: 0;
     padding: 0;
@@ -165,20 +259,10 @@
   }
 
   form > ul > li:first-of-type
-  {/*
-    border: 0;*/
-  }
-
-  form > ul > li > a
   {
-    margin: 0;
-    padding: 0.3em 0.4em;
-    font-size: 1.3em;
-    color: white;
-    text-transform: capitalize;
-    text-decoration: none;
+    border: 0;
   }
-
+  
   form > div
   {
     width: 100%;
@@ -205,27 +289,6 @@
     padding: 0.3em;
   }
 
-  .submitt
-  {
-    display: block;
-    width: 30%;
-    text-align: center;
-    text-transform: capitalize;
-    text-decoration: none;
-    margin: 0 0 0 65%;
-    color: white;
-    padding: 0.2em 0;
-    font-size: 1.2em;
-    border-radius: 3px;
-    background: #00314c;
-  }
-
-  .active
-  {
-    color: #00314c;
-    background: white;
-  }
-
   form > div > div
   {
     margin: 0;
@@ -243,6 +306,6 @@
   {
     width: 65%;
     display: inline-block;
-  }
+  }*/
 
 }

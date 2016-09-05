@@ -7,6 +7,7 @@
   {
     $_SESSION['page'] = "make consultation notes";
     $emp = $_SESSION['emp'];
+    $o = "";
   }
   else
   {
@@ -17,7 +18,7 @@
 <html>
   <head>
     <title>D+M Dental Practice System - <?php echo $_SESSION['page'];?></title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" type="text/css" media="all" href="../../../css/base.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../../../css/addUpd.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../../../css/viewBase.css" />
@@ -34,6 +35,7 @@
     <div id="head">
       <h1 id="head_m">Consultation</h1>
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
+      <h5 id="head_o"><?php echo $o?></h5>
     </div>
     
     <div id="cont">
@@ -52,111 +54,123 @@
           </div>
         </fieldset>
 
-        <ul>
-          <li><a href="#" class="active">notes</a></li>
-          <li><a href="#" >invoice</a></li>
-          <li><a href="#">prescription</a></li>
-          <div class="clear"></div>
-        </ul>
+        <div id="consult">
+          <ul>
+            <li><a href="note" class="active">notes</a></li>
+            <li><a href="inv" >invoice</a></li>
+            <li><a href="pre">prescription</a></li>
+            <div class="clear"></div>
+          </ul>
 
-        <div  style="visibility: ; display: ;">
-          <label>notes describing the general condition of the patient:</label>
-          <textarea name="notes" placeholder="the patient was..."></textarea>
-          <a href="" class="submitt">next</a>
-        </div>
-          
-        <div class="conInv" style="visibility: hidden; display: none;">
           <div>
-            <input type="text" name="product" placeholder="select product used"/>
-            <input type="text" name="price" placeholder="product price"/>
-            <input type="number" name="quantity" placeholder="select product quantity used"/>
-            <input type="submit" value="add product" name="s_add_prod" class="submit" />
-          </div>
-          <div>
-            <table>
-              <tr>
-                <th>name</th>
-                <th>type</th>
-                <th>price</th>
-                <th>quantity</th>
-                <th>action</th>
-              </tr>
-              <tr>
-                <td>Syringe</td>
-                <td>Tuberculin</td>
-                <td>R30</td>
-                <td>1</td>
-                <td><a href="">remove</a></td>
-              </tr>
-              <tr>
-                <td>Panado</td>
-                <td>Painkiller</td>
-                <td>R30</td>
-                <td>2</td>
-                <td><a href="">remove</a></td>
-              </tr>
-              <tr>
-                <td>Penicillins</td>
-                <td>Antibiotic</td>
-                <td>R160</td>
-                <td>10</td>
-                <td><a href="">remove</a></td>
-              </tr>
-              <tr>
-                <td>novocaine</td>
-                <td>Anesthetic</td>
-                <td>R70</td>
-                <td>1</td>
-                <td><a href="">remove</a></td>
-              </tr>
-            </table>
-          </div>
-          <div>
-            <input type="text" name="procedure" placeholder="select procedure used"/>
-            <input type="text" name="price" placeholder="procedure price"/>
-            <input type="submit" value="add procedure" name="s_add_prov" class="submit" />
-          </div>
-          <div>
-            <table>
-              <tr>
-                <th>name</th>
-                <th>type</th>
-                <th>price</th>
-                <th>action</th>
-              </tr>
-              <tr>
-                <td>Consultation Fee</td>
-                <td>Standard</td>
-                <td>R350.00</td>
-                <td><a href="">remove</a></td>
-              </tr>
-              <tr>
-                <td>Root canal preparatory</td>
-                <td>Root canal</td>
-                <td>R650</td>
-                <td><a href="">remove</a></td>
-              </tr>
-              <tr>
-                <td>Root Canal therapy</td>
-                <td>Root canal</td>
-                <td>R1200</td>
-                <td><a href="">remove</a></td>
-              </tr>
-            </table>
+            <label for="notes">notes describing the general condition of the patient:</label>
+            <textarea name="notes" placeholder="the patient was..."></textarea>
+            <label>upload hand written notes:</label>
+            <input type="file" name=notes_h />
+            <a href="" class="submitt">next</a>
           </div>
 
-          <a href="" class="submitt">next</a>
-        </div>
+          <div class="conInv">
+            <legend>products:</legend>
+            <div>
+              <label>product:</label>
+              <input type="text" name="product" placeholder="select product used"/>
+              <label>price:</label>
+              <input type="text" name="price" placeholder="product price"/>
+              <label>quantity:</label>
+              <input type="number" name="quantity" placeholder="select product quantity used"/>
+              <input type="submit" value="add product" name="s_add_prod" class="submit" />
+            </div>
+            <div>
+              <table class="tblBig">
+                <tr>
+                  <th>name</th>
+                  <th>type</th>
+                  <th>price</th>
+                  <th>quantity</th>
+                  <th>action</th>
+                </tr>
+                <tr>
+                  <td>Syringe</td>
+                  <td>Tuberculin</td>
+                  <td>R30</td>
+                  <td>1</td>
+                  <td><a href="">remove</a></td>
+                </tr>
+                <tr>
+                  <td>Panado</td>
+                  <td>Painkiller</td>
+                  <td>R30</td>
+                  <td>2</td>
+                  <td><a href="">remove</a></td>
+                </tr>
+                <tr>
+                  <td>Penicillins</td>
+                  <td>Antibiotic</td>
+                  <td>R160</td>
+                  <td>10</td>
+                  <td><a href="">remove</a></td>
+                </tr>
+                <tr>
+                  <td>novocaine</td>
+                  <td>Anesthetic</td>
+                  <td>R70</td>
+                  <td>1</td>
+                  <td><a href="">remove</a></td>
+                </tr>
+              </table>
+            </div>
+            <legend>procedures:</legend>
+            <div>
+              <label>procedure:</label>
+              <input type="text" name="procedure" placeholder="select procedure used"/>
+              <label>price:</label>
+              <input type="text" name="price" placeholder="procedure price"/>
+              <input type="submit" value="add procedure" name="s_add_prov" class="submit" />
+            </div>
+            <div>
+              <table class="tblBig">
+                <tr>
+                  <th>name</th>
+                  <th>type</th>
+                  <th>price</th>
+                  <th>action</th>
+                </tr>
+                <tr>
+                  <td>Consultation Fee</td>
+                  <td>Standard</td>
+                  <td>R350.00</td>
+                  <td><a href="">remove</a></td>
+                </tr>
+                <tr>
+                  <td>Root canal preparatory</td>
+                  <td>Root canal</td>
+                  <td>R650</td>
+                  <td><a href="">remove</a></td>
+                </tr>
+                <tr>
+                  <td>Root Canal therapy</td>
+                  <td>Root canal</td>
+                  <td>R1200</td>
+                  <td><a href="">remove</a></td>
+                </tr>
+              </table>
+            </div>
 
-        <div>
-         <!-- <label>Medicines prescribed for the patient:</label>
-          <textarea name="prescription"></textarea>
-          <input type="submit" name="s_new_consult" value="add consultation" class="submitt" /> -->
-        </div>
+            <a href="" class="submitt">next</a>
+          </div>
+
+
+          <div>
+            <label>Medicines prescribed for the patient:</label>
+            <textarea name="prescription"></textarea>
+            <input type="submit" name="s_new_consult" value="add consultation" class="submitt" /> 
+          </div>
+
+        </div>        
 
       </form>
       
-      <div id="noti"></div>
     </div>
     
     <footer></footer>

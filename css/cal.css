@@ -1,7 +1,12 @@
+#calendar > div > h2{
+  margin: 0.4% 0 0 0;
+  padding: 0 0 0 15%;
+}
+
 #cal, #call{
   margin: 0;
-  padding: 0;
-  width: 100%;
+  padding: 0 0 0 15%;
+  width: 70%;
   border: 1px dashed lime;
 }
 
@@ -10,7 +15,31 @@
   float: left;
   border: 1px dashed red;
   list-style: none;
+}
+
+#cal > li:nth-of-type(1), #cal > li:nth-of-type(2), #cal > li:nth-of-type(3), #cal > li:nth-of-type(4), #cal > li:nth-of-type(5), #cal > li:nth-of-type(6), #cal > li:nth-of-type(7)
+{
+  text-align: center;
+  text-transform: capitalize;
+}
+
+#cal > li > div{
+  margin: 0;
+  padding: 0.2em;
+}
+
+#cal > li > div > p{
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+#cal > li > div > p:first-of-type, #cal > li > div > p:last-of-type{
   cursor: pointer;
+}
+
+#cal > li > div > p:last-of-type{
+  text-align: right;
 }
 
 #call > li{

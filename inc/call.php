@@ -26,9 +26,9 @@
 
     $s = "select * from schedule where available_date = '" . $date . "' and available != 1";
 
-    if ($time == NULL)
+    if ($time !== NULL)
     {
-      $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $time . " and available != 1";
+      $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $time;
     }
 
     try
@@ -72,7 +72,7 @@
 
     try
     {
-      $s = "select consultation.id, notesm status, type_booking.description as type, employeeID, timeslotID, practice_locationID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, employee_typeID from consultation where scheduleID = " . $id;
+      $s = "select consultation.id, notesm status, type_booking.description as type, employeeID, timeslotID, practice_locationID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, employee_typeID, patientID as pat from consultation where scheduleID = " . $id;
       $r = $pdo->query($s);
     }
     catch(PDOException $e)
@@ -85,18 +85,20 @@
       $c = 0;
       while ($row = $r->fetch())
       {
-        $id[] = $row['id'];
-        $notes[] = $row['notes'];
-        $status[] = $row['status'];
-        $booking_type[] = $row['type'];
-        $employee[] = $row['employeeID'];
-        $timeslot[] = $row['timeslotID'];
-        $location[] = $row['practice_locationID'];
-        $patient[] = $row['patientID'];
-        $schedule[] = $row['scheduleID'];
-        $empType[] = $row['empoyee_typeID'];
+        $id[$c] = $row['id'];
+        $notes[$c] = $row['notes'];
+        $status[$c] = $row['status']; 
+        $book_type[$c] = $row['book_type'];
+        $emp[$c] = $row['employeeID'];
+        $timeslot[$c] = $row['timeslot'];
+        $loc[$c] = $row['location'];
+        $pat_n[$c] = $row['pat_name'];
+        $pat_s[$c] = $row['pat_sur'];
+        $schedule[$c] = $row['scheduleID'];
+        $c_date[$c] = $row['c_date'];
+        $pat[$c] = $row['pat'];
 
-        $con = new Consultation($id, $notes, $status, $booking_type, $employee, $timeslot, $practice_location, $pat_name, $pat_sur, $schedule, $emp_type);
+        $con = new Consultation($id[$c], $notes[$c], $status[$c], $book_type[$c], $emp[$c], $timeslot[$c], $loc[$c], $pat_n[$c], $pat_s[$c], $schedule[$c], $c_date[$c], $pat[$c]);
         $conList[] = $con;
 
         $c++;
@@ -112,11 +114,13 @@
 
   if (isset($_POST['date']))
   {
-    $d = $_POST['date'];
+    $d = strtotime($_POST['date']);
+    echo "<h2>" . date("F 'y W", $d) . "</h2>";
   }
   else
   {
     $d = mktime(0,0,0,date("m"), date("d"), date("Y"));
+    echo "<h2>" . date("F 'y W", $d) . "</h2>";
   }
 
   $dd = date("N", $d);
@@ -465,17 +469,34 @@
         {
           $det_app = loadShedDet($app->id);
 
-          $det_app1 = $det_app[0]; 
+          if ($det_app !== false)
+          {
+            $det_app1 = $det_app[0];
+
+            if ($_SESSION['page'] == "make a booking")
+            {
+              echo "taken";
+            }
+            else if ($_SESSION['page'] == "view dentist schedule")
+            {
+              echo "<a href='../../../patient/view_patient/?id=" . $det_app1->pat . "' >" . $det_app1->pat_name . " " . $det_app1->patsur . " <img src='img/ico/lock.png' alt='i'/></a>";
+            } 
+          }
+          else
+          {
+            echo "db missing";
+          }
+
         }
         else
         {
           if ($_SESSION['page'] == "make a booking")
           {
-            echo "<a href='book'>book <img src='img/ico/add_app.png' alt='i'/></a>";
+            echo "<a onclick=book('" . $sun . "') >+ <img src='img/ico/add_app.png' alt=''/></a>";
           }
           else if ($_SESSION['page'] == "view dentist schedule")
           {
-            echo "<a href='?unavailable=" . $app->id . "'>make unavailable <img src='img/ico/lock.png' alt='i'/></a>";
+            echo "<a onclick=makeUnav('" . $sun . "') >un <img src='img/ico/lock.png' alt=''/></a>";
           }
         }
       }
@@ -483,171 +504,68 @@
       {
         if ($_SESSION['page'] == "view dentist schedule")
         {
-          echo "<a href='?available='><img src='img/ico/unlock.png' alt='i'/></a>";
+          echo "<a onclick=makeAv('" . $sun . "') >av <img src='img/ico/unlock.png' alt=''/></a>";
         }
       }
     ?>
   </li>
 
   <li>09h00 - 09h45</li>
-  <li>
-    <?php
-      $d_app = loadShed($mon, 2);
-
-      if ($d_app !== false)
-      {
-        $app = $d_app[0];
-
-        if ($app->available == 0)
-        {
-          $det_app = loadShedDet($app->id);
-        }
-        else
-        {
-          echo "empty";
-        }
-      }
-      else
-      {
-        echo "empty";
-      }      
-    ?>
-  </li>
-  <li>
-    <?php
-      $d_app = loadShed($tue, 2);
-
-      if ($d_app !== false)
-      {
-        $app = $d_app[0];
-
-        if ($app->available == 0)
-        {
-          $det_app = loadShedDet($app->id);
-        }
-        else
-        {
-          echo "empty";
-        }
-      }
-      else
-      {
-        echo "empty";
-      }
-    ?>
-  </li>
-  <li>
-    <?php
-      $d_app = loadShed($wed, 2);
-
-      if ($d_app !== false)
-      {
-        $app = $d_app[0];
-
-        if ($app->available == 0)
-        {
-          $det_app = loadShedDet($app->id);
-        }
-        else
-        {
-          echo "empty";
-        }
-      }
-      else
-      {
-        echo "empty";
-      }
-    ?>
-  </li>
-  <li>
-    <?php
-      $d_app = loadShed($thu, 2);
-
-      if ($d_app !== false)
-      {
-        $app = $d_app[0];
-
-        if ($app->available == 0)
-        {
-          $det_app = loadShedDet($app->id);
-        }
-        else
-        {
-          echo "empty";
-        }
-      }
-      else
-      {
-        echo "empty";
-      }
-    ?>
-  </li>
-  <li>
-    <?php
-      $d_app = loadShed($fri, 2);
-
-      if ($d_app !== false)
-      {
-        $app = $d_app[0];
-
-        if ($app->available == 0)
-        {
-          $det_app = loadShedDet($app->id);
-        }
-        else
-        {
-          echo "empty";
-        }
-      }
-      else
-      {
-        echo "empty";
-      }
-    ?>
-  </li>
-  <li>
-    <?php
-      $d_app = loadShed($sat, 2);
-      
-      if ($d_app !== false)
-      {
-        $app = $d_app[0];
-
-        if ($app->available == 0)
-        {
-          $det_app = loadShedDet($app->id);
-        }
-        else
-        {
-          echo "empty";
-        }
-      }
-      else
-      {
-        echo "empty";
-      }
-    ?>
-  </li>
+  <li>s</li>
+  <li>s</li>
+  <li>s</li>
+  <li>s</li>
+  <li>s</li>
+  <li>s</li>
   <li>
     <?php
       $d_app = loadShed($sun, 2);
       
-      if ($d_app !== false)
+      if ($d_app != false)
       {
         $app = $d_app[0];
 
         if ($app->available == 0)
         {
           $det_app = loadShedDet($app->id);
+
+          if ($det_app !== false)
+          {
+            $det_app1 = $det_app[0];
+
+            if ($_SESSION['page'] == "make a booking")
+            {
+              echo "taken";
+            }
+            else if ($_SESSION['page'] == "view dentist schedule")
+            {
+              echo "<a href='../../../patient/view_patient/?id=" . $det_app1->pat . "' >" . $det_app1->pat_name . " " . $det_app1->patsur . " <img src='img/ico/lock.png' alt='i'/></a>";
+            } 
+          }
+          else
+          {
+            echo "db missing";
+          }
+
         }
         else
         {
-          echo "empty";
+          if ($_SESSION['page'] == "make a booking")
+          {
+            echo "<a onclick=book('" . $sun . "') >+ <img src='img/ico/add_app.png' alt=''/></a>";
+          }
+          else if ($_SESSION['page'] == "view dentist schedule")
+          {
+            echo "<a onclick=makeUnav('" . $sun . "') >un <img src='img/ico/lock.png' alt=''/></a>";
+          }
         }
       }
       else
       {
-        echo "empty";
+        if ($_SESSION['page'] == "view dentist schedule")
+        {
+          echo "<a onclick=makeAv('" . $sun . "') >av <img src='img/ico/unlock.png' alt=''/></a>";
+        }
       }
     ?>
   </li>

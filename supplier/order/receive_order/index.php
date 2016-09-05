@@ -64,7 +64,7 @@
 
         <fieldset>
           <legend>product summary</legend>
-          <table style="width:80%">
+          <table  class="tblBig">
             <tr>
               <th>Product Name</th>
               <th>Product Type</th>
