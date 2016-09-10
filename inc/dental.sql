@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.3
--- https://www.phpmyadmin.net/
+-- version 4.2.11
+-- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Aug 29, 2016 at 08:54 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.6.24
+-- Host: 127.0.0.1
+-- Generation Time: Sep 10, 2016 at 01:52 PM
+-- Server version: 5.6.21
+-- PHP Version: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,852 +14,1228 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `DENTAL`
+-- Database: `dental`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ACCESS_LEVEL`
+-- Table structure for table `access_level`
 --
 
-CREATE TABLE `ACCESS_LEVEL` (
-  `Access_Level_ID` int(11) NOT NULL,
-  `Access_Level_Description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `access_level` (
+`id` int(11) NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `access_level`
+--
+
+INSERT INTO `access_level` (`id`, `description`) VALUES
+(1, 'A'),
+(2, 'B'),
+(3, 'C'),
+(4, 'D');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `AUDIT_LOG`
+-- Table structure for table `address_postal`
 --
 
-CREATE TABLE `AUDIT_LOG` (
-  `Audit_Log_ID` int(11) NOT NULL,
-  `Employee_ID` int(11) NOT NULL,
-  `Audit_Log_Date` date NOT NULL,
-  `Audit_Log_Time` time NOT NULL,
-  `Audit_Log_Process` varchar(35) NOT NULL,
-  `Audit_Log_Old` varchar(35) NOT NULL,
-  `Audit_Log_New` varchar(35) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `address_postal` (
+`id` int(11) NOT NULL,
+  `number` int(11) DEFAULT NULL,
+  `street` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `suburb` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `box` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `postal_code` int(11) NOT NULL,
+  `cityID` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `address_postal`
+--
+
+INSERT INTO `address_postal` (`id`, `number`, `street`, `suburb`, `box`, `postal_code`, `cityID`) VALUES
+(1, 1135, 'Francis Baard', 'Hatfield', '', 28, 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `BOOKING_TYPE`
+-- Table structure for table `address_pyhsical`
 --
 
-CREATE TABLE `BOOKING_TYPE` (
-  `Booking_Type_ID` int(11) NOT NULL,
-  `Booking_Type_Description` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `address_pyhsical` (
+`id` int(11) NOT NULL,
+  `number` int(11) NOT NULL,
+  `street` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `suburb` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `area_code` int(11) NOT NULL,
+  `cityID` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `address_pyhsical`
+--
+
+INSERT INTO `address_pyhsical` (`id`, `number`, `street`, `suburb`, `area_code`, `cityID`) VALUES
+(1, 1135, 'Francis Baard', 'Hatfield', 28, 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `CITY`
+-- Table structure for table `audit_log`
 --
 
-CREATE TABLE `CITY` (
-  `City_ID` int(11) NOT NULL,
-  `City_Name` varchar(35) NOT NULL,
-  `Country_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `audit_log` (
+`id` int(11) NOT NULL,
+  `trans_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `trans_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `process` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `v_old` varchar(35) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `v_new` varchar(35) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `employeeID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `CONSULTATION`
+-- Table structure for table `city`
 --
 
-CREATE TABLE `CONSULTATION` (
-  `Consultation_ID` int(11) NOT NULL,
-  `Consultation_Notes` varchar(100) NOT NULL,
-  `Consultation_Status` varchar(10) NOT NULL,
-  `Booking_Type_ID` int(11) NOT NULL,
-  `Employee_ID` int(11) NOT NULL,
-  `Timeslot_ID` int(11) NOT NULL,
-  `Practice_Location_ID` int(11) NOT NULL,
-  `Patient_ID` int(11) NOT NULL,
-  `Schedule_ID` int(11) NOT NULL,
-  `Employee_Type_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `city` (
+`id` int(11) NOT NULL,
+  `description` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `provinceID` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `city`
+--
+
+INSERT INTO `city` (`id`, `description`, `provinceID`) VALUES
+(1, 'polokwane', 1),
+(2, 'tzaneen', 1),
+(3, 'pretoria', 2),
+(4, 'johannesburg', 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `COUNTRY`
+-- Table structure for table `consultation`
 --
 
-CREATE TABLE `COUNTRY` (
-  `Country_ID` int(11) NOT NULL,
-  `Country_Name` varchar(35) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `consultation` (
+`id` int(11) NOT NULL,
+  `notes` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `booking_typeID` int(11) NOT NULL,
+  `employeeID` int(11) NOT NULL,
+  `timeslotID` int(11) NOT NULL,
+  `practice_locationID` int(11) NOT NULL,
+  `patientID` int(11) NOT NULL,
+  `scheduleID` int(11) NOT NULL,
+  `employee_typeID` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `consultation`
+--
+
+INSERT INTO `consultation` (`id`, `notes`, `status`, `booking_typeID`, `employeeID`, `timeslotID`, `practice_locationID`, `patientID`, `scheduleID`, `employee_typeID`) VALUES
+(1, '', 'Pending', 3, 1, 3, 2, 1, 24, 2),
+(2, '', 'Pending', 3, 1, 4, 2, 2, 25, 2),
+(3, '', 'Pending', 3, 1, 1, 2, 1, 2006, 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `EMPLOYEE`
+-- Table structure for table `country`
 --
 
-CREATE TABLE `EMPLOYEE` (
-  `Employee_ID` int(11) NOT NULL,
-  `Employee_Name` varchar(35) NOT NULL,
-  `Employee_Surname` varchar(35) NOT NULL,
-  `Employee_ID_Number` varchar(13) NOT NULL,
-  `Employee_Username` varchar(7) NOT NULL,
-  `Employee_Password` varchar(7) NOT NULL,
-  `Employee_Cellphone` varchar(10) NOT NULL,
-  `Employee_Email_Address` varchar(50) NOT NULL,
-  `Employee_Status` varchar(10) NOT NULL,
-  `Employee_Type_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `country` (
+`id` int(11) NOT NULL,
+  `description` varchar(35) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `country`
+--
+
+INSERT INTO `country` (`id`, `description`) VALUES
+(1, 'South Africa');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `EMPLOYEE_ACCESS`
+-- Table structure for table `employee`
 --
 
-CREATE TABLE `EMPLOYEE_ACCESS` (
-  `Access_Level_ID` int(11) NOT NULL,
-  `Employee_Type_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `employee` (
+`id` int(11) NOT NULL,
+  `name` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `surname` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `id_number` int(13) NOT NULL,
+  `username` varchar(7) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `cellphone` int(11) NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `banking_details` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `address_postalID` int(11) NOT NULL,
+  `address_physicalID` int(11) NOT NULL,
+  `genderID` int(11) NOT NULL,
+  `titleID` int(11) NOT NULL,
+  `employee_typeID` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`id`, `name`, `surname`, `id_number`, `username`, `password`, `cellphone`, `email`, `status`, `banking_details`, `address_postalID`, `address_physicalID`, `genderID`, `titleID`, `employee_typeID`) VALUES
+(1, 'Malesela', 'Ramphele', 2147483647, 'bam1234', '$2y$10$lCDonWcPwK7sd9e/59ueV.jQ3kq/nHOE03Cpt7Ubrx4B1MAq3/BH6', 761921351, 'ramphele@yahoo.com', 'active', '', 1, 1, 1, 1, 1),
+(2, 'Malesela', 'Ramphele', 2147483647, 'bam4321', '$2y$10$vTNCwA5Nko6/0ZfuF.9TI.0ShmiuZ7xLaJ3K5xHB/SHUKkf4RsE3W', 823307218, 'mt.ramphele@gmail.com', 'active', '', 1, 1, 1, 1, 2),
+(3, 'Given', 'Manzini', 2147483647, 'giv2754', '$2y$10$L1PAGQ1CZV.w7yebPWEDYehjYRty5uEm51qPG9DtY3bPHifkVlGUm', 816547832, 'gm@gmail.com', '', '1234567890 ABSA Hatfield 123456', 1, 1, 1, 1, 2),
+(4, 'Sarah', 'Mahlatji', 2147483647, 'Sar8414', '$2y$10$plWB2Y7/qe5S9GFUjDRAAOFVwwGpYTZXqF/7pJUSt.dmKXGPI7PLy', 87136781, 'r@yahoo.com', '', '564218973 FNB Hatfield 123988', 0, 0, 2, 2, 4),
+(5, 'dxfbcnv ', 'cgnvhmbj', 98765445, 'dxf5290', '$2y$10$Q4tBwNro9yEYHuxPHb9Zful7SivcWVlzMJWxz2nfn5kj.s44I0n/e', 98765765, 'r@yahoo.com', '', 'enter employees banking details', 0, 0, 1, 1, 3),
+(6, 'Frikkie', 'Shabalala', 2147483647, 'Fri3632', '$2y$10$zduhmCG17eHV/ueMdrb/K.b1H9bNPGlI2peB0b.7hdpLr5N9UGVaa', 814568543, 'ramphele@yahoo.com', '', 'enter employees banking details', 0, 0, 1, 1, 2),
+(7, 'Malesela', 'Ramphele', 2147483647, 'Mal6725', '$2y$10$Gi4FhQXwlrHDXncROLUXRu8YoI.lYKwz8y434LJiBVrU5qVedaVVy', 98765765, 'r@yahoo.com', '', 'enter employees banking details', 0, 0, 1, 1, 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `EMPLOYEE_TYPE`
+-- Table structure for table `employee_access`
 --
 
-CREATE TABLE `EMPLOYEE_TYPE` (
-  `Employee_Type_ID` int(11) NOT NULL,
-  `Employee_Type_Description` varchar(50) NOT NULL,
-  `Employee_Type_Duties` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `employee_access` (
+  `access_levelID` int(11) NOT NULL,
+  `employee_typeID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `employee_access`
+--
+
+INSERT INTO `employee_access` (`access_levelID`, `employee_typeID`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `GENDER`
+-- Table structure for table `gender`
 --
 
-CREATE TABLE `GENDER` (
-  `Gender_ID` int(11) NOT NULL,
-  `Gender_Type` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `gender` (
+`id` int(11) NOT NULL,
+  `description` varchar(10) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `gender`
+--
+
+INSERT INTO `gender` (`id`, `description`) VALUES
+(1, 'male'),
+(2, 'female'),
+(3, 'other');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ILLNESS_HISTORY`
+-- Table structure for table `illness_history`
 --
 
-CREATE TABLE `ILLNESS_HISTORY` (
-  `Illness_History_ID` int(11) NOT NULL,
-  `Illness_History_Description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `illness_history` (
+`id` int(11) NOT NULL,
+  `description` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `MEDICAL_AID`
+-- Table structure for table `invoice`
 --
 
-CREATE TABLE `MEDICAL_AID` (
-  `Medical_Aid_ID` int(11) NOT NULL,
-  `Medical_Aid_Name` varchar(35) NOT NULL,
-  `Medical_Aid_Physical_Address` varchar(255) NOT NULL,
-  `Medical_Aid_Postal_Address` varchar(255) NOT NULL,
-  `Medical_Aid_Telephone` varchar(10) NOT NULL,
-  `Medical_Aid_Fax` varchar(10) NOT NULL,
-  `Medical_Aid_Email_Address` int(255) NOT NULL,
-  `Medical_Aid_Type_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `invoice` (
+`id` int(11) NOT NULL,
+  `number` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `invoice_date` date NOT NULL,
+  `patientID` int(11) NOT NULL,
+  `consultationID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `MEDICAL_AID_TYPE`
+-- Table structure for table `line_invoice`
 --
 
-CREATE TABLE `MEDICAL_AID_TYPE` (
-  `Medical_Aid_Type_ID` int(11) NOT NULL,
-  `Medical_Aid_Type_Description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `line_invoice` (
+  `product_quantity` int(11) NOT NULL,
+  `invoiceID` int(11) NOT NULL,
+  `patientID` int(11) NOT NULL,
+  `productID` int(11) NOT NULL,
+  `procedureID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `MEMBER_TYPE`
+-- Table structure for table `line_prescription`
 --
 
-CREATE TABLE `MEMBER_TYPE` (
-  `Member_Type_ID` int(11) NOT NULL,
-  `Member_Type_Name` varchar(35) NOT NULL,
-  `Member_Type_Description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `line_prescription` (
+  `dosage` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `restrictions` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `chronic` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `patientID` int(11) NOT NULL,
+  `employeeID` int(11) NOT NULL,
+  `productID` int(11) NOT NULL,
+  `prescriptionID` int(11) NOT NULL,
+  `consultationID` int(11) NOT NULL,
+  `scheduleID` int(11) NOT NULL,
+  `timeslotID` int(11) NOT NULL,
+  `booking_typeID` int(11) NOT NULL,
+  `practice_locationID` int(11) NOT NULL,
+  `employee_typeID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ORDERS`
+-- Table structure for table `medical_aid`
 --
 
-CREATE TABLE `ORDERS` (
-  `Order_ID` int(11) NOT NULL,
-  `Supplier_ID` int(11) NOT NULL,
-  `Order_Number` varchar(5) NOT NULL,
-  `Order_Date` date NOT NULL,
-  `Order_Status` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `medical_aid` (
+`id` int(11) NOT NULL,
+  `name` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `address_postal` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `address_physical` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `telephone` int(11) NOT NULL,
+  `fax` int(11) NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `medical_aid`
+--
+
+INSERT INTO `medical_aid` (`id`, `name`, `address_postal`, `address_physical`, `telephone`, `fax`, `email`) VALUES
+(1, 'Bonitas', 'some postal address', 'some physical address', 123456789, 123456789, 'something@bonitas.co.za'),
+(2, 'GEMS', 'some postal address', 'some physical address', 123456789, 123456789, 'something@gems.co.za'),
+(3, 'Discovery', 'some postal address', 'some physical address', 123456789, 123456789, 'something@discovery.co.za'),
+(4, 'Palmed', 'some postal address', 'some physical address', 123456789, 123456789, 'something@palmed.co.za'),
+(5, 'Medshield', 'some postal address', 'some physical address', 123456789, 123456789, 'something@medshield.co.za');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `PATIENT_ILLNESS_HISTORY`
+-- Table structure for table `order`
 --
 
-CREATE TABLE `PATIENT_ILLNESS_HISTORY` (
-  `Patient_Illness_History_ID` int(11) NOT NULL,
-  `Illness_History_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `order` (
+`id` int(11) NOT NULL,
+  `number` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `order_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `supplierID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `PATIENT_TYPE`
+-- Table structure for table `patient`
 --
 
-CREATE TABLE `PATIENT_TYPE` (
-  `Patient_Type_ID` int(11) NOT NULL,
-  `Patient_Type_Description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `patient` (
+`id` int(11) NOT NULL,
+  `name` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `surname` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `id_number` int(11) NOT NULL,
+  `dob` date NOT NULL,
+  `telephone` int(11) NOT NULL,
+  `cellphone` int(11) NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `img` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `file_number` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `medical_aidID` int(11) NOT NULL,
+  `titleID` int(11) NOT NULL,
+  `genderID` int(11) NOT NULL,
+  `address_postalID` int(11) NOT NULL,
+  `address_physicalID` int(11) NOT NULL,
+  `medical_aid_typeID` int(11) NOT NULL,
+  `member_typeID` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `patient`
+--
+
+INSERT INTO `patient` (`id`, `name`, `surname`, `id_number`, `dob`, `telephone`, `cellphone`, `email`, `img`, `file_number`, `medical_aidID`, `titleID`, `genderID`, `address_postalID`, `address_physicalID`, `medical_aid_typeID`, `member_typeID`) VALUES
+(1, 'Malesela', 'Ramphele', 2147483647, '1992-11-30', 1234567890, 1234567890, 'r@gmail.com', 'new.png', 'f001', 1, 1, 1, 1, 1, 1, 1),
+(2, 'Vincent', 'Sibanda', 21474839, '1986-12-10', 121564897, 761564897, 's@sfs.com', 'new.png', 'f002', 0, 1, 1, 1, 1, 4, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `PAYMENT_TYPE`
+-- Table structure for table `patient_illness_history`
 --
 
-CREATE TABLE `PAYMENT_TYPE` (
-  `Patient_Type_ID` int(11) NOT NULL,
-  `Patient_Type_Description` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `patient_illness_history` (
+  `illness_historyID` int(11) NOT NULL,
+  `patientID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `PHYSICAL_ADDRESS`
+-- Table structure for table `payment`
 --
 
-CREATE TABLE `PHYSICAL_ADDRESS` (
-  `Physical_Address_ID` int(11) NOT NULL,
-  `Physical_Address_House_Number` int(11) NOT NULL,
-  `Physical_Address_Street_Name` varchar(50) NOT NULL,
-  `Physical_Address_Surburb` varchar(50) NOT NULL,
-  `Physical_Address_Area_Code` int(11) NOT NULL,
-  `City_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `payment` (
+`id` int(11) NOT NULL,
+  `amount` double NOT NULL,
+  `payment_date` date NOT NULL,
+  `invoiceID` int(11) NOT NULL,
+  `patientID` int(11) NOT NULL,
+  `payment_typeID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `POSTAL_ADDRESS`
+-- Table structure for table `practice_location`
 --
 
-CREATE TABLE `POSTAL_ADDRESS` (
-  `Postal_Address_ID` int(11) NOT NULL,
-  `Postal_Address_Number` int(11) NOT NULL,
-  `Postal_Address_Area` varchar(10) NOT NULL,
-  `Postal_Address_Area_Code` int(11) NOT NULL,
-  `City_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `practice_location` (
+`id` int(11) NOT NULL,
+  `description` varchar(20) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `practice_location`
+--
+
+INSERT INTO `practice_location` (`id`, `description`) VALUES
+(1, 'Location A'),
+(2, 'Location B');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `PRACTICE_LOCATION`
+-- Table structure for table `prescription`
 --
 
-CREATE TABLE `PRACTICE_LOCATION` (
-  `Practice_Location_ID` int(11) NOT NULL,
-  `Practice_Location_Description` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `prescription` (
+`id` int(11) NOT NULL,
+  `dosage` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `validity` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `patientID` int(11) NOT NULL,
+  `employeeID` int(11) NOT NULL,
+  `timeslotID` int(11) NOT NULL,
+  `booking_typeID` int(11) NOT NULL,
+  `consultationID` int(11) NOT NULL,
+  `scheduleID` int(11) NOT NULL,
+  `practice_locationID` int(11) NOT NULL,
+  `employee_typeID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `PROCEDURE_TYPE`
+-- Table structure for table `price_procedure`
 --
 
-CREATE TABLE `PROCEDURE_TYPE` (
-  `Procedure_Type_ID` int(11) NOT NULL,
-  `Procedure_Type_Description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `price_procedure` (
+  `procedureID` int(11) NOT NULL,
+  `medical_aidID` int(11) NOT NULL,
+  `medical_aid_typeID` int(11) NOT NULL,
+  `price` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `PRODUCT_TYPE`
+-- Table structure for table `price_product`
 --
 
-CREATE TABLE `PRODUCT_TYPE` (
-  `Product_Type_ID` int(11) NOT NULL,
-  `Product_Type_Name` varchar(35) NOT NULL,
-  `Product_Type_Description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `price_product` (
+  `productID` int(11) NOT NULL,
+  `medical_aidID` int(11) NOT NULL,
+  `medical_aid_typeID` int(11) NOT NULL,
+  `price` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `PROVINCE`
+-- Table structure for table `procedure`
 --
 
-CREATE TABLE `PROVINCE` (
-  `Province_ID` int(11) NOT NULL,
-  `Province_Name` varchar(10) NOT NULL,
-  `Country_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `procedure` (
+`id` int(11) NOT NULL,
+  `description` varchar(225) COLLATE utf8_unicode_ci NOT NULL,
+  `code` int(11) NOT NULL,
+  `price` double NOT NULL,
+  `favorite` int(11) NOT NULL,
+  `procedure_typeID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `SCHEDULE`
+-- Table structure for table `product`
 --
 
-CREATE TABLE `SCHEDULE` (
-  `Schedule_ID` int(11) NOT NULL,
-  `Schedule_Date` date NOT NULL,
-  `Available_Time_Slot` int(11) NOT NULL,
-  `Employee_ID` int(11) NOT NULL,
-  `Timeslot_ID` int(11) NOT NULL,
-  `Practice_Location_ID` int(11) NOT NULL,
-  `Employee_Type_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `product` (
+`id` int(11) NOT NULL,
+  `number` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `price` double NOT NULL,
+  `size` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `critical_value` int(11) NOT NULL,
+  `favorite` tinyint(4) NOT NULL,
+  `product_typeID` int(11) NOT NULL,
+  `stockID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `STOCK`
+-- Table structure for table `province`
 --
 
-CREATE TABLE `STOCK` (
-  `Stock_ID` int(11) NOT NULL,
-  `Stock_Unit_Volume` int(11) NOT NULL,
-  `Stock_Recieved` int(11) NOT NULL,
-  `Stock_Ordered` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `province` (
+`id` int(11) NOT NULL,
+  `description` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `countryID` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `province`
+--
+
+INSERT INTO `province` (`id`, `description`, `countryID`) VALUES
+(1, 'Limpopo', 1),
+(2, 'Gauteng', 1),
+(3, 'KwaZulu Natal', 1),
+(4, 'Freestate', 1),
+(5, 'Mpumalanga', 1),
+(6, 'North West', 1),
+(7, 'Northern Cape', 1),
+(8, 'Eastern Cape', 1),
+(9, 'Western Cape', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `STOCK_ORDER`
+-- Table structure for table `schedule`
 --
 
-CREATE TABLE `STOCK_ORDER` (
-  `Stock_Order_ID` int(11) NOT NULL,
-  `Supplier_ID` int(11) NOT NULL,
-  `Stock_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `schedule` (
+`id` int(11) NOT NULL,
+  `available_date` datetime NOT NULL,
+  `available` tinyint(1) NOT NULL,
+  `timeslotID` int(11) NOT NULL,
+  `employeeID` int(11) NOT NULL,
+  `practice_locationID` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`id`, `available_date`, `available`, `timeslotID`, `employeeID`, `practice_locationID`) VALUES
+(1, '2016-08-25 00:00:00', 0, 1, 2, 1),
+(2, '2016-08-25 00:00:00', 0, 2, 2, 1),
+(3, '2016-08-25 00:00:00', 0, 3, 2, 1),
+(4, '2016-08-25 00:00:00', 0, 4, 2, 1),
+(5, '2016-08-25 00:00:00', 0, 5, 2, 1),
+(6, '2016-08-25 00:00:00', 0, 6, 2, 1),
+(7, '2016-08-25 00:00:00', 0, 7, 2, 1),
+(8, '2016-08-25 00:00:00', 0, 8, 2, 1),
+(9, '2016-08-26 00:00:00', 0, 2, 2, 1),
+(10, '2016-08-26 00:00:00', 1, 3, 2, 1),
+(11, '2016-08-26 00:00:00', 1, 4, 2, 1),
+(12, '2016-08-26 00:00:00', 1, 5, 2, 1),
+(13, '2016-08-26 00:00:00', 1, 6, 2, 1),
+(14, '2016-08-26 00:00:00', 1, 7, 2, 1),
+(15, '2016-08-26 00:00:00', 1, 8, 2, 1),
+(16, '2016-08-27 00:00:00', 0, 2, 2, 1),
+(17, '2016-08-27 00:00:00', 0, 3, 2, 1),
+(18, '2016-08-27 00:00:00', 1, 4, 2, 1),
+(19, '2016-08-27 00:00:00', 1, 5, 2, 1),
+(20, '2016-08-27 00:00:00', 1, 6, 2, 1),
+(21, '2016-08-27 00:00:00', 1, 7, 2, 1),
+(22, '2016-08-27 00:00:00', 1, 8, 2, 1),
+(23, '2016-09-03 00:00:00', 1, 2, 1, 1),
+(24, '2016-09-03 00:00:00', 1, 3, 1, 1),
+(25, '2016-09-03 00:00:00', 1, 4, 1, 1),
+(26, '2016-09-03 00:00:00', 1, 5, 1, 1),
+(27, '2016-09-04 00:00:00', 0, 1, 1, 1),
+(28, '2016-09-04 00:00:00', 1, 2, 1, 1),
+(29, '2016-09-04 00:00:00', 0, 3, 1, 1),
+(30, '2016-09-04 00:00:00', 0, 4, 1, 1),
+(31, '2016-09-04 00:00:00', 1, 5, 1, 1),
+(32, '2016-09-04 00:00:00', 1, 6, 1, 1),
+(33, '2016-09-04 00:00:00', 1, 7, 1, 1),
+(34, '2016-09-05 00:00:00', 0, 1, 1, 1),
+(35, '2016-09-05 00:00:00', 1, 2, 1, 1),
+(36, '2016-09-05 00:00:00', 0, 3, 1, 1),
+(37, '2016-09-05 00:00:00', 0, 4, 1, 1),
+(38, '2016-09-05 00:00:00', 1, 5, 1, 1),
+(39, '2016-09-05 00:00:00', 1, 6, 1, 1),
+(40, '2016-09-05 00:00:00', 1, 7, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `SUPPLIER`
+-- Table structure for table `stock`
 --
 
-CREATE TABLE `SUPPLIER` (
-  `Supplier_ID` int(11) NOT NULL,
-  `Supplier_Name` varchar(35) NOT NULL,
-  `Contact_Person_Name` varchar(35) NOT NULL,
-  `Supplier_Email_Address` varchar(50) NOT NULL,
-  `Supplier_Telephone` varchar(10) NOT NULL,
-  `Supplier_Fax` varchar(10) NOT NULL,
-  `Supplier_Physical_Address` varchar(255) NOT NULL,
-  `Supplier_Status` varchar(10) NOT NULL,
-  `Supplier_Bank_Name` varchar(255) NOT NULL,
-  `Supplier_Bank_Branch_Name` varchar(35) NOT NULL,
-  `Supplier_Bank_Branch_Code` varchar(6) NOT NULL,
-  `Supplier_Account_Number` varchar(15) NOT NULL,
-  `Supplier_Bank_Reference` varchar(35) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `stock` (
+`id` int(11) NOT NULL,
+  `unit_volume` int(11) NOT NULL,
+  `ordered` int(11) NOT NULL,
+  `recieved` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `TIMESLOT`
+-- Table structure for table `stock_order`
 --
 
-CREATE TABLE `TIMESLOT` (
-  `Timeslot_ID` int(11) NOT NULL,
-  `Start_Time` time NOT NULL,
-  `End_Time` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `stock_order` (
+  `orderID` int(11) NOT NULL,
+  `stockID` int(11) NOT NULL,
+  `supplierID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `TITLE`
+-- Table structure for table `stock_writeoff`
 --
 
-CREATE TABLE `TITLE` (
-  `Title_ID` int(11) NOT NULL,
-  `Title_Name` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `stock_writeoff` (
+`id` int(11) NOT NULL,
+  `writeoff_date` date NOT NULL,
+  `reason` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `productID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier`
+--
+
+CREATE TABLE IF NOT EXISTS `supplier` (
+`id` int(11) NOT NULL,
+  `name` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `contact_person` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `telephone` int(11) NOT NULL,
+  `fax` int(11) NOT NULL,
+  `address_physical` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `branch_name` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `branch_number` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `account_number` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `bank_reference` varchar(35) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `timeslot`
+--
+
+CREATE TABLE IF NOT EXISTS `timeslot` (
+`id` int(11) NOT NULL,
+  `description` varchar(5) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `timeslot`
+--
+
+INSERT INTO `timeslot` (`id`, `description`) VALUES
+(1, '08h00'),
+(2, '09h00'),
+(3, '10h00'),
+(4, '11h00'),
+(5, '12h00'),
+(6, '13h00'),
+(7, '14h00'),
+(8, '15h00'),
+(9, '16h00'),
+(10, '17h00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `title`
+--
+
+CREATE TABLE IF NOT EXISTS `title` (
+`id` int(11) NOT NULL,
+  `description` varchar(5) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `title`
+--
+
+INSERT INTO `title` (`id`, `description`) VALUES
+(1, 'mr.'),
+(2, 'ms.'),
+(3, 'mrs.'),
+(4, 'dr.'),
+(5, 'prof.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `type_booking`
+--
+
+CREATE TABLE IF NOT EXISTS `type_booking` (
+`id` int(11) NOT NULL,
+  `description` varchar(20) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `type_booking`
+--
+
+INSERT INTO `type_booking` (`id`, `description`) VALUES
+(1, 'phone-in'),
+(2, 'walk-in'),
+(3, 'online');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `type_employee`
+--
+
+CREATE TABLE IF NOT EXISTS `type_employee` (
+`id` int(11) NOT NULL,
+  `description` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `duties` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `type_employee`
+--
+
+INSERT INTO `type_employee` (`id`, `description`, `duties`) VALUES
+(1, 'manager', 'to be added later'),
+(2, 'dentist', 'to be added later'),
+(3, 'dentist assistant', 'to be added later'),
+(4, 'secretary', 'to be added later');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `type_medical_aid`
+--
+
+CREATE TABLE IF NOT EXISTS `type_medical_aid` (
+`id` int(11) NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `medical_aidID` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `type_medical_aid`
+--
+
+INSERT INTO `type_medical_aid` (`id`, `description`, `medical_aidID`) VALUES
+(1, 'Bonitas type 1', 1),
+(2, 'Bonitas type 2', 1),
+(3, 'Bonitas type 3', 1),
+(4, 'GEMS type 1', 2),
+(5, 'GEMS type 2', 2),
+(6, 'GEMS type 3', 2),
+(7, 'Discovery type 1', 3),
+(8, 'Discovery type 2', 3),
+(9, 'Discovery type 3', 3),
+(10, 'Palmed type 1', 4),
+(11, 'Palmed type 2', 4),
+(12, 'Palmed type 3', 4),
+(13, 'Medshield type 1', 5),
+(14, 'Medshield type 2', 5),
+(15, 'Medshield type 3', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `type_member`
+--
+
+CREATE TABLE IF NOT EXISTS `type_member` (
+`id` int(11) NOT NULL,
+  `name` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `type_member`
+--
+
+INSERT INTO `type_member` (`id`, `name`, `description`) VALUES
+(1, 'main-member', 'main-member'),
+(2, 'dependant', 'dependant');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `type_patient`
+--
+
+CREATE TABLE IF NOT EXISTS `type_patient` (
+`id` int(11) NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `type_patient`
+--
+
+INSERT INTO `type_patient` (`id`, `description`) VALUES
+(1, 'main'),
+(2, 'dependant');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `type_payment`
+--
+
+CREATE TABLE IF NOT EXISTS `type_payment` (
+`id` int(11) NOT NULL,
+  `description` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `type_procedure`
+--
+
+CREATE TABLE IF NOT EXISTS `type_procedure` (
+`id` int(11) NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `type_product`
+--
+
+CREATE TABLE IF NOT EXISTS `type_product` (
+`id` int(11) NOT NULL,
+  `name` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `ACCESS_LEVEL`
+-- Indexes for table `access_level`
 --
-ALTER TABLE `ACCESS_LEVEL`
-  ADD PRIMARY KEY (`Access_Level_ID`);
+ALTER TABLE `access_level`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `AUDIT_LOG`
+-- Indexes for table `address_postal`
 --
-ALTER TABLE `AUDIT_LOG`
-  ADD PRIMARY KEY (`Audit_Log_ID`),
-  ADD KEY `Employee_ID` (`Employee_ID`);
+ALTER TABLE `address_postal`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `BOOKING_TYPE`
+-- Indexes for table `address_pyhsical`
 --
-ALTER TABLE `BOOKING_TYPE`
-  ADD PRIMARY KEY (`Booking_Type_ID`);
+ALTER TABLE `address_pyhsical`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `CITY`
+-- Indexes for table `audit_log`
 --
-ALTER TABLE `CITY`
-  ADD PRIMARY KEY (`City_ID`),
-  ADD KEY `Country_ID` (`Country_ID`);
+ALTER TABLE `audit_log`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `CONSULTATION`
+-- Indexes for table `city`
 --
-ALTER TABLE `CONSULTATION`
-  ADD PRIMARY KEY (`Consultation_ID`),
-  ADD KEY `Booking_Type_ID` (`Booking_Type_ID`),
-  ADD KEY `Employee_ID` (`Employee_ID`),
-  ADD KEY `Practice_Location_ID` (`Practice_Location_ID`),
-  ADD KEY `Schedule_ID` (`Schedule_ID`),
-  ADD KEY `Employee_Type_ID` (`Employee_Type_ID`),
-  ADD KEY `Timeslot_ID` (`Timeslot_ID`);
+ALTER TABLE `city`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `COUNTRY`
+-- Indexes for table `consultation`
 --
-ALTER TABLE `COUNTRY`
-  ADD PRIMARY KEY (`Country_ID`);
+ALTER TABLE `consultation`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `EMPLOYEE`
+-- Indexes for table `country`
 --
-ALTER TABLE `EMPLOYEE`
-  ADD PRIMARY KEY (`Employee_ID`),
-  ADD KEY `Employee_Type_ID` (`Employee_Type_ID`);
+ALTER TABLE `country`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `EMPLOYEE_ACCESS`
+-- Indexes for table `employee`
 --
-ALTER TABLE `EMPLOYEE_ACCESS`
-  ADD KEY `Employee_Type_ID` (`Employee_Type_ID`),
-  ADD KEY `Access_Level_ID` (`Access_Level_ID`);
+ALTER TABLE `employee`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `EMPLOYEE_TYPE`
+-- Indexes for table `gender`
 --
-ALTER TABLE `EMPLOYEE_TYPE`
-  ADD PRIMARY KEY (`Employee_Type_ID`);
+ALTER TABLE `gender`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `GENDER`
+-- Indexes for table `illness_history`
 --
-ALTER TABLE `GENDER`
-  ADD PRIMARY KEY (`Gender_ID`);
+ALTER TABLE `illness_history`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ILLNESS_HISTORY`
+-- Indexes for table `invoice`
 --
-ALTER TABLE `ILLNESS_HISTORY`
-  ADD PRIMARY KEY (`Illness_History_ID`);
+ALTER TABLE `invoice`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `MEDICAL_AID`
+-- Indexes for table `medical_aid`
 --
-ALTER TABLE `MEDICAL_AID`
-  ADD PRIMARY KEY (`Medical_Aid_ID`),
-  ADD KEY `Medical_Aid_Type_ID` (`Medical_Aid_Type_ID`);
+ALTER TABLE `medical_aid`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `MEDICAL_AID_TYPE`
+-- Indexes for table `order`
 --
-ALTER TABLE `MEDICAL_AID_TYPE`
-  ADD PRIMARY KEY (`Medical_Aid_Type_ID`);
+ALTER TABLE `order`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `MEMBER_TYPE`
+-- Indexes for table `patient`
 --
-ALTER TABLE `MEMBER_TYPE`
-  ADD PRIMARY KEY (`Member_Type_ID`);
+ALTER TABLE `patient`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ORDERS`
+-- Indexes for table `payment`
 --
-ALTER TABLE `ORDERS`
-  ADD PRIMARY KEY (`Order_ID`),
-  ADD KEY `Supplier_ID` (`Supplier_ID`);
+ALTER TABLE `payment`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `PATIENT_ILLNESS_HISTORY`
+-- Indexes for table `practice_location`
 --
-ALTER TABLE `PATIENT_ILLNESS_HISTORY`
-  ADD PRIMARY KEY (`Patient_Illness_History_ID`),
-  ADD KEY `Illness_History_ID` (`Illness_History_ID`);
+ALTER TABLE `practice_location`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `PATIENT_TYPE`
+-- Indexes for table `prescription`
 --
-ALTER TABLE `PATIENT_TYPE`
-  ADD PRIMARY KEY (`Patient_Type_ID`);
+ALTER TABLE `prescription`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `PAYMENT_TYPE`
+-- Indexes for table `procedure`
 --
-ALTER TABLE `PAYMENT_TYPE`
-  ADD PRIMARY KEY (`Patient_Type_ID`);
+ALTER TABLE `procedure`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `PHYSICAL_ADDRESS`
+-- Indexes for table `product`
 --
-ALTER TABLE `PHYSICAL_ADDRESS`
-  ADD PRIMARY KEY (`Physical_Address_ID`),
-  ADD KEY `City_ID` (`City_ID`);
+ALTER TABLE `product`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `POSTAL_ADDRESS`
+-- Indexes for table `province`
 --
-ALTER TABLE `POSTAL_ADDRESS`
-  ADD PRIMARY KEY (`Postal_Address_ID`),
-  ADD KEY `City_ID` (`City_ID`);
+ALTER TABLE `province`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `PRACTICE_LOCATION`
+-- Indexes for table `schedule`
 --
-ALTER TABLE `PRACTICE_LOCATION`
-  ADD PRIMARY KEY (`Practice_Location_ID`);
+ALTER TABLE `schedule`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `PROCEDURE_TYPE`
+-- Indexes for table `stock`
 --
-ALTER TABLE `PROCEDURE_TYPE`
-  ADD PRIMARY KEY (`Procedure_Type_ID`);
+ALTER TABLE `stock`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `PRODUCT_TYPE`
+-- Indexes for table `stock_writeoff`
 --
-ALTER TABLE `PRODUCT_TYPE`
-  ADD PRIMARY KEY (`Product_Type_ID`);
+ALTER TABLE `stock_writeoff`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `PROVINCE`
+-- Indexes for table `supplier`
 --
-ALTER TABLE `PROVINCE`
-  ADD PRIMARY KEY (`Province_ID`),
-  ADD KEY `Country_ID` (`Country_ID`);
+ALTER TABLE `supplier`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `SCHEDULE`
+-- Indexes for table `timeslot`
 --
-ALTER TABLE `SCHEDULE`
-  ADD PRIMARY KEY (`Schedule_ID`),
-  ADD KEY `Employee_ID` (`Employee_ID`),
-  ADD KEY `Time_Slot_ID` (`Timeslot_ID`),
-  ADD KEY `Employee_Type_ID` (`Employee_Type_ID`),
-  ADD KEY `Practice_Location_ID` (`Practice_Location_ID`);
+ALTER TABLE `timeslot`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `STOCK`
+-- Indexes for table `title`
 --
-ALTER TABLE `STOCK`
-  ADD PRIMARY KEY (`Stock_ID`);
+ALTER TABLE `title`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `STOCK_ORDER`
+-- Indexes for table `type_booking`
 --
-ALTER TABLE `STOCK_ORDER`
-  ADD PRIMARY KEY (`Stock_Order_ID`),
-  ADD KEY `Supplier_ID` (`Supplier_ID`),
-  ADD KEY `Stock_ID` (`Stock_ID`);
+ALTER TABLE `type_booking`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `SUPPLIER`
+-- Indexes for table `type_employee`
 --
-ALTER TABLE `SUPPLIER`
-  ADD PRIMARY KEY (`Supplier_ID`);
+ALTER TABLE `type_employee`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `TIMESLOT`
+-- Indexes for table `type_medical_aid`
 --
-ALTER TABLE `TIMESLOT`
-  ADD PRIMARY KEY (`Timeslot_ID`);
+ALTER TABLE `type_medical_aid`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `TITLE`
+-- Indexes for table `type_member`
 --
-ALTER TABLE `TITLE`
-  ADD PRIMARY KEY (`Title_ID`);
+ALTER TABLE `type_member`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `type_patient`
+--
+ALTER TABLE `type_patient`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `type_payment`
+--
+ALTER TABLE `type_payment`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `type_procedure`
+--
+ALTER TABLE `type_procedure`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `type_product`
+--
+ALTER TABLE `type_product`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `ACCESS_LEVEL`
+-- AUTO_INCREMENT for table `access_level`
 --
-ALTER TABLE `ACCESS_LEVEL`
-  MODIFY `Access_Level_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `access_level`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `AUDIT_LOG`
+-- AUTO_INCREMENT for table `address_postal`
 --
-ALTER TABLE `AUDIT_LOG`
-  MODIFY `Audit_Log_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `address_postal`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `BOOKING_TYPE`
+-- AUTO_INCREMENT for table `address_pyhsical`
 --
-ALTER TABLE `BOOKING_TYPE`
-  MODIFY `Booking_Type_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `address_pyhsical`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `CITY`
+-- AUTO_INCREMENT for table `audit_log`
 --
-ALTER TABLE `CITY`
-  MODIFY `City_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `audit_log`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `CONSULTATION`
+-- AUTO_INCREMENT for table `city`
 --
-ALTER TABLE `CONSULTATION`
-  MODIFY `Consultation_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `city`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `COUNTRY`
+-- AUTO_INCREMENT for table `consultation`
 --
-ALTER TABLE `COUNTRY`
-  MODIFY `Country_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `consultation`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `EMPLOYEE`
+-- AUTO_INCREMENT for table `country`
 --
-ALTER TABLE `EMPLOYEE`
-  MODIFY `Employee_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `country`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `EMPLOYEE_TYPE`
+-- AUTO_INCREMENT for table `employee`
 --
-ALTER TABLE `EMPLOYEE_TYPE`
-  MODIFY `Employee_Type_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `employee`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT for table `GENDER`
+-- AUTO_INCREMENT for table `gender`
 --
-ALTER TABLE `GENDER`
-  MODIFY `Gender_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `gender`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `ILLNESS_HISTORY`
+-- AUTO_INCREMENT for table `illness_history`
 --
-ALTER TABLE `ILLNESS_HISTORY`
-  MODIFY `Illness_History_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `illness_history`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `MEDICAL_AID`
+-- AUTO_INCREMENT for table `invoice`
 --
-ALTER TABLE `MEDICAL_AID`
-  MODIFY `Medical_Aid_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `invoice`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `MEDICAL_AID_TYPE`
+-- AUTO_INCREMENT for table `medical_aid`
 --
-ALTER TABLE `MEDICAL_AID_TYPE`
-  MODIFY `Medical_Aid_Type_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `medical_aid`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `MEMBER_TYPE`
+-- AUTO_INCREMENT for table `order`
 --
-ALTER TABLE `MEMBER_TYPE`
-  MODIFY `Member_Type_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `order`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `ORDERS`
+-- AUTO_INCREMENT for table `patient`
 --
-ALTER TABLE `ORDERS`
-  MODIFY `Order_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `patient`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `PATIENT_ILLNESS_HISTORY`
+-- AUTO_INCREMENT for table `payment`
 --
-ALTER TABLE `PATIENT_ILLNESS_HISTORY`
-  MODIFY `Patient_Illness_History_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `payment`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `PATIENT_TYPE`
+-- AUTO_INCREMENT for table `practice_location`
 --
-ALTER TABLE `PATIENT_TYPE`
-  MODIFY `Patient_Type_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `practice_location`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `PAYMENT_TYPE`
+-- AUTO_INCREMENT for table `prescription`
 --
-ALTER TABLE `PAYMENT_TYPE`
-  MODIFY `Patient_Type_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `prescription`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `PHYSICAL_ADDRESS`
+-- AUTO_INCREMENT for table `procedure`
 --
-ALTER TABLE `PHYSICAL_ADDRESS`
-  MODIFY `Physical_Address_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `procedure`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `POSTAL_ADDRESS`
+-- AUTO_INCREMENT for table `product`
 --
-ALTER TABLE `POSTAL_ADDRESS`
-  MODIFY `Postal_Address_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `product`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `PRACTICE_LOCATION`
+-- AUTO_INCREMENT for table `province`
 --
-ALTER TABLE `PRACTICE_LOCATION`
-  MODIFY `Practice_Location_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `province`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
--- AUTO_INCREMENT for table `PROCEDURE_TYPE`
+-- AUTO_INCREMENT for table `schedule`
 --
-ALTER TABLE `PROCEDURE_TYPE`
-  MODIFY `Procedure_Type_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `schedule`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
 --
--- AUTO_INCREMENT for table `PRODUCT_TYPE`
+-- AUTO_INCREMENT for table `stock`
 --
-ALTER TABLE `PRODUCT_TYPE`
-  MODIFY `Product_Type_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `stock`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `PROVINCE`
+-- AUTO_INCREMENT for table `stock_writeoff`
 --
-ALTER TABLE `PROVINCE`
-  MODIFY `Province_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `stock_writeoff`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `SCHEDULE`
+-- AUTO_INCREMENT for table `supplier`
 --
-ALTER TABLE `SCHEDULE`
-  MODIFY `Schedule_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `supplier`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `STOCK`
+-- AUTO_INCREMENT for table `timeslot`
 --
-ALTER TABLE `STOCK`
-  MODIFY `Stock_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `timeslot`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
--- AUTO_INCREMENT for table `STOCK_ORDER`
+-- AUTO_INCREMENT for table `title`
 --
-ALTER TABLE `STOCK_ORDER`
-  MODIFY `Stock_Order_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `title`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `SUPPLIER`
+-- AUTO_INCREMENT for table `type_booking`
 --
-ALTER TABLE `SUPPLIER`
-  MODIFY `Supplier_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `type_booking`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `TIMESLOT`
+-- AUTO_INCREMENT for table `type_employee`
 --
-ALTER TABLE `TIMESLOT`
-  MODIFY `Timeslot_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `type_employee`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `TITLE`
+-- AUTO_INCREMENT for table `type_medical_aid`
 --
-ALTER TABLE `TITLE`
-  MODIFY `Title_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `type_medical_aid`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for table `type_member`
 --
-
+ALTER TABLE `type_member`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- Constraints for table `AUDIT_LOG`
+-- AUTO_INCREMENT for table `type_patient`
 --
-ALTER TABLE `AUDIT_LOG`
-  ADD CONSTRAINT `AUDIT_LOG_ibfk_1` FOREIGN KEY (`Employee_ID`) REFERENCES `EMPLOYEE` (`Employee_ID`);
-
+ALTER TABLE `type_patient`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- Constraints for table `CITY`
+-- AUTO_INCREMENT for table `type_payment`
 --
-ALTER TABLE `CITY`
-  ADD CONSTRAINT `CITY_ibfk_1` FOREIGN KEY (`Country_ID`) REFERENCES `COUNTRY` (`Country_ID`);
-
+ALTER TABLE `type_payment`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- Constraints for table `CONSULTATION`
+-- AUTO_INCREMENT for table `type_procedure`
 --
-ALTER TABLE `CONSULTATION`
-  ADD CONSTRAINT `CONSULTATION_ibfk_1` FOREIGN KEY (`Booking_Type_ID`) REFERENCES `BOOKING_TYPE` (`Booking_Type_ID`),
-  ADD CONSTRAINT `CONSULTATION_ibfk_2` FOREIGN KEY (`Employee_ID`) REFERENCES `EMPLOYEE` (`Employee_ID`),
-  ADD CONSTRAINT `CONSULTATION_ibfk_3` FOREIGN KEY (`Practice_Location_ID`) REFERENCES `PRACTICE_LOCATION` (`Practice_Location_ID`),
-  ADD CONSTRAINT `CONSULTATION_ibfk_4` FOREIGN KEY (`Practice_Location_ID`) REFERENCES `PRACTICE_LOCATION` (`Practice_Location_ID`),
-  ADD CONSTRAINT `CONSULTATION_ibfk_5` FOREIGN KEY (`Schedule_ID`) REFERENCES `SCHEDULE` (`Schedule_ID`),
-  ADD CONSTRAINT `CONSULTATION_ibfk_6` FOREIGN KEY (`Employee_Type_ID`) REFERENCES `EMPLOYEE_TYPE` (`Employee_Type_ID`),
-  ADD CONSTRAINT `CONSULTATION_ibfk_7` FOREIGN KEY (`Timeslot_ID`) REFERENCES `TIMESLOT` (`Timeslot_ID`);
-
+ALTER TABLE `type_procedure`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- Constraints for table `EMPLOYEE`
+-- AUTO_INCREMENT for table `type_product`
 --
-ALTER TABLE `EMPLOYEE`
-  ADD CONSTRAINT `EMPLOYEE_ibfk_1` FOREIGN KEY (`Employee_Type_ID`) REFERENCES `EMPLOYEE_TYPE` (`Employee_Type_ID`);
-
---
--- Constraints for table `EMPLOYEE_ACCESS`
---
-ALTER TABLE `EMPLOYEE_ACCESS`
-  ADD CONSTRAINT `EMPLOYEE_ACCESS_ibfk_1` FOREIGN KEY (`Employee_Type_ID`) REFERENCES `EMPLOYEE_TYPE` (`Employee_Type_ID`),
-  ADD CONSTRAINT `EMPLOYEE_ACCESS_ibfk_2` FOREIGN KEY (`Access_Level_ID`) REFERENCES `ACCESS_LEVEL` (`Access_Level_ID`);
-
---
--- Constraints for table `MEDICAL_AID`
---
-ALTER TABLE `MEDICAL_AID`
-  ADD CONSTRAINT `MEDICAL_AID_ibfk_1` FOREIGN KEY (`Medical_Aid_Type_ID`) REFERENCES `MEDICAL_AID_TYPE` (`Medical_Aid_Type_ID`);
-
---
--- Constraints for table `ORDERS`
---
-ALTER TABLE `ORDERS`
-  ADD CONSTRAINT `ORDERS_ibfk_1` FOREIGN KEY (`Supplier_ID`) REFERENCES `SUPPLIER` (`Supplier_ID`);
-
---
--- Constraints for table `PATIENT_ILLNESS_HISTORY`
---
-ALTER TABLE `PATIENT_ILLNESS_HISTORY`
-  ADD CONSTRAINT `PATIENT_ILLNESS_HISTORY_ibfk_1` FOREIGN KEY (`Illness_History_ID`) REFERENCES `ILLNESS_HISTORY` (`Illness_History_ID`);
-
---
--- Constraints for table `PHYSICAL_ADDRESS`
---
-ALTER TABLE `PHYSICAL_ADDRESS`
-  ADD CONSTRAINT `PHYSICAL_ADDRESS_ibfk_1` FOREIGN KEY (`City_ID`) REFERENCES `CITY` (`City_ID`);
-
---
--- Constraints for table `POSTAL_ADDRESS`
---
-ALTER TABLE `POSTAL_ADDRESS`
-  ADD CONSTRAINT `POSTAL_ADDRESS_ibfk_1` FOREIGN KEY (`City_ID`) REFERENCES `CITY` (`City_ID`);
-
---
--- Constraints for table `PROVINCE`
---
-ALTER TABLE `PROVINCE`
-  ADD CONSTRAINT `PROVINCE_ibfk_1` FOREIGN KEY (`Country_ID`) REFERENCES `COUNTRY` (`Country_ID`);
-
---
--- Constraints for table `SCHEDULE`
---
-ALTER TABLE `SCHEDULE`
-  ADD CONSTRAINT `SCHEDULE_ibfk_1` FOREIGN KEY (`Employee_ID`) REFERENCES `EMPLOYEE` (`Employee_ID`),
-  ADD CONSTRAINT `SCHEDULE_ibfk_2` FOREIGN KEY (`Timeslot_ID`) REFERENCES `TIMESLOT` (`Timeslot_ID`),
-  ADD CONSTRAINT `SCHEDULE_ibfk_3` FOREIGN KEY (`Employee_Type_ID`) REFERENCES `EMPLOYEE_TYPE` (`Employee_Type_ID`),
-  ADD CONSTRAINT `SCHEDULE_ibfk_4` FOREIGN KEY (`Practice_Location_ID`) REFERENCES `PRACTICE_LOCATION` (`Practice_Location_ID`);
-
---
--- Constraints for table `STOCK_ORDER`
---
-ALTER TABLE `STOCK_ORDER`
-  ADD CONSTRAINT `STOCK_ORDER_ibfk_1` FOREIGN KEY (`Supplier_ID`) REFERENCES `SUPPLIER` (`Supplier_ID`),
-  ADD CONSTRAINT `STOCK_ORDER_ibfk_2` FOREIGN KEY (`Stock_ID`) REFERENCES `STOCK` (`Stock_ID`);
-
+ALTER TABLE `type_product`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
