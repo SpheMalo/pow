@@ -244,7 +244,21 @@
     }
   }
 
-  function addEmployee($title, $name, $surname, $gender, $id, $banking, $cell, $tell, $email, $postal, $physical, $type)
+  function addAddresses($postal, $physical)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+
+    }
+    catch(PDOException $e)
+    {
+      return false;
+    }
+  }
+
+  function addEmployee($name, $surname, $id, $cell, $tell, $email, $banking, $postal, $physical, $gender, $title, $type)
   {
     require 'dbconn.php';
     
@@ -257,7 +271,7 @@
     
     try
     {
-      $s = "insert into employee (titleID, name, surname, username, password, genderID, id_number, banking_details, cellphone, email, address_postalID, address_physicalID, employee_typeID) values (" . $title . ",'" . $name . "','" .  $surname . "','" .  $user . "','" . $pass . "'," . $gender . "," . $id . ",'" . $banking . "'," . $cell . ",'" . $email . "','" . $postal . "','" . $physical . "'," . $type . ")";
+      $s = "insert into employee (name, surname, id_number, username, password, cellphone, telephone, email, status, banking_details, address_postalID, address_physicalID, genderID, titleID, employee_typeID) values ('" . $name . "','" . $surname . "'," .  $id . ",'" .  $user . "','" . $pass . "'," . $cell . "," . $tell . ",'" . $email . "','active','" . $banking . "'," . $postal . "," . $physical . "," . $gender . "," . $title . "," . $type . ")";
       $r = $pdo->exec($s);
     }
     catch(PDOException $e)
