@@ -59,7 +59,7 @@
           <legend>medical aid details</legend>
           <div>
             <label for="name">name:</label>
-            <input type="text" name="name" placeholder="enter medical aid name eg. Bonitas" pattern="[a-zA-Z0-9-]" required title="only alphanumeric characters with no spaces" />
+            <input type="text" name="name" placeholder="enter medical aid name eg. Bonitas" pattern="[a-zA-Z0-9]" required title="only alphanumeric characters with no spaces" />
             <label for="tel">telephone:</label>
             <input type="tel" name="tel" placeholder="enter medical aid telephone number eg. 0112478832" required pattern="[0-9]{10}" title="a number of 10 characters"/>
             <label for="physical">physical address:</label>
