@@ -7,6 +7,7 @@
   {
     $_SESSION['page'] = "add employee";
     $emp = $_SESSION['emp'];
+    $o = "";
     
     $tList = loadTitleList();
     $gList = loadGenderList();
@@ -17,9 +18,7 @@
     header("Location: ../../../login/");
   }
 
-  $o = "";
-
-  if (isset($_POST['s_new_emp']))
+  if (isset($_POST['add_new_emp']))
   {
     $empDet = addEmployee($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['gender'], $_POST['id'], $_POST['banking'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical'], $_POST['type']);
     
@@ -157,7 +156,7 @@
           </div>          
         </fieldset>
         
-        <input type="submit" name="s_new_emp" value="Add Employee" class="submit"/>
+        <input type="submit" name="add_new_emp" value="Add Employee" class="submit"/>
         
       </form>
       
