@@ -250,7 +250,7 @@
 
     try
     {
-
+      $s = "insert into address_postal()";
     }
     catch(PDOException $e)
     {
@@ -782,7 +782,7 @@
     {
       return false;
     }
-}
+  }
 
 function addSupplier($name, $contactPerson , $email, $telephone, $fax, $physical, $bank, $branchN, $branchC, $accNum, $ref)
 {
