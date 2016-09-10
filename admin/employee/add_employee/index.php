@@ -119,19 +119,11 @@
             <!--<textarea name="physical" class="empPhysical" placeholder="enter employee physical address eg. 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>-->
             <!--<input type="text" name="add_line1" placeholder="unit number"/>
             <input type="text" name="add_line1" placeholder="complex name"/>-->
-<<<<<<< HEAD
-            <input type="text" name="add_line1" placeholder="Enter street number e.g. 395" required pattern="[a-zA-Z0-9]{1,10}" title="A maximum of 5 characters with no spaces"/>
-            <input type="text" name="add_line1" placeholder="Enter street name e.g. Pongola River" required pattern="[a-zA-Z]{1,50}" title="A maximum of 50 characters with spaces"/>
-            <input type="text" name="add_line1" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[a-zA-Z]{1,50}" title="A maximum of 50 characters with spaces"/>
-            <input type="text" name="add_line1" placeholder="Enter town/ city e.g. Johannesburg"/>
-            <input type="text" name="add_line1" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{1,50}" title="A number limited to 4 digits"/>
-=======
-            <input type="text" name="add_line_ph1" placeholder="street number"/>
-            <input type="text" name="add_line_ph2" placeholder="street name"/>
-            <input type="text" name="add_line_ph3" placeholder="suburb/ distric"/>
-            <input type="text" name="add_line_ph4" placeholder="town/ city"/>
-            <input type="text" name="add_line_ph5" placeholder="postal code"/>
->>>>>>> f9e819abce3950e780948781ad28074147519a55
+            <input type="text" name="add_line_ph1" placeholder="Enter street number e.g. 395" required pattern="[a-zA-Z0-9]{1,10}" title="A maximum of 5 characters with no spaces"/>
+            <input type="text" name="add_line_ph2" placeholder="Enter street name e.g. Pongola River" required pattern="[a-zA-Z]{1,50}" title="A maximum of 50 characters with spaces"/>
+            <input type="text" name="add_line_ph3" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[a-zA-Z]{1,50}" title="A maximum of 50 characters with spaces"/>
+            <input type="text" name="add_line_ph4" placeholder="Enter town/ city e.g. Johannesburg"/>
+            <input type="text" name="add_line_ph5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{1,50}" title="A number limited to 4 digits"/>
           </div>
 
           <div>
@@ -141,21 +133,12 @@
             <input type="tel" name="tell" placeholder="Enter employee telephone number eg. 0112478832" required pattern="[0-9]{10,10}" title="A number of 10 characters" class="display"/>
             <label for="postal">postal address:</label>
             <!--<textarea name="postal" placeholder="enter employee postal address eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>-->
-<<<<<<< HEAD
-            <input type="text" name="add_line1" placeholder="address line 1" required pattern="[a-zA-Z0-9]{1,10}" title="A maximum of 5 characters with no spaces"/>
-            <input type="text" name="add_line1" placeholder="address line 2" required pattern="[a-zA-Z0-9]{1,50}" title="A maximum of 50 characters with no spaces"/>
-            <input type="text" name="add_line1" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[a-zA-Z0-9]{1,50}" title="A maximum of 50 characters with no spaces"/>
-            <input type="text" name="add_line1" placeholder="Enter town/ city e.g. Johannesburg""/>
-            <input type="text" name="add_line1" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{1,50}" title="A number limited to 4 digits"/>
+            <input type="text" name="add_line_po1" placeholder="address line 1" required pattern="[a-zA-Z0-9]{1,10}" title="A maximum of 5 characters with no spaces"/>
+            <input type="text" name="add_line_po1" placeholder="address line 2" required pattern="[a-zA-Z0-9]{1,50}" title="A maximum of 50 characters with no spaces"/>
+            <input type="text" name="add_line_po1" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[a-zA-Z0-9]{1,50}" title="A maximum of 50 characters with no spaces"/>
+            <input type="text" name="add_line_po1" placeholder="Enter town/ city e.g. Johannesburg"/>
+            <input type="text" name="add_line_po1" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{1,50}" title="A number limited to 4 digits"/>
             <button class="submit" title="Copy physical address to postal address">same postal as physical</button>
-=======
-            <input type="text" name="add_line_po1" placeholder="address line 1"/>
-            <input type="text" name="add_line_po2" placeholder="address line 2"/>
-            <input type="text" name="add_line_po3" placeholder="suburb/ distric"/>
-            <input type="text" name="add_line_po4" placeholder="town/ city"/>
-            <input type="text" name="add_line_po5" placeholder="postal code"/>
-            <button class="submit" title="copy physical address to postal address">same postal as physical</button>
->>>>>>> f9e819abce3950e780948781ad28074147519a55
           </div>
           
         </fieldset>
