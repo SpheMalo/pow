@@ -143,16 +143,30 @@
             <label for="email">email:</label>
             <input type="email" name="email" placeholder="enter employee email eg. employee@example.co.za" required />
             
-            <label for="postal">postal address:</label>
-            <textarea name="postal" placeholder="enter employee postal address eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>
-            <button class="submit" title="copy physical address to postal address">same postal as physical</button>
+            <label for="physical" >physical address:</label>
+            <!--<textarea name="physical" class="empPhysical" placeholder="enter employee physical address eg. 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>-->
+            <!--<input type="text" name="add_line1" placeholder="unit number"/>
+            <input type="text" name="add_line1" placeholder="complex name"/>-->
+            <input type="text" name="add_line1" placeholder="street number"/>
+            <input type="text" name="add_line1" placeholder="street name"/>
+            <input type="text" name="add_line1" placeholder="suburb/ distric"/>
+            <input type="text" name="add_line1" placeholder="town/ city"/>
+            <input type="text" name="add_line1" placeholder="postal code"/>
           </div>
 
           <div>
             <label for="tell">telephone:</label>
             <input type="tel" name="tell" placeholder="enter employee telephone number eg. 0112478832" required pattern="[0-9]{10,10}" title="a number of 10 characters"/>
-            <label for="physical" >physical address:</label>
-            <textarea name="physical" class="empPhysical" placeholder="enter employee physical address eg. 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>
+            <label for="tell" class="display">telephone:</label>
+            <input type="tel" name="tell" placeholder="enter employee telephone number eg. 0112478832" required pattern="[0-9]{10,10}" title="a number of 10 characters" class="display"/>
+            <label for="postal">postal address:</label>
+            <!--<textarea name="postal" placeholder="enter employee postal address eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>-->
+            <input type="text" name="add_line1" placeholder="address line 1"/>
+            <input type="text" name="add_line1" placeholder="address line 2"/>
+            <input type="text" name="add_line1" placeholder="suburb/ distric"/>
+            <input type="text" name="add_line1" placeholder="town/ city"/>
+            <input type="text" name="add_line1" placeholder="postal code"/>
+            <button class="submit" title="copy physical address to postal address">same postal as physical</button>
           </div>
           
         </fieldset>
