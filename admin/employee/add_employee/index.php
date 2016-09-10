@@ -121,7 +121,7 @@
             <input type="text" name="add_line1" placeholder="complex name"/>-->
             <input type="text" name="add_line_ph1" placeholder="street number"/>
             <input type="text" name="add_line_ph2" placeholder="street name"/>
-            <input type="text" name="add_line_ph3" placeholder="suburb/ distric"/>
+            <input type="text" name="add_line_ph3" placeholder="suburb/ district"/>
             <input type="text" name="add_line_ph4" placeholder="town/ city"/>
             <input type="text" name="add_line_ph5" placeholder="postal code"/>
           </div>
