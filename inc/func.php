@@ -247,14 +247,44 @@
   function addAddresses($postal, $physical)
   {
     require 'dbconn.php';
+    $o[] = array(
+      'postal' => null,
+      'physical' => null
+    );
 
     try
     {
-      $s = "insert into address_postal()";
+      $s = "insert into address_postal(number, street, suburb, postal_code, cityID) values ('" . $postal['number'] . "', '" . $postal['street'] . "', '" . $postal['suburb'] . "', " . $postal['code'] . ", " . $postal['city'] . ")";
+      $r1 = $pdo->exec($s);
+    }
+    catch(PDOException $e)
+    {}
+
+    try
+    {
+      $s = "select id from address_postal where number = '" . $postal['number'] . "' and street = '" . $postal['street'] . "' and suburb = '" . $postal['suburb'] . "' and postal_code = " . $postal['code'] . " and cityID = " . $postal['city'];
+      $r11 = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {}
+
+    if ($r11->rowCount() > 0)
+    {
+      while ($row = $r11->fetch())
+      {
+        $o['postal'] = $row['id'];
+      }
+    }
+
+    try
+    {
+      $s = "insert into address_physical(number, street, suburb, postal_code, cityID) values ('" . $physical['number'] . "', '" . $physical['street'] . "', '" . $physical['suburb'] . "', " . $physical['code'] . ", " . $physical['city'] . ")";
+      $r = $pdo->query($s);
     }
     catch(PDOException $e)
     {
-      return false;
+      $o = $o . " physical";
+      return $o;
     }
   }
 
