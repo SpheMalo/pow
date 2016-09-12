@@ -7,28 +7,42 @@
   {
     $_SESSION['page'] = "add medical aid";
     $emp = $_SESSION['emp'];
-    
+    $o = "";
   }
   else
   {
     header("Location: ../../../login/");
   }
 
-  $o = "";
-
-  if (isset($_POST['s_new_med']))
+  if (isset($_POST['add_new_med']))
   {
-    $med = addMed($_POST['name'], $_POST['email'], $_POST['tel'], $_POST['fax'], $_POST['physical'], $_POST['postal']);
+    $postal[] = array(
+      'number' => $_POST['add_line_po1'],
+      'street' => $_POST['add_line_po2'],
+      'suburb' => $_POST['add_line_po3'],
+      'code' => $_POST['add_line_po5'],
+      'city' => $_POST['add_line_po4']
+    );
 
-    if (count($med) == true)
+    $physical[] = array(
+      'number' => $_POST['add_line_ph1'],
+      'street' => $_POST['add_line_ph2'],
+      'suburb' => $_POST['add_line_ph3'],
+      'code' => $_POST['add_line_ph5'],
+      'city' => $_POST['add_line_ph4']
+    );
+
+    $types = array($_POST['type1'], $_POST['type2'], $_POST['type3'], $_POST['type4'], $_POST['type5']);
+
+    if (addMed($_POST['name'], $_POST['email'], $_POST['tel'], $_POST['fax'], $physical, $postal))
     {
-      $o = "<script type=\"text/javascript\">alert(\"The medical has been added successfuly\");</script>";
-      //header("Location: ?u=" . $empDet[0] . "&p=" . $empDet[1]);
+      $o = "The medical has been added successfuly";
     }
     else
     {
-      $o = "<script type=\"text/javascript\">alert(\"The new medical aid was not added due to a server error\");</script>";
+      $o = "The medical aid could not added due to a server error";
     }
+
   }
 ?>
 
@@ -66,11 +80,11 @@
             <!--<textarea name="physical" class="empPhysical" placeholder="enter employee physical address eg. 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>-->
             <!--<input type="text" name="add_line1" placeholder="unit number"/>
             <input type="text" name="add_line1" placeholder="complex name"/>-->
-            <input type="text" name="add_line1" placeholder="Enter street number e.g. 395" required pattern="[A-Za-z0-9]{1,5}" title="A maximum of 5 characters"/>
-            <input type="text" name="add_line2" placeholder="Enter street name e.g. Pongola Drive" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
-            <input type="text" name="add_line3" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
-            <input type="text" name="add_line4" placeholder="Town/ City"/>
-            <input type="text" name="add_line5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]" title="A maximum of 4 digits with no spaces"/>
+            <input type="text" name="add_line_ph1" id="add_line_ph1" placeholder="Enter street number e.g. 395" required pattern="[A-Za-z0-9]{1,5}" title="A maximum of 5 characters"/>
+            <input type="text" name="add_line_ph2" id="add_line_ph2" placeholder="Enter street name e.g. Pongola Drive" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
+            <input type="text" name="add_line_ph3" id="add_line_ph3" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
+            <input type="text" name="add_line_ph4" id="add_line_ph4" placeholder="Town/ City"/>
+            <input type="text" name="add_line_ph5" id="add_line_ph5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]" title="A maximum of 4 digits with no spaces"/>
           </div>
 
           <div>
@@ -80,11 +94,11 @@
             <input type="tel" name="fax" placeholder="Enter medical aid fax number eg. 0112478832" required pattern="[0-9]{10}" title="A number of 10 characters with no spaces"/>
             <label for="postal">postal address:</label>
             <!--<textarea name="postal" placeholder="enter employee postal address eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>-->
-            <input type="text" name="add_line1" placeholder="Address line 1"/>
-            <input type="text" name="add_line1" placeholder="Address line 2"/>
-            <input type="text" name="add_line1" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
-            <input type="text" name="add_line1" placeholder="Town/ City"/>
-            <input type="text" name="add_line1" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]" title="A maximum of 4 digits with no spaces"/>
+            <input type="text" name="add_line_po1" id="add_line_po1" placeholder="Address line 1"/>
+            <input type="text" name="add_line_po2" id="add_line_po2" placeholder="Address line 2"/>
+            <input type="text" name="add_line_po3" id="add_line_po3" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
+            <input type="text" name="add_line_po4" id="add_line_po4" placeholder="Town/ City"/>
+            <input type="text" name="add_line_po5" id="add_line_po5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]" title="A maximum of 4 digits with no spaces"/>
             <button class="submit" title="copy physical address to postal address">same postal as physical</button>
           </div>
         </fieldset>
@@ -93,15 +107,15 @@
           <legend>medical aid packages</legend>
           <div>
             <label>types:</label>
-            <input type="text" name="type1" placeHolder="Medical Aid Type 1" pattern="[a-zA-Z0-9-]" required title="only alphanumeric characters with no spaces"/>
-            <input type="text" name="type2" placeHolder="Medical Aid Type 2" pattern="[a-zA-Z0-9-]" required title="only alphanumeric characters with no spaces"/>
-            <input type="text" name="type3" placeHolder="Medical Aid Type 3" pattern="[a-zA-Z0-9-]" required title="only alphanumeric characters with no spaces"/>
-            <input type="text" name="type4" placeHolder="Medical Aid Type 4" pattern="[a-zA-Z0-9-]" required title="only alphanumeric characters with no spaces"/>
-            <input type="text" name="type5" placeHolder="Medical Aid Type 5" pattern="[a-zA-Z0-9-]" required title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type1" placeHolder="type1" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type2" placeHolder="type2" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type3" placeHolder="type3" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type4" placeHolder="type4" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type5" placeHolder="type5" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
           </div>
         </fieldset>
         
-        <input type="submit" name="s_new_med" value="Add Medical Aid" class="submit"/>
+        <input type="submit" name="add_new_med" value="Add Medical Aid" class="submit"/>
         
       </form>
       
