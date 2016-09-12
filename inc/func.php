@@ -428,7 +428,7 @@
     }
   }
 
-  function addMed($name, $email, $tell, $fax, $physical, $postal)
+  function addMed($name, $postal, $physical, $tell, $fax, $email, $types)
   {
     require 'dbconn.php';
 
@@ -438,21 +438,40 @@
 
     try
     {
-      $s = "insert into medicalaid (name, email, tell, fax, physical, postal) values ('" . $name . "', '" . $email . "', " . $tell . ", '" . $fax . "', " . $a_ph . ", " . $a_po . ")";
+      $s = "insert into medicalaid (name, email, tell, fax, address_physicalID, address_postalID) values ('" . $name . "', '" . $email . "', " . $tell . ", '" . $fax . "', " . $a_ph . ", " . $a_po . ")";
       $r = $pdo->exec($s);
 
       if ($r > 0)
       {
-        return true;
+        try
+        {
+          $s1 = "select id from medical_aid where name = '" . $name . "' and email = '" . $email . "' and telephone = " . $tell . " and fax = " . $fax . " and  address_physicalID = " . $a_ph . " and address_postalID = " . $a_po . " order by id desc";
+          $r1 = $pdo->query($s1);
+        }
+        catch(PDOException $e)
+        {
+          return false;
+        }
+
+        if ($r1->rowCount() > 0)
+        {
+          while ($row = $r1->fetch())
+          {
+            $med = $row['id'];
+          }
+
+          $med_types = addMedType($types, $med);
+          return $med_types;
+        }
       }
       else
       {
-        return false;
+        return "result";
       }
     }
     catch (PDOException $e)
     {
-      return false;
+      return "insert";
     }
   }
 

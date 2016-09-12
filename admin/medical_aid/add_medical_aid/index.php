@@ -32,15 +32,32 @@
       'city' => $_POST['add_line_ph4']
     );
 
-    $types = array($_POST['type1'], $_POST['type2'], $_POST['type3'], $_POST['type4'], $_POST['type5']);
+    $ty = array($_POST['type1'], $_POST['type2'], $_POST['type3'], $_POST['type4'], $_POST['type5']);
 
-    if (addMed($_POST['name'], $_POST['email'], $_POST['tel'], $_POST['fax'], $physical, $postal))
+    foreach($ty as $t)
     {
-      $o = "The medical has been added successfuly";
+      if (isset($t))
+      {
+        $types = array($t);
+      }
+    }
+
+
+    $res = addMed($_POST['name'], $postal, $physical, $_POST['tel'], $_POST['fax'], $_POST['email'], $types);
+    if ($res == "insert")
+    {
+      $o = "The medical aid could not added due to a server error, please try again";
+      echo var_dump($res);
+    }
+    else if ($res == "result")
+    {
+      $o = "The medical aid was not added, please try again";
+      echo var_dump($res);
     }
     else
     {
-      $o = "The medical aid could not added due to a server error";
+      //$o = "The medical has been added successfuly";
+      echo var_dump($res);
     }
 
   }
@@ -73,7 +90,7 @@
           <legend>medical aid details</legend>
           <div>
             <label for="name">name:</label>
-            <input type="text" name="name" placeholder="enter medical aid name eg. Bonitas" pattern="[a-zA-Z]{1,35}" required title="only alphanumeric characters with no spaces" />
+            <input type="text" name="name" placeholder="enter medical aid name eg. Bonitas" pattern="[a-zA-Z ]{1,35}" required title="only alphanumeric characters with no spaces" />
             <label for="tel">telephone:</label>
             <input type="tel" name="tel" placeholder="enter medical aid telephone number eg. 0112478832" required pattern="[0-9]{10}" title="a number of 10 characters"/>
             <label for="physical">physical address:</label>
@@ -107,11 +124,11 @@
           <legend>medical aid packages</legend>
           <div>
             <label>types:</label>
-            <input type="text" name="type1" placeHolder="type1" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
-            <input type="text" name="type2" placeHolder="type2" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
-            <input type="text" name="type3" placeHolder="type3" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
-            <input type="text" name="type4" placeHolder="type4" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
-            <input type="text" name="type5" placeHolder="type5" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type1" placeHolder="type1" pattern="[a-zA-Z0-9 ]{1,255}" title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type2" placeHolder="type2" pattern="[a-zA-Z0-9 ]{1,255}" title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type3" placeHolder="type3" pattern="[a-zA-Z0-9 ]{1,255}" title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type4" placeHolder="type4" pattern="[a-zA-Z0-9 ]{1,255}" title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type5" placeHolder="type5" pattern="[a-zA-Z0-9 ]{1,255}" title="only alphanumeric characters with no spaces"/>
           </div>
         </fieldset>
         
