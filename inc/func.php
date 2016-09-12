@@ -254,16 +254,16 @@
 
     try
     {
-      $s = "insert into address_postal(number, street, suburb, postal_code, cityID) values ('" . $postal['number'] . "', '" . $postal['street'] . "', '" . $postal['suburb'] . "', " . $postal['code'] . ", " . $postal['city'] . ")";
-      $r1 = $pdo->exec($s);
+      $s1 = "insert into address_postal(number, street, suburb, postal_code, cityID) values ('" . $postal[0]['number'] . "', '" . $postal[0]['street'] . "', '" . $postal[0]['suburb'] . "', " . $postal[0]['code'] . ", " . $postal[0]['city'] . ")";
+      $r1 = $pdo->exec($s1);
     }
     catch(PDOException $e)
     {}
 
     try
     {
-      $s = "select id from address_postal where number = '" . $postal['number'] . "' and street = '" . $postal['street'] . "' and suburb = '" . $postal['suburb'] . "' and postal_code = " . $postal['code'] . " and cityID = " . $postal['city'];
-      $r11 = $pdo->query($s);
+      $s2 = "select id from address_postal where number = '" . $postal[0]['number'] . "' and street = '" . $postal[0]['street'] . "' and suburb = '" . $postal[0]['suburb'] . "' and postal_code = " . $postal[0]['code'] . " and cityID = " . $postal[0]['city'] . " order by id desc";
+      $r11 = $pdo->query($s2);
     }
     catch(PDOException $e)
     {}
@@ -272,20 +272,35 @@
     {
       while ($row = $r11->fetch())
       {
-        $o['postal'] = $row['id'];
+        $o[0]['postal'] = $row['id'];
       }
     }
 
     try
     {
-      $s = "insert into address_physical(number, street, suburb, postal_code, cityID) values ('" . $physical['number'] . "', '" . $physical['street'] . "', '" . $physical['suburb'] . "', " . $physical['code'] . ", " . $physical['city'] . ")";
-      $r = $pdo->query($s);
+      $s3 = "insert into `address_pyhsical`(`number`, `street`, `suburb`, `postal_code`, `cityID`) values ('" . $physical[0]['number'] . "', '" . $physical[0]['street'] . "', '" . $physical[0]['suburb'] . "', " . $physical[0]['code'] . ", " . $physical[0]['city'] . ")";
+      $r2 = $pdo->exec($s3);
     }
     catch(PDOException $e)
+    {}
+
+    try
     {
-      $o = $o . " physical";
-      return $o;
+      $s4 = "select id from `address_pyhsical` where number = '" . $physical[0]['number'] . "' and street = '" . $physical[0]['street'] . "' and suburb = '" . $physical[0]['suburb'] . "' and postal_code = " . $physical[0]['code'] . " and cityID = " . $physical[0]['city'] . " order by id desc";
+      $r21 = $pdo->query($s4);
     }
+    catch(PDOException $e)
+    {}
+
+    if ($r21->rowCount() > 0)
+    {
+      while ($row = $r21->fetch())
+      {
+        $o[0]['physical'] = $row['id'];
+      }
+    }
+
+    return $o;
   }
 
   function addEmployee($name, $surname, $id, $cell, $tell, $email, $banking, $postal, $physical, $gender, $title, $type)
@@ -298,10 +313,15 @@
     $user = $name[0] . $name[1] . $name[2] . $ruser;
     $pas = $surname[0] . $surname[1] . $surname[2] . $rpass;
     $pass = password_hash($pas, PASSWORD_DEFAULT);
+
+    $a = addAddresses($postal, $physical);
+    $a_po = $a[0]['postal'];
+    $a_ph = $a[0]['physical'];
     
     try
     {
-      $s = "insert into employee (name, surname, id_number, username, password, cellphone, telephone, email, status, banking_details, address_postalID, address_physicalID, genderID, titleID, employee_typeID) values ('" . $name . "','" . $surname . "'," .  $id . ",'" .  $user . "','" . $pass . "'," . $cell . "," . $tell . ",'" . $email . "','active','" . $banking . "'," . $postal . "," . $physical . "," . $gender . "," . $title . "," . $type . ")";
+      //$s = "insert into `employee`(`name`, `surname`, `id_number`, `username`, `password`, `cellphone`, `telephone`, `email`, `status`, `banking_details`, `address_postalID`, `address_physicalID`, `genderID`, `titleID`, `employee_typeID`) values ('" . $name . "', '" . $surname . "', " . $id . ", '" . $user . "', '" . $pass . "', " . $cell . ", " . $tell . ", '" . $email . "', 'active', '" . $banking . "', " . $a_po . ", " . $a_ph . ", " . $gender . ", " . $title . ", " . $type . ")";
+      $s = "INSERT INTO `employee`(`name`, `surname`, `id_number`, `username`, `password`, `cellphone`, `telephone`, `email`, `status`, `banking_details`, `address_postalID`, `address_physicalID`, `genderID`, `titleID`, `employee_typeID`) VALUES ('" . $name . "', '" . $surname . "', " . $id . ", '" . $user . "', '" . $pass . "', " . $cell . ", " . $tell . ", '" . $email . "', 'active', '" . $banking . "', " . $a_po . ", " . $a_ph . ", " . $gender . ", " . $title . ", " . $type . ")";
       $r = $pdo->exec($s);
     }
     catch(PDOException $e)
@@ -315,7 +335,7 @@
     }
     else
     {
-      return false;
+      return null;
     }
   }
 
@@ -323,24 +343,6 @@
   {
     require 'dbconn.php';
     
-    $ruser = rand(1000, 9999);
-    $rpass = rand(1000, 9999);
-    
-    $user = $name[0] . $name[1] . $name[2] . $ruser;
-    $pas = $surname[0] . $surname[1] . $surname[2] . $rpass;
-    $pass = password_hash($pas, PASSWORD_DEFAULT);
-    
-    try
-    {
-      $s = "insert into employee (title, name, surname, username, password, empType) values (" . $title . ",'" . $name . "','" .  $surname . "','" .  $user . "','" .  $pass . "'," . $type . ")";
-      $r = $pdo->exec($s);
-      
-      return array($user, $pas);
-    }
-    catch(PDOException $e)
-    {
-      return null;
-    }
   }
 
   function loadMedList($in)
@@ -430,17 +432,57 @@
   {
     require 'dbconn.php';
 
+    $a = addAddresses($postal, $physical);
+    $a_po = $a[0]['postal'];
+    $a_ph = $a[0]['physical'];
+
     try
     {
-      $s = "insert into medicalaid (name, email, tell, fax, physical, postal) values ('" . $name . "', '" . $email . "', " . $tell . ", '" . $fax . "', '" . $physical . "', '" . $postal . "')";
+      $s = "insert into medicalaid (name, email, tell, fax, physical, postal) values ('" . $name . "', '" . $email . "', " . $tell . ", '" . $fax . "', " . $a_ph . ", " . $a_po . ")";
       $r = $pdo->exec($s);
 
-      return true;
+      if ($r > 0)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
     }
     catch (PDOException $e)
     {
       return false;
     }
+  }
+
+  function addMedType($desc, $med)
+  {
+    require 'dbconn.php';
+    
+    $c = 0;
+    foreach($desc as $d)
+    {
+      try
+      {
+        $s = "INSERT INTO `type_medical_aid`(`description`, `medical_aidID`) VALUES ('" . $d . "', " . $med . ")";
+        $r = $pdo->exec($s);
+      }
+      catch(PDOException $e)
+      {
+        $fails = array($c);
+      }
+
+      if ($r > 0)
+      {
+        $passes = array($c);
+      }
+
+      $c++;
+    }
+
+    $o = array($fails, $passes);
+    return $o;
   }
 
   function loadPatList($in)

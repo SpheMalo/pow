@@ -55,7 +55,25 @@ function getWeek(datt)
   });
 }
 
+function copyAddress()
+{
+  var a = $('#add_line_ph1').val();
+  var b = $('#add_line_ph2').val();
+  var c = $('#add_line_ph3').val();
+  var d = $('#add_line_ph4').val();
+  var e = $('#add_line_ph5').val();
+  $('#add_line_po1').val(a);
+  $('#add_line_po2').val(b);
+  $('#add_line_po3').val(c);
+  $('#add_line_po4').val(d);
+  $('#add_line_po5').val(e); 
+}
+
 $(document).ready(function(){
+  $('#copy_address').click(function(e){
+    e.preventDefault();
+  });
+
   $('#nav > li > ul').css({
     display: "none",
     left: "auto"
