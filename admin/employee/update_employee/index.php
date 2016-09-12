@@ -99,7 +99,7 @@
             <input type="file" name="proPic"/>
 
             <label for="name" >name:</label>
-            <input type="text" name="name" placeholder="enter employee name eg. Simon" required pattern="[A-Za-z]{1,35}" title="a maximum of 35 letters with no spaces"/>
+            <input type="text" name="name" placeholder="Enter employee name e.g. Simon" required pattern="[A-Za-z]{1,35}" title="A maximum of 35 letters with no spaces"/>
             
             <label for="title" >title:</label>
             <select name="title" >
@@ -118,7 +118,7 @@
             </select>
             
             <label for="id" >id/passport number:</label>
-            <input type="text" name="id" placeholder="enter employee id/passport number eg. 8612170554087" required pattern="[0-9]{13}" title="a number of 13 characters"/>
+            <input type="text" name="id" placeholder="Enter employee id/passport number e.g. 8612170554087" required pattern="[0-9]{13}" title="A number of 13 characters"/>
           </div>
 
           <div>
@@ -127,9 +127,9 @@
             <input type="file" name="proPic" class="display"/>
 
             <label for="surname" >surame:</label>
-            <input type="text" name="surname" placeholder="enter employee surname eg. Kekana" required pattern="[A-Za-z]{1,35}" title="a maximum of 35 letters with no spaces"/>
+            <input type="text" name="surname" placeholder="Enter employee surname e.g. Kekana" required pattern="[A-Za-z]{1,35}" title="A maximum of 35 letters with no spaces"/>
             <label for="banking" >banking details:</label>
-            <textarea name="banking" class="empBanking" placeholder="enter employee banking details eg. 4078080733 ABSA, Hatfield 687453" title="must match provided example format"></textarea>
+            <textarea name="banking" class="empBanking" placeholder="Enter employee banking details e.g. ABSA, 4078080733, Hatfield, 687453" title="Must match provided example format"></textarea>
           </div>
           
         </fieldset>
@@ -138,20 +138,20 @@
         <legend>contact details</legend>
           <div>
             <label for="cell">cellphone:</label>
-            <input type="tel" name="cell" placeholder="enter employee cellphone number eg. 0824897654" required pattern="[0-9]{10,10}" title="a number of 10 characters"/>
+            <input type="tel" name="cell" placeholder="Enter employee cellphone number e.g. 0824897654" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
             
             <label for="email">email:</label>
-            <input type="email" name="email" placeholder="enter employee email eg. employee@example.co.za" required />
+            <input type="email" name="email" placeholder="Enter employee email e.g. employee@example.co.za" required />
             
             <label for="physical" >physical address:</label>
             <!--<textarea name="physical" class="empPhysical" placeholder="enter employee physical address eg. 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>-->
             <!--<input type="text" name="add_line1" placeholder="unit number"/>
             <input type="text" name="add_line1" placeholder="complex name"/>-->
-            <input type="text" name="add_line1" placeholder="street number"/>
-            <input type="text" name="add_line1" placeholder="street name"/>
-            <input type="text" name="add_line1" placeholder="suburb/ distric"/>
-            <input type="text" name="add_line1" placeholder="town/ city"/>
-            <input type="text" name="add_line1" placeholder="postal code"/>
+            <input type="text" name="add_line1" placeholder="Enter street number e.g. 395" required pattern="[A-Za-z0-9]{1,5}" title="A maximum of 5 characters"/>
+            <input type="text" name="add_line2" placeholder="Enter street name e.g. Pongola Drive" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
+            <input type="text" name="add_line3" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
+            <input type="text" name="add_line4" placeholder="town/ city"/>
+            <input type="text" name="add_line5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]" title="A maximum of 4 digits with no spaces"/>
           </div>
 
           <div>
@@ -163,9 +163,9 @@
             <!--<textarea name="postal" placeholder="enter employee postal address eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>-->
             <input type="text" name="add_line1" placeholder="address line 1"/>
             <input type="text" name="add_line1" placeholder="address line 2"/>
-            <input type="text" name="add_line1" placeholder="suburb/ distric"/>
+            <input type="text" name="add_line1" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
             <input type="text" name="add_line1" placeholder="town/ city"/>
-            <input type="text" name="add_line1" placeholder="postal code"/>
+            <input type="text" name="add_line1" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]" title="A maximum of 4 digits with no spaces"/>
             <button class="submit" title="copy physical address to postal address">same postal as physical</button>
           </div>
           
