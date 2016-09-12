@@ -109,7 +109,7 @@
               <?php endforeach;?>
             </select>
             
-            <label for="id" >id/passport number:</label>
+            <label for="id" >ID/Passport number:</label>
             <input type="text" name="id" placeholder="Enter employee ID/Passport number eg. 8612170554087" required pattern="[0-9]{13}" title="A number of 13 characters"/>
           </div>
 
