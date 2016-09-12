@@ -107,11 +107,11 @@
           <legend>medical aid packages</legend>
           <div>
             <label>types:</label>
-            <input type="text" name="type1" placeHolder="Medical Aid Type 1" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
-            <input type="text" name="type2" placeHolder="Medical Aid Type 2" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
-            <input type="text" name="type3" placeHolder="Medical Aid Type 3" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
-            <input type="text" name="type4" placeHolder="Medical Aid Type 4" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
-            <input type="text" name="type5" placeHolder="Medical Aid Type 5" pattern="[a-zA-Z0-9 ]{1,255}" required title="only alphanumeric characters with no spaces"/>
+            <input type="text" name="type1" placeHolder="Medical Aid Type 1" pattern="[a-zA-Z0-9 ]{1,255}" required title="Only alphanumeric characters with no spaces"/>
+            <input type="text" name="type2" placeHolder="Medical Aid Type 2" pattern="[a-zA-Z0-9 ]{1,255}" required title="Only alphanumeric characters with no spaces"/>
+            <input type="text" name="type3" placeHolder="Medical Aid Type 3" pattern="[a-zA-Z0-9 ]{1,255}" required title="Only alphanumeric characters with no spaces"/>
+            <input type="text" name="type4" placeHolder="Medical Aid Type 4" pattern="[a-zA-Z0-9 ]{1,255}" required title="Only alphanumeric characters with no spaces"/>
+            <input type="text" name="type5" placeHolder="Medical Aid Type 5" pattern="[a-zA-Z0-9 ]{1,255}" required title="Only alphanumeric characters with no spaces"/>
           </div>
         </fieldset>
         
