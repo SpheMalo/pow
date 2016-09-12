@@ -70,7 +70,6 @@
           }
         }
       ?>
-      <div id="noti"></div>
     </div>
     
     <footer></footer>
