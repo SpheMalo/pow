@@ -13,8 +13,6 @@
     {
       header("Location: ../update_medical_aid/?id=" . $_GET['id']);
     }
-    else if (isset($_GET['search']))
-    {}
     else
     {
       $mList = loadMedList(null);
@@ -50,23 +48,23 @@
     </div>
     <div id="cont">
       <?php
-        if (isset($_GET['id']))
-        {
-          include 'inc/cont_id.php';
-        }
-        else if (isset($_GET['search']))
+        if (isset($_GET['search']))
         {
           include 'inc/cont_id.php';
         }
         else
         {
+          if ($mList =="query")
+          {
+            echo "<p>there was an error retrieving medical aids, please try again later</p>";
+          }
+          else if ($mList =="rows")
+          {
+            echo "<p>there are currently no medical aids according to your database</p>";
+          }
           if (count($mList) > 0 && $mList != false)
           {
             include 'inc/cont.php';
-          }
-          else 
-          {
-            echo "<p>there are currently no medical aids according to your database</p>";
           }
         }
       ?>

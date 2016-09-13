@@ -349,11 +349,11 @@
   {
     require 'dbconn.php';
     
-    $s  = "select type_medical_aid.id, description, medical_aid.name, medical_aid.email, medical_aid.telephone, medical_aid.fax, medical_aid.address_postal, medical_aid.address_physical from type_medical_aid join medical_aid on type_medical_aid.medical_aidID = medical_aid.id";
+    $s  = "select type_medical_aid.id, description, medical_aid.name, medical_aid.email, medical_aid.telephone, medical_aid.fax, medical_aid.address_postalID, medical_aid.address_physicalID from type_medical_aid join medical_aid on type_medical_aid.medical_aidID = medical_aid.id";
     
     if ($in != null)
     {
-      $s  = "select * from medicalaid where id = " . $in;
+      $s  = "select type_medical_aid.id, description, medical_aid.name, medical_aid.email, medical_aid.telephone, medical_aid.fax, medical_aid.address_postalID, medical_aid.address_physicalID from type_medical_aid join medical_aid on type_medical_aid.medical_aidID = medical_aid.id where id = " . $in;
     }
     
     try
@@ -362,7 +362,7 @@
     }
     catch(PDOException $e)
     {
-      return false;
+      return "query";
     }
     
     if ($r->rowCount() > 0)
@@ -370,26 +370,27 @@
       $c = 0;
       while ($row = $r->fetch()) 
       {
-        $id[$c] = $row['id'];
+        /*$id[$c] = $row['id'];
         $desc[$c] = $row['description'];
         $name[$c] = $row['name'];
         $email[$c] = $row['email'];
         $tell[$c] = $row['telephone'];
         $fax[$c] = $row['fax'];
-        $physical[$c] = $row['address_physical'];
-        $postal[$c] = $row['address_postal'];
+        $physical[$c] = $row['address_physicalID'];
+        $postal[$c] = $row['address_postalID'];*/
 
-        $med = new MedicalAid($id[$c], $desc[$c], $name[$c], $email[$c], $tell[$c], $fax[$c], $physical[$c], $postal[$c]);
-        $mList[] = $med;
+        //$med = new MedicalAid($id[$c], $desc[$c], $name[$c], $email[$c], $tell[$c], $fax[$c], $physical[$c], $postal[$c]);
+        $med = new MedicalAid($row['id'], $row['description'], $row['name'], $row['email'], $row['telephone'], $row['fax'], $row['address_physicalID'], $row['address_postalID']);
+        $mList[$c] = $med;
 
-        $c = $c + 1;
+        $c++;
       }
       
       return $mList;
     }
     else
     {
-      return false;
+      return "rows";
     }
   }
 
