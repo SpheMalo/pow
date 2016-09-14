@@ -171,6 +171,38 @@
     }
   }
 
+  function loadCityList()
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select id, description from city";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach ($r as $row)
+      {
+        $c[] = array(
+          'id' => $row['id'],
+          'desc' => $row['description']
+        ); 
+      }
+
+      return $c;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
   function loadEmpList($in)
   {
     require 'dbconn.php';

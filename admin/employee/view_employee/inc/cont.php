@@ -4,7 +4,6 @@
     <th>title</th>
     <th>name</th>
     <th>surname</th>
-    <th>username</th>
     <th>gender</th>
     <th>position</th>
     <th>action</th>
