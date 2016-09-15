@@ -185,7 +185,7 @@
     overflow: auto;
   }
   
-  #head_m, #head_s
+  #head_m, #head_s, #head_o
   {
     color: #00314c;
     display: inline;
@@ -205,15 +205,10 @@
 
   #head_o
   {
-    display: inline-block;
-    max-width: 40%;
-    margin-left: 2%; 
-    font-size: initial;   
     text-transform: none;
-    padding: 0;
-    margin: 0;
+    margin-left: 1%;
+    font-size: 1vw;
     color: red;
-    border: 1px dashed lime;
   }
 
   .active

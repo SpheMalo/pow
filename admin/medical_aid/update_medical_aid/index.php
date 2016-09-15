@@ -34,7 +34,7 @@
     <div id="head">
       <h1 id="head_m">Medical Aid</h1>
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
-      <h5 id="head_o"><p><?php echo $o; ?></p></h5>
+      <h5 id="head_o"><?php echo $o;?></h5>
     </div>
     <div id="cont">
       <form method="post" action="" enctype="multipart/form-data">
@@ -52,7 +52,13 @@
             <input type="text" name="add_line1" placeholder="Enter street number e.g. 395" required pattern="[A-Za-z0-9]{1,5}" title="A maximum of 5 characters with no spaces"/>
             <input type="text" name="add_line2" placeholder="Enter street name e.g. Pongola Drive" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
             <input type="text" name="add_line3" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
-            <input type="text" name="add_line4" placeholder="Town/ City"/>
+            <!--<input type="text" name="add_line_ph4" id="add_line_ph4" placeholder="Town/ City"/>-->
+            <select name="add_line_ph4" id="add_line_ph4">
+              <option>Select city/town</option>
+              <?php foreach ($cList as $c):?>
+                <option value="<?php echo $c['id'];?>"><?php echo $c['desc'];?></option>
+              <?php endforeach;?>
+            </select>
             <input type="text" name="add_line5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{4,4]" title="A maximum of 4 digits with no spaces"/>
           </div>
 
@@ -66,7 +72,13 @@
             <input type="text" name="add_line1" placeholder="Address line 1"/>
             <input type="text" name="add_line1" placeholder="Address line 2"/>
             <input type="text" name="add_line1" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
-            <input type="text" name="add_line1" placeholder="Town/ City"/>
+            <!--<input type="text" name="add_line_po4" id="add_line_po4" placeholder="Town/ City"/>-->
+            <select name="add_line_po4" id="add_line_po4">
+              <option>Select city/town</option>
+              <?php foreach ($cList as $c):?>
+                <option value="<?php echo $c['id'];?>"><?php echo $c['desc'];?></option>
+              <?php endforeach;?>
+            </select>
             <input type="text" name="add_line1" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{4,4}" title="A maximum of 4 digits with no spaces"/>
             <button class="submit" title="copy physical address to postal address" id="copy_address" onclick="copyAddress()">same postal as physical</button>
           </div>

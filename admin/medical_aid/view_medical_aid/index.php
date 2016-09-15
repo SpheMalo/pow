@@ -23,6 +23,17 @@
   {
     header("Location: ../../../login/");
   }
+
+  if ($mList =="query")
+  {
+    echo "There was an error retrieving medical aids, please try again later";
+  }
+  else if ($mList =="rows")
+  {
+    $o = "There are currently no medical aids according to your database.";
+  }
+
+
 ?>
 
 <html>
@@ -44,7 +55,7 @@
     <div id="head">
       <h1 id="head_m">medical aid</h1>
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
-      <h5 id="head_o"><p><?php echo $o; ?></p></h5>
+      <h5 id="head_o"><?php echo $o;?></h5>
     </div>
     <div id="cont">
       <?php

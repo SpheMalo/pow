@@ -470,7 +470,7 @@
 
     try
     {
-      $s = "insert into medicalaid (name, email, tell, fax, address_physicalID, address_postalID) values ('" . $name . "', '" . $email . "', " . $tell . ", '" . $fax . "', " . $a_ph . ", " . $a_po . ")";
+      $s = "INSERT INTO `medical_aid`(`name`, `email`, `telephone`, `fax`, `address_postalID`, `address_physicalID`) VALUES ('" . $name . "', '" . $email . "', " . $tell . ", '" . $fax . "', " . $a_po . ", " . $a_ph . ")";
       $r = $pdo->exec($s);
 
       if ($r > 0)
@@ -482,7 +482,7 @@
         }
         catch(PDOException $e)
         {
-          return false;
+          return "row";
         }
 
         if ($r1->rowCount() > 0)
@@ -495,6 +495,10 @@
           $med_types = addMedType($types, $med);
           return $med_types;
         }
+        else
+        {
+          return "row";
+        }
       }
       else
       {
@@ -503,7 +507,7 @@
     }
     catch (PDOException $e)
     {
-      return "insert";
+      return "query";
     }
   }
 
@@ -511,6 +515,7 @@
   {
     require 'dbconn.php';
     
+    $z = "";
     $c = 0;
     foreach($desc as $d)
     {
@@ -521,15 +526,25 @@
       }
       catch(PDOException $e)
       {
-        $fails = array($c);
+        $fails[] = $c;
       }
 
       if ($r > 0)
       {
-        $passes = array($c);
+        $passes[] = $c;
       }
 
       $c++;
+    } 
+
+    if (!isset($fails))
+    {
+      $fails = null;
+    }
+
+    if (!isset($passes))
+    {
+      $passes = null;
     }
 
     $o = array($fails, $passes);
