@@ -81,6 +81,9 @@
       ?>
     </div>
     
-    <footer></footer>
+    <form method="post" action="" enctype="multipart/form-data" id="search">
+      <input type="search" name="search" placeholder="What are you looking for?"/>
+      <button>s</button>
+    </form>
   </body>
 </html>

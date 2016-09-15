@@ -217,4 +217,38 @@
     background: white;
   }
 
+  #search{
+    margin: 0;
+    padding: 0;
+    width: 20%;
+    position: fixed;
+    top: 20%;
+    right: 15%;
+    border: 1px dashed #00314c;
+    border-radius: 5px;
+  }
+
+  #search > input{
+    width: 90%;
+    margin: 0;
+    padding: 0.2em 0 0.2em 1%;
+    background: transparent;
+    display: inline-block;
+    border: 0;
+    font-size: 1vw;
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+
+  #search > button{
+    background: url('../img/ico/search.png') no-repeat center center;
+    background-size: contain;
+    height: 100%;
+    border: 0;
+    color: transparent;
+    width: 8%;
+    font-size: 1vw;
+    display: inline-block;
+    cursor: pointer;
+  }
+
 }
