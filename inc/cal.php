@@ -1,4 +1,187 @@
 <?php
+  session_start();
+
+  class Employee
+  {
+    public $id;
+    public $title;
+    public $name;
+    public $surname;
+    public $username;
+    public $gender;
+    public $type;
+    public $idnum;
+    public $bank;
+    public $cell;
+    public $email;
+    public $postal;
+    public $tel;
+    public $physical;
+    public $location;
+    
+    public function __construct($id, $title, $name, $surname, $username, $gender, $type, $location)
+    {
+      $this->id = $id;
+      $this->title = $title;
+      $this->name = $name;
+      $this->surname = $surname;
+      $this->username = $username;
+      $this->gender = $gender;
+      $this->type = $type;
+      $this->location = $location;
+    }
+
+    public function loadRest($idnum, $bank, $cell, $email, $postal, $tel, $physical)
+    {
+      $this->idnum = $idnum;
+      $this->bank = $bank;
+      $this->cell = $cell;
+      $this->email = $email;
+      $this->postal = $postal;
+      $this->tel = $tel;
+      $this->physical = $physical;
+    }
+  }
+
+  class Schedule
+  {
+    public $id;
+    public $date;
+    public $available;
+    public $time;
+    public $employee;
+    public $location;
+    
+    public function __construct($id, $date, $available, $time, $employee, $location)
+    {
+      $this->id = $id;
+      $this->date = $date;
+      $this->available = $available;
+      $this->time = $time;
+      $this->employee = $employee;
+      $this->location = $location;
+    }
+  }
+
+  function loadShed($date, $time)
+  {
+    require 'dbconn.php';
+
+    $s = "select * from schedule where available_date = '" . $date . "' and available != 1";
+
+    if ($time != NULL)
+    {
+      $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $time;
+    }
+
+    try
+    {
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return false;
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      $c = 0;
+      while ($row = $r->fetch())
+      {
+        $id[] = $row['id'];
+        $dat[] = $row['available_date'];
+        $available[] = $row['available'];
+        $timeslot[] = $row['timeslotID'];
+        $emp[] = $row['employeeID'];
+        $loc[] = $row['practice_locationID'];
+
+        $shed = new Schedule($id[$c], $dat[$c], $available[$c], $time[$c], $emp[$c], $loc[$c]);
+        $shedList[$c] = $shed;
+
+        $c = $c + 1;
+      }
+
+      return $shedList;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  function loadShedDet($id)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select consultation.id, notesm status, type_booking.description as type, employeeID, timeslotID, practice_locationID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, employee_typeID, patientID as pat from consultation where scheduleID = " . $id;
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return false;
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      $c = 0;
+      while ($row = $r->fetch())
+      {
+        $id[$c] = $row['id'];
+        $notes[$c] = $row['notes'];
+        $status[$c] = $row['status']; 
+        $book_type[$c] = $row['book_type'];
+        $emp[$c] = $row['employeeID'];
+        $timeslot[$c] = $row['timeslot'];
+        $loc[$c] = $row['location'];
+        $pat_n[$c] = $row['pat_name'];
+        $pat_s[$c] = $row['pat_sur'];
+        $schedule[$c] = $row['scheduleID'];
+        $c_date[$c] = $row['c_date'];
+        $pat[$c] = $row['pat'];
+
+        $con = new Consultation($id[$c], $notes[$c], $status[$c], $book_type[$c], $emp[$c], $timeslot[$c], $loc[$c], $pat_n[$c], $pat_s[$c], $schedule[$c], $c_date[$c], $pat[$c]);
+        $conList[] = $con;
+
+        $c++;
+      }
+
+      return $conList;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  function makeDayAv($d, $e, $l)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "INSERT INTO `schedule`(`available_date`, `available`, `timeslotID`, `employeeID`, `practice_locationID`) VALUES ('" . $d . "', 0, 1, " . $e . ", " . $l . "), ('" . $d . "', 0, 2, " . $e . ", " . $l . "), ('" . $d . "', 0, 3, " . $e . ", " . $l . "), ('" . $d . "', 0, 4, " . $e . ", " . $l . "), ('" . $d . "', 0, 5, " . $e . ", " . $l . "), ('" . $d . "', 0, 6, " . $e . ", " . $l . "), ('" . $d . "', 0, 7, " . $e . ", " . $l . "), ('" . $d . "', 0, 8, " . $e . ", " . $l . "), ('" . $d . "', 0, 9, " . $e . ", " . $l . "), ('" . $d . "', 0, 10, " . $e . ", " . $l . ")";
+
+      $r = $pdo->exec($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r != null)
+    {
+      return $r;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
+  $emp = $_SESSION['emp'];
+
   if (isset($_POST['month']))
   {
     $z = mktime(0, 0, 0, $_POST['month'], date("d"), date("Y"));
@@ -8,6 +191,28 @@
   {
     echo "<h2>" . date("F 'y") . "</h2>";
   }
+
+  if (isset($_POST['makeDayAv']))
+  {
+    echo var_dump($_POST['makeDayAv']);
+    $makeDayAv = makeDayAv($_POST['makeDayAv'], $emp->id, $emp->location);
+
+    if ($makeDayAv == "query")
+    {
+      $o = "There was an error making the day available, query";
+      echo var_dump($makeDayAv);
+    }
+    else if ($makeDayAv == "rows")
+    {
+      $o = "There was an error making the day available";
+      echo var_dump($makeDayAv);
+    }
+    else
+    {
+      header("Location: ../view_dentist_schedule/");
+    }
+  }
+
 ?>
 
 <ul id="cal">
@@ -20,119 +225,6 @@
   <li>sunday</li>
 
   <?php
-    session_start();
-    class Schedule
-    {
-      public $id;
-      public $date;
-      public $available;
-      public $time;
-      public $employee;
-      public $location;
-      
-      public function __construct($id, $date, $available, $time, $employee, $location)
-      {
-        $this->id = $id;
-        $this->date = $date;
-        $this->available = $available;
-        $this->time = $time;
-        $this->employee = $employee;
-        $this->location = $location;
-      }
-    }
-
-    function loadShed($date, $time)
-    {
-      require 'dbconn.php';
-
-      $s = "select * from schedule where available_date = '" . $date . "' and available != 1";
-
-      if ($time != NULL)
-      {
-        $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $time;
-      }
-
-      try
-      {
-        $r = $pdo->query($s);
-      }
-      catch(PDOException $e)
-      {
-        return false;
-      }
-
-      if ($r->rowCount() > 0)
-      {
-        $c = 0;
-        while ($row = $r->fetch())
-        {
-          $id[] = $row['id'];
-          $dat[] = $row['available_date'];
-          $available[] = $row['available'];
-          $timeslot[] = $row['timeslotID'];
-          $emp[] = $row['employeeID'];
-          $loc[] = $row['practice_locationID'];
-
-          $shed = new Schedule($id[$c], $dat[$c], $available[$c], $time[$c], $emp[$c], $loc[$c]);
-          $shedList[$c] = $shed;
-
-          $c = $c + 1;
-        }
-
-        return $shedList;
-      }
-      else
-      {
-        return false;
-      }
-    }
-
-    function loadShedDet($id)
-    {
-      require 'dbconn.php';
-
-      try
-      {
-        $s = "select consultation.id, notesm status, type_booking.description as type, employeeID, timeslotID, practice_locationID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, employee_typeID, patientID as pat from consultation where scheduleID = " . $id;
-        $r = $pdo->query($s);
-      }
-      catch(PDOException $e)
-      {
-        return false;
-      }
-
-      if ($r->rowCount() > 0)
-      {
-        $c = 0;
-        while ($row = $r->fetch())
-        {
-          $id[$c] = $row['id'];
-          $notes[$c] = $row['notes'];
-          $status[$c] = $row['status']; 
-          $book_type[$c] = $row['book_type'];
-          $emp[$c] = $row['employeeID'];
-          $timeslot[$c] = $row['timeslot'];
-          $loc[$c] = $row['location'];
-          $pat_n[$c] = $row['pat_name'];
-          $pat_s[$c] = $row['pat_sur'];
-          $schedule[$c] = $row['scheduleID'];
-          $c_date[$c] = $row['c_date'];
-          $pat[$c] = $row['pat'];
-
-          $con = new Consultation($id[$c], $notes[$c], $status[$c], $book_type[$c], $emp[$c], $timeslot[$c], $loc[$c], $pat_n[$c], $pat_s[$c], $schedule[$c], $c_date[$c], $pat[$c]);
-          $conList[] = $con;
-
-          $c++;
-        }
-
-        return $conList;
-      }
-      else
-      {
-        return false;
-      }
-    }
-
     if (isset($_POST['month']))
     {
       $m = $_POST['month'];
@@ -185,7 +277,7 @@
         }
         else
         {
-          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lid . "')></a>ma</p></div></li>";
+          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lid . "')>ma</a></p></div></li>";
         }
 
         //echo "<li id=" . $lid . ">" . $b . "</li>";

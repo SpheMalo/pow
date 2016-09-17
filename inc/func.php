@@ -203,73 +203,6 @@
     }
   }
 
-  function loadEmpList($id, $q)
-  {
-    require 'dbconn.php';
-    
-    $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, type_employee.description from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id order by id";
-    
-    if ($id != null && $q == null)
-    {
-      $s = "select * from employee where employee.id = " . $id;
-      $t = " ";
-    }
-
-    if ($id == null && $q != null)
-    {
-      $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, type_employee.description from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id where employee.id like '%" . $q . "%' or name like '%" . $q . "%' or surname like '%" . $q . "%' or type_employee.description like '%" . $q . "%'";
-    }
-    
-    try
-    {
-      $r = $pdo->query($s);
-    }
-    catch(PDOException $e)
-    {
-      return "query";
-    }
-
-    if ($r->rowCount() > 0)
-    {
-      $c = 0;
-      while ($row = $r->fetch()) 
-      {
-        $id[$c] = $row['id'];
-        $title[$c] = $row['title'];
-        $name[$c] = $row['name'];
-        $surname[$c] = $row['surname'];
-        $username[$c] = $row['username'];
-        $gender[$c] = $row['gender'];
-        $type[$c] = $row['description'];
-
-        $emp = new Employee($id[$c], $title[$c], $name[$c], $surname[$c], $username[$c], $gender[$c], $type[$c]);
-
-        if (isset($t))
-        {
-          $idnum[$c] = $row['id_number'];
-          $bank[$c] = $row['bank'];
-          $cell[$c] = $row['cellphone'];
-          $email[$c] = $row['email'];
-          $postal[$c] = $row['address_postalID'];
-          $tel[$c] = $row['telephone'];
-          $physical[$c] = $row['address_physicalID'];
-
-          $emp = $emp::loadRest($idnum[$c], $bank[$c], $cell[$c], $email[$c], $postal[$c], $tel[$c], $physical[$c]);
-        }
-
-        $eList[] = $emp;
-
-        $c = $c + 1;
-      }
-
-      return $eList;
-    }
-    else
-    {
-      return "rows";
-    }
-  }
-
   function addAddresses($postal, $physical)
   {
     require 'dbconn.php';
@@ -329,7 +262,184 @@
     return $o;
   }
 
-  function addEmployee($name, $surname, $id, $cell, $tell, $email, $banking, $postal, $physical, $gender, $title, $type)
+  function loadAddressesString($postal, $physical)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "SELECT `address_postal`.id, number, street, suburb, postal_code, `city`.description as city FROM `address_postal` join `city` on `address_postal`.cityID = `city`.id where `address_postal`.id = " . $postal;
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      $out = "query1";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach ($r as $row)
+      {
+        $z = $row['number'] . " " . $row['street'] . ", " . $row['suburb'] . ", " . $row['city']  . " " . $row['postal_code'];
+        $o[] = $z;
+      }
+    }
+    else
+    {
+      $out = "rows1";
+    }
+
+    try
+    {
+      $s1 = "SELECT `address_postal`.id, number, street, suburb, postal_code, `city`.description as city FROM `address_postal` join `city` on `address_postal`.cityID = `city`.id where `address_postal`.id = " . $postal;
+      $r1 = $pdo->query($s1);
+    }
+    catch(PDOException $e)
+    {
+      $out = "query2";
+    }
+
+    if ($r1->rowCount() > 0)
+    {
+      foreach ($r1 as $row)
+      {
+        $z1 = $row['number'] . " " . $row['street'] . ", " . $row['suburb'] . ", " . $row['city']  . " " . $row['postal_code'];
+        $o[] = $z1;
+      }
+    }
+    else
+    {
+      $out = "rows2";
+    }
+
+    if (isset($out))
+    {
+      if ($out == "query1" || $out == "query1")
+      {
+        return "query";
+      }
+      else if ($out == "rows1" || $out == "rows2")
+      {
+        return "rows";
+      }
+    }
+    else
+    {
+      return $o;
+    }
+
+    //$ar = array("address_postal", "address_physical");
+    //$arr = array($postal, $physical);
+    /*$arr[] = array(
+      'd' => 'address_postal',
+      'i' => $postal);
+
+    $arr[] = array(
+      'd' => 'address_physical',
+      'i' => $physical);*/
+
+    /*$c = 0;
+    foreach ($ar as $a)
+    {
+      try
+      {
+        $s[$c] = "SELECT `" . $a[$c] . "`.id, number, street, suburb, postal_code, `city`.description as city FROM `" . $a[$c] . "` join `city` on `" . $a[$c] . "`.cityID = `city`.id where `" . $a[$c] . "`.id = " .$arr[$c];
+        $r = $pdo->query($s[$c]);
+      }
+      catch(PDOException $e)
+      {
+        $out = "query";
+      }
+
+      if ($r != null)
+      {
+        foreach ($r as $row)
+        {
+          $z = $row['number'] . " " . $row['street'] . ", " . $row['suburb'] . ", " . $row['city']  . " " . $row['postal_code'];
+          $o[] = $z;
+        }
+
+      }
+      else
+      {
+        $out = "rows";
+      }
+
+      $c++;
+    }*/
+
+
+  }
+
+  function loadEmpList($id, $q)
+  {
+    require 'dbconn.php';
+    
+    $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, type_employee.description, practice_location.description as practice_location from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id join practice_location on employee.practice_locationID = practice_location.id order by id";
+    
+    if ($id != null && $q == null)
+    {
+      $s = "select * from employee where employee.id = " . $id;
+      $t = " ";
+    }
+
+    if ($id == null && $q != null)
+    {
+      $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, type_employee.description, practice_location.description as practice_location from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id join practice_location on employee.practice_locationID = practice_location.id where employee.id like '%" . $q . "%' or name like '%" . $q . "%' or surname like '%" . $q . "%' or type_employee.description like '%" . $q . "%' or practice_location.description like '%" . $q . "%'";
+    }
+    
+    try
+    {
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      $c = 0;
+      while ($row = $r->fetch()) 
+      {
+        $id[$c] = $row['id'];
+        $title[$c] = $row['title'];
+        $name[$c] = $row['name'];
+        $surname[$c] = $row['surname'];
+        $username[$c] = $row['username'];
+        $gender[$c] = $row['gender'];
+        $type[$c] = $row['description'];
+        $loc[$c] = $row['practice_location'];
+
+        $emp = new Employee($id[$c], $title[$c], $name[$c], $surname[$c], $username[$c], $gender[$c], $type[$c], $loc[$c]);
+
+        if (isset($t))
+        {
+          $idnum[$c] = $row['id_number'];
+          $bank[$c] = $row['bank'];
+          $cell[$c] = $row['cellphone'];
+          $email[$c] = $row['email'];
+          $postal[$c] = $row['address_postalID'];
+          $tel[$c] = $row['telephone'];
+          $physical[$c] = $row['address_physicalID'];
+
+          $emp = $emp::loadRest($idnum[$c], $bank[$c], $cell[$c], $email[$c], $postal[$c], $tel[$c], $physical[$c]);
+        }
+
+        $eList[] = $emp;
+
+        $c = $c + 1;
+      }
+
+      return $eList;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
+  function addEmployee($name, $surname, $id, $cell, $tell, $email, $banking, $postal, $physical, $gender, $title, $type, $loc)
   {
     require 'dbconn.php';
     
@@ -347,7 +457,7 @@
     try
     {
       //$s = "insert into `employee`(`name`, `surname`, `id_number`, `username`, `password`, `cellphone`, `telephone`, `email`, `status`, `banking_details`, `address_postalID`, `address_physicalID`, `genderID`, `titleID`, `employee_typeID`) values ('" . $name . "', '" . $surname . "', " . $id . ", '" . $user . "', '" . $pass . "', " . $cell . ", " . $tell . ", '" . $email . "', 'active', '" . $banking . "', " . $a_po . ", " . $a_ph . ", " . $gender . ", " . $title . ", " . $type . ")";
-      $s = "INSERT INTO `employee`(`name`, `surname`, `id_number`, `username`, `password`, `cellphone`, `telephone`, `email`, `status`, `banking_details`, `address_postalID`, `address_physicalID`, `genderID`, `titleID`, `employee_typeID`) VALUES ('" . $name . "', '" . $surname . "', " . $id . ", '" . $user . "', '" . $pass . "', " . $cell . ", " . $tell . ", '" . $email . "', 'active', '" . $banking . "', " . $a_po . ", " . $a_ph . ", " . $gender . ", " . $title . ", " . $type . ")";
+      $s = "INSERT INTO `employee`(`name`, `surname`, `id_number`, `username`, `password`, `cellphone`, `telephone`, `email`, `status`, `banking_details`, `address_postalID`, `address_physicalID`, `genderID`, `titleID`, `employee_typeID`, `practice_locationID`) VALUES ('" . $name . "', '" . $surname . "', " . $id . ", '" . $user . "', '" . $pass . "', " . $cell . ", " . $tell . ", '" . $email . "', 'active', '" . $banking . "', " . $a_po . ", " . $a_ph . ", " . $gender . ", " . $title . ", " . $type . ", " . $loc . ")";
       $r = $pdo->exec($s);
     }
     catch(PDOException $e)
@@ -365,7 +475,7 @@
     }
   }
 
-  function updateEmployee($title, $name, $surname, $gender, $id, $banking, $cell, $tell, $email, $postal, $physical, $type)
+  function updateEmployee($title, $name, $surname, $gender, $id, $banking, $cell, $tell, $email, $postal, $physical, $type, $loc)
   {
     require 'dbconn.php';
     

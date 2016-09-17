@@ -50,49 +50,5 @@
     
     <footer></footer>
 
-    <!--<script type="text/javascript">
-        $(document).ready(function(){
-          //var dat = "date=" . date("Y-m-d");
-
-          
-
-          $("#n_m").click(function(e){
-            var dat = 'month=' + $(this).attr("href");
-
-            $.ajax({
-              type: "post",
-              data: dat,
-              url: "../../../inc/cal.php",
-              success: function(result){
-                $('#calendar').html(result);
-                
-              },
-              error: function(){
-                alert('something went wrong');
-              }
-            });
-
-            e.preventDefault();
-            });
-
-            $('#cal > li').click(function(e){
-            var dat = 'date=' + $(this).attr("id");
-
-            $.ajax({
-              type: "post",
-              url: "../../../inc/call.php",
-              data: dat,
-              success: function(result){
-                $('#calendar').html(result);
-              },
-              error: function(){
-                alert('something went wrong');
-              } 
-            });
-
-            e.preventDefault();
-          });
-          });
-      </script>-->
   </body>
 </html>

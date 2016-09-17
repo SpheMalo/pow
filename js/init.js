@@ -70,9 +70,25 @@ function copyAddress()
 }
 
 function searchMed()
+{}
+
+function makeDayAv(datt)
 {
-  alert("worked");
-  //var p = $('#search_input').val();
+  var dat = 'makeDayAv=' + datt;
+  alert(dat);
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/cal.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':first').html(result);
+    },
+    error: function(){
+      alert('something went wrong');
+    }
+  });
 }
 
 $(document).ready(function(){

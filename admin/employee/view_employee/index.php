@@ -52,13 +52,20 @@
     </div>
     <div id="cont">
       <?php
-        if (isset($_GET['id']))
+        if (isset($_GET['s']))
         {
-          include 'inc/cont_id.php';
-        }
-        else if (isset($_GET['search']))
-        {
-          include 'inc/cont_id.php';
+          if ($eList == "query")
+          {
+            echo "<p>There was a problem retrieving employees. Reffer to help for assistance</p>";
+          }
+          else if ($eList == "rows")
+          {
+            echo "<p>There were no matches for what you are looking for. <a href='../view_employee/'>Reload the page</a> or try refining your search term.</p>";
+          }
+          else
+          {
+            include 'inc/cont.php';
+          }
         }
         else
         {
@@ -72,7 +79,6 @@
           }
         }
       ?>
-      <div id="noti"></div>
     </div>
     
     <form method="get" action="" enctype="multipart/form-data" id="search">

@@ -52,9 +52,20 @@
     </div>
     <div id="cont">
       <?php
-        if (isset($_GET['search']))
+        if (isset($_GET['s']))
         {
-          include 'inc/cont_id.php';
+          if ($mList == "query")
+          {
+            echo "<p>There was a problem retrieving medical aids. Reffer to help for assistance</p>";
+          }
+          else if ($mList == "rows")
+          {
+            echo "<p>There were no matches for what you are looking for. <a href='../view_medical_aid/'>Reload the page</a> or try refining your search term.</p>";
+          }
+          else
+          {
+            include 'inc/cont.php';
+          }
         }
         else
         {

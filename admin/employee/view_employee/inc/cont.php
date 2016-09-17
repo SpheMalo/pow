@@ -4,7 +4,7 @@
     <th>title</th>
     <th>name</th>
     <th>surname</th>
-    <th>gender</th>
+    <th>practice location</th>
     <th>position</th>
     <th>action</th>
   </tr>

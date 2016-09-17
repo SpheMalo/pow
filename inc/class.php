@@ -15,8 +15,9 @@
     public $postal;
     public $tel;
     public $physical;
+    public $location;
     
-    public function __construct($id, $title, $name, $surname, $username, $gender, $type)
+    public function __construct($id, $title, $name, $surname, $username, $gender, $type, $location)
     {
       $this->id = $id;
       $this->title = $title;
@@ -25,6 +26,7 @@
       $this->username = $username;
       $this->gender = $gender;
       $this->type = $type;
+      $this->location = $location;
     }
 
     public function loadRest($idnum, $bank, $cell, $email, $postal, $tel, $physical)
