@@ -13,11 +13,13 @@
     {
       header("Location: ../update_employee/?id=" . $_GET['id']);
     }
-    else if (isset($_GET['search']))
-    {}
+    else if (isset($_GET['s']))
+    {
+      $eList = loadEmpList(null, $_GET['s']);
+    }
     else
     {
-      $eList = loadEmpList(null);
+      $eList = loadEmpList(null, null);
     }
     
   }
@@ -73,6 +75,10 @@
       <div id="noti"></div>
     </div>
     
+    <form method="get" action="" enctype="multipart/form-data" id="search">
+      <input type="search" name="s" placeholder="What are you looking for?" id="search_input"/>
+      <button>s</button>
+    </form>
     <footer></footer>
   </body>
 </html>

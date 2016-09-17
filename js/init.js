@@ -69,6 +69,12 @@ function copyAddress()
   $('#add_line_po5').val(e); 
 }
 
+function searchMed()
+{
+  alert("worked");
+  //var p = $('#search_input').val();
+}
+
 $(document).ready(function(){
   $('#copy_address').click(function(e){
     e.preventDefault();

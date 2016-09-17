@@ -244,6 +244,7 @@
     background-size: contain;
     height: 100%;
     border: 0;
+    border-left: 1px dashed #00314c;
     color: transparent;
     width: 8%;
     font-size: 1vw;

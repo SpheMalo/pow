@@ -13,9 +13,13 @@
     {
       header("Location: ../update_medical_aid/?id=" . $_GET['id']);
     }
+    else if (isset($_GET['s']))
+    {
+      $mList = loadMedList(null, $_GET['s']);
+    }
     else
     {
-      $mList = loadMedList(null);
+      $mList = loadMedList(null, null);
     }
     
   }
@@ -23,17 +27,6 @@
   {
     header("Location: ../../../login/");
   }
-
-  if ($mList =="query")
-  {
-    echo "There was an error retrieving medical aids, please try again later";
-  }
-  else if ($mList =="rows")
-  {
-    $o = "There are currently no medical aids according to your database.";
-  }
-
-
 ?>
 
 <html>
@@ -73,7 +66,7 @@
           {
             echo "<p>there are currently no medical aids according to your database</p>";
           }
-          if (count($mList) > 0 && $mList != false)
+          else if (count($mList) > 0 && $mList != false)
           {
             include 'inc/cont.php';
           }
@@ -81,8 +74,8 @@
       ?>
     </div>
     
-    <form method="post" action="" enctype="multipart/form-data" id="search">
-      <input type="search" name="search" placeholder="What are you looking for?"/>
+    <form method="get" action="" enctype="multipart/form-data" id="search">
+      <input type="search" name="s" placeholder="What are you looking for?" id="search_input"/>
       <button>s</button>
     </form>
   </body>

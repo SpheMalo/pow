@@ -203,16 +203,21 @@
     }
   }
 
-  function loadEmpList($in)
+  function loadEmpList($id, $q)
   {
     require 'dbconn.php';
     
-    $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, type_employee.description as type from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id order by id";
+    $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, type_employee.description from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id order by id";
     
-    if ($in != null)
+    if ($id != null && $q == null)
     {
-      $s = "select * from employee where employee.id = " . $in;
+      $s = "select * from employee where employee.id = " . $id;
       $t = " ";
+    }
+
+    if ($id == null && $q != null)
+    {
+      $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, type_employee.description from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id where employee.id like '%" . $q . "%' or name like '%" . $q . "%' or surname like '%" . $q . "%' or type_employee.description like '%" . $q . "%'";
     }
     
     try
@@ -221,22 +226,11 @@
     }
     catch(PDOException $e)
     {
-      return false;
+      return "query";
     }
 
     if ($r->rowCount() > 0)
-    {/*
-      foreach ($r as $row)
-      {
-        $eList[] = array(
-          'id' => $row['id'],
-          'title' => $row['title'],
-          'name' => $row['name'],
-          'surname' => $row['surname'],
-          'username' => $row['username'],
-          'gender' => $row['gender'],
-          'type' => $row['type']);
-      }*/
+    {
       $c = 0;
       while ($row = $r->fetch()) 
       {
@@ -246,7 +240,7 @@
         $surname[$c] = $row['surname'];
         $username[$c] = $row['username'];
         $gender[$c] = $row['gender'];
-        $type[$c] = $row['type'];
+        $type[$c] = $row['description'];
 
         $emp = new Employee($id[$c], $title[$c], $name[$c], $surname[$c], $username[$c], $gender[$c], $type[$c]);
 
@@ -272,7 +266,7 @@
     }
     else
     {
-      return false;
+      return "rows";
     }
   }
 
@@ -377,17 +371,22 @@
     
   }
 
-  function loadMedList($in)
+  function loadMedList($id, $q)
   {
     require 'dbconn.php';
     
     $s  = "select type_medical_aid.id, description, medical_aid.name, medical_aid.email, medical_aid.telephone, medical_aid.fax, medical_aid.address_postalID, medical_aid.address_physicalID from type_medical_aid join medical_aid on type_medical_aid.medical_aidID = medical_aid.id";
     
-    if ($in != null)
+    if ($id != null && $q == null)
     {
-      $s  = "select type_medical_aid.id, description, medical_aid.name, medical_aid.email, medical_aid.telephone, medical_aid.fax, medical_aid.address_postalID, medical_aid.address_physicalID from type_medical_aid join medical_aid on type_medical_aid.medical_aidID = medical_aid.id where id = " . $in;
+      $s  = "select type_medical_aid.id, description, medical_aid.name, medical_aid.email, medical_aid.telephone, medical_aid.fax, medical_aid.address_postalID, medical_aid.address_physicalID from type_medical_aid join medical_aid on type_medical_aid.medical_aidID = medical_aid.id where id = " . $id;
     }
-    
+
+    if ($id == null && $q != null)
+    {
+      $s  = "select type_medical_aid.id, description, medical_aid.name, medical_aid.email, medical_aid.telephone, medical_aid.fax, medical_aid.address_postalID, medical_aid.address_physicalID from type_medical_aid join medical_aid on type_medical_aid.medical_aidID = medical_aid.id where type_medical_aid.id like '%" . $q . "%' or description like '%" . $q . "%' or name like '%" . $q . "%' or email like '%" . $q . "%' or telephone like '%" . $q . "%' or fax like '%" . $q . "%' or address_postalID like '%" . $q . "%' or address_physicalID like '%" . $q . "%'";
+    }
+  
     try
     {
       $r = $pdo->query($s);
@@ -472,42 +471,42 @@
     {
       $s = "INSERT INTO `medical_aid`(`name`, `email`, `telephone`, `fax`, `address_postalID`, `address_physicalID`) VALUES ('" . $name . "', '" . $email . "', " . $tell . ", '" . $fax . "', " . $a_po . ", " . $a_ph . ")";
       $r = $pdo->exec($s);
-
-      if ($r > 0)
-      {
-        try
-        {
-          $s1 = "select id from medical_aid where name = '" . $name . "' and email = '" . $email . "' and telephone = " . $tell . " and fax = " . $fax . " and  address_physicalID = " . $a_ph . " and address_postalID = " . $a_po . " order by id desc";
-          $r1 = $pdo->query($s1);
-        }
-        catch(PDOException $e)
-        {
-          return "row";
-        }
-
-        if ($r1->rowCount() > 0)
-        {
-          while ($row = $r1->fetch())
-          {
-            $med = $row['id'];
-          }
-
-          $med_types = addMedType($types, $med);
-          return $med_types;
-        }
-        else
-        {
-          return "row";
-        }
-      }
-      else
-      {
-        return "result";
-      }
     }
     catch (PDOException $e)
     {
       return "query";
+    }
+
+    if ($r > 0)
+    {
+      try
+      {
+        $s1 = "select id from medical_aid where name = '" . $name . "' and email = '" . $email . "' and telephone = " . $tell . " and fax = " . $fax . " and  address_physicalID = " . $a_ph . " and address_postalID = " . $a_po . " order by id desc";
+        $r1 = $pdo->query($s1);
+      }
+      catch(PDOException $e)
+      {
+        return "row";
+      }
+
+      if ($r1->rowCount() > 0)
+      {
+        while ($row = $r1->fetch())
+        {
+          $med = $row['id'];
+        }
+
+        $med_types = addMedType($types, $med);
+        return $med_types;
+      }
+      else
+      {
+        return "row";
+      }
+    }
+    else
+    {
+      return "result";
     }
   }
 
@@ -549,6 +548,20 @@
 
     $o = array($fails, $passes);
     return $o;
+  }
+
+  function searchMed($q)
+  {
+    require 'dbconn';
+
+    try
+    {
+      $s = "select";
+    }
+    catch(PDOException $e)
+    {
+      return "query"; 
+    }
   }
 
   function loadPatList($in)
