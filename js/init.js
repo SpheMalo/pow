@@ -75,7 +75,6 @@ function searchMed()
 function makeDayAv(datt)
 {
   var dat = 'makeDayAv=' + datt;
-  alert(dat);
 
   $.ajax({
     type: "post",

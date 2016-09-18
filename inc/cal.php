@@ -194,7 +194,7 @@
 
   if (isset($_POST['makeDayAv']))
   {
-    echo var_dump($_POST['makeDayAv']);
+    echo var_dump($_POST['makeDayAv'], $emp->id, $emp->location);
     /*$makeDayAv = makeDayAv($_POST['makeDayAv'], $emp->id, $emp->location);
     echo var_dump($makeDayAv);
 

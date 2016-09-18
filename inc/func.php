@@ -46,15 +46,19 @@
       while ($row = $r->fetch())
       {
         $id[] = $row['id'];
+        $title[] = $row['title'];
         $name[] = $row['name'];
         $surname[] = $row['surname'];
-        $empType[] = $row['employee_typeID'];
+        $username[] = $row['username'];
+        $gender[] = $row['gender'];
+        $type[] = $row['description'];
+        $loc[] = $row['practice_location'];
         $p[] = $row['password'];
       }
 
       if (password_verify($pass, $p[0]))
       {
-        $emp = new Employee($id[0], $name[0], $surname[0], $user, $pass, $empType[0]);
+        $emp = new Employee($id[0], $title[0], $name[0], $surname[0], $username[0], $gender[0], $type[0], $loc[0]);
 
         return $emp;
       }
