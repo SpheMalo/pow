@@ -195,22 +195,21 @@
   if (isset($_POST['makeDayAv']))
   {
     echo var_dump($_POST['makeDayAv']);
-    $makeDayAv = makeDayAv($_POST['makeDayAv'], $emp->id, $emp->location);
+    /*$makeDayAv = makeDayAv($_POST['makeDayAv'], $emp->id, $emp->location);
+    echo var_dump($makeDayAv);
 
     if ($makeDayAv == "query")
     {
       $o = "There was an error making the day available, query";
-      echo var_dump($makeDayAv);
     }
     else if ($makeDayAv == "rows")
     {
       $o = "There was an error making the day available";
-      echo var_dump($makeDayAv);
     }
     else
     {
       header("Location: ../view_dentist_schedule/");
-    }
+    }*/
   }
 
 ?>
