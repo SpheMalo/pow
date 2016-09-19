@@ -75,7 +75,6 @@ function searchMed()
 function makeDayAv(datt)
 {
   var dat = 'makeDayAv=' + datt;
-  alert(dat);
 
   $.ajax({
     type: "post",
@@ -85,7 +84,7 @@ function makeDayAv(datt)
     success: function(result){
       $('#calendar > div').filter(':first').html(result);
     },
-    error: function(){
+    error: function(res){
       alert('something went wrong');
     }
   });

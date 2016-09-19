@@ -67,7 +67,7 @@
   {
     require 'dbconn.php';
 
-    $s = "select * from schedule where available_date = '" . $date . "' and available != 1";
+    $s = "select * from schedule where available_date = '" . $date . "' and available !=1";
 
     if ($time != NULL)
     {
@@ -80,7 +80,7 @@
     }
     catch(PDOException $e)
     {
-      return false;
+      return "query";
     }
 
     if ($r->rowCount() > 0)
@@ -105,7 +105,35 @@
     }
     else
     {
-      return false;
+      return "rows";
+    }
+  }
+
+  function loadShedAlt($date)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select count(*) from schedule where available_date = '" . $date . "' and available = 1";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach ($r as $ar)
+      {
+        $z = $ar;
+      }
+      return $z;
+    }
+    else
+    {
+      return "rows";
     }
   }
 
@@ -161,7 +189,7 @@
 
     try
     {
-      $s = "INSERT INTO `schedule`(`available_date`, `available`, `timeslotID`, `employeeID`, `practice_locationID`) VALUES ('" . $d . "', 0, 1, " . $e . ", " . $l . "), ('" . $d . "', 0, 2, " . $e . ", " . $l . "), ('" . $d . "', 0, 3, " . $e . ", " . $l . "), ('" . $d . "', 0, 4, " . $e . ", " . $l . "), ('" . $d . "', 0, 5, " . $e . ", " . $l . "), ('" . $d . "', 0, 6, " . $e . ", " . $l . "), ('" . $d . "', 0, 7, " . $e . ", " . $l . "), ('" . $d . "', 0, 8, " . $e . ", " . $l . "), ('" . $d . "', 0, 9, " . $e . ", " . $l . "), ('" . $d . "', 0, 10, " . $e . ", " . $l . ")";
+      $s = "INSERT INTO `schedule`(`available_date`, `available`, `timeslotID`, `employeeID`, `practice_locationID`) VALUES ('" . $d . "', 1, 1, " . $e . ", " . $l . "), ('" . $d . "', 1, 2, " . $e . ", " . $l . "), ('" . $d . "', 1, 3, " . $e . ", " . $l . "), ('" . $d . "', 1, 4, " . $e . ", " . $l . "), ('" . $d . "', 1, 5, " . $e . ", " . $l . "), ('" . $d . "', 1, 6, " . $e . ", " . $l . "), ('" . $d . "', 1, 7, " . $e . ", " . $l . "), ('" . $d . "', 1, 8, " . $e . ", " . $l . "), ('" . $d . "', 1, 9, " . $e . ", " . $l . "), ('" . $d . "', 1, 10, " . $e . ", " . $l . ")";
 
       $r = $pdo->exec($s);
     }
@@ -194,8 +222,8 @@
 
   if (isset($_POST['makeDayAv']))
   {
-    echo var_dump($_POST['makeDayAv']);
-    /*$makeDayAv = makeDayAv($_POST['makeDayAv'], $emp->id, $emp->location);
+    //echo var_dump($_POST['makeDayAv'], $emp->id, $emp->location);
+    $makeDayAv = makeDayAv($_POST['makeDayAv'], $emp->id, $emp->location);
     echo var_dump($makeDayAv);
 
     if ($makeDayAv == "query")
@@ -209,7 +237,7 @@
     else
     {
       header("Location: ../view_dentist_schedule/");
-    }*/
+    }
   }
 
 ?>
@@ -269,14 +297,30 @@
 
         $app = loadShed($lid, NULL);
 
-        if ($app != false)
+        if ($app == "query")
         {
-          $app = count($app);
-          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>" . $app . "/10</p></div></li>";
+          
+        }
+        else if ($app == "rows")
+        {
+          $appAlt = loadShedAlt($lid);
+
+          $aa = $appAlt[0];
+          //$o = var_dump($appAlt);
+          if ($aa == 0)
+          {
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayUnav('" . $lid . "')><br></a></p></div></li>";
+          }
+          else
+          {
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p><br></p><p><a onclick=makeDayUnav('" . $lid . "')>no app</a></p></div></li>";
+          }
+          
         }
         else
         {
-          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lid . "')>ma</a></p></div></li>";
+          $app = count($app);
+          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>" . $app . " app</p></div></li>";
         }
 
         //echo "<li id=" . $lid . ">" . $b . "</li>";
