@@ -67,7 +67,7 @@
   {
     require 'dbconn.php';
 
-    $s = "select * from schedule where available_date = '" . $date . "' and available != 1";
+    $s = "select * from schedule where available_date = '" . $date . "' and available !=1";
 
     if ($time != NULL)
     {
@@ -80,7 +80,7 @@
     }
     catch(PDOException $e)
     {
-      return false;
+      return "query";
     }
 
     if ($r->rowCount() > 0)
@@ -105,7 +105,35 @@
     }
     else
     {
-      return false;
+      return "rows";
+    }
+  }
+
+  function loadShedAlt($date)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select count(*) from schedule where available_date = '" . $date . "' and available = 1";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach ($r as $ar)
+      {
+        $z = $ar;
+      }
+      return $z;
+    }
+    else
+    {
+      return "rows";
     }
   }
 
@@ -194,9 +222,9 @@
 
   if (isset($_POST['makeDayAv']))
   {
-    echo var_dump($_POST['makeDayAv'], $emp->id, $emp->location);
-    //$makeDayAv = makeDayAv($_POST['makeDayAv'], $emp->id, $emp->location);
-    //echo var_dump($makeDayAv);
+    //echo var_dump($_POST['makeDayAv'], $emp->id, $emp->location);
+    $makeDayAv = makeDayAv($_POST['makeDayAv'], $emp->id, $emp->location);
+    echo var_dump($makeDayAv);
 
     if ($makeDayAv == "query")
     {
@@ -269,14 +297,30 @@
 
         $app = loadShed($lid, NULL);
 
-        if ($app != false)
+        if ($app == "query")
         {
-          $app = count($app);
-          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>" . $app . "/10</p></div></li>";
+          
+        }
+        else if ($app == "rows")
+        {
+          $appAlt = loadShedAlt($lid);
+
+          $aa = $appAlt[0];
+          //$o = var_dump($appAlt);
+          if ($aa == 0)
+          {
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayUnav('" . $lid . "')><br></a></p></div></li>";
+          }
+          else
+          {
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p><br></p><p><a onclick=makeDayUnav('" . $lid . "')>no app</a></p></div></li>";
+          }
+          
         }
         else
         {
-          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lid . "')>ma</a></p></div></li>";
+          $app = count($app);
+          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>" . $app . " app</p></div></li>";
         }
 
         //echo "<li id=" . $lid . ">" . $b . "</li>";
