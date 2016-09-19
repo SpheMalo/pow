@@ -13,11 +13,13 @@
     {
       header("Location: ../update_proctype/?id=" . $_GET['id']);
     }
-    else if (isset($_GET['search']))
-    {}
+    else if (isset($_GET['s']))
+    {
+      $prcTypList = loadPrcTypList(null, $_GET['s']); 
+    }
     else
     {
-      $prcTypList = loadPrcTypList(null);
+      $prcTypList = loadPrcTypList(null, null);
     }
   }
   else
@@ -49,13 +51,20 @@
     
     <div id="cont">
       <?php
-        if (isset($_GET['id']))
+       if (isset($_GET['s']))
         {
-          include 'inc/cont_id.php';
-        }
-        else if (isset($_GET['search']))
-        {
-          include 'inc/cont_id.php';
+          if ($prcTypList == "query")
+          {
+            echo "<p>There was a problem retrieving procedure types. Reffer to help for assistance</p>";
+          }
+          else if ($prcTypList == "rows")
+          {
+            echo "<p>There were no matches for what you are looking for. <a href='../view_procedure_type/'>Reload the page</a> or try refining your search citeria.</p>";
+          }
+          else
+          {
+            include 'inc/cont.php';
+          }
         }
         else
         {
@@ -65,14 +74,15 @@
           }
           else 
           {
-            echo "<p>there are currently no procedure types according to your database</p>";
+            echo "<p>There are currently no procedure types according to your database</p>";
           }
         }
       ?>
-      
-      <div id="noti"></div>
     </div>
-    
+    <form method="get" action="" enctype="multipart/form-data" id="search">
+      <input type="search" name="s" placeholder="Search criteria" id="search_input"/>
+      <button>s</button>
+    </form>
     <footer></footer>
   </body>
 </html>

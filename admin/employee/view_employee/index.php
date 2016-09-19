@@ -60,7 +60,7 @@
           }
           else if ($eList == "rows")
           {
-            echo "<p>There were no matches for what you are looking for. <a href='../view_employee/'>Reload the page</a> or try refining your search term.</p>";
+            echo "<p>There were no matches for what you are looking for. <a href='../view_employee/'>Reload the page</a> or try refining your search criteria.</p>";
           }
           else
           {
@@ -75,14 +75,14 @@
           }
           else 
           {
-            echo "<p>there are currently no employees according to your database</p>";
+            echo "<p>There are currently no employees according to your database</p>";
           }
         }
       ?>
     </div>
     
     <form method="get" action="" enctype="multipart/form-data" id="search">
-      <input type="search" name="s" placeholder="What are you looking for?" id="search_input"/>
+      <input type="search" name="s" placeholder="Search criteria" id="search_input"/>
       <button>s</button>
     </form>
     <footer></footer>

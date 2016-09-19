@@ -56,9 +56,9 @@
         <legend>procedure type details</legend>
           <div>
             <label for="code">code:</label>
-            <input type="text" name="code" placeholder="enter procedure type code eg. Z01" required pattern="[A-Z0-9.]{3,5}" title="enter procedure type code eg. Z01"/>
+            <input type="text" name="code" placeholder="Enter procedure type code eg. Z01.1" required pattern="[A-Z0-9.]{3,5}" title="A maximum of 5 characters allowed with no spaces"/>
             <label for="desc">description:</label>
-            <textarea name="desc" placeholder="enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis" pattern="[a-zA-Z0-9 ]{1,255}" title="enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis. A maximum of 255 alphanumeric characters may be used" required></textarea>
+            <textarea name="desc" placeholder="Enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis" pattern="[a-zA-Z0-9 ]{1,255}" title=" A maximum of 255 alphanumeric characters may be used"></textarea>
           </div>
         </fieldset>
 

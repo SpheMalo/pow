@@ -86,7 +86,7 @@
     </div>
     
     <form method="get" action="" enctype="multipart/form-data" id="search">
-      <input type="search" name="s" placeholder="What are you looking for?" id="search_input"/>
+      <input type="search" name="s" placeholder="Search criteria" id="search_input"/>
       <button>s</button>
     </form>
   </body>

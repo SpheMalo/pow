@@ -4,7 +4,7 @@
   require '../../../inc/func.php';
   
   if (isset($_SESSION['emp']))
-  {
+  { 
     $_SESSION['page'] = "add product type";
     $emp = $_SESSION['emp'];
     $o = "";
@@ -12,6 +12,20 @@
   else
   {
     header("Location: ../../../login/");
+  }
+
+  if (isset($_POST['s_new_prodT']))
+  {
+    $prodT = addProdType($_POST['name'], $_POST['desc']);
+
+    if($prodT == true)
+    {
+      $o = "The product type was added successfully";
+    }
+    else if($prodT == "rows")
+    {
+      $o = "The product type was not added successfully, please try again";
+    }
   }
 
 ?>
@@ -43,9 +57,9 @@
         <legend>product type details</legend>
           <div>
             <label for="name">name:</label>
-            <input type="text" name="name" placeholder="enter product type name"/>
+            <input type="text" name="name" placeholder="Enter product type name e.g. Antibiotics" required pattern="[A-Za-z0-9 ]{1,35}" title="A maximum of 35 characters allowed"/>
             <label for="desc">description:</label>
-            <textarea name="desc" placeholder="enter product type description"></textarea>
+            <textarea name="desc" placeholder="Enter product type description e.g. For treatment of infections" pattern="[A-Za-z0-9 ]{1,255}" title="A maximum of 255 alphanumeric characters may be used"></textarea>
           </div>
         </fieldset>
 

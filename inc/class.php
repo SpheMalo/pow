@@ -125,6 +125,21 @@
     }
   }
 
+   class ProcedureType
+  {
+    public $id;
+    public $desc;
+    public $code;
+
+    public function __construct($id, $desc, $code)
+    {
+      $this->id = $id;
+      $this->desc = $desc;
+      $this->code = $code;
+    }
+  }
+  
+
   class Product
   {
     public $id;
@@ -150,6 +165,21 @@
       $this->stock = $stock;
     }
   }
+
+  class ProductType
+  {
+    public $id;
+    public $name;
+    public $desc;
+
+    public function __construct($id, $name, $desc)
+    {
+      $this->id = $id;
+      $this->name = $name;
+      $this->desc = $desc;
+    }
+  }
+  
 
   class Supplier
   {

@@ -1,7 +1,7 @@
 <table>
   <tr>
+    <th>code</th>
     <th>description</th>
-    <th>fav</th>
     <th>actions</th>
   </tr>
   <?php

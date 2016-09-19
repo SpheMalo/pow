@@ -13,11 +13,13 @@
     {
       header("Location: ../update_product/?id=" . $_GET['id']);
     }
-    else if (isset($_GET['search']))
-    {}
+    else if (isset($_GET['s']))
+    {
+      $prdTypList = loadPrdType(null, $_GET['s']);
+    }
     else
     {
-      $prdTypList = loadPrdType(null);
+      $prdTypList = loadPrdType(null, null);
     }
   }
   else
@@ -49,29 +51,38 @@
     
     <div id="cont">
       <?php
-        if (isset($_GET['id']))
+        if (isset($_GET['s']))
         {
-          include 'inc/cont_id.php';
-        }
-        else if (isset($_GET['search']))
-        {
-          include 'inc/cont_id.php';
+          if ($prdTypList == "query")
+          {
+            echo "<p>There was a problem retrieving product types. Reffer to help for assistance</p>";
+          }
+          else if ($prdTypList == "rows")
+          {
+            echo "<p>There were no matches for what you are looking for. <a href='../view_product_type/'>Reload the page</a> or try refining your search citeria.</p>";
+          }
+          else
+          {
+            include 'inc/cont.php';
+          }
         }
         else
         {
           if (count($prdTypList) > 0 && $prdTypList != false)
-          {
-            include 'inc/cont.php';
-          }
+           {
+             include 'inc/cont.php'; 
+           } 
           else 
           {
-            echo "<p>there are currently no procedure types according to your database</p>";
+            echo "<p>There are currently no product types according to your database</p>";
           }
         }
       ?>
-      
     </div>
-    
+     <form method="get" action="" enctype="multipart/form-data" id="search">
+      <input type="search" name="s" placeholder="Search criteria" id="search_input"/>
+      <button>s</button>
+    </form>
     <footer></footer>
   </body>
 </html>
