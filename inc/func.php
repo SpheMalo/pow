@@ -926,6 +926,11 @@
       $fav = 0;
     }
 
+   /* $a = addProcType($code, $desc);
+    $procT = $a[0]['postal'];
+    $a_ph = $a[0]['physical'];
+  */
+
     try
     {
       $s = "insert into procedure (description, code, price, proceduretypeID, fav) values ('" . $desc . "'," . $code . "," . $price . "," . $type . "," . $fav . ")";

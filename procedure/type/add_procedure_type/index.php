@@ -18,24 +18,6 @@
   {
     $procT = addProcType($_POST['code'], $_POST['desc']);
 
-    /*if (addProcType($_POST['code'], $_POST['desc']))
-    {
-      $o = "The procedure type was added successfully";
-    }
-    else if($procT == "query")
-    {
-      $o = "The procedure was not added due to a server error, please try again";
-    }
-    else if($procT == "rows")
-    {
-      $o = "The procedure type was not added successfuly, please try again";
-    }*/
-
-    echo $procT;
-  /*  if ($procT == false)
-    {
-      $o = "The procedure was not added due to a server error, please try again";
-    }*/
     if($procT == true)
     {
       $o = "The procedure type was added successfully";
@@ -74,7 +56,7 @@
         <legend>procedure type details</legend>
           <div>
             <label for="code">code:</label>
-            <input type="text" name="code" placeholder="enter procedure type code eg. Z01" required pattern="[A-Z0-9.]{3,3}" title="enter procedure type code eg. Z01"/>
+            <input type="text" name="code" placeholder="enter procedure type code eg. Z01" required pattern="[A-Z0-9.]{3,5}" title="enter procedure type code eg. Z01"/>
             <label for="desc">description:</label>
             <textarea name="desc" placeholder="enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis" pattern="[a-zA-Z0-9 ]{1,255}" title="enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis. A maximum of 255 alphanumeric characters may be used" required></textarea>
           </div>
