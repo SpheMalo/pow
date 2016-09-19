@@ -11,6 +11,7 @@
     $tList = loadTitleList();
     $gList = loadGenderList();
     $mList = loadMedListS();
+    $cList = loadCityList(); 
 
     $o = "";
   }
