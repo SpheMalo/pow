@@ -11,13 +11,15 @@
 
     if (isset($_GET['id']))
     {
-      $pList = loadPatList($_GET['id']);
+      header("Location: ../update_patient/?id=" . $_GET['id']);
     }
-    else if (isset($_GET['search']))
-    {}
+    else if (isset($_GET['s']))
+    {
+       $pList = loadPatList(null, $_GET['s']);
+    }
     else
     {
-      $pList = loadPatList(null);
+      $pList = loadPatList(null, null);
     }
   }
   else
@@ -47,16 +49,22 @@
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
       <h5 id="head_o"><?php echo $o;?></h5>
     </div>
-    
     <div id="cont">
       <?php
-        if (isset($_GET['id']))
+        if (isset($_GET['s']))
         {
-          include 'inc/cont_id.php';
-        }
-        else if (isset($_GET['search']))
-        {
-          include 'inc/cont_id.php';
+          if ($pList == "query")
+          { 
+             echo "<p>There was a problem retrieving patients. Reffer to help for assistance</p>";
+          }
+          else if($pList == "rows")
+          {
+             echo "<p>There were no matches for what you are looking for. <a href='../view_patient/'>Reload the page</a> or try refining your search criteria.</p>";
+          }
+          else
+          {
+            include 'inc/cont.php';
+          }
         }
         else
         {
@@ -66,7 +74,7 @@
           }
           else 
           {
-            echo "<p>there are currently no patients according to your database</p>";
+            echo "<p>There are currently no patients according to your database</p>";
           }
         }
       ?>

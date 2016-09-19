@@ -396,7 +396,7 @@
     }
     catch(PDOException $e)
     {
-     //return "query";
+     return "query";
     }
 
     if ($r->rowCount() > 0)
@@ -676,15 +676,21 @@
     }
   }
 
-  function loadPatList($in)
+  function loadPatList($id, $q)
   {
     require 'dbconn.php';
 
     $s = "select patient.id, title.description as title, patient.name, patient.surname, dob, gender.description as gender, id_number, email, img, file_number, cellphone, telephone, address_physicalID, address_postalID, type_member.description as member_type, type_medical_aid.description as medical_aid_type from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id join type_member on patient.member_typeID = type_member.id join type_medical_aid on patient.medical_aid_typeID = type_medical_aid.id order by patient.id";
 
-    if ($in != null)
+   if ($id != null && $q == null)
     {
-       $s = "select patient.id, title.description as title, name, surname, dob, gender.description as gender, id_number, email, cellphone, telephone, address_physicalID, address_postalID from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id where id = " . $in;
+       $s = "select patient.id, title.description as title, name, surname, dob, gender.description as gender, id_number, email, cellphone, telephone, address_physicalID, address_postalID from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id where id = " . $id;
+    }
+
+    if ($id == null && $q != null)
+    {
+      "select patient.id, title.description as title, name, surname, dob, gender.description as gender, id_number, email, cellphone, telephone, address_physicalID, address_postalID from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id where
+      patient.id like '%" . $q . "%' or dob like '%" . $q . "%' or name like '%" . $q . "%' or surname like '%" . $q . "%' or gender.description like '%" . $q . "%' or id_number like '%" . $q . "%' or email like '%" . $q . "%' or cellphone like '%" . $q . "%' or telephone like '%" . $q . "%'";
     }
 
     try
@@ -693,7 +699,7 @@
     }
     catch (PDOException $e)
     {
-      return false;
+      return "query";
     }
 
     if ($r->rowCount() > 0)
@@ -728,7 +734,7 @@
     }
     else
     {
-      return false;
+      return "rows";
     }
   }
 
