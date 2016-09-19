@@ -80,11 +80,20 @@ function makeDayAv(datt)
     type: "post",
     url: "../../../inc/cal.php",
     data: dat,
-    cache: false,
+    cache: true,
+    beforeSend: function(){
+      $('<div id="loader"></div>').appendTo('#calendar > div').filter(':first');
+    },
+    complete: function(){
+      $('#calendar > div').filter(':first').filter('#loader').fadeOut('fast').remove();
+    },
     success: function(result){
+      $('#calendar > div').filter(':first').filter('#loader').fadeOut('fast').remove();
       $('#calendar > div').filter(':first').html(result);
     },
-    error: function(){
+    error: function(res){
+      //$('#calendar > div').filter('#loader').fadeOut('fast').remove();
+      //var z = JSON.parse(res);
       alert('something went wrong');
     }
   });

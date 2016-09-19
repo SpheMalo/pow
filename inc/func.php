@@ -32,13 +32,12 @@
     
     try
     {
-      $s = "select * from employee where username = '" . $user . "'";
+      $s = "select employee.id, titleID, name, surname, username, password, genderID, employee_typeID, practice_locationID from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id where username = '" . $user . "'";
       $r = $pdo->query($s);
     }
     catch(PDOException $e)
     {
-      $o = "server";
-      return $o;
+      return "server";
     }
     
     if ($r->rowCount() > 0)
@@ -46,14 +45,14 @@
       while ($row = $r->fetch())
       {
         $id[] = $row['id'];
-        $title[] = $row['title'];
+        $title[] = $row['titleID'];
         $name[] = $row['name'];
         $surname[] = $row['surname'];
         $username[] = $row['username'];
-        $gender[] = $row['gender'];
-        $type[] = $row['description'];
-        $loc[] = $row['practice_location'];
         $p[] = $row['password'];
+        $gender[] = $row['genderID'];
+        $type[] = $row['employee_typeID'];
+        $loc[] = $row['practice_locationID'];
       }
 
       if (password_verify($pass, $p[0]))
@@ -64,8 +63,7 @@
       }
       else
       {
-        $o = "pass";
-        return $o;
+        return "pass";
       }
     }
     else

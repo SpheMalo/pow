@@ -161,7 +161,7 @@
 
     try
     {
-      $s = "INSERT INTO `schedule`(`available_date`, `available`, `timeslotID`, `employeeID`, `practice_locationID`) VALUES ('" . $d . "', 0, 1, " . $e . ", " . $l . "), ('" . $d . "', 0, 2, " . $e . ", " . $l . "), ('" . $d . "', 0, 3, " . $e . ", " . $l . "), ('" . $d . "', 0, 4, " . $e . ", " . $l . "), ('" . $d . "', 0, 5, " . $e . ", " . $l . "), ('" . $d . "', 0, 6, " . $e . ", " . $l . "), ('" . $d . "', 0, 7, " . $e . ", " . $l . "), ('" . $d . "', 0, 8, " . $e . ", " . $l . "), ('" . $d . "', 0, 9, " . $e . ", " . $l . "), ('" . $d . "', 0, 10, " . $e . ", " . $l . ")";
+      $s = "INSERT INTO `schedule`(`available_date`, `available`, `timeslotID`, `employeeID`, `practice_locationID`) VALUES ('" . $d . "', 1, 1, " . $e . ", " . $l . "), ('" . $d . "', 1, 2, " . $e . ", " . $l . "), ('" . $d . "', 1, 3, " . $e . ", " . $l . "), ('" . $d . "', 1, 4, " . $e . ", " . $l . "), ('" . $d . "', 1, 5, " . $e . ", " . $l . "), ('" . $d . "', 1, 6, " . $e . ", " . $l . "), ('" . $d . "', 1, 7, " . $e . ", " . $l . "), ('" . $d . "', 1, 8, " . $e . ", " . $l . "), ('" . $d . "', 1, 9, " . $e . ", " . $l . "), ('" . $d . "', 1, 10, " . $e . ", " . $l . ")";
 
       $r = $pdo->exec($s);
     }
@@ -195,8 +195,8 @@
   if (isset($_POST['makeDayAv']))
   {
     echo var_dump($_POST['makeDayAv'], $emp->id, $emp->location);
-    /*$makeDayAv = makeDayAv($_POST['makeDayAv'], $emp->id, $emp->location);
-    echo var_dump($makeDayAv);
+    //$makeDayAv = makeDayAv($_POST['makeDayAv'], $emp->id, $emp->location);
+    //echo var_dump($makeDayAv);
 
     if ($makeDayAv == "query")
     {
@@ -209,7 +209,7 @@
     else
     {
       header("Location: ../view_dentist_schedule/");
-    }*/
+    }
   }
 
 ?>
