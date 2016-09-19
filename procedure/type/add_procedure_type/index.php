@@ -13,6 +13,38 @@
   {
     header("Location: ../../../login/");
   }
+
+  if (isset($_POST['s_new_procT']))
+  {
+    $procT = addProcType($_POST['code'], $_POST['desc']);
+
+    /*if (addProcType($_POST['code'], $_POST['desc']))
+    {
+      $o = "The procedure type was added successfully";
+    }
+    else if($procT == "query")
+    {
+      $o = "The procedure was not added due to a server error, please try again";
+    }
+    else if($procT == "rows")
+    {
+      $o = "The procedure type was not added successfuly, please try again";
+    }*/
+
+    echo $procT;
+  /*  if ($procT == false)
+    {
+      $o = "The procedure was not added due to a server error, please try again";
+    }*/
+    if($procT == true)
+    {
+      $o = "The procedure type was added successfully";
+    }
+    else if($procT == "rows")
+    {
+      $o = "The procedure type was not added successfuly, please try again";
+    }
+  }
 ?>
 
 <html>

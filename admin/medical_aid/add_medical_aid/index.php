@@ -48,21 +48,21 @@
     if ($res == "query")
     {
       $o = "The medical aid could not added due to a server error, please try again";
-      echo var_dump($res);
+     
     }
     else if ($res == "result")
     {
       $o = "The medical aid was not added, please try again";
-      echo var_dump($res);
+     
     }
     else if ($res == "row")
     {
       $o = "The medical was added successfuly, though the medical types were not. That can be done manualy";
-      echo var_dump($res);
+     
     }
     else
     {
-      echo var_dump($res);
+    
 
       if (count($res[0]) == $types)
       {
