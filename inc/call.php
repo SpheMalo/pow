@@ -66,6 +66,34 @@
     }
   }
 
+  function loadShedAlt($date)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select count(*) from schedule where available_date = '" . $date . "' and available = 1";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach ($r as $ar)
+      {
+        $z[] = $ar;
+      }
+      return $z;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
   function loadShedDet($id)
   {
     require 'dbconn.php';
@@ -227,17 +255,24 @@
 
     $md = $ddd - 6;
     $mon = date("Y-m", $d) . "-" . $md;
+    $monday = $mon;
     $td = $ddd - 5; 
     $tue = date("Y-m", $d) . "-" . $td;
+    $tuesday = $tue;
     $wd = $ddd - 4;
     $wed = date("Y-m", $d) . "-" . $wd;
+    $wednesday = $wed;
     $thd = $ddd - 3;
     $thu = date("Y-m", $d) . "-" . $thd;
+    $thursday = $thu;
     $fd = $ddd - 2;
     $fri = date("Y-m", $d) . "-" . $fd;
+    $friday = $fri;
     $sd = $ddd - 1;
     $sat = date("Y-m", $d) . "-" . $sd;
+    $saturday = $sat;
     $sun = date("Y-m-d", $d);
+    $sunday = $sun;
 
   }
 
@@ -247,8 +282,68 @@
 
 <ul id="call">
   <li>time</li>
-  <li>monday <?php echo $mon; ?></li>
-  <li>tuesday <?php echo $tue; ?></li>
+  <li>
+    <p>monday</p>
+    <?php
+     echo "<p>" . $mon . "</p>";
+
+     $d_app = loadShed($mon, null);
+
+     if ($d_app == "query")
+     {}
+     else if ($d_app == "rows")
+     {
+       $d_app_alt = loadShedAlt($mon);
+       $aa = $d_app_alt[0][0][0];
+          
+       if ($aa == 0)
+       {
+         //echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lid . "')>ma</a></p></div></li>";
+         echo "<a onclick=makeDayAv('" . $mon . "')>ma</a>";
+       }
+       else
+       {
+         //echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p><br></p><p><a onclick=makeDayUnav('" . $lid . "')>no app</a></p></div></li>";
+         echo "<a onclick=makeDayUnav('" . $mon . "')><br></a>";
+       }
+     }
+     else
+     {
+
+     }
+    ?>
+  </li>
+  <li>
+    <p>tuesday</p>
+    <?php
+     echo "<p>" . $tue . "</p>";
+
+     $d_app = loadShed($tue, null);
+
+     if ($d_app == "query")
+     {}
+     else if ($d_app == "rows")
+     {
+       $d_app_alt = loadShedAlt($tue);
+       $aa = $d_app_alt[0][0][0];
+          
+       if ($aa == 0)
+       {
+         //echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lid . "')>ma</a></p></div></li>";
+         echo "<a onclick=makeDayAv('" . $tue . "')>ma</a>";
+       }
+       else
+       {
+         //echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p><br></p><p><a onclick=makeDayUnav('" . $lid . "')>no app</a></p></div></li>";
+         echo "<a onclick=makeDayUnav('" . $tue . "')><br></a>";
+       }
+     }
+     else
+     {
+
+     }
+    ?>
+  </li>
   <li>wednesday <?php echo $wed; ?></li>
   <li>thursday <?php echo $thu; ?></li>
   <li>friday <?php echo $fri; ?></li>
@@ -260,7 +355,18 @@
     <?php
       $d_app = loadShed($mon, 1);
 
-      if ($d_app !== false)
+      if ($d_app != "query")
+      {
+        
+      }
+      else if ($d_app != "rows")
+      {
+        if ($_SESSION['page'] == "view dentist schedule")
+        {
+          echo "<a href='?available='><img src='img/ico/unlock.png' alt='i'/></a>";
+        }
+      }
+      else
       {
         $app = $d_app[0];
 
@@ -280,13 +386,7 @@
           }
         }
       }
-      else
-      {
-        if ($_SESSION['page'] == "view dentist schedule")
-        {
-          echo "<a href='?available='><img src='img/ico/unlock.png' alt='i'/></a>";
-        }
-      }  
+
     ?>
   </li>
   <li>

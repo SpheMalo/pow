@@ -85,7 +85,25 @@ function makeDayAv(datt)
       $('#calendar > div').filter(':first').html(result);
     },
     error: function(res){
-      alert('something went wrong');
+      //location.reload();
+    }
+  });
+}
+
+function makeDayUnav(datt)
+{
+  var dat = 'makeDayUnav=' + datt;
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/cal.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':first').html(result);
+    },
+    error: function(res){
+      //location.reload();
     }
   });
 }

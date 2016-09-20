@@ -127,7 +127,7 @@
     {
       foreach ($r as $ar)
       {
-        $z = $ar;
+        $z[] = $ar;
       }
       return $z;
     }
@@ -208,6 +208,30 @@
     }
   }
 
+  function makeDayUnav($d, $e, $l)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "DELETE FROM `schedule` WHERE `available_date` = '" . $d . "' and `employeeID` = " . $e . " and `practice_locationID` = " . $l;
+      $r = $pdo->exec($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r != null && $r > 0)
+    {
+      return $r;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
   $emp = $_SESSION['emp'];
 
   if (isset($_POST['month']))
@@ -236,7 +260,26 @@
     }
     else
     {
-      header("Location: ../view_dentist_schedule/");
+      header("Location: ");
+    }
+  }
+
+  if (isset($_POST['makeDayUnav']))
+  {
+    $makeDayUnav = makeDayUnav($_POST['makeDayUnav'], $emp->id, $emp->location);
+    //echo var_dump($makeDayUnav, $_POST['makeDayUnav'], $emp->id, $emp->location);
+
+    if ($makeDayUnav == "query")
+    {
+      $o = "There was an error making the day available, query";
+    }
+    else if ($makeDayUnav == "rows")
+    {
+      $o = "There was an error making the day available";
+    }
+    else
+    {
+      header("Location: ");
     }
   }
 
@@ -304,12 +347,11 @@
         else if ($app == "rows")
         {
           $appAlt = loadShedAlt($lid);
-
-          $aa = $appAlt[0];
-          //$o = var_dump($appAlt);
+          $aa = $appAlt[0][0][0];
+          
           if ($aa == 0)
           {
-            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayUnav('" . $lid . "')><br></a></p></div></li>";
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lid . "')>ma</a></p></div></li>";
           }
           else
           {
@@ -323,7 +365,6 @@
           echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>" . $app . " app</p></div></li>";
         }
 
-        //echo "<li id=" . $lid . ">" . $b . "</li>";
         $c1++;
       }
 
