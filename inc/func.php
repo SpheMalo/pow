@@ -732,13 +732,15 @@
     }
   }
 
-  function addPatient($title, $name, $surname, $dob, $gender, $id, $cell, $tell, $email, $postal, $physical, $mem_type, $med_type, $img)
+  function addPatient($title, $name, $surname, $dob, $gender, $id, $cell, $tell, $email, $postal, $physical, $medical, $img)
   {
     require 'dbconn.php';
     
-    $t = loadPatList(NULL);
-
-    if (count($t) < 10)
+    $a = addAddresses($postal, $physical);
+    $a_po = $a[0]['postal'];
+    $a_ph = $a[0]['physical'];
+  
+   /* if (count($t) < 10)
     {
       $file = "f00" . count($t);
     }
@@ -755,12 +757,15 @@
     {
       $img = "new.png";
     }
+  */
 
     try
     {
-      $s = "insert into patient (titleID, name, surname, dob, genderID, id_number, cellphone, telephone, email, address_postalID, address_physicalID, member_typeID, medical_aid_typeID, file_number, img) values (" . $title . ",'" . $name . "','" .  $surname . "','" . $dob . "'," . $gender . "," . $id . "," . $cell . "," . $tell . ",'" . $email . "'," . $postal . "," . $physical .  "," . $mem_type .  "," . $med_type .  ",'" . $file .   "','" . $img . "')";
-      $r = $pdo->exec($s);
-      
+    // $s = "insert into patient (titleID, name, surname, dob, genderID, id_number, cellphone, telephone, email, address_postalID, address_physicalID, member_typeID, medical_aid_typeID, file_number, img) values (" . $title . ",'" . $name . "','" .  $surname . "','" . $dob . "'," . $gender . "," . $id . "," . $cell . "," . $tell . ",'" . $email . "'," . $postal . "," . $physical .  "," . $mem_type .  "," . $med_type .  ",'" . $file .   "','" . $img . "')";
+
+    $s = "INSERT INTO `patient`(`name`, `surname`, `id_number`, `dob`, `telephone`, `cellphone`, `email`, `img`, `file_number`, `medical_aidID`, `titleID`, `genderID`, `address_postalID`, `address_physicalID`, `medical_aid_typeID`, `member_typeID`) VALUES ('". $name ."', '". $surname ."', ". $id .",'". $dob ."', ". $tell .", ". $cell .", '". $email ."', '". $img ."', '". $file ."', ". $medical .", ". $title .", ". $gender .", ".  $a_po .", ".  $a_ph .", ".  $medical .", ". $medical .")";
+    $r = $pdo->exec($s);
+    
     }
     catch(PDOException $e)
     {
@@ -773,7 +778,7 @@
     }
     else
     {
-      return false;
+      return null ;
     }
   }
 
@@ -888,7 +893,33 @@
     }
   }
 
-  function addProcedure($desc, $type, $code, $price, $fav)
+  function addProcType($code, $desc)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "INSERT INTO `type_procedure`(`Code`, `description`) VALUES ('" . $code . "','" . $desc . "')";
+      $r = $pdo->exec($s);
+    }
+    catch (PDOException $e)
+    {
+      return false;
+    }
+
+    if ($r > 0)
+    {
+      
+      return true;
+    }
+    else 
+     {
+       return "rows";
+     } 
+
+  }
+
+  function addProcedure($desc, $code, $price, $fav, $type)
   {
     require 'dbconn.php';
 
@@ -896,6 +927,11 @@
     {
       $fav = 0;
     }
+
+   /* $a = addProcType($code, $desc);
+    $procT = $a[0]['postal'];
+    $a_ph = $a[0]['physical'];
+  */
 
     try
     {

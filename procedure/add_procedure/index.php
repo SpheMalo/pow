@@ -7,9 +7,9 @@
   {
     $_SESSION['page'] = "add procedure";
     $emp = $_SESSION['emp'];
+    $o = "";
 
     $prtList = loadPrTList();
-    
   }
   else
   {
@@ -20,7 +20,7 @@
 
   if (isset($_POST['s_new_proc']))
   {
-    $proc = addProcedure($_POST['desc'], $_POST['type'], $_POST['code'], $_POST['price'], $_POST['favo']);
+    $proc = addProcedure($_POST['desc'], $_POST['code'], $_POST['price'], $_POST['favo'], $_POST['type']);
 
     if ($proc == true)
     {
@@ -30,6 +30,38 @@
     {
       $o = "The procedure was not added due to a server error";
     }
+
+  /* if $proc == "query")
+    {
+      $o = "The procedure could not be added due to a server error, please try again";
+     
+    }
+    else if ($proc == "result")
+    {
+      $o = "The procedure was not added, please try again";
+     
+    }
+    else if ($proc == "row")
+    {
+      $o = "The procedure was added successfuly, though the medical types were not. That can be done manualy";
+    }
+    else
+    {
+    
+
+      if (count($proc[0]) == $types)
+      {
+        $o = "The procedure was added successfuly, though the procedure types were not. That can be done manualy";
+      }
+      else if (count($proc[0]) > 0 && count($proc[0]) != $types)
+      {
+        $o = "The procedure was added successfuly, and so were a few procedure types. The rest can be added manualy";
+      }
+      else 
+      {
+        $o = "The procedure and its types have been added successfuly";
+      }
+    }*/
 
   }
 ?>
@@ -73,7 +105,7 @@
             <input type="text" name="code" placeholder="enter procedure code eg. Z01.20" title="enter procedure code eg. Z01.20 A minimum of 6 characters is required" pattern="[A-Z0-9.]{6,10}" required/>
             
             <label for="price">price:</label>
-            <input type="text" name="price" placeholder="enter procedure price eg. 350,30" title="enter procedure price eg. 350,30" pattern="[0-9,]" required/>
+            <input type="text" name="price" placeholder="enter procedure price eg. 350,30" title="enter procedure price eg. 350,30" pattern="[0-9,]{2,10}" required/>
           </div>
         </fieldset>
 
@@ -87,12 +119,9 @@
             <textarea name="p_t_desc" placeholder="enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis" pattern="[a-zA-Z0-9 ]{1,255}" title="enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis. A maximum of 255 alphanumeric characters may be used"></textarea>
           </div>
         </fieldset>
-
         <input type="submit" name="s_new_proc" value="Add Procedure" class="submit"/>
       </form>
-
     </div>
-    
     <footer></footer>
   </body>
 </html>

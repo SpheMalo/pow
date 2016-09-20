@@ -111,17 +111,17 @@
     public $desc;
     public $code;
     public $price;
-    public $type;
     public $fav;
+    public $type;
 
-    public function __construct($id, $desc, $code, $price, $type, $fav)
+    public function __construct($id, $desc, $code, $price, $fav, $type)
     {
       $this->id = $id;
       $this->desc = $desc;
       $this->code = $code;
       $this->price = $price;
-      $this->type = $type;
       $this->fav = $fav;
+      $this->type = $type;
     }
   }
 

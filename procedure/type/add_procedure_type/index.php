@@ -13,6 +13,20 @@
   {
     header("Location: ../../../login/");
   }
+
+  if (isset($_POST['s_new_procT']))
+  {
+    $procT = addProcType($_POST['code'], $_POST['desc']);
+
+    if($procT == true)
+    {
+      $o = "The procedure type was added successfully";
+    }
+    else if($procT == "rows")
+    {
+      $o = "The procedure type was not added successfuly, please try again";
+    }
+  }
 ?>
 
 <html>
@@ -42,7 +56,7 @@
         <legend>procedure type details</legend>
           <div>
             <label for="code">code:</label>
-            <input type="text" name="code" placeholder="enter procedure type code eg. Z01" required pattern="[A-Z0-9.]{3,3}" title="enter procedure type code eg. Z01"/>
+            <input type="text" name="code" placeholder="enter procedure type code eg. Z01" required pattern="[A-Z0-9.]{3,5}" title="enter procedure type code eg. Z01"/>
             <label for="desc">description:</label>
             <textarea name="desc" placeholder="enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis" pattern="[a-zA-Z0-9 ]{1,255}" title="enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis. A maximum of 255 alphanumeric characters may be used" required></textarea>
           </div>

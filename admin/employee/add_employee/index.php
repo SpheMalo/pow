@@ -96,7 +96,7 @@
             
             <label for="title" >title:</label>
             <select name="title" >
-              <option>select title</option>
+              <option>Select title</option>
               <?php foreach ($tList as $ti):?>
                 <option value="<?php echo $ti['id'];?>"><?php echo $ti['desc'];?></option>
               <?php endforeach;?>
@@ -104,7 +104,7 @@
             
             <label for="gender" >gender:</label>
             <select name="gender" >
-              <option>select gender</option>
+              <option>Select gender</option>
               <?php foreach ($gList as $ge):?>
                 <option value="<?php echo $ge['id'];?>"><?php echo $ge['desc'];?></option>
               <?php endforeach;?>
