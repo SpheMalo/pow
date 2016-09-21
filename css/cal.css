@@ -44,13 +44,33 @@
 
 #call > li{
   width: 12%;
-  height: 50px;
 }
 
 #call > li > p{
   margin: 0;
   padding: 0;
+  width: 100%;
   display: block;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+#call > li > p > a{
+  margin: 0;
+  padding: 0;
+  text-transform: none;
+  cursor: pointer;
+}
+
+#call > li > a{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: block;
+}
+
+#call > li > a:last-of-type{
+  cursor: pointer; 
 }
 
 #loader{

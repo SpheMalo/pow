@@ -69,9 +69,6 @@ function copyAddress()
   $('#add_line_po5').val(e); 
 }
 
-function searchMed()
-{}
-
 function makeDayAv(datt)
 {
   var dat = 'makeDayAv=' + datt;
@@ -82,7 +79,8 @@ function makeDayAv(datt)
     data: dat,
     cache: false,
     success: function(result){
-      $('#calendar > div').filter(':first').html(result);
+      //$('#calendar > div').filter(':first').html(result);
+      getCal();
     },
     error: function(res){
       //location.reload();
@@ -100,12 +98,51 @@ function makeDayUnav(datt)
     data: dat,
     cache: false,
     success: function(result){
-      $('#calendar > div').filter(':first').html(result);
+      getCal();
+      //$('#calendar > div').filter(':first').html(result);
     },
     error: function(res){
       //location.reload();
     }
   });
+}
+
+function makeSlotAv(datt, tt)
+{
+  //var dat = 's_d=' + datt + '&s_t=' + tt + '&makeSlotAv=y';
+  alert("dat");
+  /*$.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      //$('#calendar > div').filter(':first').html(result);
+      getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });*/
+}
+
+function makeSlotUnav(datt, tt)
+{
+  //var dat = 's_d=' + datt + '&s_t=' + tt + '&makeSlotUnav=y';
+  alert("dat");
+  /*$.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      getCal();
+      //$('#calendar > div').filter(':first').html(result);
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });*/
 }
 
 $(document).ready(function(){
@@ -189,14 +226,5 @@ $(document).ready(function(){
     $(this).addClass('active');
     e.preventDefault();
   });
-
-  function getUserImg()
-  {
-    //var img = $(this).attr('');
-
-    /*$.ajax({
-      type: "post"
-    });*/
-  }
 
 });
