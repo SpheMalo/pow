@@ -683,12 +683,12 @@
         else if ($d_app_alt == "rows")
         {
           /////////////////////////////////////////////////////////////////
-          echo "<a>not in</a><a onclick=makeSlotAv('" . $mon . "', 1)>ma</a>";
+          echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
         }
         else
         {
           /////////////////////////////////////////////////////////////////
-          echo "<a>no app</a><a onclick=makeSlotUnav('" . $mon . "', 1)>mu</a>";
+          echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
         }
       }
       else

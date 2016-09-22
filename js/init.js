@@ -150,6 +150,17 @@ $(document).ready(function(){
     e.preventDefault();
   });
 
+  $('#patStLabel').click(function(){
+    if ($(this).prev().is(':checked'))
+    {
+      $(this).prev().prop('checked', false);
+    }
+    else
+    {
+      $(this).prev().prop('checked', true);
+    }
+  });
+
   $('#nav > li > ul').css({
     display: "none",
     left: "auto"

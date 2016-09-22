@@ -11,6 +11,7 @@
     $tList = loadTitleList();
     $gList = loadGenderList();
     $mList = loadMedListS();
+    $cList = loadCityList();
 
     $o = "";
   }
@@ -19,15 +20,34 @@
     header("Location: ../../login/");
   }
 
-  if (isset($_POST['s_new_pat']))
+  if (isset($_POST['add_new_pat']))
   {
+    $postal[] = array(
+      'number' => $_POST['add_line_po1'],
+      'street' => $_POST['add_line_po2'],
+      'suburb' => $_POST['add_line_po3'],
+      'code' => $_POST['add_line_po5'],
+      'city' => $_POST['add_line_po4']
+    );
+
+    $physical[] = array(
+      'number' => $_POST['add_line_ph1'],
+      'street' => $_POST['add_line_ph2'],
+      'suburb' => $_POST['add_line_ph3'],
+      'code' => $_POST['add_line_ph5'],
+      'city' => $_POST['add_line_ph4']
+    );
+
+    $dob = $_POST['dob1'] . "-" . $_POST['dob2'] . "-" . $_POST['dob3'];  
+
+    echo var_dump($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $_POST['medical'], $_POST['standing'], $_POST['medical_m_i'], $_POST['medical_m_n']);
     //$patient = addPatient($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['dob'], $_POST['gender'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical'], $_POST['standing'], $_POST['medical'], NULL);
     /*if (addPat())
     {}
     else
     {}*/
     
-    if ($patient == true)
+    /*if ($patient == true)
     {
       $o = "The patient has been added successfuly";
       //header("Location: ?u=" . $empDet[0] . "&p=" . $empDet[1]);
@@ -35,7 +55,7 @@
     else
     {
       $o = "The new patient was not added due to a server error, please try again later";
-    }
+    }*/
   }
 ?>
 
@@ -76,7 +96,12 @@
             <label for="id">id/passport number:</label>
             <input type="text" name="id" placeholder="Enter patent id/passport number eg. 8612170554087" required pattern="[0-9]{13}" title="A number of 13 characters"/>
             <label for="DoB">Date of Birth:</label>
-            <input type="date" name="dob" placeholder="Enter date of birth eg. 1992-11-30" required title="Must match provided example format"/>
+            <!--<input type="date" name="dob" placeholder="Enter date of birth eg. 1992-11-30" required title="Must match provided example format"/>-->
+            <input type="number" name="dob1" placeholder="year" required title="" />
+            <span>-</span>
+            <input type="number" name="dob2" placeholder="month" required title="" />
+            <span>-</span>
+            <input type="number" name="dob3" placeholder="day" required title="" />
           </div>
           <div>
             <label for="proPic" class="display">profile picture:</label>
@@ -145,7 +170,7 @@
               <?php endforeach;?>
             </select>
             <input type="text" name="add_line_po5" id="add_line_po5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{4}" title="A maximum of 4 digits with no spaces"/>
-            <button class="submit" title="copy physical address to postal address">same postal as physical</button>
+            <button class="submit" title="copy physical address to postal address" id="copy_address" onclick="copyAddress()">same postal as physical</button>
           </div>
           
         </fieldset>
@@ -168,13 +193,13 @@
 
           <div>
             <label>main member id:</label>
-            <input type="text" name="main_m_id" placeholder="Main member id e.g. 9011305265088" />
+            <input type="text" name="medical_m_i" placeholder="Main member id e.g. 9011305265088" />
             <label>main member name:</label>
-            <input type="text" name="main_m_n" placeholder="Main member name e.g. Malesela Ramphele" />
+            <input type="text" name="medical_m_n" placeholder="Main member name e.g. Malesela Ramphele" />
           </div>
         </fieldset>
         
-        <input type="submit" name="s_new_pat" value="Add Patient" class="submit"/>
+        <input type="submit" name="add_new_pat" value="Add Patient" class="submit"/>
         
       </form>
       
