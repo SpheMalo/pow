@@ -21,7 +21,11 @@
 
   if (isset($_POST['s_new_pat']))
   {
-    $patient = addPatient($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['dob'], $_POST['gender'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical'], $_POST['standing'], $_POST['medical'], NULL);
+    //$patient = addPatient($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['dob'], $_POST['gender'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical'], $_POST['standing'], $_POST['medical'], NULL);
+    /*if (addPat())
+    {}
+    else
+    {}*/
     
     if ($patient == true)
     {
@@ -54,7 +58,7 @@
     <div id="head">
       <h1 id="head_m">Patient</h1>
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
-      <h5 id="head_o"><p><?php echo $o; ?></p></h5>
+      <h5 id="head_o"><?php echo $o; ?></h5>
     </div>
     
     <div id="cont">
@@ -161,7 +165,13 @@
             <input type="checkbox" name="standing" class="check" value=1 />
             <label for="standing" id="patStLabel" class="check">is main member</label>
           </div>
-          <div></div>
+
+          <div>
+            <label>main member id:</label>
+            <input type="text" name="main_m_id" placeholder="Main member id e.g. 9011305265088" />
+            <label>main member name:</label>
+            <input type="text" name="main_m_n" placeholder="Main member name e.g. Malesela Ramphele" />
+          </div>
         </fieldset>
         
         <input type="submit" name="s_new_pat" value="Add Patient" class="submit"/>
