@@ -205,6 +205,35 @@
     }
   }
 
+  function loadIdList()
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select id_number from patient";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach ($r as $row)
+      {
+        $iList[] = $row['id_number'];
+      }
+
+      return $iList;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
   function addAddresses($postal, $physical)
   {
     require 'dbconn.php';

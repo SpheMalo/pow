@@ -12,6 +12,7 @@
     $gList = loadGenderList();
     $mList = loadMedListS();
     $cList = loadCityList();
+    $idList = loadIdList();
 
     $o = "";
   }
@@ -68,6 +69,12 @@
     <script type="text/javascript" src="../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        var m = document.getElementById("main_m");
+        m.setAttribute("readonly", "true");
+      });
+    </script>
   </head>
   
   <body>
@@ -187,15 +194,22 @@
             </select>
 
             <label>Standing:</label>
-            <input type="checkbox" name="standing" class="check" value=1 />
+            <input type="checkbox" name="standing" class="check" value=1 id="patSt" onchange='mainMember()'/>
             <label for="standing" id="patStLabel" class="check">is main member</label>
           </div>
 
           <div>
             <label>main member id:</label>
-            <input type="text" name="medical_m_i" placeholder="Main member id e.g. 9011305265088" />
+            <input type="text" name="medical_m_i" list="pat_id" placeholder="Main member id e.g. 9011305265088" id='main_m' pattern="[0-9]{10,13}"/>
+
+            <datalist id="pat_id">
+              <?php foreach ($idList as $i):?>
+                <option value="<?php echo $i;?>"> 
+              <?php endforeach;?>
+            </datalist>
+
             <label>main member name:</label>
-            <input type="text" name="medical_m_n" placeholder="Main member name e.g. Malesela Ramphele" />
+            <input type="text" name="medical_m_n" placeholder="Main member name e.g. Malesela Ramphele" readonly/>
           </div>
         </fieldset>
         
