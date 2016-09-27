@@ -73,7 +73,6 @@
       $(document).ready(function(){
         var m = document.getElementById("main_m");
         m.setAttribute("disabled", "true");
-        alert(m);
       });
     </script>
   </head>
@@ -210,7 +209,7 @@
             </datalist>
 
             <label>main member name:</label>
-            <input type="text" name="medical_m_n" placeholder="Main member name e.g. Malesela Ramphele" readonly/>
+            <input type="text" name="medical_m_n" placeholder="Main member name e.g. Malesela Ramphele" disabled />
           </div>
         </fieldset>
         
