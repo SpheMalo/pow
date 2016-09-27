@@ -11,12 +11,8 @@
     $tList = loadTitleList();
     $gList = loadGenderList();
     $mList = loadMedListS();
-<<<<<<< HEAD
     $cList = loadCityList(); 
-=======
-    $cList = loadCityList();
     $idList = loadIdList();
->>>>>>> c682fb9e9a010e58462a7ee0c3a3b2c258490e94
 
     $o = "";
   }
