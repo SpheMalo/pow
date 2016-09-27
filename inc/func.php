@@ -425,7 +425,7 @@
     }
     catch(PDOException $e)
     {
-      return "query";
+     return "query";
     }
 
     if ($r->rowCount() > 0)
@@ -705,15 +705,21 @@
     }
   }
 
-  function loadPatList($in)
+  function loadPatList($id, $q)
   {
     require 'dbconn.php';
 
     $s = "select patient.id, title.description as title, patient.name, patient.surname, dob, gender.description as gender, id_number, email, img, file_number, cellphone, telephone, address_physicalID, address_postalID, type_member.description as member_type, type_medical_aid.description as medical_aid_type from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id join type_member on patient.member_typeID = type_member.id join type_medical_aid on patient.medical_aid_typeID = type_medical_aid.id order by patient.id";
 
-    if ($in != null)
+   if ($id != null && $q == null)
     {
-       $s = "select patient.id, title.description as title, name, surname, dob, gender.description as gender, id_number, email, cellphone, telephone, address_physicalID, address_postalID from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id where id = " . $in;
+       $s = "select patient.id, title.description as title, name, surname, dob, gender.description as gender, id_number, email, cellphone, telephone, address_physicalID, address_postalID from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id where id = " . $id;
+    }
+
+    if ($id == null && $q != null)
+    {
+      "select patient.id, title.description as title, name, surname, dob, gender.description as gender, id_number, email, cellphone, telephone, address_physicalID, address_postalID from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id where
+      patient.id like '%" . $q . "%' or dob like '%" . $q . "%' or name like '%" . $q . "%' or surname like '%" . $q . "%' or gender.description like '%" . $q . "%' or id_number like '%" . $q . "%' or email like '%" . $q . "%' or cellphone like '%" . $q . "%' or telephone like '%" . $q . "%'";
     }
 
     try
@@ -722,7 +728,7 @@
     }
     catch (PDOException $e)
     {
-      return false;
+      return "query";
     }
 
     if ($r->rowCount() > 0)
@@ -757,7 +763,7 @@
     }
     else
     {
-      return false;
+      return "rows";
     }
   }
 
@@ -785,8 +791,7 @@
     if ($img == NULL)
     {
       $img = "new.png";
-    }
-  */
+    }*/
 
     try
     {
@@ -889,36 +894,75 @@
     }  
   }
 
-  function loadPrcTypList()
+  function loadPrcTypList($id, $q)
+  {
+    require 'dbconn.php';
+
+   $s = "select type_procedure.id, description, code from type_procedure order by code";
+
+    if ($id != null && $q == null)
+    {
+      $s = "select * from type_procedure where type_procedure.id = " . $id;
+    }
+
+   if($id == null && $q != null)
+   {
+     $s = "select * from type_procedure where type_procedure.id like '%" . $q . "%' or description like '%" . $q . "%' or code like '%" . $q . "%'";
+   }
+
+    try
+    {
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+    
+    if ($r->rowCount() > 0)
+    {
+      $c = 0;
+      while($row = $r->fetch())
+      {
+        $id[$c] = $row['id'];
+        $desc[$c] = $row['description'];
+        $code[$c] = $row['code'];
+
+        $prc = new ProcedureType($id[$c], $desc[$c], $code[$c]);
+
+        $prcTypList[] = $prc;
+
+        $c = $c + 1;
+      }
+      return $prcTypList;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
+  function addProdType($name, $desc)
   {
     require 'dbconn.php';
 
     try
     {
-      $s = "select * from proceduretype";
-      $r = $pdo->query($s);
+      $s = "INSERT INTO `type_product`(`name`, `description`) VALUES ('" . $name . "','" . $desc . "')";
+      $r = $pdo->exec($s);
     }
-    catch(PDOException $e)
+    catch (PDOException $e)
     {
       return false;
     }
 
-    if ($r->rowCount() > 0)
+    if($r > 0)
     {
-      foreach($r as $row)
-      {
-        $prcTypList[] = array(
-          'id' => $row['id'],
-          'desc' => $row['description'],
-          'fav' => $row['fav']
-        );
-      }
-
-      return $prcTypList;
+      return true;
     }
     else
     {
-      return false;
+      return "rows";
     }
   }
 
@@ -928,7 +972,7 @@
 
     try
     {
-      $s = "INSERT INTO `type_procedure`(`Code`, `description`) VALUES ('" . $code . "','" . $desc . "')";
+      $s = "INSERT INTO `type_procedure`(`code`, `description`) VALUES ('" . $code . "','" . $desc . "')";
       $r = $pdo->exec($s);
     }
     catch (PDOException $e)
@@ -955,13 +999,11 @@
     if ($fav == NULL)
     {
       $fav = 0;
-    }
-
-   /* $a = addProcType($code, $desc);
+    } 
+     /* $a = addProcType($code, $desc);
     $procT = $a[0]['postal'];
-    $a_ph = $a[0]['physical'];
-  */
-
+    $a_ph = $a[0]['physical'];*/
+  
     try
     {
       $s = "insert into procedure (description, code, price, proceduretypeID, fav) values ('" . $desc . "'," . $code . "," . $price . "," . $type . "," . $fav . ")";
@@ -1025,35 +1067,53 @@
     }
   }
 
-  function loadPrdType()
+  function loadPrdType($id, $q)
   {
     require 'dbconn.php';
 
+    $s = "select type_product.id, name, description from type_product order by name";
+    
+    if ($id != null && $q == null)
+    {
+      
+      $s = "select * from type_product where type_product.id = " . $id;
+    }
+
+   if($id == null && $q != null)
+   {
+     $s = "select * from type_product where type_product.id like '%" . $q . "%' or name like '%" . $q . "%' or description like '%" . $q . "%'";
+   }
+
     try
     {
-      $s = "select * from producttype";
       $r = $pdo->query($s);
     }
     catch (PDOException $e)
     {
-      return false;
+      return "query";
     }
 
     if ($r->rowCount() > 0)
     {
-      foreach ($r as $row)
+      $c = 0;
+      while($row = $r->fetch())
       {
-        $prtList[] = array(
-          'id' => $row['id'],
-          'desc' => $row['description'],
-          'fav' => $row['fav']);
-      }
+        $id[$c] = $row['id'];
+        $name[$c] = $row['name'];
+        $desc[$c] = $row['description'];
+        
 
-      return $prtList;
+        $prd = new ProductType($id[$c], $name[$c], $desc[$c]);
+
+        $prdTypList[] = $prd;
+
+        $c = $c + 1;
+      }
+      return $prdTypList;
     }
     else
     {
-      return false;
+      return "rows";
     }
   }
 

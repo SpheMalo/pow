@@ -1,7 +1,7 @@
 <table>
   <tr>
+    <th>name</th>
     <th>description</th>
-    <th>fav</th>
     <th>actions</th>
   </tr>
   <?php
@@ -11,7 +11,6 @@
       {
         include 'view_prodType_row.php';        
       }
-
     }
-  ?>
+  ?> 
 </table>
