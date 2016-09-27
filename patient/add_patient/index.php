@@ -72,7 +72,8 @@
     <script type="text/javascript">
       $(document).ready(function(){
         var m = document.getElementById("main_m");
-        m.setAttribute("readonly", "true");
+        m.setAttribute("disabled", "true");
+        alert(m);
       });
     </script>
   </head>
@@ -200,7 +201,7 @@
 
           <div>
             <label>main member id:</label>
-            <input type="text" name="medical_m_i" list="pat_id" placeholder="Main member id e.g. 9011305265088" id="main_m"  onkeypress="mainMember()" pattern="[0-9]{10,13}"/>
+            <input type="text" name="medical_m_i" list="pat_id" placeholder="Main member id e.g. 9011305265088" id="main_m" pattern="[0-9]{10,13}"/>
 
             <datalist id="pat_id">
               <?php foreach ($idList as $i):?>
