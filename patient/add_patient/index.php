@@ -194,13 +194,13 @@
             </select>
 
             <label>Standing:</label>
-            <input type="checkbox" name="standing" class="check" value=1 id="patSt" onchange='mainMember()'/>
+            <input type="checkbox" name="standing" class="check" value=1 id="patSt" onchange='mainMember()' checked/>
             <label for="standing" id="patStLabel" class="check">is main member</label>
           </div>
 
           <div>
             <label>main member id:</label>
-            <input type="text" name="medical_m_i" list="pat_id" placeholder="Main member id e.g. 9011305265088" id="main_m"  onkeypress="mainMember()" pattern="[0-9]{10,13}" checked="checked"/>
+            <input type="text" name="medical_m_i" list="pat_id" placeholder="Main member id e.g. 9011305265088" id="main_m"  onkeypress="mainMember()" pattern="[0-9]{10,13}"/>
 
             <datalist id="pat_id">
               <?php foreach ($idList as $i):?>

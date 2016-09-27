@@ -149,7 +149,7 @@ function mainMember()
 {
   var patSt = document.getElementById("patSt");
   var mem = document.getElementById("main_m");
-  var attri = patSt.getAttribute("checked");
+  var attri = patSt.getAttribute('checked');
 
   alert(attri);
 
