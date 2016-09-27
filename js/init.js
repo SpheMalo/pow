@@ -69,9 +69,6 @@ function copyAddress()
   $('#add_line_po5').val(e); 
 }
 
-function searchMed()
-{}
-
 function makeDayAv(datt)
 {
   var dat = 'makeDayAv=' + datt;
@@ -82,17 +79,124 @@ function makeDayAv(datt)
     data: dat,
     cache: false,
     success: function(result){
-      $('#calendar > div').filter(':first').html(result);
+      //$('#calendar > div').filter(':first').html(result);
+      getCal();
     },
     error: function(res){
-      alert('something went wrong');
+      //location.reload();
     }
   });
 }
 
+function makeDayUnav(datt)
+{
+  var dat = 'makeDayUnav=' + datt;
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/cal.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      getCal();
+      //$('#calendar > div').filter(':first').html(result);
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlotAv(datt, tt)
+{
+  //var dat = 's_d=' + datt + '&s_t=' + tt + '&makeSlotAv=y';
+  alert("dat");
+  /*$.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      //$('#calendar > div').filter(':first').html(result);
+      getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });*/
+}
+
+function makeSlotUnav(datt, tt)
+{
+  //var dat = 's_d=' + datt + '&s_t=' + tt + '&makeSlotUnav=y';
+  alert("dat");
+  /*$.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      getCal();
+      //$('#calendar > div').filter(':first').html(result);
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });*/
+}
+
+function mainMember()
+{
+  var patSt = document.getElementById("patSt");
+  var mem = document.getElementById("main_m");
+  var attri = patSt.getAttribute("checked");
+
+  alert(attri);
+
+  /*if (attri != null)
+  {
+    mem.removeAttribute("readonly");
+    alert("worked");
+  }
+  else
+  {
+    mem.setAttribute("readonly", "true");
+    alert("worked not");
+  }*/
+}
+
 $(document).ready(function(){
+  /*if ($('#check').is(':checked'))
+  {
+    //alert("worked");
+    $('#main_m').removeAttribute("readonly");
+  }
+  else
+  {
+    //alert("didnt worked");
+    $('#main_m').setAttribute("readonly");
+  }*/
+
   $('#copy_address').click(function(e){
     e.preventDefault();
+  });
+
+  $('#patStLabel').click(function(){
+    //var check = document.getElementById('patSt');
+    //var mem = document.getElementById("main_m");
+
+    if ($(this).prev().is(':checked'))
+    {
+      $(this).prev().prop('checked', false);
+      //mem.removeAttribute("readonly");
+      mainMember();
+    }
+    else
+    {
+      $(this).prev().prop('checked', true);
+      //mem.setAttribute("readonly", "true");
+      mainMember();
+    }
   });
 
   $('#nav > li > ul').css({
@@ -171,14 +275,5 @@ $(document).ready(function(){
     $(this).addClass('active');
     e.preventDefault();
   });
-
-  function getUserImg()
-  {
-    //var img = $(this).attr('');
-
-    /*$.ajax({
-      type: "post"
-    });*/
-  }
 
 });

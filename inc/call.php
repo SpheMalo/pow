@@ -20,15 +20,79 @@
     }
   }
 
+  class Consultation
+  {
+    public $id;
+    public $notes;
+    public $status;
+    public $book_type;
+    public $employee;
+    public $timeslot;
+    public $location;
+    public $pat_name;
+    public $pat_sur;
+    public $schedule;
+    public $c_date;
+    public $pat;
+
+    public function __construct($id, $notes, $status, $book_type, $employee, $timeslot, $location, $pat_name, $pat_sur, $schedule, $c_date, $pat)
+    {
+      $this->id = $id;
+      $this->notes = $notes;
+      $this->status = $status;
+      $this->book_type = $book_type;
+      $this->employee = $employee;
+      $this->timeslot = $timeslot;
+      $this->location = $location;
+      $this->pat_name = $pat_name;
+      $this->pat_sur = $pat_sur;
+      $this->schedule = $schedule;
+      $this->c_date = $c_date;
+      $this->pat = $pat;
+    }
+
+    public function getMedicalAid($pat)
+    {
+      require 'dbconn.php';
+
+      try
+      {
+        $s = "select type_medical_aid.decription as med_type from patient where patientID = " . $pat;
+        $r = $pdo->query($s); 
+      }
+      catch(PDOException $e)
+      {
+        return false;
+      }
+
+      if ($r->rowCount() > 0)
+      {
+        $c = 0;
+        while ($row = $r->fetch())
+        {
+          $med_type[] = $row['med_type'];
+
+          $c++;
+        }
+
+        return $med_type[0];
+      }
+      else
+      {
+        return false;
+      }
+    }
+  }
+
   function loadShed($date, $time)
   {
     require 'dbconn.php';
 
     $s = "select * from schedule where available_date = '" . $date . "' and available != 1";
 
-    if ($time !== NULL)
+    if ($time != null)
     {
-      $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $time;
+      $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $time . " and available != 1";
     }
 
     try
@@ -37,7 +101,7 @@
     }
     catch(PDOException $e)
     {
-      return false;
+      return "query";
     }
 
     if ($r->rowCount() > 0)
@@ -62,7 +126,40 @@
     }
     else
     {
-      return false;
+      return "rows";
+    }
+  }
+
+  function loadShedAlt($date, $t_s)
+  {
+    require 'dbconn.php';
+    $s = "select * from schedule where available_date = '" . $date . "' and available = 1";
+
+    if ($t_s != null)
+    {
+      $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $t_s . " and available = 1";
+    }
+
+    try
+    {
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      /*foreach ($r as $ar)
+      {
+        $z = $ar;
+      }*/
+      return $r->rowCount();
+    }
+    else
+    {
+      return "rows";
     }
   }
 
@@ -72,12 +169,12 @@
 
     try
     {
-      $s = "select consultation.id, notesm status, type_booking.description as type, employeeID, timeslotID, practice_locationID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, employee_typeID, patientID as pat from consultation where scheduleID = " . $id;
+      $s = "select consultation.id, notes, `status`, type_booking.description as book_type, employeeID, timeslotID, practice_locationID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, employee_typeID, patientID as pat from consultation join type_booking on consultation.booking_typeID = type_booking.id join patient on consultation.patientID = patient.id where scheduleID = " . $id;
       $r = $pdo->query($s);
     }
     catch(PDOException $e)
     {
-      return false;
+      return "query";
     }
 
     if ($r->rowCount() > 0)
@@ -85,21 +182,21 @@
       $c = 0;
       while ($row = $r->fetch())
       {
-        $id[$c] = $row['id'];
+        /*$id[$c] = $row['id'];
         $notes[$c] = $row['notes'];
         $status[$c] = $row['status']; 
         $book_type[$c] = $row['book_type'];
         $emp[$c] = $row['employeeID'];
-        $timeslot[$c] = $row['timeslot'];
-        $loc[$c] = $row['location'];
+        $timeslot[$c] = $row['timeslotID'];
+        $loc[$c] = $row['practice_locationID'];
         $pat_n[$c] = $row['pat_name'];
         $pat_s[$c] = $row['pat_sur'];
         $schedule[$c] = $row['scheduleID'];
-        $c_date[$c] = $row['c_date'];
-        $pat[$c] = $row['pat'];
+        $c_date[$c] = null; //$row['c_date'];
+        $pat[$c] = $row['pat'];*/
 
-        $con = new Consultation($id[$c], $notes[$c], $status[$c], $book_type[$c], $emp[$c], $timeslot[$c], $loc[$c], $pat_n[$c], $pat_s[$c], $schedule[$c], $c_date[$c], $pat[$c]);
-        $conList[] = $con;
+        $conList[] = new Consultation($row['id'], $row['notes'], $row['status'], $row['book_type'], $row['employeeID'], $row['timeslotID'], $row['practice_locationID'], $row['pat_name'], $row['pat_sur'], $row['scheduleID'], null, $row['pat']);
+        //$con = new Consultation($id[$c], $notes[$c], $status[$c], $book_type[$c], $emp[$c], $timeslot[$c], $loc[$c], $pat_n[$c], $pat_s[$c], $schedule[$c], $c_date[$c], $pat[$c]);
 
         $c++;
       }
@@ -108,19 +205,124 @@
     }
     else
     {
-      return false;
+      return "rows";
     }
+  }
+
+  function makeSlotAv($d, $t_s, $e, $l)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s1 = "SELECT * FROM `schedule` WHERE `available_date` = '" . $d . "' and `timeslotID` = " . $t_s . " and `employeeID` = " . $e . " and `practice_locationID` = " . $l . " and `available` = 1";
+      $r1 = $pdo->query($s);
+    }
+    catch (PDOException $e)
+    {
+      return "query1";
+    }
+
+    if ($r->rowCount() > 0 && $r != null)
+    {
+      return "rows1";
+    }
+    else
+    {
+      try
+      {
+        $s3 = "INSERT INTO `schedule`(`available_date`, `available`, `timeslotID`, `employeeID`, `practice_locationID`) VALUES ('" . $d . "', 1, " . $t_s . ", " . $e . ", " . $l . ")";
+        $r3 = $pdo->exec($s3);
+      }
+      catch (PDOException $e)
+      {
+        return "query2";
+      }
+
+      if ($r > 0)
+      {
+        return $r;
+      }
+      else
+      {
+        return "rows2";
+      }
+    }
+  }
+
+  function makeSlotUnav($d, $t_s, $e, $l)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "DELETE FROM `schedule` WHERE `available_date` = '" . $d . "' and timeslotID = " . $t_s . " and `employeeID` = " . $e . " and `practice_locationID` = " . $l;
+      $r = $pdo->exec($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r != null && $r > 0)
+    {
+      return $r;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
+  if (isset($_POST['makeSlotAv']))
+  {
+    echo var_dump($_POST['s_d'], $_POST['s_t'], $emp->id, $emp->location);
+    //$makeSlotAv = makeSlotAv($_POST['s_d'], $_POST['s_t'], $emp->id, $emp->location);
+    //echo var_dump($makeSlotAv);
+
+    /*if ($makeSlotAv == "query")
+    {
+      $o = "There was an error making the slot available, query";
+    }
+    else if ($makeSlotAv == "rows")
+    {
+      $o = "There was an error making the slot unavailable";
+    }
+    else
+    {
+      header("Location: ");
+    }*/
+  }
+
+  if (isset($_POST['makeSlotUnav']))
+  {
+    echo var_dump($_POST['s_d'], $_POST['s_t'], $emp->id, $emp->location);
+    //$makeSlotUnav = makeSlotUnav($_POST['s_d'], $_POST['s_t'], $emp->id, $emp->location);
+    //echo var_dump($makeDayUnav, $_POST['makeDayUnav'], $emp->id, $emp->location);
+
+    /*if ($makeSlotUnav == "query")
+    {
+      $o = "There was an error making the slot available, query";
+    }
+    else if ($makeSlotUnav == "rows")
+    {
+      $o = "There was an error making the slot unavailable";
+    }
+    else
+    {
+      header("Location: ");
+    }*/
   }
 
   if (isset($_POST['date']))
   {
     $d = strtotime($_POST['date']);
-    echo "<h2>" . date("F 'y W", $d) . "</h2>";
+    echo "<h2>" . date("F 'y", $d) . "</h2>";
   }
   else
   {
     $d = mktime(0,0,0,date("m"), date("d"), date("Y"));
-    echo "<h2>" . date("F 'y W", $d) . "</h2>";
+    echo "<h2>" . date("F 'y", $d) . "</h2>";
   }
 
   $dd = date("N", $d);
@@ -207,7 +409,7 @@
   }
   else if ($dd == 6)
   {
-    date("d", $d) - 5;
+    $md = date("d", $d) - 5;
     $mon = date("Y-m", $d) . "-" . $md;
     $td = date("d", $d) - 4; 
     $tue = date("Y-m", $d) . "-" . $td;
@@ -227,17 +429,24 @@
 
     $md = $ddd - 6;
     $mon = date("Y-m", $d) . "-" . $md;
+    $monday = $mon;
     $td = $ddd - 5; 
     $tue = date("Y-m", $d) . "-" . $td;
+    $tuesday = $tue;
     $wd = $ddd - 4;
     $wed = date("Y-m", $d) . "-" . $wd;
+    $wednesday = $wed;
     $thd = $ddd - 3;
     $thu = date("Y-m", $d) . "-" . $thd;
+    $thursday = $thu;
     $fd = $ddd - 2;
     $fri = date("Y-m", $d) . "-" . $fd;
+    $friday = $fri;
     $sd = $ddd - 1;
     $sat = date("Y-m", $d) . "-" . $sd;
+    $saturday = $sat;
     $sun = date("Y-m-d", $d);
+    $sunday = $sun;
 
   }
 
@@ -246,178 +455,373 @@
 ?>
 
 <ul id="call">
-  <li>time</li>
-  <li>monday <?php echo $mon; ?></li>
-  <li>tuesday <?php echo $tue; ?></li>
-  <li>wednesday <?php echo $wed; ?></li>
-  <li>thursday <?php echo $thu; ?></li>
-  <li>friday <?php echo $fri; ?></li>
-  <li>saturday <?php echo $sat; ?></li>
-  <li>sunday <?php echo $sun; ?></li>
-
-  <li>08h00 - 08h45</li>
+  
   <li>
     <?php
-      $d_app = loadShed($mon, 1);
+     //echo "<p>" . $mon . "</p>";
 
-      if ($d_app !== false)
+      $d_app = loadShed($mon, null);
+
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
       {
-        $app = $d_app[0];
+        $d_app_alt = loadShedAlt($mon, null);
 
-        if ($app->available == 0)
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
         {
-          $det_app = loadShedDet($app->id);
+          echo "<p>monday</p><p>" . date("j M", strtotime($mon)) . " <a onclick=makeDayAv('" . $mon . "')>ma</a></p>";
         }
         else
         {
-          if ($_SESSION['page'] == "make a booking")
-          {
-            echo "<a href='book'>book <img src='img/ico/add_app.png' alt='i'/></a>";
-          }
-          else if ($_SESSION['page'] == "view dentist schedule")
-          {
-            echo "<a href='?unavailable=" . $app->id . "'>make unavailable <img src='img/ico/lock.png' alt='i'/></a>";
-          }
+          echo "<p>monday</p><p>" . date("j M", strtotime($mon)) . " <a onclick=makeDayUnav('" . $mon . "')>mu</a></p>";
         }
       }
       else
       {
-        if ($_SESSION['page'] == "view dentist schedule")
+        $app = count($d_app);
+        echo "<p>monday</p><p>" . date("j M", strtotime($mon)) . " <a>- " . $app . " app</a></p>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+     //echo "<p>" . $tue . "</p>";
+
+      $d_app = loadShed($tue, null);
+
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($tue, null);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
         {
-          echo "<a href='?available='><img src='img/ico/unlock.png' alt='i'/></a>";
+          echo "<p>tuesday</p><p>" . date("j M", strtotime($tue)) . " <a onclick=makeDayAv('" . $tue . "')>ma</a></p>";
         }
-      }  
+        else
+        {
+          echo "<p>tuesday</p><p>" . date("j M", strtotime($tue)) . " <a onclick=makeDayUnav('" . $tue . "')>mu</a></p>";
+        }
+      }
+      else
+      {
+        $app = count($d_app);
+        echo "<p>tuesday</p><p>" . date("j M", strtotime($tue)) . " <a>- " . $app . " app</a></p>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      //echo "<p>" . $wed . "</p>";
+
+      $d_app = loadShed($wed, null);
+
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($wed, null);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<p>wednesday</p><p>" . date("j M", strtotime($wed)) . " <a onclick=makeDayAv('" . $wed . "')>ma</a></p>";
+        }
+        else
+        {
+          echo "<p>wednesday</p><p>" . date("j M", strtotime($wed)) . " <a onclick=makeDayUnav('" . $wed . "')>mu</a></p>";
+        }
+      }
+      else
+      {
+        $app = count($d_app);
+        echo "<p>wednesday</p><p>" . date("j M", strtotime($wed)) . " <a>- " . $app . " app</a></p>";
+      }
+    ?>
+  </li>
+  <li> 
+    <?php
+      //echo "<p>" . $thu . "</p>";
+
+      $d_app = loadShed($thu, null);
+
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($thu, null);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<p>thursday</p><p>" . date("j M", strtotime($thu)) . " <a onclick=makeDayAv('" . $thu . "')>ma</a></p>";
+        }
+        else
+        {
+          echo "<p>thursday</p><p>" . date("j M", strtotime($thu)) . " <a onclick=makeDayUnav('" . $thu . "')>mu</a></p>";
+        }
+      }
+      else
+      {
+        $app = count($d_app);
+        echo "<p>thursday</p><p>" . date("j M", strtotime($thu)) . " <a>- " . $app . " app</a></p>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      //echo "<p>" . $fri . "</p>";
+
+      $d_app = loadShed($fri, null);
+
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($fri, null);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<p>friday</p><p>" . date("j M", strtotime($fri)) . " <a onclick=makeDayAv('" . $fri . "')>ma</a></p>";
+        }
+        else
+        {
+          echo "<p>friday</p><p>" . date("j M", strtotime($fri)) . " <a onclick=makeDayUnav('" . $fri . "')>mu</a></p>";
+        }
+      }
+      else
+      {
+        $app = count($d_app);
+        echo "<p>friday</p><p>" . date("j M", strtotime($fri)) . " <a>- " . $app . " app</a></p>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      //echo "<p>" . $sat . "</p>";
+
+      $d_app = loadShed($sat, null);
+
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($sat, null);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<p>saturday</p><p>" . date("j M", strtotime($sat)) . " <a onclick=makeDayAv('" . $sat . "')>ma</a></p>";
+        }
+        else
+        {
+          echo "<p>saturday</p><p>" . date("j M", strtotime($sat)) . " <a onclick=makeDayUnav('" . $sat . "')>mu</a></p>";
+        }
+      }
+      else
+      {
+        $app = count($d_app);
+        echo "<p>saturday</p><p>" . date("j M", strtotime($sat)) . " <a>- " . $app . " app</a></p>";
+      }
+    ?>
+  </li>
+  <li> 
+    <?php
+      //echo "<p>" . $sun . "</p>";
+
+      $d_app = loadShed($sun, null);
+
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($sun, null);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<p>sunday</p><p>" . date("j M", strtotime($sun)) . " <a onclick=makeDayAv('" . $sun . "')>ma</a></p>";
+        }
+        else
+        {
+          echo "<p>sunday</p><p>" . date("j M", strtotime($sun)) . " <a onclick=makeDayUnav('" . $sun . "')>mu</a></p>";
+        }
+      }
+      else
+      {
+        $app = count($d_app);
+        echo "<p>sunday</p><p>" . date("j M", strtotime($sun)) . " <a>- " . $app . " app</a></p>";
+      }
+    ?>
+  </li>
+  <li><p>week <?php echo date("W", $d);?></p><p>time</p></li>
+
+  <li>
+    <?php
+      $d_app = loadShed($mon, 1);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 1);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          /////////////////////////////////////////////////////////////////
+          echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          /////////////////////////////////////////////////////////////////
+          echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<p>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
     ?>
   </li>
   <li>
     <?php
       $d_app = loadShed($tue, 1);
-
-      if ($d_app !== false)
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
       {
-        $app = $d_app[0];
+        $d_app_alt = loadShedAlt($tue, 1);
 
-        if ($app->available == 0)
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
         {
-          $det_app = loadShedDet($app->id);
+          echo "<a>not in</a><a onclick=makeSlotAv('" . $tue . "')>ma</a>";
         }
         else
         {
-          if ($_SESSION['page'] == "make a booking")
-          {
-            echo "<a href='book'>book <img src='img/ico/add_app.png' alt='i'/></a>";
-          }
-          else if ($_SESSION['page'] == "view dentist schedule")
-          {
-            echo "<a href='?unavailable=" . $app->id . "'>make unavailable <img src='img/ico/lock.png' alt='i'/></a>";
-          }
+          echo "<a>no app</a><a onclick=makeSlotUnav('" . $tue . "')>mu</a>";
         }
       }
       else
       {
-        if ($_SESSION['page'] == "view dentist schedule")
-        {
-          echo "<a href='?available='><img src='img/ico/unlock.png' alt='i'/></a>";
-        }
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
       }
     ?>
   </li>
   <li>
     <?php
       $d_app = loadShed($wed, 1);
-
-      if ($d_app !== false)
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
       {
-        $app = $d_app[0];
+        $d_app_alt = loadShedAlt($wed, 1);
 
-        if ($app->available == 0)
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
         {
-          $det_app = loadShedDet($app->id);
+          echo "<a>not in</a><a onclick=makeSlotAv('" . $wed . "', 1)>ma</a>";
         }
         else
         {
-          if ($_SESSION['page'] == "make a booking")
-          {
-            echo "<a href='book'>book <img src='img/ico/add_app.png' alt='i'/></a>";
-          }
-          else if ($_SESSION['page'] == "view dentist schedule")
-          {
-            echo "<a href='?unavailable=" . $app->id . "'>make unavailable <img src='img/ico/lock.png' alt='i'/></a>";
-          }
+          echo "<a>no app</a><a onclick=makeSlotUnav('" . $wed . "', 1)>mu</a>";
         }
       }
       else
       {
-        if ($_SESSION['page'] == "view dentist schedule")
-        {
-          echo "<a href='?available='><img src='img/ico/unlock.png' alt='i'/></a>";
-        }
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
       }
     ?>
   </li>
   <li>
     <?php
       $d_app = loadShed($thu, 1);
-
-      if ($d_app !== false)
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
       {
-        $app = $d_app[0];
+        $d_app_alt = loadShedAlt($thu, 1);
 
-        if ($app->available == 0)
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
         {
-          $det_app = loadShedDet($app->id);
+          echo "<a>not in</a><a onclick=makeSlotAv('" . $thu . "', 1)>ma</a>";
         }
         else
         {
-          if ($_SESSION['page'] == "make a booking")
-          {
-            echo "<a href='book'>book <img src='img/ico/add_app.png' alt='i'/></a>";
-          }
-          else if ($_SESSION['page'] == "view dentist schedule")
-          {
-            echo "<a href='?unavailable=" . $app->id . "'>make unavailable <img src='img/ico/lock.png' alt='i'/></a>";
-          }
+          echo "<a>no app</a><a onclick=makeSlotUnav('" . $thu . "', 1)>mu</a>";
         }
       }
       else
       {
-        if ($_SESSION['page'] == "view dentist schedule")
-        {
-          echo "<a href='?available='><img src='img/ico/unlock.png' alt='i'/></a>";
-        }
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
       }
     ?>
   </li>
   <li>
     <?php
       $d_app = loadShed($fri, 1);
-
-      if ($d_app !== false)
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
       {
-        $app = $d_app[0];
+        $d_app_alt = loadShedAlt($fri, 1);
 
-        if ($app->available == 0)
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
         {
-          $det_app = loadShedDet($app->id);
+          echo "<a>not in</a><a onclick=makeSlotAv('" . $fri . "', 1)>ma</a>";
         }
         else
         {
-          if ($_SESSION['page'] == "make a booking")
-          {
-            echo "<a href='book'>book <img src='img/ico/add_app.png' alt='i'/></a>";
-          }
-          else if ($_SESSION['page'] == "view dentist schedule")
-          {
-            echo "<a href='?unavailable=" . $app->id . "'>make unavailable <img src='img/ico/lock.png' alt='i'/></a>";
-          }
+          echo "<a>no app</a><a onclick=makeSlotUnav('" . $fri . "', 1)>mu</a>";
         }
       }
       else
       {
-        if ($_SESSION['page'] == "view dentist schedule")
-        {
-          echo "<a href='?available='><img src='img/ico/unlock.png' alt='i'/></a>";
-        }
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
       }
     ?>
   </li>
@@ -425,35 +829,30 @@
     <?php
       $d_app = loadShed($sat, 1);
       
-      if ($d_app !== false)
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
       {
-        $app = $d_app[0];
+        $d_app_alt = loadShedAlt($sat, 1);
 
-        if ($app->available == 0)
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
         {
-          $det_app = loadShedDet($app->id);
-          $det_app1 = $det_app[0];
-
-          echo $det_app1->pat_name . " " . $det_app1->pat_sur; 
+          echo "<a>not in</a><a onclick=makeSlotAv('" . $sat . "', 1)>ma</a>";
         }
         else
         {
-          if ($_SESSION['page'] == "make a booking")
-          {
-            echo "<a href='book'>book <img src='img/ico/add_app.png' alt='i'/></a>";
-          }
-          else if ($_SESSION['page'] == "view dentist schedule")
-          {
-            echo "<a href='?unavailable=" . $app->id . "'>make unavailable <img src='img/ico/lock.png' alt='i'/></a>";
-          }
+          echo "<a>no app</a><a onclick=makeSlotUnav('" . $sat . "', 1)>mu</a>";
         }
       }
       else
       {
-        if ($_SESSION['page'] == "view dentist schedule")
-        {
-          echo "<a href='?available='><img src='img/ico/unlock.png' alt='i'/></a>";
-        }
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
       }
     ?>
   </li>
@@ -461,56 +860,35 @@
     <?php
       $d_app = loadShed($sun, 1);
       
-      if ($d_app !== false)
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
       {
-        $app = $d_app[0];
+        $d_app_alt = loadShedAlt($sun, 1);
 
-        if ($app->available == 0)
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
         {
-          $det_app = loadShedDet($app->id);
-
-          if ($det_app !== false)
-          {
-            $det_app1 = $det_app[0];
-
-            if ($_SESSION['page'] == "make a booking")
-            {
-              echo "taken";
-            }
-            else if ($_SESSION['page'] == "view dentist schedule")
-            {
-              echo "<a href='../../../patient/view_patient/?id=" . $det_app1->pat . "' >" . $det_app1->pat_name . " " . $det_app1->patsur . " <img src='img/ico/lock.png' alt='i'/></a>";
-            } 
-          }
-          else
-          {
-            echo "db missing";
-          }
-
+          echo "<a>not in</a><a onclick=makeSlotAv('" . $sun . "', 1)>ma</a>";
         }
         else
         {
-          if ($_SESSION['page'] == "make a booking")
-          {
-            echo "<a onclick=book('" . $sun . "') >+ <img src='img/ico/add_app.png' alt=''/></a>";
-          }
-          else if ($_SESSION['page'] == "view dentist schedule")
-          {
-            echo "<a onclick=makeUnav('" . $sun . "') >un <img src='img/ico/lock.png' alt=''/></a>";
-          }
+          echo "<a>no app</a><a onclick=makeSlotUnav('" . $sun . "', 1)>mu</a>";
         }
       }
       else
       {
-        if ($_SESSION['page'] == "view dentist schedule")
-        {
-          echo "<a onclick=makeAv('" . $sun . "') >av <img src='img/ico/unlock.png' alt=''/></a>";
-        }
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
       }
     ?>
   </li>
+  <li><p>08h00 - 08h45</p><br></li>
 
-  <li>09h00 - 09h45</li>
   <li>s</li>
   <li>s</li>
   <li>s</li>
@@ -518,59 +896,10 @@
   <li>s</li>
   <li>s</li>
   <li>
-    <?php
-      $d_app = loadShed($sun, 2);
-      
-      if ($d_app != false)
-      {
-        $app = $d_app[0];
-
-        if ($app->available == 0)
-        {
-          $det_app = loadShedDet($app->id);
-
-          if ($det_app !== false)
-          {
-            $det_app1 = $det_app[0];
-
-            if ($_SESSION['page'] == "make a booking")
-            {
-              echo "taken";
-            }
-            else if ($_SESSION['page'] == "view dentist schedule")
-            {
-              echo "<a href='../../../patient/view_patient/?id=" . $det_app1->pat . "' >" . $det_app1->pat_name . " " . $det_app1->patsur . " <img src='img/ico/lock.png' alt='i'/></a>";
-            } 
-          }
-          else
-          {
-            echo "db missing";
-          }
-
-        }
-        else
-        {
-          if ($_SESSION['page'] == "make a booking")
-          {
-            echo "<a onclick=book('" . $sun . "') >+ <img src='img/ico/add_app.png' alt=''/></a>";
-          }
-          else if ($_SESSION['page'] == "view dentist schedule")
-          {
-            echo "<a onclick=makeUnav('" . $sun . "') >un <img src='img/ico/lock.png' alt=''/></a>";
-          }
-        }
-      }
-      else
-      {
-        if ($_SESSION['page'] == "view dentist schedule")
-        {
-          echo "<a onclick=makeAv('" . $sun . "') >av <img src='img/ico/unlock.png' alt=''/></a>";
-        }
-      }
-    ?>
+    s
   </li>
+  <li><p>09h00 - 09h45</p></li>
   
-  <li>10h00 - 10h45</li>
   <li>s</li>
   <li>s</li>
   <li>s</li>
@@ -578,8 +907,8 @@
   <li>s</li>
   <li>s</li>
   <li>s</li>
+  <li><p>10h00 - 10h45</p></li>
 
-  <li>11h00 - 11h45</li>
   <li>s</li>
   <li>s</li>
   <li>s</li>
@@ -587,8 +916,8 @@
   <li>s</li>
   <li>s</li>
   <li>s</li>
+  <li><p>11h00 - 11h45</p></li>
 
-  <li>12h00 - 12h45</li>
   <li>s</li>
   <li>s</li>
   <li>s</li>
@@ -596,8 +925,8 @@
   <li>s</li>
   <li>s</li>
   <li>s</li>
+  <li><p>12h00 - 12h45</p></li>
 
-  <li>13h00 - 13h45</li>
   <li>s</li>
   <li>s</li>
   <li>s</li>
@@ -605,8 +934,8 @@
   <li>s</li>
   <li>s</li>
   <li>s</li>
+  <li><p>13h00 - 13h45</p></li>
 
-  <li>14h00 - 14h45</li>
   <li>s</li>
   <li>s</li>
   <li>s</li>
@@ -614,8 +943,8 @@
   <li>s</li>
   <li>s</li>
   <li>s</li>
+  <li><p>14h00 - 14h45</p></li>
 
-  <li>15h00 - 15h45</li>
   <li>s</li>
   <li>s</li>
   <li>s</li>
@@ -623,8 +952,8 @@
   <li>s</li>
   <li>s</li>
   <li>s</li>
+  <li><p>15h00 - 15h45</p></li>
 
-  <li>16h00 - 16h45</li>
   <li>s</li>
   <li>s</li>
   <li>s</li>
@@ -632,8 +961,8 @@
   <li>s</li>
   <li>s</li>
   <li>s</li>
+  <li><p>16h00 - 16h45</p></li>
 
-  <li>17h00 - 17h45</li>
   <li>s</li>
   <li>s</li>
   <li>s</li>
@@ -641,9 +970,10 @@
   <li>s</li>
   <li>s</li>
   <li>s</li>
+  <li><p>17h00 - 17h45</p></li>
 
   <?php
-    require 'func.php';
+    //require 'func.php';
 
     /*if (isset($_POST['date']))
     {
@@ -657,4 +987,7 @@
     $app = loadShed($d);*/
 
   ?>
+
+  <!--<div class="clear"></div>-->
+
 </ul>
