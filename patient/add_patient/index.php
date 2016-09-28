@@ -39,9 +39,15 @@
       'city' => $_POST['add_line_ph4']
     );
 
-    $dob = $_POST['dob1'] . "-" . $_POST['dob2'] . "-" . $_POST['dob3'];  
+    $dob = $_POST['dob1'] . "-" . $_POST['dob2'] . "-" . $_POST['dob3'];
 
-    echo var_dump($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $_POST['medical'], $_POST['standing'], $_POST['medical_m_i'], $_POST['medical_m_n']);
+    if (!isset($_POST['medical_m_i']) && !isset($_POST['medical_m_i']))
+    {
+      $medical_m_i = null;
+      $medical_m_n = null;
+    }  
+
+    echo var_dump($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $_POST['medical'], $_POST['standing'], $medical_m_i, $medical_m_n);
     //$patient = addPatient($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['dob'], $_POST['gender'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical'], $_POST['standing'], $_POST['medical'], NULL);
     /*if (addPat())
     {}
@@ -72,7 +78,7 @@
     <script type="text/javascript">
       $(document).ready(function(){
         var m = document.getElementById("main_m");
-        m.setAttribute("readonly", "true");
+        m.setAttribute("disabled", "disabled");
       });
     </script>
   </head>
@@ -94,7 +100,7 @@
         <legend>personal details</legend>
           <div>
             <label for="proPic" >profile picture:</label>
-            <img src="" alt="" />
+            <img src="" alt="" onclick="takepicture()" />
             <input type="file" name="proPic"/>
 
             <label for="name" >name:</label>
@@ -194,13 +200,13 @@
             </select>
 
             <label>Standing:</label>
-            <input type="checkbox" name="standing" class="check" value=1 id="patSt" onchange='mainMember()'/>
+            <input type="checkbox" name="standing" class="check" value=1 id="patSt" onchange='mainMember()' checked/>
             <label for="standing" id="patStLabel" class="check">is main member</label>
           </div>
 
           <div>
             <label>main member id:</label>
-            <input type="text" name="medical_m_i" list="pat_id" placeholder="Main member id e.g. 9011305265088" id="main_m"  onkeypress="mainMember()" pattern="[0-9]{10,13}" checked="checked"/>
+            <input type="text" name="medical_m_i" list="pat_id" placeholder="Main member id e.g. 9011305265088" id="main_m" pattern="[0-9]{10,13}"/>
 
             <datalist id="pat_id">
               <?php foreach ($idList as $i):?>
@@ -209,7 +215,7 @@
             </datalist>
 
             <label>main member name:</label>
-            <input type="text" name="medical_m_n" placeholder="Main member name e.g. Malesela Ramphele" readonly/>
+            <input type="text" name="medical_m_n" placeholder="Main member name e.g. Malesela Ramphele" disabled/>
           </div>
         </fieldset>
         

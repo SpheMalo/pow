@@ -145,27 +145,61 @@ function makeSlotUnav(datt, tt)
   });*/
 }
 
-function mainMember()
-{
-  var patSt = document.getElementById("patSt");
-  var mem = document.getElementById("main_m");
-  var attri = patSt.getAttribute("checked");
-
-  alert(attri);
-
-  /*if (attri != null)
-  {
-    mem.removeAttribute("readonly");
-    alert("worked");
-  }
-  else
-  {
-    mem.setAttribute("readonly", "true");
-    alert("worked not");
-  }*/
-}
-
 $(document).ready(function(){
+
+  function mainMember()
+  {
+    var mem = document.getElementById("main_m");
+
+    if ($('#patSt').is(':checked'))
+    {
+      mem.setAttribute('disabled', 'disabled');
+    }
+    else
+    {
+      mem.removeAttribute('disabled');
+    }
+  }
+
+  function takepicture()
+  {
+    $('<video id="video"></video><button id="snap" onclick="snap()">Capture Photo</button><a id="cancelSnap">cancel</a>').appendTo('body');
+
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
+    {
+      // Not adding `{ audio: true }` since we only want video now
+      navigator.mediaDevices.getUserMedia({video: true}).then(function(stream) 
+      {
+        // Grab elements, create settings, etc.
+        var video = document.getElementById('video');
+        video.src = window.URL.createObjectURL(stream);
+        
+        // Elements for taking the snapshot
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+      });
+    }
+    else
+    {
+      alert("not");
+    }
+  }
+
+  // Trigger photo take
+  function snap()
+  {
+    // Grab elements, create settings, etc.
+    var video = document.getElementById('video');
+    
+    // Elements for taking the snapshot
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, 640, 480);
+    var dat = canvas.toDataURL('image/png', 1.0);
+    console.log(dat);
+    
+  }
+
   /*if ($('#check').is(':checked'))
   {
     //alert("worked");
