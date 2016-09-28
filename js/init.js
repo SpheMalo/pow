@@ -145,25 +145,21 @@ function makeSlotUnav(datt, tt)
   });*/
 }
 
-function mainMember()
-{
-  var patSt = document.getElementById("patSt");
-  var mem = document.getElementById("main_m");
-  var attri = patSt.getAttribute("disabled");
-
-  alert(attri);
-
-  if (attri == null)
-  {
-    mem.removeAttribute("disabled");
-  }
-  else
-  {
-    mem.setAttribute("readonly", "true");
-  }
-}
-
 $(document).ready(function(){
+
+  function mainMember()
+  {
+    var mem = document.getElementById("main_m");
+
+    if ($('#patSt').is(':checked'))
+    {
+      mem.setAttribute('disabled', 'disabled');
+    }
+    else
+    {
+      mem.removeAttribute('disabled');
+    }
+  }
   /*if ($('#check').is(':checked'))
   {
     //alert("worked");
