@@ -107,6 +107,39 @@
     }
   }
 
+  function loadPracticeLocList()
+  {
+    require 'dbconn.php';
+    
+    try
+    {
+      $s = "select * from practice_location";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      $o = "unable to retrieve practice location list" . $e;
+      return false;
+    }
+    
+    if ($r->rowCount() > 0)
+    {
+      foreach ($r as $row)
+      {
+        $pList[] = array(
+          'id' => $row['id'],
+          'desc' => $row['description']);
+      }
+      
+      return $pList;
+    }
+    else
+    {
+      $o = "";
+      return false;
+    }
+  }
+
   function loadGenderList()
   {
     require 'dbconn.php';
@@ -868,7 +901,7 @@
     
     try
     {
-      $s = "select * from proceduretype order by code";
+      $s = "select * from type_procedure order by code";
       $r = $pdo->query($s);
     }
     catch(PDOException $e)
@@ -992,28 +1025,81 @@
 
   }
 
-  function addProcedure($desc, $code, $price, $fav, $type)
+  function addProcedure($desc, $code, $price, $fav, $p_t_code, $p_t_desc, $prtList)
   {
     require 'dbconn.php';
+
+   foreach($prtList as $p)
+   {
+    if ($p['code'] == $p_t_code)
+    {
+      $b = "";
+    }
+   }
+
+    if (isset($b))
+    {
+      try
+      {
+        $s1 = "select id from type_procedure where code = '". $p_t_code . "'";
+        $r1 = $pdo->query($s1);
+      }
+      catch(PDOException $e)
+      {
+        return "query";
+      }
+
+      if($r1->rowCount() > 0)
+      {
+        while ($row = $r1->fetch())
+        {
+          $pro = $row['id'];
+        }
+      }
+    }
+    else
+    {
+        if(  addProcType($p_t_code, $p_t_desc))
+        {
+          try
+          {
+            $s1 = "select id from type_procedure where code = '". $p_t_code . "'";
+            $r1 = $pdo->query($s1);
+          }
+          catch(PDOException $e)
+          {
+            return "query";
+          }
+
+          if($r1->rowCount() > 0)
+          {
+            while ($row = $r1->fetch())
+            {
+              $pro = $row['id'];
+            }
+          }
+        }
+        else 
+        {
+          return "Procedure not added";
+        }     
+     }
 
     if ($fav == NULL)
     {
       $fav = 0;
-    } 
-     /* $a = addProcType($code, $desc);
-    $procT = $a[0]['postal'];
-    $a_ph = $a[0]['physical'];*/
-  
+    }
+
     try
     {
-      $s = "insert into procedure (description, code, price, proceduretypeID, fav) values ('" . $desc . "'," . $code . "," . $price . "," . $type . "," . $fav . ")";
+      $s = "INSERT INTO `procedure`(`description`, `code`, `price`, `favorite`, `procedure_typeID`) VALUES  ('" . $desc . "'," . $code . "," . $price . "," . $fav . "," . $pro . ")";
       $r = $pdo->exec($s);
 
       return true;
     }
     catch (PDOException $e)
     {
-      return false;
+      return "query";
     }
   }
 

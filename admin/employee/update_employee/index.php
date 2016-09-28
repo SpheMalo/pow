@@ -12,6 +12,7 @@
     $gList = loadGenderList();
     $sList = loadStatusList();
     $cList = loadCityList();
+    $plist = loadPracticeLocList();
   }
   else
   {
@@ -194,7 +195,16 @@
                 <option value="<?php echo $st['id'];?>"><?php echo $st['desc'];?></option>
               <?php endforeach;?>
             </select>
-          </div>          
+          </div>  
+           <div>
+            <label for="loc" >Practice location:</label>
+            <select name="loc">
+              <option>select position</option>
+              <?php foreach ($plist as $p):?>
+                <option value="<?php echo $p['id'];?>"><?php echo $p['desc'];?></option>
+              <?php endforeach;?>
+            </select>
+          </div>             
         </fieldset>
         
         <input type="submit" name="s_upd_emp" value="Update Employee" class="submit"/>
