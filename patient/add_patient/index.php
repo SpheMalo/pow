@@ -209,7 +209,7 @@
             </datalist>
 
             <label>main member name:</label>
-            <input type="text" name="medical_m_n" placeholder="Main member name e.g. Malesela Ramphele" disabled />
+            <input type="text" name="medical_m_n" placeholder="Main member name e.g. Malesela Ramphele" disabled="disabled" />
           </div>
         </fieldset>
         

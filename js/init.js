@@ -149,20 +149,18 @@ function mainMember()
 {
   var patSt = document.getElementById("patSt");
   var mem = document.getElementById("main_m");
-  var attri = mem.getAttribute("disabled");
+  var attri = patSt.getAttribute("disabled");
 
   alert(attri);
 
-  /*if (attri != null)
+  if (attri == null)
   {
-    mem.removeAttribute("readonly");
-    alert("worked");
+    mem.removeAttribute("disabled");
   }
   else
   {
     mem.setAttribute("readonly", "true");
-    alert("worked not");
-  }*/
+  }
 }
 
 $(document).ready(function(){
