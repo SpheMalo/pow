@@ -100,7 +100,8 @@
         <legend>personal details</legend>
           <div>
             <label for="proPic" >profile picture:</label>
-            <img src="" alt="" onclick="takepicture()" />
+            <img src="" alt=""/>
+            <a id="takeP">t</a>
             <input type="file" name="proPic"/>
 
             <label for="name" >name:</label>
@@ -119,7 +120,7 @@
           <div>
             <label for="proPic" class="display">profile picture:</label>
             <img src="" alt="" class="display"/>
-            <input type="file" name="proPic" class="display"/>
+            <input type="file" name="proPic" class="display" disabled/>
 
             <label for="surname">surname:</label>
             <input type="text" name="surname" placeholder="Enter patient surname eg. Moeng" required pattern="[A-Za-z]{1,35}" title="A maximum of 35 letters with no spaces"/>
