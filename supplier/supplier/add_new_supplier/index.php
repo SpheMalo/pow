@@ -28,7 +28,7 @@
 
     $status = "active";
 
-    $supplier = addSupplier($_POST['supplierName'], $_POST['contactPersonName'], $_POST['supplierEmail'], $_POST['telephone'], $_POST['faxNumber'], $physical, $_POST['bankName'], $_POST['branchCode'], $_POST['accountNumber'], $_POST['reference'], $status);
+    $supplier = addSupplier($_POST['supplierName'], $_POST['contactPersonName'], $_POST['supplierEmail'], $_POST['telephone'], $_POST['faxNumber'], $physical, $_POST['bankName'], $_POST['branchName'], $_POST['branchCode'], $_POST['accountNumber'], $_POST['reference'], $status);
     
     if (isset($supplier))
     {

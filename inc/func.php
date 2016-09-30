@@ -281,51 +281,57 @@
       'physical' => null
     );
 
-    try
+    if ($postal != null)
     {
-      $s1 = "insert into address_postal(number, street, suburb, postal_code, cityID) values ('" . $postal[0]['number'] . "', '" . $postal[0]['street'] . "', '" . $postal[0]['suburb'] . "', " . $postal[0]['code'] . ", " . $postal[0]['city'] . ")";
-      $r1 = $pdo->exec($s1);
-    }
-    catch(PDOException $e)
-    {}
-
-    try
-    {
-      $s2 = "select id from address_postal where number = '" . $postal[0]['number'] . "' and street = '" . $postal[0]['street'] . "' and suburb = '" . $postal[0]['suburb'] . "' and postal_code = " . $postal[0]['code'] . " and cityID = " . $postal[0]['city'];
-      $r11 = $pdo->query($s2);
-    }
-    catch(PDOException $e)
-    {}
-
-    if ($r11->rowCount() > 0)
-    {
-      while ($row = $r11->fetch())
+      try
       {
-        $o[0]['postal'] = $row['id'];
+        $s1 = "insert into address_postal(number, street, suburb, postal_code, cityID) values ('" . $postal[0]['number'] . "', '" . $postal[0]['street'] . "', '" . $postal[0]['suburb'] . "', " . $postal[0]['code'] . ", " . $postal[0]['city'] . ")";
+        $r1 = $pdo->exec($s1);
+      }
+      catch(PDOException $e)
+      {}
+
+      try
+      {
+        $s2 = "select id from address_postal where number = '" . $postal[0]['number'] . "' and street = '" . $postal[0]['street'] . "' and suburb = '" . $postal[0]['suburb'] . "' and postal_code = " . $postal[0]['code'] . " and cityID = " . $postal[0]['city'];
+        $r11 = $pdo->query($s2);
+      }
+      catch(PDOException $e)
+      {}
+
+      if ($r11->rowCount() > 0)
+      {
+        while ($row = $r11->fetch())
+        {
+          $o[0]['postal'] = $row['id'];
+        }
       }
     }
 
-    try
+    if ($physical != null)
     {
-      $s3 = "insert into `address_pyhsical`(`number`, `street`, `suburb`, `postal_code`, `cityID`) values ('" . $physical[0]['number'] . "', '" . $physical[0]['street'] . "', '" . $physical[0]['suburb'] . "', " . $physical[0]['code'] . ", " . $physical[0]['city'] . ")";
-      $r2 = $pdo->exec($s3);
-    }
-    catch(PDOException $e)
-    {}
-
-    try
-    {
-      $s4 = "select id from `address_pyhsical` where number = '" . $physical[0]['number'] . "' and street = '" . $physical[0]['street'] . "' and suburb = '" . $physical[0]['suburb'] . "' and postal_code = " . $physical[0]['code'] . " and cityID = " . $physical[0]['city'];
-      $r21 = $pdo->query($s4);
-    }
-    catch(PDOException $e)
-    {}
-
-    if ($r21->rowCount() > 0)
-    {
-      while ($row = $r21->fetch())
+      try
       {
-        $o[0]['physical'] = $row['id'];
+        $s3 = "insert into `address_pyhsical`(`number`, `street`, `suburb`, `postal_code`, `cityID`) values ('" . $physical[0]['number'] . "', '" . $physical[0]['street'] . "', '" . $physical[0]['suburb'] . "', " . $physical[0]['code'] . ", " . $physical[0]['city'] . ")";
+        $r2 = $pdo->exec($s3);
+      }
+      catch(PDOException $e)
+      {}
+
+      try
+      {
+        $s4 = "select id from `address_pyhsical` where number = '" . $physical[0]['number'] . "' and street = '" . $physical[0]['street'] . "' and suburb = '" . $physical[0]['suburb'] . "' and postal_code = " . $physical[0]['code'] . " and cityID = " . $physical[0]['city'];
+        $r21 = $pdo->query($s4);
+      }
+      catch(PDOException $e)
+      {}
+
+      if ($r21->rowCount() > 0)
+      {
+        while ($row = $r21->fetch())
+        {
+          $o[0]['physical'] = $row['id'];
+        }
       }
     }
 
@@ -1714,11 +1720,15 @@
 function addSupplier($name, $contactPerson , $email, $telephone, $fax, $physical, $bank, $branchN, $branchC, $accNum, $ref, $status)
 {
   require 'dbconn.php';
+
+  $a = addAddresses(null, $physical);
+    //$a_po = $a[0]['postal'];
+    $a_ph = $a[0]['physical'];
   
   try
   {
     $s = "INSERT INTO `supplier`(`id`, `name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference`) VALUES
-     ('" . $name . "','" . $contactPerson . "','" .  $email . "'," . $telephone . "," . $fax . ",'" . $physical . "','" . $status . "','" . $bank . "','" . $branchN . "'," . $branchC . "," . $accNum . ",'" . $ref . "')";
+     ('" . $name . "','" . $contactPerson . "','" .  $email . "'," . $telephone . "," . $fax . ",'" . $a_ph . "','" . $status . "','" . $bank . "','" . $branchN . "'," . $branchC . "," . $accNum . ",'" . $ref . "')";
     $r = $pdo->exec($s);
   }
   catch(PDOException $e)
