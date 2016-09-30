@@ -150,10 +150,11 @@
     public $size;
     public $quantity;
     public $critical;
+    public $fav;
     public $type;
     public $stock;
 
-    public function __construct($id, $pNumber,$name, $desc, $price, $size, $quantity, $critical, $type, $stock)
+    public function __construct($id, $pNumber,$name, $desc, $price, $size, $quantity, $critical, $fav, $type, $stock)
     {
       $this->id = $id;
       $this->pNumber = $pNumber;
@@ -163,6 +164,7 @@
       $this->size = $size;
       $this->quantity = $quantity;
       $this->critical = $critical;
+      $this->fav = $fav;
       $this->type = $type;
       $this->stock = $stock;
     }
@@ -213,7 +215,7 @@
       $this->branchC = $branchC;
       $this->accNum = $accNum;
       $this->ref = $ref;
-      $this->ref = $status;
+      $this->status = $status;
     }
   }
 

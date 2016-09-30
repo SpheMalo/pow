@@ -9,7 +9,7 @@
     $emp = $_SESSION['emp'];
     $o = "";
     
-    $pList = loadProdList(null);
+    $pList = loadProdList(null, null);
     
   }
   else
@@ -61,10 +61,11 @@
           <td><a href="../write_off_stock/">Write-Off</a></td>
         </tr>
       </table>
-
-      <div id="noti"></div>
     </div>
-    
+    <form method="get" action="" enctype="multipart/form-data" id="search">
+      <input type="search" name="s" placeholder="Search criteria" id="search_input"/>
+      <button>s</button>
+    </form>
     <footer></footer>
   </body>
 </html>

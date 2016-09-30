@@ -8,6 +8,8 @@
     $_SESSION['page'] = "update supplier";
     $emp = $_SESSION['emp'];
     $o = "";
+
+    $cList = loadCityList();
   }
   else
   {
@@ -40,54 +42,61 @@
     
     <div id="cont">
       <form method="post" action="">
-        <fieldset>
+       <fieldset>
         <legend>Contact Details</legend>
         <div>
           <label for="supplierName">Name:</label>
-          <input type="text" name="supplierName" placeholder="Enter Supplier Name" required />
+          <input type="text" name="supplierName" placeholder="Enter Supplier Name e.g. ABC Medical Supplies" required pattern= "[A-Za-z0-9 ]{1,35}" title="A maximum of 35 letters allowed" />
           
           <label for="contactPersonName">Contact Person Name:</label>
-          <input type="text" name="contactPersonName" placeholder="Enter Contact Person Name" required />
+          <input type="text" name="contactPersonName" placeholder="Enter Contact Person Name e.g. Vuyani Mati" required pattern="[A-Za-z ]{1,35}" title="A maximum of 35 letters allowed"/>
           
           <label for="supplierEmail">Email Address:</label>
-          <input type="email" name="supplierEmail" placeholder="Enter Email" required />
+          <input type="email" name="supplierEmail" placeholder="Enter Email e.g. supplier@example.co.za" required />
 
           <label for="telephone">Telephone:</label>
-          <input type="tel" name="telephone" placeholder="Enter Telephone Number" required />
+          <input type="tel" name="telephone" placeholder="Enter Telephone Number e.g. 0119724075" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
         </div>
 
-        <div>
+       <div>
           <label for="faxNumber">Fax Number:</label>
-          <input type="tel" name="faxNumber" placeholder="Enter Fax Number" required />
+          <input type="tel" name="faxNumber" placeholder="Enter Fax Number e.g. 0863483678" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
 
-          <label for="physical">Physical Address:</label>
-          <textarea class="addSuppAddress" name="physical" placeholder="Enter suppliers Physical Address"></textarea>
-          <label for="status">Status:</label>
-          <input type="text" name="status" placeholder="supplier status" required />
-        </div>
-        </fieldset>
+          <label for="physical" >physical address:</label>
+            <input type="text" name="add_line_ph1" id="add_line_ph1" placeholder="Enter street number e.g. 395" required pattern="[A-Za-z0-9]{1,5}" title="A maximum of 5 characters"/>
+            <input type="text" name="add_line_ph2" id="add_line_ph2" placeholder="Enter street name e.g. Pongola Drive" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
+            <input type="text" name="add_line_ph3" id="add_line_ph3" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
+            <select name="add_line_ph4" id="add_line_ph4">
+              <option>Select city/town</option>
+              <?php foreach ($cList as $c):?>
+                <option value="<?php echo $c['id'];?>"><?php echo $c['desc'];?></option>
+              <?php endforeach;?>
+            </select>
+            <input type="text" name="add_line_ph5" id="add_line_ph5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{4}" title="A maximum of 4 digits with no spaces"/>
+       </div>
+       </fieldset>
 
-        <fieldset>
-          <legend>Bank Details</legend>
-          <div>
-            <label for="bankName">Bank Name:</label>
-            <input type="text" name="bankName" placeholder="Enter Bank Name" required />
+       <fieldset>
+       <legend>Bank Details</legend>
+       <div>
+          <label for="bankName">Bank Name:</label>
+          <input type="text" name="bankName" placeholder="Enter bank name e.g. ABSA" required pattern= "[A-Za-z ]{1,35}" title="A maximum of 35 letters allowed" />
 
-            <label for="branchName">Branch Name:</label>
-            <input type="text" name="branchName" placeholder="Enter Branch Name" required />
-            
-            <label for="branchCode">Branch Code:</label>
-            <input type="tel" name="branchCode" placeholder="Enter Branch Code" required />
-          </div>
+          <label for="branchName">Branch Name:</label>
+          <input type="text" name="branchName" placeholder="Enter Branch Name e.g. Brooklyn " required pattern= "[A-Za-z ]{1,35}" title="A maximum of 35 letters allowed" />
+          
+          <label for="branchCode">Branch Code:</label>
+          <input type="tel" name="branchCode" placeholder="Enter Branch Code e.g. 246000" required pattern= "[0-9]{6}" title="A maximum of 4 numbers allowed with no spaces" />
+       </div>
 
-          <div>
-            <label for="accountNumber">Acount Number:</label>
-            <input type="text" name="accountNumber" placeholder="Enter Account Number" required />
+       <div>
+          <label for="accountNumber">Acount Number:</label>
+          <input type="text" name="accountNumber" placeholder="Enter Account Number e.g. 402560581" required pattern= "[0-9]{8,15}" title="A minimum of 8 and maximum of 15 digits allowed with no spaces" />
 
-            <label for="reference">Reference:</label>
-            <input type="text" name="reference" placeholder="Enter Reference" required />
-          </div>
-        </fieldset>
+          <label for="reference">Reference:</label>
+          <input type="text" name="reference" placeholder="Enter Reference e.g. DMaponya09"  required pattern= "[A-Za-z0-9 ]{1,35}" title="A maximum of 35 alphanumeric characters allowed" />
+       </div>
+       </fieldset>
         
          <input type="submit" name="s_upd_sup" value="Update Supplier" class="submit"/>
          <input type="submit" name="rem" value="Remove Supplier" class="submit"/>

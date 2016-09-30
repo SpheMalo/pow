@@ -1517,22 +1517,22 @@
   {
     require 'dbconn.php';
 
-    $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.description as typeProd, `stockID` 
+    $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeProd, `stockID` 
           FROM `product` 
           JOIN type_product on product.product_typeID = type_product.id 
           order by id";
 
     if ($id != null && $q == null)
     {
-      $s = "select * from product where id = " . $in;
+      $s = "select * from product where product.id = " . $id;
     }
 
     if($id == null && $q != null)
     {
-      $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.description as typeProd, `stockID` 
+      $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeProd, `stockID` 
             FROM `product` 
             JOIN type_product on product.product_typeID = type_product.id 
-            where product.id like '%". $q . "%' or number like '%". $q . "%' or product.description like '%". $q . "%' or price like '%". $q . "%' or size like '%". $q . "%' or quantity like '%". $q . "%' or critical_value like '%". $q . "%' or type_product.description like '%". $q . "%'";
+            where product.id like '%". $q . "%' or product.name like '%". $q . "%' or number like '%". $q . "%' or product.description like '%". $q . "%' or price like '%". $q . "%' or size like '%". $q . "%' or quantity like '%". $q . "%' or critical_value like '%". $q . "%' or type_product.name like '%". $q . "%'";
     }
 
     try
@@ -1541,7 +1541,7 @@
     }
     catch (PDOException $e)
     {
-      return false;
+      return "query";
     }
 
     if ($r->rowCount() > 0)
@@ -1550,18 +1550,19 @@
       while ($row = $r->fetch()) 
       {
         $id[$c] = $row['id'];
-        $name[$c] = $row['number'];
+        $pNumber[$c] = $row['number'];
         $name[$c] = $row['name'];
         $desc[$c] = $row['description'];
         $price[$c] = $row['price'];
         $size[$c] = $row['size'];
         $quantity[$c] = $row['quantity'];
-        $critical[$c] = $row['critical'];
+        $critical[$c] = $row['critical_value'];
+        $fav[$c] = $row['favorite'];
         $type[$c] = $row['typeProd'];
         $stock[$c] = $row['stockID'];
         
 
-        $prod = new Product($id[$c],$pNumber, $name[$c], $desc[$c], $price[$c], $size[$c], $quantity[$c], $critical[$c], $type[$c], $stock[$c]);
+        $prod = new Product($id[$c], $pNumber[$c], $name[$c], $desc[$c], $price[$c], $size[$c], $quantity[$c], $critical[$c], $fav[$c], $type[$c], $stock[$c]);
         $prodList[] = $prod;
 
         $c = $c + 1;
@@ -1571,7 +1572,7 @@
     }
     else
     {
-      return false;
+      return "rows";
     }
   }
 
@@ -1679,21 +1680,29 @@
       return false;
     }
   }
-
-function addSupplier($name, $contactPerson , $email, $telephone, $fax, $physical, $bank, $branchN, $branchC, $accNum, $ref)
+  
+function addSupplier($name, $contactPerson , $email, $telephone, $fax, $physical, $bank, $branchN, $branchC, $accNum, $ref, $status)
 {
   require 'dbconn.php';
   
   try
   {
-    $s = "insert into supplier (name, contactPerson, email, telephone, fax, physical, bank, branchN, branchC, accNum, ref) values ('" . $name . "','" . $contactPerson . "','" .  $email . "'," . $telephone . "," . $fax . ",'" . $physical . "','" . $bank . "','" . $branchN . "'," . $branchC . "," . $accNum . ",'" . $ref . "')";
+    $s = "INSERT INTO `supplier`(`id`, `name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference`) VALUES
+     ('" . $name . "','" . $contactPerson . "','" .  $email . "'," . $telephone . "," . $fax . ",'" . $physical . "','" . $status . "','" . $bank . "','" . $branchN . "'," . $branchC . "," . $accNum . ",'" . $ref . "')";
     $r = $pdo->exec($s);
-    
-    return true;
   }
   catch(PDOException $e)
   {
-    return false;
+    return "query";
+  }
+
+  if($r > 0)
+  {
+    return true;
+  }
+  else 
+  {
+    return "rows";
   }
 }
 

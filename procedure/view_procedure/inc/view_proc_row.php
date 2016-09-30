@@ -2,12 +2,12 @@
     if ($proc->fav == 1)
     {
         $a = "Yes";
-        $b = "<a href='?unfav=$proc->id'>remove from favorite list</a>";
+        $b = "<a href='?unfav=$proc->id'>Remove from favorites list</a>";
     }
     else 
     {
         $a = "No";
-        $b = "<a href='?fav=$proc->id'>add to favorite list</a>";
+        $b = "<a href='?fav=$proc->id'>Add to favorites list</a>";
     }
 ?>
 <tr>

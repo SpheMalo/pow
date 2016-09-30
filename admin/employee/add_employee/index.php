@@ -93,7 +93,7 @@
             <input type="file" name="proPic"/>
 
             <label for="name" >name:</label>
-            <input type="text" name="name" placeholder="Enter employee name eg. Simon" required pattern="[A-Za-z]{1,35}" title="A maximum of 35 letters allowed with no spaces"/>
+            <input type="text" name="name" placeholder="Enter employee name e.g. Simon" required pattern="[A-Za-z]{1,35}" title="A maximum of 35 letters allowed with no spaces"/>
             
             <label for="title" >title:</label>
             <select name="title" >
@@ -132,10 +132,10 @@
         <legend>contact details</legend>
           <div>
             <label for="cell">cellphone:</label>
-            <input type="tel" name="cell" placeholder="Enter employee cellphone number eg. 0824897654" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
+            <input type="tel" name="cell" placeholder="Enter employee cellphone number e.g. 0824897654" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
             
             <label for="email">email:</label>
-            <input type="email" name="email" placeholder="Enter employee email eg. employee@example.co.za" required />
+            <input type="email" name="email" placeholder="Enter employee email e.g. employee@example.co.za" required />
             
             <label for="physical" >physical address:</label>
             <!--<textarea name="physical" class="empPhysical" placeholder="enter employee physical address eg. 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>-->
