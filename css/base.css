@@ -108,13 +108,13 @@
     padding: 0.2em 0.4em 0.2em 0.3em;
     color: white;
     list-style: none;
-    font-weight: bold;
+    font-weight: normal;
     text-transform: capitalize;
   }
   
   #nav > li > ul > li > a:hover
   {
-    background: #00314c;
+    /*background: #00314c;*/
   }
   
   #nav > li > ul > li > a
@@ -125,7 +125,7 @@
     color: white;
     text-align: left;
     text-decoration:none;
-    font-weight: normal;
+    font-weight: bold;
     text-transform: none;
   }
 

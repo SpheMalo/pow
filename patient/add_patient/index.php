@@ -12,7 +12,7 @@
     $gList = loadGenderList();
     $mList = loadMedListS();
     $cList = loadCityList(); 
-    $idList = loadIdList();
+    $idList = loadIdList(" ");
 
     $o = "";
   }
@@ -23,83 +23,104 @@
 
   if (isset($_POST['add_new_pat']))
   {
-    $postal[] = array(
-      'number' => $_POST['add_line_po1'],
-      'street' => $_POST['add_line_po2'],
-      'suburb' => $_POST['add_line_po3'],
-      'code' => $_POST['add_line_po5'],
-      'city' => $_POST['add_line_po4']
-    );
-
-    $physical[] = array(
-      'number' => $_POST['add_line_ph1'],
-      'street' => $_POST['add_line_ph2'],
-      'suburb' => $_POST['add_line_ph3'],
-      'code' => $_POST['add_line_ph5'],
-      'city' => $_POST['add_line_ph4']
-    );
-
-    $dob = $_POST['dob1'] . "-" . $_POST['dob2'] . "-" . $_POST['dob3'];
-
-    if (!isset($_POST['medical_m_i']))
+    $i_l = loadIdList(null);
+    
+    foreach($i_l as $il)
     {
-      $medical_m_i = null;
+      if ($il == $_POST['id'])
+      {
+        $id_exist = " ";
+      }
     }
 
-    if (!isset($_POST['fileToUpload']))
+    if (isset($id_exist))
     {
-      $img = null;
-    } 
-
-    if (!is_numeric($_POST['medical']))
-    {
-      $medical = null;
-      $medical_m_i = null;
-      $standing = null;
+      $o = "A patient already exists with the provided ID/Passport number";
     }
     else
     {
-      $medical = $_POST['medical'];
+      $postal[] = array(
+        'number' => $_POST['add_line_po1'],
+        'street' => $_POST['add_line_po2'],
+        'suburb' => $_POST['add_line_po3'],
+        'code' => $_POST['add_line_po5'],
+        'city' => $_POST['add_line_po4']
+      );
 
-      if (!isset($_POST['standing']))
+      $physical[] = array(
+        'number' => $_POST['add_line_ph1'],
+        'street' => $_POST['add_line_ph2'],
+        'suburb' => $_POST['add_line_ph3'],
+        'code' => $_POST['add_line_ph5'],
+        'city' => $_POST['add_line_ph4']
+      );
+
+      $dob = $_POST['dob1'] . "-" . $_POST['dob2'] . "-" . $_POST['dob3'];
+
+      if (!isset($_POST['medical_m_i']))
       {
+        $medical_m_i = null;
+      }
+      else
+      {
+        $medical_m_i = $_POST['medical_m_i'];
+      }
+
+      if (!isset($_POST['fileToUpload']))
+      {
+        $img = null;
+      }
+
+      if (!is_numeric($_POST['medical']))
+      {
+        $medical = null;
+        $medical_m_i = null;
         $standing = null;
       }
       else
       {
-        $standing = $_POST['standing'];
+        $medical = $_POST['medical'];
+
+        if (!isset($_POST['standing']))
+        {
+          $standing = null;
+        }
+        else
+        {
+          $standing = $_POST['standing'];
+        }
+      }
+
+      //echo var_dump($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $medical, $standing, $medical_m_i);
+      $p = addPatient($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $medical, $standing, $medical_m_i, $img);
+      //echo var_dump($p);
+
+      if ($p == true)
+      {
+        $o = "The patient has been added successfuly";
+      }
+      else if ($p == "query")
+      {
+        $o = "The patient was not added successfuly due to a server error.";
+      }
+      else if ($p == "rows")
+      {
+        $o = "The patient was not added successfuly, please try again.";
+      }
+      else if ($p == "e_mainMember")
+      {
+        $o = "The main member provided is not a main member or does not exist. Please try again.";
+      }
+      else if ($p == "e_loadMemberTypeCode_query")
+      {
+        $o = "There was an error adding the patient to the member table. Please try again.";
+      }
+      else if ($p == "e_loadMemberTypeCode_rows")
+      {
+        $o = "There was an error retrieving the patients member code.";
       }
     }
 
-    echo var_dump($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $medical, $standing, $medical_m_i);
-    $p = addPatient($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $medical, $standing, $medical_m_i, $img);
-    echo var_dump($p);
-    /*if ($p == true)
-    {
-      $o = "The patient has been added successfuly";
-    }
-    else if ($p == "query")
-    {
-      $o = "The patient was not added successfuly due to a server error.";
-    }
-    else if ($p == "rows")
-    {
-      $o = "The patient was not added successfuly, please try again.";
-    }
-    else if ($p == "e_add_mem_t")
-    {
-      $o = "The member type could not added successfuly. Patient details can be updated once the patient has been added successfuly.";
-    }*/
-    
-    /*if ($patient == true)
-    {
-      $o = "The patient has been added successfuly";
-      //header("Location: ?u=" . $empDet[0] . "&p=" . $empDet[1]);
-    }
-    else
-    {
-      $o = "The new patient was not added due to a server error, please try again later";
-    }*/
   }
 ?>
 
@@ -116,6 +137,14 @@
       $(document).ready(function(){
         var m = document.getElementById("main_m");
         m.setAttribute("disabled", "disabled");
+
+        $('#s42').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+        $('#s42').parent().parent().css({'background': 'white', 'color': '#00314c'});
+        //$('#s42').parent().prevUntil().css({'color': '#00314c'});
+        //$('#s42').parent().nextUntil().css({'color': '#00314c'});
+        $('#s42').parent().prevUntil().children().css({'color': '#00314c'});
+        $('#s42').parent().nextUntil().children().css({'color': '#00314c'});
+        $('#s42').css({'color': '#00314c', 'text-decoration': 'underline'});
       });
     </script>
   </head>
@@ -244,7 +273,7 @@
 
           <div>
             <label>main member id:</label>
-            <input type="text" name="medical_m_i" list="pat_id" placeholder="Main member id e.g. 9011305265088" id="main_m" pattern="[0-9]{10,13}" required/>
+            <input type="text" name="medical_m_i" list="pat_id" placeholder="Main member id e.g. 9011305265088" id="main_m" pattern="[0-9]{10,13}" required autocomplete="off"/>
 
             <datalist id="pat_id">
               <?php foreach ($idList as $i):?>

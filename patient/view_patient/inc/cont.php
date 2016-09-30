@@ -4,11 +4,10 @@
     <th>title</th>
     <th>name</th>
     <th>surname</th>
-    <th>identity</th>
-    <th>gender</th>
     <th>cellphone</th>
     <th>telephone</th>
     <th>physical address</th>
+    <th>postal address</th>
     <th>action</th>
   </tr>
   <?php
