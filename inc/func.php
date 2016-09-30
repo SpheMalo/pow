@@ -923,7 +923,7 @@
     try
     {
       $s = "select member_typeID from patient where id_number = '" . $id . "'";
-      $r = $pdo->exec($s);
+      $r = $pdo->query($s);
     }
     catch(PDOException $e)
     {
@@ -937,11 +937,9 @@
         $m_t_i = $row['member_typeID'];
       }
 
-      //return $m_t_i;
-
       try
       {
-        $s1 = "select `code` from type_member where id = " . $m_t_i;
+        $s1 = "select `code` from type_member where id = " . $m_t_i . " and patient_typeID = 1";
         $r1 = $pdo->query($s1);
       }
       catch(PDOException $e)
@@ -982,7 +980,15 @@
       else
       {
         $m_m_c = loadMemberTypeCode($medical_m_i);
-        if (is_numeric($m_m_c))
+        if ($m_m_c == "query" || $m_m_c == "query1")
+        {
+          return "e_loadMemberTypeCode_query";
+        }
+        else if ($m_m_c == "rows" || $m_m_c == "rows1")
+        {
+          return "e_loadMemberTypeCode_rows";
+        }
+        else
         {
           try
           {
@@ -995,39 +1001,35 @@
           }
 
           if ($r > 0)
+          {
+            try
             {
-              try
+              $s1 = "select id from type_member where code = '" . $m_m_c . "' and patient_typeID = 2";
+              $r1 = $pdo->exec($s1);
+            }
+            catch(PDOException $e)
+            {
+              return "query1";
+            }
+
+            if ($r1->rowCount() > 0)
+            {
+              foreach ($r1 as $row)
               {
-                $s1 = "select id from type_member where code = '" . $m_m_c . "' and patient_typeID = 2";
-                $r1 = $pdo->exec($s1);
-              }
-              catch(PDOException $e)
-              {
-                return "query21";
+                $a = $row['id'];
               }
 
-              if ($r1->rowCount() > 0)
-              {
-                foreach ($r1 as $row)
-                {
-                  $a2 = $row['id'];
-                }
-
-                return $a2;
-              }
-              else
-              {
-                return "rows21";
-              }
+              return $a;
             }
             else
             {
-              return "rows2";
-            }    
-        }
-        else
-        {
-          return "";
+              return "rows1";
+            }
+          }
+          else
+          {
+            return "rows";
+          }    
         }
       }
     }
@@ -1049,17 +1051,17 @@
       {
         try
         {
-          $s21 = "select id from type_member where code = '" . $member_no . "' and patient_typeID = 1";
-          $r21 = $pdo->exec($s21);
+          $s3 = "select id from type_member where code = '" . $member_no . "' and patient_typeID = 1";
+          $r3 = $pdo->exec($s3);
         }
         catch(PDOException $e)
         {
-          return "query21";
+          return "query3";
         }
 
-        if ($r21->rowCount() > 0)
+        if ($r3->rowCount() > 0)
         {
-          foreach ($r21 as $row)
+          foreach ($r3 as $row)
           {
             $a2 = $row['id'];
           }
@@ -1068,7 +1070,7 @@
         }
         else
         {
-          return "rows21";
+          return "rows3";
         }
       }
       else
@@ -1100,6 +1102,14 @@
     else
     {
       $member_c = addMemberType($standing, $medical_m_i);
+      if ($member_c == "query" || $member_c == "query1" || $member_c == "query2" || $member_c == "query3")
+      {
+        return "e_addMemberType_query";
+      }
+      else if ($member_c == "rows" || $member_c == "rows1" || $member_c == "rows2" || $member_c == "rows3")
+      {
+        return "e_addMemberType_rows";
+      }
     }
 
     try

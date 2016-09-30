@@ -72,8 +72,8 @@
     }
 
     echo var_dump($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $medical, $standing, $medical_m_i);
-    //$p = addPatient($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $medical, $standing, $medical_m_i, $img);
-    //echo var_dump($p);
+    $p = addPatient($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $medical, $standing, $medical_m_i, $img);
+    echo var_dump($p);
     /*if ($p == true)
     {
       $o = "The patient has been added successfuly";
