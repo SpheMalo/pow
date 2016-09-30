@@ -12,15 +12,15 @@
     if (isset($_GET['id']))
     {
       header("Location: ../update_product/?id=" . $_GET['id']);
-      //$prodList = loadProdList($_GET['id']);
     }
-    else if (isset($_GET['search']))
-    {}
+    else if (isset($_GET['s']))
+    {
+       $prodList = loadProdList(null, $_GET['s']);
+    }
     else
     {
-      $prodList = loadProdList(null);
+      $prodList = loadProdList(null, null);
     }
-    
   }
   else
   {
@@ -46,17 +46,24 @@
     <div id="head">
       <h1 id="head_m">Product</h1>
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
-      <h5 id="head_s"><?php echo $o;?></h5>
+      <h5 id="head_o"><?php echo $o;?></h5>
     </div>
     <div id="cont">
       <?php
-        if (isset($_GET['id']))
+        if (isset($_GET['s']))
         {
-          include 'inc/cont_id.php';
-        }
-        else if (isset($_GET['search']))
-        {
-          include 'inc/cont_id.php';
+          if($prodList == "query")
+          {
+            echo "<p>There was a problem retrieving products Reffer to help for assistance</p>";
+          }
+          else if($prodList == "rows")
+          {
+            echo "<p>There were no matches for what you are are looking for.  <a href='../view_product/'>Reload the page</a> or try refining your search citeria.</p>";
+          }
+          else 
+          {
+            include 'inc/cont.php';
+          }
         }
         else
         {
@@ -66,13 +73,15 @@
           }
           else 
           {
-            echo "<p>there are currently no products according to your database</p>";
+            echo "<p>There are currently no products according to your database</p>";
           }
         }
       ?>
-      <div id="noti"></div>
     </div>
-    
+     <form method="get" action="" enctype="multipart/form-data" id="search">
+      <input type="search" name="s" placeholder="Search criteria" id="search_input"/>
+      <button>s</button>
+    </form>
     <footer></footer>
   </body>
 </html>

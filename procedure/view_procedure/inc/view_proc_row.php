@@ -1,16 +1,15 @@
 <?php
     if ($proc->fav == 1)
     {
-        $a = "yes";
+        $a = "Yes";
         $b = "<a href='?unfav=$proc->id'>remove from favorite list</a>";
     }
     else 
     {
-        $a = "no";
+        $a = "No";
         $b = "<a href='?fav=$proc->id'>add to favorite list</a>";
     }
 ?>
-
 <tr>
   <td><?php echo $proc->id;?></td>
   <td><?php echo $proc->desc;?></td>

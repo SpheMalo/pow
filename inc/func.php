@@ -849,24 +849,35 @@
     }
   }
 
-  function loadProcList($in)
+  function loadProcList($id, $q)
   {
     require 'dbconn.php';
 
-    $s = "select procedure.id, procedure.description as `desc`, `procedure`.code, price, proceduretype.description as type, procedure.fav from `procedure` join proceduretype on `procedure`.proceduretypeID = proceduretype.id order by `procedure`.id";
+    $s = "select procedure.id, procedure.description, procedure.code, price, `procedure`.favorite, type_procedure.description as type_procedure 
+          from `procedure` 
+          join type_procedure on procedure.procedure_typeID = type_procedure.id 
+          order by id ";
 
-    if ($in != null)
+    if ($id != null && $q == null)
     {
-       $s = "select procedure.id, procedure.description as `desc`, `procedure`.code, price, proceduretype.description as type, procedure.fav from `procedure` join proceduretype on `procedure`.proceduretypeID = proceduretype.id where `procedure`.id = " . $in;
+       $s = "select * from procedure where procedure.id = " . $id;
     }
+
+    if($id == null && $q != null)
+    {
+      $s = "select procedure.id, procedure.description, procedure.code, price, `procedure`.favorite, type_procedure.description as type_procedure 
+            from `procedure` 
+            join type_procedure on procedure.procedure_typeID = type_procedure.id 
+            where procedure.id like '%". $q . "%' or procedure.description like '%". $q . "%' or procedure.code like '%". $q . "%' or price like '%". $q . "%' or `procedure`.favorite like '%". $q . "%' or type_procedure.description like '%". $q . "%'";
+      }
 
     try
     {
       $r = $pdo->query($s);
     }
     catch (PDOException $e)
-    {
-      return false;
+    {  
+      return "query";
     }
 
     if ($r->rowCount() > 0)
@@ -875,13 +886,13 @@
       while ($row = $r->fetch()) 
       {
         $id[$c] = $row['id'];
-        $desc[$c] = $row['desc'];
+        $desc[$c] = $row['description'];
         $code[$c] = $row['code'];
         $price[$c] = $row['price'];
-        $type[$c] = $row['type'];
-        $fav[$c] = $row['fav'];
+        $fav[$c] = $row['favorite'];
+        $type[$c] = $row['type_procedure'];
 
-        $proc = new Procedure($id[$c], $desc[$c], $code[$c], $price[$c], $type[$c], $fav[$c]);
+        $proc = new Procedure($id[$c], $desc[$c], $code[$c], $price[$c], $fav[$c], $type[$c]);
         $procList[] = $proc;
 
         $c = $c + 1;
@@ -891,8 +902,40 @@
     }
     else
     {
+      return "rows";
+    }
+  }
+
+  function loadProdTypeList()
+  {
+    require 'dbconn.php';
+    
+    try
+    {
+      $s = "select * from type_product order by id";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
       return false;
     }
+    
+    if ($r->rowCount() > 0)
+    {
+      foreach ($r as $row)
+      {
+        $prdList[] = array(
+          'id' => $row['id'],
+          'name' => $row['name'], 
+          'desc' => $row['description']);
+      }
+      
+      return $prdList;
+    }
+    else
+    {
+      return false;
+    }  
   }
 
   function loadPrTList()
@@ -931,7 +974,9 @@
   {
     require 'dbconn.php';
 
-   $s = "select type_procedure.id, description, code from type_procedure order by code";
+   $s = "select type_procedure.id, description, code 
+         from type_procedure 
+         order by code";
 
     if ($id != null && $q == null)
     {
@@ -1015,7 +1060,6 @@
 
     if ($r > 0)
     {
-      
       return true;
     }
     else 
@@ -1024,6 +1068,92 @@
      } 
 
   }
+
+  function addProduct($pNumber, $name, $price, $size, $quantity, $desc, $critical, $fav, $p_t_name, $p_t_desc, $prdList)
+  {
+     require 'dbconn.php';
+
+     foreach ($prdList as $p)
+     {
+       if($p['name'] == $p_t_name)
+       {
+         $b = "";
+       }
+     }
+
+      if (isset($b))
+      {
+        try
+        {
+          $s1 = "select id from type_product where name = '". $p_t_name . "'";
+          $r1 = $pdo->query($s1);
+        }
+        catch(PDOException $e)
+        {
+          return "query";
+        }
+
+        if($r1->rowCount() > 0)
+        {
+          while ($row = $r1->fetch())
+          {
+            $prd = $row['id'];
+          }
+        }
+       }
+       else 
+       {
+          if(addProdType($p_t_name, $p_t_desc))
+          {
+            try
+            {
+              $s1 = "select id from type_product where name = '". $p_t_name . "'";
+              $r1 = $pdo->query($s1);
+            }
+            catch(PDOException $e)
+            {
+              return "query";
+            }
+
+            if($r1->rowCount() > 0)
+            {
+              while ($row = $r1->fetch())
+              {
+                $prd = $row['id'];
+              }
+            }
+          }
+          else 
+          {
+            return "Product not added";
+          }      
+       }
+
+        if ($fav == NULL)
+        {
+          $fav = 0;
+        }
+
+        try
+        {
+          $s = "INSERT INTO `product`(`number`, `name`, `description`, `price`, `size`, `quantity`, `critical_value`, `favorite`, `product_typeID`, `stockID`) VALUES
+                                     ('" . $pNumber . "','" . $name . "','" . $desc . "'," . $price . "," . $size . "," . $quantity . "," . $critical . "," . $fav . "," . $prd . "," . $prd . ")";
+          $r = $pdo->exec($s);
+        }
+        catch (PDOException $e)
+        {
+          return "rows";
+        }
+
+        if ($r > 0 )
+        {
+          return true;
+        }
+        else 
+        {
+          return "query ";
+        }
+    }
 
   function addProcedure($desc, $code, $price, $fav, $p_t_code, $p_t_desc, $prtList)
   {
@@ -1059,7 +1189,7 @@
     }
     else
     {
-        if(  addProcType($p_t_code, $p_t_desc))
+        if(addProcType($p_t_code, $p_t_desc))
         {
           try
           {
@@ -1092,14 +1222,21 @@
 
     try
     {
-      $s = "INSERT INTO `procedure`(`description`, `code`, `price`, `favorite`, `procedure_typeID`) VALUES  ('" . $desc . "'," . $code . "," . $price . "," . $fav . "," . $pro . ")";
+      $s = "INSERT INTO `procedure`(`description`, `code`, `price`, `favorite`, `procedure_typeID`) VALUES  ('" . $desc . "','" . $code . "'," . $price . "," . $fav . "," . $pro . ")";
       $r = $pdo->exec($s);
-
-      return true;
     }
     catch (PDOException $e)
     {
-      return "query";
+      return "rows";
+    }
+
+    if ($r > 0 )
+    {
+      return true;
+    }
+    else 
+    {
+      return "query ";
     }
   }
 

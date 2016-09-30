@@ -18,7 +18,6 @@
       {
         include 'view_prod_row.php';        
       }
-
     }
   ?>
 </table>
