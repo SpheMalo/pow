@@ -1172,7 +1172,7 @@
             from `procedure` 
             join type_procedure on procedure.procedure_typeID = type_procedure.id 
             where procedure.id like '%". $q . "%' or procedure.description like '%". $q . "%' or procedure.code like '%". $q . "%' or price like '%". $q . "%' or `procedure`.favorite like '%". $q . "%' or type_procedure.description like '%". $q . "%'";
-      }
+    }
 
     try
     {
@@ -1656,17 +1656,20 @@
     }
   }
 
-  function loadSuppList($in)
+  function loadSuppList($id, $q)
   {
     require 'dbconn.php';
-    
-    //$s = "select supplier.id, Name, ContactPerson, Email, Telephone, Fax, Bank, AccNum, Ref, status from supplier";
+
     $s = "select * from supplier order by id";
     
-    if ($in != null)
+   if ($id != null && $q == null)
     {
-      //$s = "select supplier.id, Name, ContactPerson, Email, Telephone, Fax, Bank, AccNum, Ref, status from supplier". $in;
-      $s = "select * from supplier where id = ". $in;
+      $s = "select * from supplier where id = ". $id;
+    }
+
+    if ($id != null && $q == null)
+    {
+
     }
     
     try
@@ -1675,7 +1678,7 @@
     }
     catch(PDOException $e)
     {
-      return false;
+      return "query";
     }
 
     if ($r->rowCount() > 0)
@@ -1707,7 +1710,7 @@
     }
     else
     {
-      return false;
+      return "rows";
     }
   }
   

@@ -65,7 +65,7 @@
         {
           if($prodList == "query")
           {
-            echo "<p>There was a problem retrieving products Reffer to help for assistance</p>";
+            echo "<p>There was a problem retrieving products. Reffer to help for assistance</p>";
           }
           else if($prodList == "rows")
           {
