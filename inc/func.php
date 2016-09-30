@@ -691,20 +691,6 @@
     return $o;
   }
 
-  function searchMed($q)
-  {
-    require 'dbconn';
-
-    try
-    {
-      $s = "select";
-    }
-    catch(PDOException $e)
-    {
-      return "query"; 
-    }
-  }
-
   function loadPatList($id, $q)
   {
     require 'dbconn.php';
@@ -767,43 +753,330 @@
     }
   }
 
-  function addPatient($title, $name, $surname, $dob, $gender, $id, $cell, $tell, $email, $postal, $physical, $medical, $img)
+  function checkFileNo($f_n)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select file_number from patient";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach($r as $row)
+      {
+        if ($row['file_number'] === $f_n)
+        {
+          $a = " ";
+        }
+      }
+    }
+    else
+    {
+      return "rows";
+    }
+
+    if (isset($a))
+    {
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+  }
+
+  function genFileNo()
+  {
+    $f_n = "f-" . rand(10000, 99999);
+
+    if (checkFileNo($f_n))
+    {
+      return $f_n;
+    }
+    /*if (checkFileNo($f_n) == false)
+    {
+      genFileNo();
+    }
+    else if (checkFileNo($f_n) == "query")
+    {
+      return "query";
+    }*/
+    else if (checkFileNo($f_n) == "rows")
+    {
+      return $f_n;
+    }
+    else
+    {
+      genFileNo();
+    }
+  }
+
+  function checkMemberNo($m_n)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select code from type_member";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach($r as $row)
+      {
+        if ($row['code'] === $m_n)
+        {
+          $a = " ";
+        }
+      }
+    }
+    else
+    {
+      return "rows";
+    }
+
+    if (isset($a))
+    {
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+  }
+
+  function genMemberNo()
+  {
+    $m_n = rand(10000, 99999);
+
+    if (checkMemberNo($m_n))
+    {
+      return $m_n;
+    }
+    /*if (checkFileNo($f_n) == false)
+    {
+      genFileNo();
+    }
+    else if (checkFileNo($f_n) == "query")
+    {
+      return "query";
+    }*/
+    else if (checkFileNo($m_n) == "rows")
+    {
+      return $m_n;
+    }
+    else
+    {
+      checkMemberNo();
+    }
+  }
+
+  function loadMemberTypeCode($id)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select member_typeID from patient where id_number = '" . $id . "'";
+      $r = $pdo->exec($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach($r as $row)
+      {
+        $m_t_i = $row['member_typeID'];
+      }
+
+      //return $m_t_i;
+
+      try
+      {
+        $s1 = "select `code` from type_member where id = " . $m_t_i;
+        $r1 = $pdo->query($s1);
+      }
+      catch(PDOException $e)
+      {
+        return "query1";
+      }
+
+      if ($r1->rowCount() > 0)
+      {
+        foreach($r1 as $row)
+        {
+          $m_m_c = $row['code'];
+        }
+
+        return $m_m_c;
+      }
+      else
+      {
+        return "rows1";  
+      }
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
+  function addMemberType($standing, $medical_m_i)
+  {
+    require 'dbconn.php';
+
+    if ($standing == null)
+    {
+      if ($medical_m_i == null)
+      {
+        return "f_m_i";
+      }
+      else
+      {
+        $m_m_c = loadMemberTypeCode($medical_m_i);
+        if (is_numeric($m_m_c))
+        {
+          try
+          {
+            $s = "INSERT INTO `type_member`(`code`, `patient_typeID`) VALUES ('" . $m_m_c . "', 2)";
+            $r = $pdo->exec($s2);
+          }
+          catch(PDOException $e)
+          {
+            return "query";
+          }
+
+          if ($r > 0)
+            {
+              try
+              {
+                $s1 = "select id from type_member where code = '" . $m_m_c . "' and patient_typeID = 2";
+                $r1 = $pdo->exec($s1);
+              }
+              catch(PDOException $e)
+              {
+                return "query21";
+              }
+
+              if ($r1->rowCount() > 0)
+              {
+                foreach ($r1 as $row)
+                {
+                  $a2 = $row['id'];
+                }
+
+                return $a2;
+              }
+              else
+              {
+                return "rows21";
+              }
+            }
+            else
+            {
+              return "rows2";
+            }    
+        }
+        else
+        {
+          return "";
+        }
+      }
+    }
+    else
+    {
+      $member_no = genMemberNo();
+
+      try
+      {
+        $s2 = "INSERT INTO `type_member`(`code`, `patient_typeID`) VALUES ('" . $member_no . "', 1)";
+        $r2 = $pdo->exec($s2);
+      }
+      catch(PDOException $e)
+      {
+        return "query2";
+      }
+
+      if ($r2 > 0)
+      {
+        try
+        {
+          $s21 = "select id from type_member where code = '" . $member_no . "' and patient_typeID = 1";
+          $r21 = $pdo->exec($s21);
+        }
+        catch(PDOException $e)
+        {
+          return "query21";
+        }
+
+        if ($r21->rowCount() > 0)
+        {
+          foreach ($r21 as $row)
+          {
+            $a2 = $row['id'];
+          }
+
+          return $a2;
+        }
+        else
+        {
+          return "rows21";
+        }
+      }
+      else
+      {
+        return "rows2";
+      }
+    }
+  }
+
+  function addPatient($name, $surname, $id, $title, $dob, $gender, $cell, $tell, $email, $physical, $postal, $medical, $standing, $medical_m_i, $img)
   {
     require 'dbconn.php';
     
     $a = addAddresses($postal, $physical);
     $a_po = $a[0]['postal'];
     $a_ph = $a[0]['physical'];
-  
-   /* if (count($t) < 10)
-    {
-      $file = "f00" . count($t);
-    }
-    else if (count($t) < 100)
-    {
-      $file = "f0" . count($t);
-    }
-    else
-    {
-      $file = "f" . count($t);
-    }
 
+    $file = genFileNo();
+  
     if ($img == NULL)
     {
       $img = "new.png";
-    }*/
+    }
+
+    if (!is_numeric($medical))
+    {
+      $member_c = null;
+    }
+    else
+    {
+      $member_c = addMemberType($standing, $medical_m_i);
+    }
 
     try
     {
-    // $s = "insert into patient (titleID, name, surname, dob, genderID, id_number, cellphone, telephone, email, address_postalID, address_physicalID, member_typeID, medical_aid_typeID, file_number, img) values (" . $title . ",'" . $name . "','" .  $surname . "','" . $dob . "'," . $gender . "," . $id . "," . $cell . "," . $tell . ",'" . $email . "'," . $postal . "," . $physical .  "," . $mem_type .  "," . $med_type .  ",'" . $file .   "','" . $img . "')";
-
-    $s = "INSERT INTO `patient`(`name`, `surname`, `id_number`, `dob`, `telephone`, `cellphone`, `email`, `img`, `file_number`, `medical_aidID`, `titleID`, `genderID`, `address_postalID`, `address_physicalID`, `medical_aid_typeID`, `member_typeID`) VALUES ('". $name ."', '". $surname ."', ". $id .",'". $dob ."', ". $tell .", ". $cell .", '". $email ."', '". $img ."', '". $file ."', ". $medical .", ". $title .", ". $gender .", ".  $a_po .", ".  $a_ph .", ".  $medical .", ". $medical .")";
-    $r = $pdo->exec($s);
-    
+      $s = "INSERT INTO `patient`(`name`, `surname`, `id_number`, `dob`, `telephone`, `cellphone`, `email`, `img`, `file_number`, `titleID`, `genderID`, `address_postalID`, `address_physicalID`, `medical_aid_typeID`, `member_typeID`) VALUES ('". $name ."', '". $surname ."', '". $id ."','". $dob ."', '". $tell ."', '". $cell ."', '". $email ."', '". $img ."', '". $file ."', ". $title .", ". $gender .", ".  $a_po .", ".  $a_ph .", ".  $medical .", ". $member_c .")";
+      $r = $pdo->exec($s);
     }
     catch(PDOException $e)
     {
-      return false;
+      return "query";
     }
 
     if ($r > 0)
@@ -812,7 +1085,7 @@
     }
     else
     {
-      return null ;
+      return "rows";
     }
   }
 

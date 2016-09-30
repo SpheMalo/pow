@@ -146,6 +146,7 @@ function makeSlotUnav(datt, tt)
 }
 
 $(document).ready(function(){
+  //$('')
 
   function mainMember()
   {
