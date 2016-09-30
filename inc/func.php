@@ -1513,15 +1513,26 @@
     }
   }
 
-  function loadProdList($in)
+  function loadProdList($id, $q)
   {
     require 'dbconn.php';
 
-    $s = "select product.id, name, product.description, price, size, critical, quantity, producttype.description as typeID, stockID from product join producttype on product.typeID = producttype.id order by product.id";
+    $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.description as typeProd, `stockID` 
+          FROM `product` 
+          JOIN type_product on product.product_typeID = type_product.id 
+          order by id";
 
-    if (isset($in))
+    if ($id != null && $q == null)
     {
       $s = "select * from product where id = " . $in;
+    }
+
+    if($id == null && $q != null)
+    {
+      $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.description as typeProd, `stockID` 
+            FROM `product` 
+            JOIN type_product on product.product_typeID = type_product.id 
+            where product.id like '%". $q . "%' or number like '%". $q . "%' or product.description like '%". $q . "%' or price like '%". $q . "%' or size like '%". $q . "%' or quantity like '%". $q . "%' or critical_value like '%". $q . "%' or type_product.description like '%". $q . "%'";
     }
 
     try
@@ -1539,17 +1550,18 @@
       while ($row = $r->fetch()) 
       {
         $id[$c] = $row['id'];
+        $name[$c] = $row['number'];
         $name[$c] = $row['name'];
         $desc[$c] = $row['description'];
         $price[$c] = $row['price'];
         $size[$c] = $row['size'];
         $quantity[$c] = $row['quantity'];
         $critical[$c] = $row['critical'];
-        $type[$c] = $row['typeID'];
+        $type[$c] = $row['typeProd'];
         $stock[$c] = $row['stockID'];
         
 
-        $prod = new Product($id[$c], $name[$c], $desc[$c], $price[$c], $size[$c], $quantity[$c], $critical[$c], $type[$c], $stock[$c]);
+        $prod = new Product($id[$c],$pNumber, $name[$c], $desc[$c], $price[$c], $size[$c], $quantity[$c], $critical[$c], $type[$c], $stock[$c]);
         $prodList[] = $prod;
 
         $c = $c + 1;

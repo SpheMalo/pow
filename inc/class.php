@@ -143,8 +143,9 @@
   class Product
   {
     public $id;
-    public $desc;
+    public $pNumber;
     public $name;
+    public $desc;
     public $price;
     public $size;
     public $quantity;
@@ -152,11 +153,12 @@
     public $type;
     public $stock;
 
-    public function __construct($id, $desc, $name, $price, $size, $quantity, $critical, $type, $stock)
+    public function __construct($id, $pNumber,$name, $desc, $price, $size, $quantity, $critical, $type, $stock)
     {
       $this->id = $id;
-      $this->desc = $desc;
+      $this->pNumber = $pNumber;
       $this->name = $name;
+      $this->desc = $desc;
       $this->price = $price;
       $this->size = $size;
       $this->quantity = $quantity;
