@@ -20,15 +20,24 @@
 
   if (isset($_POST['s_new_proc']))
   {
-    $proc = addProcedure($_POST['desc'], $_POST['code'], $_POST['price'], $_POST['favo'], $_POST['type']);
+    if (!isset($_POST['favo']) && $_POST['favo'] == null)
+    {
+      $f = 0;
+    }
+    else 
+    {
+      $f = $_POST['favo'];
+    }
 
+    $proc = addProcedure($_POST['desc'], $_POST['code'], $_POST['price'], $f, $_POST['p_t_code'], $_POST['p_t_desc'], $prtList);
+    
     if ($proc == true)
     {
       $o = "The procedure was added successfuly";
     }
     else
     {
-      $o = "The procedure was not added due to a server error";
+      $o = "The procedure was not added due to a server error, please try again";
     }
 
   /* if $proc == "query")
@@ -105,7 +114,7 @@
             <input type="text" name="code" placeholder="enter procedure code eg. Z01.20" title="enter procedure code eg. Z01.20 A minimum of 6 characters is required" pattern="[A-Z0-9.]{6,10}" required/>
             
             <label for="price">price:</label>
-            <input type="text" name="price" placeholder="enter procedure price eg. 350,30" title="enter procedure price eg. 350,30" pattern="[0-9,]{2,10}" required/>
+            <input type="text" name="price" placeholder="enter procedure price eg. 350.30" title="enter procedure price eg. 350,30" pattern="[0-9,]{2,10}" required/>
           </div>
         </fieldset>
 

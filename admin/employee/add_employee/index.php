@@ -13,6 +13,7 @@
     $gList = loadGenderList();
     $sList = loadStatusList();
     $cList = loadCityList();
+    $plist = loadPracticeLocList();
   }
   else
   {
@@ -38,7 +39,7 @@
     );
 
     //$empDet = addEmployee($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['gender'], $_POST['id'], $_POST['banking'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical'], $_POST['type']);
-    $empDet = addEmployee($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['banking'], $postal, $physical, $_POST['gender'], $_POST['title'], $_POST['type']);
+    $empDet = addEmployee($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['banking'], $postal, $physical, $_POST['gender'], $_POST['title'], $_POST['type'], $_POST['loc']);
 
     if (isset($empDet))
     {
@@ -173,7 +174,6 @@
             <input type="text" name="add_line_po5" id="add_line_po5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{4}" title="A maximum of 4 digits with no spaces"/>
             <button class="submit" title="copy physical address to postal address" id="copy_address" onclick="copyAddress()">same postal as physical</button>
           </div>
-          
         </fieldset>
         
         <fieldset>
@@ -184,6 +184,15 @@
               <option>select position</option>
               <?php foreach ($sList as $st):?>
                 <option value="<?php echo $st['id'];?>"><?php echo $st['desc'];?></option>
+              <?php endforeach;?>
+            </select>
+          </div>     
+           <div>
+            <label for="loc" >Practice location:</label>
+            <select name="loc">
+              <option>select position</option>
+              <?php foreach ($plist as $p):?>
+                <option value="<?php echo $p['id'];?>"><?php echo $p['desc'];?></option>
               <?php endforeach;?>
             </select>
           </div>          
