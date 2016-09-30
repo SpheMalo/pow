@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
   session_start();
   
@@ -136,7 +135,6 @@
     
     <footer></footer>
   </body>
-=======
 <?php
   session_start();
   
@@ -258,5 +256,4 @@
     
     <footer></footer>
   </body>
->>>>>>> d4c0c9b7d6d7a548b3bc425ffc45a5eb447b664e
 </html>
