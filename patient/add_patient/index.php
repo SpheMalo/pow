@@ -41,18 +41,55 @@
 
     $dob = $_POST['dob1'] . "-" . $_POST['dob2'] . "-" . $_POST['dob3'];
 
-    if (!isset($_POST['medical_m_i']) && !isset($_POST['medical_m_i']))
+    if (!isset($_POST['medical_m_i']))
     {
       $medical_m_i = null;
-      $medical_m_n = null;
-    }  
+    }
 
-    echo var_dump($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $_POST['medical'], $_POST['standing'], $medical_m_i, $medical_m_n);
-    //$patient = addPatient($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['dob'], $_POST['gender'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical'], $_POST['standing'], $_POST['medical'], NULL);
-    /*if (addPat())
-    {}
+    if (!isset($_POST['fileToUpload']))
+    {
+      $img = null;
+    } 
+
+    if (!is_numeric($_POST['medical']))
+    {
+      $medical = null;
+      $medical_m_i = null;
+      $standing = null;
+    }
     else
-    {}*/
+    {
+      $medical = $_POST['medical'];
+
+      if (!isset($_POST['standing']))
+      {
+        $standing = null;
+      }
+      else
+      {
+        $standing = $_POST['standing'];
+      }
+    }
+
+    echo var_dump($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $medical, $standing, $medical_m_i);
+    //$p = addPatient($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $medical, $standing, $medical_m_i, $img);
+    //echo var_dump($p);
+    /*if ($p == true)
+    {
+      $o = "The patient has been added successfuly";
+    }
+    else if ($p == "query")
+    {
+      $o = "The patient was not added successfuly due to a server error.";
+    }
+    else if ($p == "rows")
+    {
+      $o = "The patient was not added successfuly, please try again.";
+    }
+    else if ($p == "e_add_mem_t")
+    {
+      $o = "The member type could not added successfuly. Patient details can be updated once the patient has been added successfuly.";
+    }*/
     
     /*if ($patient == true)
     {
@@ -100,7 +137,8 @@
         <legend>personal details</legend>
           <div>
             <label for="proPic" >profile picture:</label>
-            <img src="" alt="" onclick="takepicture()" />
+            <img src="" alt=""/>
+            <a id="takeP">t</a>
             <input type="file" name="proPic"/>
 
             <label for="name" >name:</label>
@@ -119,7 +157,7 @@
           <div>
             <label for="proPic" class="display">profile picture:</label>
             <img src="" alt="" class="display"/>
-            <input type="file" name="proPic" class="display"/>
+            <input type="file" name="proPic" class="display" disabled/>
 
             <label for="surname">surname:</label>
             <input type="text" name="surname" placeholder="Enter patient surname eg. Moeng" required pattern="[A-Za-z]{1,35}" title="A maximum of 35 letters with no spaces"/>
@@ -167,7 +205,7 @@
           
           <div>
             <label for="tell">telephone:</label>
-            <input type="tel" name="tell" placeholder="Enter patient telephone number eg. 0112478832" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
+            <input type="tel" name="tell" placeholder="Enter patient telephone number eg. 0112478832" pattern="[0-9]{10,10}" title="A number of 10 characters"/>
             <label for="t" class="display">telephone:</label>
             <input type="tel" name="t" placeholder="enter employee telephone number eg. 0112478832" pattern="[0-9]{10,10}" title="a number of 10 characters" class="display"/>
             <label for="postal">postal address:</label>
@@ -206,7 +244,7 @@
 
           <div>
             <label>main member id:</label>
-            <input type="text" name="medical_m_i" list="pat_id" placeholder="Main member id e.g. 9011305265088" id="main_m" pattern="[0-9]{10,13}"/>
+            <input type="text" name="medical_m_i" list="pat_id" placeholder="Main member id e.g. 9011305265088" id="main_m" pattern="[0-9]{10,13}" required/>
 
             <datalist id="pat_id">
               <?php foreach ($idList as $i):?>

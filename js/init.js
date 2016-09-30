@@ -146,6 +146,7 @@ function makeSlotUnav(datt, tt)
 }
 
 $(document).ready(function(){
+  //$('')
 
   function mainMember()
   {
@@ -161,9 +162,11 @@ $(document).ready(function(){
     }
   }
 
-  function takepicture()
+  function takePicture()
   {
-    $('<video id="video"></video><button id="snap" onclick="snap()">Capture Photo</button><a id="cancelSnap">cancel</a>').appendTo('body');
+    alert("worked");
+
+    /*$('<video id="video"></video><button id="snap" onclick="snap()">Capture Photo</button><a id="cancelSnap">cancel</a>').appendTo('body');
 
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
     {
@@ -182,7 +185,7 @@ $(document).ready(function(){
     else
     {
       alert("not");
-    }
+    }*/
   }
 
   // Trigger photo take
@@ -210,6 +213,11 @@ $(document).ready(function(){
     //alert("didnt worked");
     $('#main_m').setAttribute("readonly");
   }*/
+
+  $('takeP').click(function(e){
+    takePicture();
+    e.preventDefault();
+  });
 
   $('#copy_address').click(function(e){
     e.preventDefault();
