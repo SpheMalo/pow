@@ -36,6 +36,17 @@
     <script type="text/javascript" src="../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#s61').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+        $('#s61').parent().parent().css({'background': 'white', 'color': '#00314c'});
+        $('#s61').parent().prevUntil().css({'color': '#00314c'});
+        $('#s61').parent().nextUntil().css({'color': '#00314c'});
+        $('#s61').parent().prevUntil().children().css({'color': '#00314c'});
+        $('#s61').parent().nextUntil().children().css({'color': '#00314c'});
+        $('#s61').css({'color': '#00314c', 'text-decoration': 'underline'});
+      });
+    </script>
   </head>
   
   <body>

@@ -47,6 +47,17 @@
     <script type="text/javascript" src="../../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../../js/init.js"></script>
     <script type="text/javascript" src="../../../js/make_booking.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#s32').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+        $('#s32').parent().parent().css({'background': 'white', 'color': '#00314c'});
+        $('#s32').parent().prevUntil().css({'color': '#00314c'});
+        $('#s32').parent().nextUntil().css({'color': '#00314c'});
+        $('#s32').parent().prevUntil().children().css({'color': '#00314c'});
+        $('#s32').parent().nextUntil().children().css({'color': '#00314c'});
+        $('#s32').css({'color': '#00314c', 'text-decoration': 'underline'});
+      });
+    </script>
   </head>
   
   <body onload="getPatientById()">

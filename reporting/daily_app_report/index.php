@@ -24,6 +24,17 @@
     <script type="text/javascript" src="../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
     <script type="text/javascript" src="../../js/daily_app_report.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#s101').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+        $('#s101').parent().parent().css({'background': 'white', 'color': '#00314c'});
+        $('#s101').parent().prevUntil().css({'color': '#00314c'});
+        $('#s101').parent().nextUntil().css({'color': '#00314c'});
+        $('#s101').parent().prevUntil().children().css({'color': '#00314c'});
+        $('#s101').parent().nextUntil().children().css({'color': '#00314c'});
+        $('#s101').css({'color': '#00314c', 'text-decoration': 'underline'});
+      });
+    </script>
   </head>
   
   <body>

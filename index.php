@@ -23,6 +23,12 @@
     <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        //alert("worked");
+        $('#s1').css({'background': 'white', 'color': '#00314c'});
+      });
+    </script>
   </head>
   
   <body>

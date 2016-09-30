@@ -238,13 +238,19 @@
     }
   }
 
-  function loadIdList()
+  function loadIdList($something)
   {
     require 'dbconn.php';
 
+    $s = "select id_number from patient";
+
+    if ($something != null)
+    {
+      $s = "SELECT `id_number` FROM `patient` join type_member on `patient`.`member_typeID` = type_member.id WHERE type_member.patient_typeID = 1";
+    }
+
     try
     {
-      $s = "select id_number from patient";
       $r = $pdo->query($s);
     }
     catch(PDOException $e)
@@ -285,7 +291,7 @@
 
     try
     {
-      $s2 = "select id from address_postal where number = '" . $postal[0]['number'] . "' and street = '" . $postal[0]['street'] . "' and suburb = '" . $postal[0]['suburb'] . "' and postal_code = " . $postal[0]['code'] . " and cityID = " . $postal[0]['city'] . " order by id desc";
+      $s2 = "select id from address_postal where number = '" . $postal[0]['number'] . "' and street = '" . $postal[0]['street'] . "' and suburb = '" . $postal[0]['suburb'] . "' and postal_code = " . $postal[0]['code'] . " and cityID = " . $postal[0]['city'];
       $r11 = $pdo->query($s2);
     }
     catch(PDOException $e)
@@ -309,7 +315,7 @@
 
     try
     {
-      $s4 = "select id from `address_pyhsical` where number = '" . $physical[0]['number'] . "' and street = '" . $physical[0]['street'] . "' and suburb = '" . $physical[0]['suburb'] . "' and postal_code = " . $physical[0]['code'] . " and cityID = " . $physical[0]['city'] . " order by id desc";
+      $s4 = "select id from `address_pyhsical` where number = '" . $physical[0]['number'] . "' and street = '" . $physical[0]['street'] . "' and suburb = '" . $physical[0]['suburb'] . "' and postal_code = " . $physical[0]['code'] . " and cityID = " . $physical[0]['city'];
       $r21 = $pdo->query($s4);
     }
     catch(PDOException $e)
@@ -728,17 +734,16 @@
   {
     require 'dbconn.php';
 
-    $s = "select patient.id, title.description as title, patient.name, patient.surname, dob, gender.description as gender, id_number, email, img, file_number, cellphone, telephone, address_physicalID, address_postalID, type_member.description as member_type, type_medical_aid.description as medical_aid_type from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id join type_member on patient.member_typeID = type_member.id join type_medical_aid on patient.medical_aid_typeID = type_medical_aid.id order by patient.id";
+    $s = "SELECT `patient`.`id`, `name`, `surname`, `id_number`, `dob`, `telephone`, `cellphone`, `email`, `img`, `file_number`, `medical_aidID`, `title`.description as title, `gender`.description as gender, `address_postalID`, `address_physicalID`, `medical_aid_typeID`, `member_typeID` FROM `patient` join `title` on `patient`.titleID = `title`.id join `gender` on `patient`.genderID = `gender`.id ";
 
    if ($id != null && $q == null)
     {
-       $s = "select patient.id, title.description as title, name, surname, dob, gender.description as gender, id_number, email, cellphone, telephone, address_physicalID, address_postalID from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id where id = " . $id;
+       $s = "select * from patient where id = " . $id;
     }
 
     if ($id == null && $q != null)
     {
-      "select patient.id, title.description as title, name, surname, dob, gender.description as gender, id_number, email, cellphone, telephone, address_physicalID, address_postalID from patient join gender on patient.genderID = gender.id join title on patient.titleID = title.id where
-      patient.id like '%" . $q . "%' or dob like '%" . $q . "%' or name like '%" . $q . "%' or surname like '%" . $q . "%' or gender.description like '%" . $q . "%' or id_number like '%" . $q . "%' or email like '%" . $q . "%' or cellphone like '%" . $q . "%' or telephone like '%" . $q . "%'";
+      $s = "SELECT `patient`.`id`, `name`, `surname`, `id_number`, `dob`, `telephone`, `cellphone`, `email`, `img`, `file_number`, `medical_aidID`, `title`.description as title, `gender`.description as gender, `address_postalID`, `address_physicalID`, `medical_aid_typeID`, `member_typeID` FROM `patient` join `title` on `patient`.titleID = `title`.id join `gender` on `patient`.genderID = `gender`.id where `patient`.id like '%" . $q . "%' or dob like '%" . $q . "%' or name like '%" . $q . "%' or surname like '%" . $q . "%' or gender.description like '%" . $q . "%' or id_number like '%" . $q . "%' or email like '%" . $q . "%' or cellphone like '%" . $q . "%' or telephone like '%" . $q . "%'";
     }
 
     try
@@ -769,8 +774,8 @@
         $cell[$c] = $row['cellphone'];
         $physical[$c] = $row['address_physicalID'];
         $postal[$c] = $row['address_postalID'];
-        $med_type[$c] = $row['medical_aid_type'];
-        $mem_type[$c] = $row['member_type']; 
+        $med_type[$c] = $row['medical_aid_typeID'];
+        $mem_type[$c] = $row['member_typeID']; 
 
         $pat = new Patient($id[$c], $title[$c], $name[$c], $surname[$c], $gender[$c], $id_num[$c], $dob[$c], $email[$c], $img[$c], $file[$c], $tell[$c], $cell[$c], $physical[$c], $postal[$c], $med_type[$c], $mem_type[$c]);
         $pList[] = $pat;
@@ -923,7 +928,7 @@
     try
     {
       $s = "select member_typeID from patient where id_number = '" . $id . "'";
-      $r = $pdo->exec($s);
+      $r = $pdo->query($s);
     }
     catch(PDOException $e)
     {
@@ -937,11 +942,9 @@
         $m_t_i = $row['member_typeID'];
       }
 
-      //return $m_t_i;
-
       try
       {
-        $s1 = "select `code` from type_member where id = " . $m_t_i;
+        $s1 = "select `code` from type_member where id = " . $m_t_i . " and patient_typeID = 1";
         $r1 = $pdo->query($s1);
       }
       catch(PDOException $e)
@@ -977,17 +980,25 @@
     {
       if ($medical_m_i == null)
       {
-        return "f_m_i";
+        return "e_mainMember";
       }
       else
       {
         $m_m_c = loadMemberTypeCode($medical_m_i);
-        if (is_numeric($m_m_c))
+        if ($m_m_c == "query" || $m_m_c == "query1")
+        {
+          return "e_loadMemberTypeCode_query";
+        }
+        else if ($m_m_c == "rows" || $m_m_c == "rows1")
+        {
+          return "e_loadMemberTypeCode_rows";
+        }
+        else
         {
           try
           {
             $s = "INSERT INTO `type_member`(`code`, `patient_typeID`) VALUES ('" . $m_m_c . "', 2)";
-            $r = $pdo->exec($s2);
+            $r = $pdo->exec($s);
           }
           catch(PDOException $e)
           {
@@ -995,39 +1006,35 @@
           }
 
           if ($r > 0)
+          {
+            try
             {
-              try
+              $s1 = "select id from type_member where code = '" . $m_m_c . "' and patient_typeID = 2";
+              $r1 = $pdo->query($s1);
+            }
+            catch(PDOException $e)
+            {
+              return "query1";
+            }
+
+            if ($r1->rowCount() > 0)
+            {
+              foreach ($r1 as $row)
               {
-                $s1 = "select id from type_member where code = '" . $m_m_c . "' and patient_typeID = 2";
-                $r1 = $pdo->exec($s1);
-              }
-              catch(PDOException $e)
-              {
-                return "query21";
+                $a = $row['id'];
               }
 
-              if ($r1->rowCount() > 0)
-              {
-                foreach ($r1 as $row)
-                {
-                  $a2 = $row['id'];
-                }
-
-                return $a2;
-              }
-              else
-              {
-                return "rows21";
-              }
+              return $a;
             }
             else
             {
-              return "rows2";
-            }    
-        }
-        else
-        {
-          return "";
+              return "rows1";
+            }
+          }
+          else
+          {
+            return "rows";
+          }    
         }
       }
     }
@@ -1049,17 +1056,17 @@
       {
         try
         {
-          $s21 = "select id from type_member where code = '" . $member_no . "' and patient_typeID = 1";
-          $r21 = $pdo->exec($s21);
+          $s3 = "select id from type_member where code = '" . $member_no . "' and patient_typeID = 1";
+          $r3 = $pdo->query($s3);
         }
         catch(PDOException $e)
         {
-          return "query21";
+          return "query3";
         }
 
-        if ($r21->rowCount() > 0)
+        if ($r3->rowCount() > 0)
         {
-          foreach ($r21 as $row)
+          foreach ($r3 as $row)
           {
             $a2 = $row['id'];
           }
@@ -1068,7 +1075,7 @@
         }
         else
         {
-          return "rows21";
+          return "rows3";
         }
       }
       else
@@ -1095,21 +1102,44 @@
 
     if (!is_numeric($medical))
     {
-      $member_c = null;
+      $medical = "NULL";
+      $member_c = "NULL";
     }
     else
     {
       $member_c = addMemberType($standing, $medical_m_i);
+      if ($member_c == "e_mainMember")
+      {
+        return "e_mainMember";
+      }
+      else if ($member_c == "e_loadMemberTypeCode_query")
+      {
+        return "e_loadMemberTypeCode_query";
+      }
+      else if ($member_c == "e_loadMemberTypeCode_rows")
+      {
+        return "e_loadMemberTypeCode_rows";
+      }
+      else if ($member_c == "query" || $member_c == "query1" || $member_c == "query2" || $member_c == "query3")
+      {
+        return "query";
+      }
+      else if ($member_c == "rows" || $member_c == "rows1" || $member_c == "rows2" || $member_c == "rows3")
+      {
+        return "rows";
+      }
     }
 
     try
     {
-      $s = "INSERT INTO `patient`(`name`, `surname`, `id_number`, `dob`, `telephone`, `cellphone`, `email`, `img`, `file_number`, `titleID`, `genderID`, `address_postalID`, `address_physicalID`, `medical_aid_typeID`, `member_typeID`) VALUES ('". $name ."', '". $surname ."', '". $id ."','". $dob ."', '". $tell ."', '". $cell ."', '". $email ."', '". $img ."', '". $file ."', ". $title .", ". $gender .", ".  $a_po .", ".  $a_ph .", ".  $medical .", ". $member_c .")";
+      $s = "INSERT INTO `patient`(`name`, `surname`, `id_number`, `dob`, `telephone`, `cellphone`, `email`, `img`, `file_number`, `titleID`, `genderID`, `address_postalID`, `address_physicalID`, `medical_aid_typeID`, `member_typeID`) 
+            VALUES ('". $name ."', '". $surname ."', '". $id ."', '". $dob ."', '". $tell ."', '". $cell ."', '". $email ."', '". $img ."', '". $file ."', ". $title .", ". $gender .", ". $a_po .", ". $a_ph .", ". $medical .", ". $member_c .")";
       $r = $pdo->exec($s);
     }
     catch(PDOException $e)
     {
-      return "query";
+      echo $e;
+      return "query1";
     }
 
     if ($r > 0)
@@ -1118,7 +1148,7 @@
     }
     else
     {
-      return "rows";
+      return "rows1";
     }
   }
 
@@ -1344,9 +1374,9 @@
 
   function addProduct($pNumber, $name, $price, $size, $quantity, $desc, $critical, $fav, $p_t_name, $p_t_desc, $prdList)
   {
-     require 'dbconn.php';
+    require 'dbconn.php';
 
-     foreach ($prdList as $p)
+    foreach ($prdList as $p)
      {
        if($p['name'] == $p_t_name)
        {
@@ -1354,7 +1384,29 @@
        }
      }
 
-      if (isset($b))
+    if (isset($b))
+    {
+      try
+      {
+        $s1 = "select id from type_product where name = '". $p_t_name . "'";
+        $r1 = $pdo->query($s1);
+      }
+      catch(PDOException $e)
+      {
+        return "query";
+      }
+
+      if($r1->rowCount() > 0)
+      {
+        while ($row = $r1->fetch())
+        {
+          $prd = $row['id'];
+        }
+      }
+    }
+    else 
+    {
+      if(addProdType($p_t_name, $p_t_desc))
       {
         try
         {
@@ -1373,60 +1425,38 @@
             $prd = $row['id'];
           }
         }
-       }
-       else 
-       {
-          if(addProdType($p_t_name, $p_t_desc))
-          {
-            try
-            {
-              $s1 = "select id from type_product where name = '". $p_t_name . "'";
-              $r1 = $pdo->query($s1);
-            }
-            catch(PDOException $e)
-            {
-              return "query";
-            }
-
-            if($r1->rowCount() > 0)
-            {
-              while ($row = $r1->fetch())
-              {
-                $prd = $row['id'];
-              }
-            }
-          }
-          else 
-          {
-            return "Product not added";
-          }      
-       }
-
-        if ($fav == NULL)
-        {
-          $fav = 0;
-        }
-
-        try
-        {
-          $s = "INSERT INTO `product`(`number`, `name`, `description`, `price`, `size`, `quantity`, `critical_value`, `favorite`, `product_typeID`, `stockID`) VALUES
-                                     ('" . $pNumber . "','" . $name . "','" . $desc . "'," . $price . "," . $size . "," . $quantity . "," . $critical . "," . $fav . "," . $prd . "," . $prd . ")";
-          $r = $pdo->exec($s);
-        }
-        catch (PDOException $e)
-        {
-          return "rows";
-        }
-
-        if ($r > 0 )
-        {
-          return true;
-        }
-        else 
-        {
-          return "query ";
-        }
+      }
+      else 
+      {
+        return "Product not added";
+      }      
     }
+
+    if ($fav == NULL)
+    {
+      $fav = 0;
+    }
+
+    try
+    {
+      $s = "INSERT INTO `product`(`number`, `name`, `description`, `price`, `size`, `quantity`, `critical_value`, `favorite`, `product_typeID`, `stockID`) VALUES
+                                  ('" . $pNumber . "','" . $name . "','" . $desc . "'," . $price . "," . $size . "," . $quantity . "," . $critical . "," . $fav . "," . $prd . "," . $prd . ")";
+      $r = $pdo->exec($s);
+    }
+    catch (PDOException $e)
+    {
+      return "rows";
+    }
+
+    if ($r > 0 )
+    {
+      return true;
+    }
+    else 
+    {
+      return "query ";
+    }
+  }
 
   function addProcedure($desc, $code, $price, $fav, $p_t_code, $p_t_desc, $prtList)
   {
