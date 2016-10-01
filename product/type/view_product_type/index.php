@@ -79,13 +79,13 @@
         }
         else
         {
-          if (count($prdTypList) > 0 && $prdTypList != false)
-           {
-             include 'inc/cont.php'; 
-           } 
+          if ($prdTypList == "rows")
+          {
+            echo "<p>There are currently no products types according to your database</p>";
+          }
           else 
           {
-            echo "<p>There are currently no product types according to your database</p>";
+            include 'inc/cont.php';
           }
         }
       ?>

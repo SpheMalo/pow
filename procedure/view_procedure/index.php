@@ -78,13 +78,13 @@
         }
         else
         {
-          if (count($procList) > 0 && $procList != false)
+          if ($procList == "rows")
           {
-            include 'inc/cont.php';
+            echo "<p>There are currently no procedures according to your database</p>";
           }
           else 
           {
-            echo "<p>There are currently no procedures according to your database</p>";
+            include 'inc/cont.php';
           }
         }
       ?>

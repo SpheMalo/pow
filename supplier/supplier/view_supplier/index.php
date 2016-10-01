@@ -78,13 +78,13 @@
         }
         else
         {
-          if (count($sList) > 0 && $sList != false)
-          {
-            include 'inc/cont.php';
-          }
-          else 
+          if ($sList == "rows")
           {
             echo "<p>There are currently no suppliers according to your database</p>";
+          }
+          else
+          {
+            include 'inc/cont.php';
           }
         }
       ?>

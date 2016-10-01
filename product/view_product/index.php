@@ -78,13 +78,13 @@
         }
         else
         {
-          if (count($prodList) > 0 && $prodList != false)
+          if ($prodList == "rows")
           {
-            include 'inc/cont.php';
+            echo "<p>There are currently no products according to your database</p>";
           }
           else 
           {
-            echo "<p>There are currently no products according to your database</p>";
+            include 'inc/cont.php';
           }
         }
       ?>
