@@ -26,7 +26,7 @@
         'city' => $_POST['add_line_ph4']
       );
 
-    $status = "active";
+    $status = "Active";
 
     $supplier = addSupplier($_POST['supplierName'], $_POST['contactPersonName'], $_POST['supplierEmail'], $_POST['telephone'], $_POST['faxNumber'], $physical, $_POST['bankName'], $_POST['branchName'], $_POST['branchCode'], $_POST['accountNumber'], $_POST['reference'], $status);
     
