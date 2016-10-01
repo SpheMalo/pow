@@ -62,30 +62,33 @@
     </div>
     <div id="cont">
       <?php
-        if (isset($_GET['s']))
+        if ($pList == "query")
         {
-          if ($pList == "query")
-          { 
-             echo "<p>There was a problem retrieving patients. Reffer to help for assistance</p>";
-          }
-          else if($pList == "rows")
-          {
-             echo "<p>There were no matches for what you are looking for. <a href='../view_patient/'>Reload the page</a> or try refining your search criteria.</p>";
-          }
-          else
-          {
-            include 'inc/cont.php';
-          }
+          echo "<p>There was a problem retrieving patients. Reffer to help for assistance</p>";
         }
         else
         {
-          if (count($pList) > 0 && $pList != false)
-          {
-            include 'inc/cont.php';
+          if (isset($_GET['s']))
+          { 
+            if ($pList == "rows")
+            {
+              echo "<p>There were no matches for what you are looking for. <a href='../view_patient/'>Reload the page</a> or try refining your search criteria.</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
           }
-          else 
+          else
           {
-            echo "<p>There are currently no patients according to your database</p>";
+            if ($pList == "rows")
+            {
+              echo "<p>There are currently no patients according to your database</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
           }
         }
       ?>

@@ -110,6 +110,24 @@ function makeDayUnav(datt)
 function month_p(month)
 {
   var dat = "month=" + month;
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/cal.php",
+    cache: false,
+    data: dat,
+    success: function(result){
+      $('#calendar > div').filter(':first').html(result);
+    },
+    error: function(){
+      alert('something went wrong');
+    }
+  });  
+}
+
+function month_n(month)
+{
+  var dat = "month=" + month;
   
   $.ajax({
     type: "post",

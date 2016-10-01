@@ -61,30 +61,33 @@
     </div>
     <div id="cont">
       <?php
-        if (isset($_GET['s']))
+        if ($prodList == "query")
         {
-          if($prodList == "query")
-          {
-            echo "<p>There was a problem retrieving products. Reffer to help for assistance</p>";
-          }
-          else if($prodList == "rows")
-          {
-            echo "<p>There were no matches for what you are are looking for.  <a href='../view_product/'>Reload the page</a> or try refining your search citeria.</p>";
-          }
-          else 
-          {
-            include 'inc/cont.php';
-          }
+          echo "<p>There was a problem retrieving products. Reffer to help for assistance</p>";
         }
         else
         {
-          if ($prodList == "rows")
-          {
-            echo "<p>There are currently no products according to your database</p>";
+          if (isset($_GET['s']))
+          { 
+            if ($prodList == "rows")
+            {
+              echo "<p>There were no matches for what you are are looking for.  <a href='../view_product/'>Reload the page</a> or try refining your search citeria.</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
           }
-          else 
+          else
           {
-            include 'inc/cont.php';
+            if ($prodList == "rows")
+            {
+              echo "<p>There are currently no products according to your database</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
           }
         }
       ?>

@@ -326,131 +326,78 @@
   }
 
   $dd = date("N", $d);
+  //echo $dd;
 
   if ($dd == 1)
   {
-    $mon = date("Y-m-d", $d); 
-    $td = date("d", $d) + 1;
-    $tue = date("Y-m", $d) . "-" . $td;
-    $wd = date("d", $d) + 2;
-    $wed = date("Y-m", $d) . "-" . $wd;
-    $thd = date("d", $d) + 3;
-    $thu = date("Y-m", $d) . "-" . $thd;
-    $fd = date("d", $d) + 4;
-    $fri = date("Y-m", $d) . "-" . $fd;
-    $sd = date("d", $d) + 5;
-    $sat = date("Y-m", $d) . "-" . $sd;
-    $ssd = date("d", $d) + 6;
-    $sun = date("Y-m", $d) . "-" . $ssd;
+    $mon = date("Y-m-d", $d);
+    $tue = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 1, date("Y", $d)));
+    $wed = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 2, date("Y", $d)));
+    $thu = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 3, date("Y", $d)));
+    $fri = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 4, date("Y", $d)));
+    $sat = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 5, date("Y", $d)));
+    $sun = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 6, date("Y", $d)));
   }
   else if ($dd == 2)
   {
-    $md = date("d", $d) - 1;
-    $mon = date("Y-m", $d) . "-" . $md; 
+    $mon = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 1, date("Y", $d))); 
     $tue = date("Y-m-d", $d);
-    $wd = date("d", $d) + 1;
-    $wed = date("Y-m", $d) . "-" . $wd;
-    $thd = date("d", $d) + 2;
-    $thu = date("Y-m", $d) . "-" . $thd;
-    $fd = date("d", $d) + 3;
-    $fri = date("Y-m", $d) . "-" . $fd;
-    $sd = date("d", $d) + 4;
-    $sat = date("Y-m", $d) . "-" . $sd;
-    $ssd = date("d", $d) + 5;
-    $sun = date("Y-m", $d) . "-" . $ssd;
+    $wed = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 1, date("Y", $d)));
+    $thu = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 2, date("Y", $d)));
+    $fri = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 3, date("Y", $d)));
+    $sat = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 4, date("Y", $d)));
+    $sun = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 5, date("Y", $d)));
   }
   else if ($dd == 3)
   {
-    $md = date("d", $d) - 2;
-    $mon = date("Y-m", $d) . "-" . $md;
-    $td = date("d", $d) - 1; 
-    $tue = date("Y-m", $d) . "-" . $td;
+    $mon = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 2, date("Y", $d)));
+    $tue = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 1, date("Y", $d)));
     $wed = date("Y-m-d", $d);
-    $thd = date("d", $d) + 1;
-    $thu = date("Y-m", $d) . "-" . $thd;
-    $fd = date("d", $d) + 2;
-    $fri = date("Y-m", $d) . "-" . $fd;
-    $sd = date("d", $d) + 3;
-    $sat = date("Y-m", $d) . "-" . $sd;
-    $ssd = date("d", $d) + 4;
-    $sun = date("Y-m", $d) . "-" . $ssd;
+    $thu = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 1, date("Y", $d)));
+    $fri = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 2, date("Y", $d)));
+    $sat = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 3, date("Y", $d)));
+    $sun = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 4, date("Y", $d)));
   }
   else if ($dd == 4)
   {
-    $md = date("d", $d) - 3;
-    $mon = date("Y-m", $d) . "-" . $md;
-    $td = date("d", $d) - 2; 
-    $tue = date("Y-m", $d) . "-" . $td;
-    $wd = date("d", $d) - 1;
-    $wed = date("Y-m", $d) . "-" . $wd;
+    $mon = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 3, date("Y", $d)));
+    $tue = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 2, date("Y", $d)));
+    $wed = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 1, date("Y", $d)));
     $thu = date("Y-m-d", $d);
-    $fd = date("d", $d) + 1;
-    $fri = date("Y-m", $d) . "-" . $fd;
-    $sd = date("d", $d) + 2;
-    $sat = date("Y-m", $d) . "-" . $sd;
-    $ssd = date("d", $d) + 3;
-    $sun = date("Y-m", $d) . "-" . $ssd;
+    $fri = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 1, date("Y", $d)));
+    $sat = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 2, date("Y", $d)));
+    $sun = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 3, date("Y", $d)));
   }
   else if ($dd == 5)
   {
-    $md = date("d", $d) - 4;
-    $mon = date("Y-m", $d) . "-" . $md;
-    $td = date("d", $d) - 3; 
-    $tue = date("Y-m", $d) . "-" . $td;
-    $wd = date("d", $d) - 2;
-    $wed = date("Y-m", $d) . "-" . $wd;
-    $thd = date("d", $d) - 1;
-    $thu = date("Y-m", $d) . "-" . $thd;
+    $mon = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 4, date("Y", $d)));
+    $tue = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 3, date("Y", $d)));
+    $wed = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 2, date("Y", $d)));
+    $thu = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 1, date("Y", $d)));
     $fri = date("Y-m-d", $d);
-    $sd = date("d", $d) + 1;
-    $sat = date("Y-m", $d) . "-" . $sd;
-    $ssd = date("d", $d) + 2;
-    $sun = date("Y-m", $d) . "-" . $ssd;
+    $sat = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 1, date("Y", $d)));
+    $sun = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 2, date("Y", $d)));
   }
   else if ($dd == 6)
   {
-    $md = date("d", $d) - 5;
-    $mon = date("Y-m", $d) . "-" . $md;
-    $td = date("d", $d) - 4; 
-    $tue = date("Y-m", $d) . "-" . $td;
-    $wd = date("d", $d) - 3;
-    $wed = date("Y-m", $d) . "-" . $wd; 
-    $thd = date("d", $d) - 2;
-    $thu = date("Y-m", $d) . "-" . $thd;
-    $fd = date("d", $d) - 1;
-    $fri = date("Y-m", $d) . "-" . $fd;
+    $mon = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 5, date("Y", $d)));
+    $tue = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 4, date("Y", $d)));
+    $wed = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 3, date("Y", $d)));
+    $thu = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 2, date("Y", $d)));
+    $fri = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 1, date("Y", $d)));
     $sat = date("Y-m-d", $d);
-    $sd = date("d", $d) + 1;
-    $sun = date("Y-m", $d) . "-" . $sd;
+    $sun = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) + 1, date("Y", $d)));
   }
   else if ($dd == 7)
   {
-    $ddd = date("d", $d);
-
-    $md = $ddd - 6;
-    $mon = date("Y-m", $d) . "-" . $md;
-    $monday = $mon;
-    $td = $ddd - 5; 
-    $tue = date("Y-m", $d) . "-" . $td;
-    $tuesday = $tue;
-    $wd = $ddd - 4;
-    $wed = date("Y-m", $d) . "-" . $wd;
-    $wednesday = $wed;
-    $thd = $ddd - 3;
-    $thu = date("Y-m", $d) . "-" . $thd;
-    $thursday = $thu;
-    $fd = $ddd - 2;
-    $fri = date("Y-m", $d) . "-" . $fd;
-    $friday = $fri;
-    $sd = $ddd - 1;
-    $sat = date("Y-m", $d) . "-" . $sd;
-    $saturday = $sat;
+    $mon = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 6, date("Y", $d)));
+    $tue = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 5, date("Y", $d)));
+    $wed = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 4, date("Y", $d)));
+    $thu = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 3, date("Y", $d)));
+    $fri = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 2, date("Y", $d)));
+    $sat = date("Y-m-d", mktime(0,0,0,date("m", $d), date("d", $d) - 1, date("Y", $d)));
     $sun = date("Y-m-d", $d);
-    $sunday = $sun;
-
   }
-
-
 
 ?>
 
@@ -972,22 +919,14 @@
   <li>s</li>
   <li><p>17h00 - 17h45</p></li>
 
-  <?php
-    //require 'func.php';
-
-    /*if (isset($_POST['date']))
-    {
-      $d = $_POST['date'];
-    }
-    else
-    {
-      $d = date("Y-m-d");
-    }
-
-    $app = loadShed($d);*/
-
-  ?>
-
   <!--<div class="clear"></div>-->
 
 </ul>
+
+<?php
+  $z = mktime(0,0,0,date("m", $d), date("d", $d) - 7, date("Y", $d));
+  $zz = mktime(0,0,0,date("m", $d), date("d", $d) + 7, date("Y", $d));
+  //echo date("Y-m-d", $z) . " " . date("Y-m-d", $zz);
+?>
+<a id="week_p" onclick="week_p('<?php echo date("Y-m-d", $z);?>')"></a>
+<a id="week_n" onclick="week_n('<?php echo date("Y-m-d", $zz);?>')"></a>

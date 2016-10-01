@@ -62,30 +62,33 @@
     
     <div id="cont">
       <?php
-       if (isset($_GET['s']))
+      if ($prcTypList == "query")
         {
-          if ($prcTypList == "query")
-          {
-            echo "<p>There was a problem retrieving procedure types. Reffer to help for assistance</p>";
-          }
-          else if ($prcTypList == "rows")
-          {
-            echo "<p>There were no matches for what you are looking for. <a href='../view_procedure_type/'>Reload the page</a> or try refining your search citeria.</p>";
-          }
-          else
-          {
-            include 'inc/cont.php';
-          }
+          echo "<p>There was a problem retrieving procedure types. Reffer to help for assistance</p>";
         }
         else
         {
-          if (count($prcTypList) > 0 && $prcTypList != false)
-          {
-            include 'inc/cont.php';
+          if (isset($_GET['s']))
+          { 
+            if ($prcTypList == "rows")
+            {
+              echo "<p>There were no matches for what you are looking for. <a href='../view_procedure_type/'>Reload the page</a> or try refining your search citeria.</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
           }
-          else 
+          else
           {
-            echo "<p>There are currently no procedure types according to your database</p>";
+            if ($prcTypList == "rows")
+            {
+              echo "<p>There are currently no procedure types according to your database</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
           }
         }
       ?>

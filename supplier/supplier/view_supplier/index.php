@@ -61,32 +61,36 @@
     </div>
     <div id="cont">
       <?php
-        if (isset($_GET['s']))
+        if ($sList == "query")
         {
-          if($sList == "query")
-          {
-            echo "<p>There was a problem retrieving suppliers. Reffer to help for assistance</p>";
-          }
-          else if($sList == "rows")
-          {
-             echo "<p>There were no matches for what you are are looking for.  <a href='../view_supplier/'>Reload the page</a> or try refining your search citeria.</p>";
-          }
-          else
-          {
-             include 'inc/cont.php';
-          }
+          echo "<p>There was a problem retrieving suppliers. Reffer to help for assistance</p>";
         }
         else
         {
-          if ($sList == "rows")
-          {
-            echo "<p>There are currently no suppliers according to your database</p>";
+          if (isset($_GET['s']))
+          { 
+            if ($sList == "rows")
+            {
+              echo "<p>There were no matches for what you are are looking for.  <a href='../view_supplier/'>Reload the page</a> or try refining your search citeria.</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
           }
           else
           {
-            include 'inc/cont.php';
+            if ($sList == "rows")
+            {
+              echo "<p>There are currently no suppliers according to your database</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
           }
         }
+
       ?>
     </div>
     <form method="get" action="" enctype="multipart/form-data" id="search">

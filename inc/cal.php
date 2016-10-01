@@ -324,9 +324,9 @@
         $a = abs($month_p - $first_d + $c + 1);
         $li = date("Y-m", $first_day);
         $lid = $li . "-" . $a;
-        //$lii = mktime(0,0,0, date("m", strtotime($lid)) - 1, date("d", strtotime($lid)), date("Y", strtotime($lid)));
+        $lii = date("Y-m-d", mktime(0,0,0,date("m", strtotime($lid)) - 1, date("d", strtotime($lid)), date("Y", strtotime($lid))));
 
-        echo "<li id=" . $lid . "><div><p>" . $a . " " . date("M", mktime(0,0,0,$m - 1, 1, date("y"))) . "</p><br><p onclick=getWeek('" . $lid . "')>review week</p></div></li>";
+        echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p><br><p onclick=getWeek('" . $lii . "')>review week</p></div></li>";
         $c++;
       }
 
@@ -338,31 +338,38 @@
         $lid = $li . "-" . $b;
         $lid = date("Y-m-d", strtotime($lid));
 
-        $app = loadShed($lid, NULL);
+        if($lid > date("Y-m-d"))
+        {
+          $app = loadShed($lid, NULL);
 
-        if ($app == "query")
-        {
-          
-        }
-        else if ($app == "rows")
-        {
-          $appAlt = loadShedAlt($lid);
-          $aa = $appAlt[0][0][0];
-          
-          if ($aa == 0)
+          if ($app == "query")
           {
-            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lid . "')>ma</a></p></div></li>";
+            
+          }
+          else if ($app == "rows")
+          {
+            $appAlt = loadShedAlt($lid);
+            $aa = $appAlt[0][0][0];
+            
+            if ($aa == 0)
+            {
+              echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lid . "')>ma</a></p></div></li>";
+            }
+            else
+            {
+              echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p><br></p><p><a onclick=makeDayUnav('" . $lid . "')>no app</a></p></div></li>";
+            }
+            
           }
           else
           {
-            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><p><br></p><p><a onclick=makeDayUnav('" . $lid . "')>no app</a></p></div></li>";
+            $app = count($app);
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>" . $app . " app</p></div></li>";
           }
-          
         }
         else
         {
-          $app = count($app);
-          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>" . $app . " app</p></div></li>";
+          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>review week</p></div></li>";  
         }
 
         $c1++;
@@ -371,9 +378,11 @@
       $c2 = 1;
       if ($first_d + $month_c < 37)
       {
+        $lid = date("M", mktime(0,0,0,$m + 1, $c2, date("y")));
+        $lid_m = date("M", strtotime($lid));
         while ($c2 < 37 - $first_d - $month_c)
         {
-          echo "<li id=" . $lid . "><div><p>" . $c2 . " " . date("M", mktime(0,0,0,$m + 1, 1, date("y"))) . "</p><br><p><br></p></div></li>";
+          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $c2 . " " . $lid_m . "</p><br><p onclick=getWeek('" . $lid . "')>review week</p></div></li>";
           $c2++;
         }
       }
@@ -387,7 +396,41 @@
         $li = date("Y-m", $first_day);
         $lid = $li . "-" . $a;
 
-        $app = loadShed($lid, NULL);
+        if($lid > date("Y-m-d"))
+        {
+          $app = loadShed($lid, NULL);
+
+          if ($app == "query")
+          {
+            
+          }
+          else if ($app == "rows")
+          {
+            $appAlt = loadShedAlt($lid);
+            $aa = $appAlt[0][0][0];
+            
+            if ($aa == 0)
+            {
+              echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $a . " " . date("M", strtotime($lid)) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lid . "')>ma</a></p></div></li>";
+            }
+            else
+            {
+              echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $a . " " . date("M", strtotime($lid)) . "</p><p><br></p><p><a onclick=makeDayUnav('" . $lid . "')>no app</a></p></div></li>";
+            }
+            
+          }
+          else
+          {
+            $app = count($app);
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $a . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>" . $app . " app</p></div></li>";
+          }
+        }
+        else
+        {
+          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $a . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>review week</p></div></li>";  
+        }
+
+        /*$app = loadShed($lid, NULL);
 
         if ($app === false)
         {
@@ -398,16 +441,18 @@
           $app = count($app);
         }
 
-        echo "<li id=" . $lid . ">" . $a . "<div><p>" . $app . "/10</p></div></li>";
+        echo "<li id=" . $lid . ">" . $a . "<div><p>" . $app . "/10</p></div></li>";*/
         $c++;
       }
 
       $c1 = 1;
       if ($month_c < 37)
       {
+        $lid = date("M", mktime(0,0,0,$m + 1, $c1, date("y")));
+        $lid_m = date("M", strtotime($lid));
         while ($c1 < 37 - $month_c - 1)
         {
-          echo "<li>" . $c1 . "</li>";
+          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $c1 . " " . $lid_m . "</p><br><p onclick=getWeek('" . $lid . "')>review week</p></div></li>";
           $c1++;
         }
       }
@@ -417,5 +462,5 @@
   <div class="clear"></div>
 </ul>
 
-<a id="month_p" onclick="month_p('<?php echo date("m", $t);?>')">s</a>
-<a id="month_n" onclick="month_n('<?php echo date("m", $t1);?>')">s</a>
+<a id="month_p" onclick="month_p('<?php echo date("m", $t);?>')"></a>
+<a id="month_n" onclick="month_n('<?php echo date("m", $t1);?>')"></a>

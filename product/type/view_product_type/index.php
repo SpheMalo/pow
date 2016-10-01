@@ -62,32 +62,36 @@
     
     <div id="cont">
       <?php
-        if (isset($_GET['s']))
+        if ($prdTypList == "query")
         {
-          if ($prdTypList == "query")
-          {
-            echo "<p>There was a problem retrieving product types. Reffer to help for assistance</p>";
-          }
-          else if ($prdTypList == "rows")
-          {
-            echo "<p>There were no matches for what you are looking for. <a href='../view_product_type/'>Reload the page</a> or try refining your search citeria.</p>";
-          }
-          else
-          {
-            include 'inc/cont.php';
-          }
+          echo "<p>There was a problem retrieving product types. Reffer to help for assistance</p>";
         }
         else
         {
-          if ($prdTypList == "rows")
-          {
-            echo "<p>There are currently no products types according to your database</p>";
+          if (isset($_GET['s']))
+          { 
+            if ($prdTypList == "rows")
+            {
+              echo "<p>There were no matches for what you are looking for. <a href='../view_product_type/'>Reload the page</a> or try refining your search citeria.</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
           }
-          else 
+          else
           {
-            include 'inc/cont.php';
+            if ($prdTypList == "rows")
+            {
+              echo "<p>There are currently no products types according to your database</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
           }
         }
+
       ?>
     </div>
      <form method="get" action="" enctype="multipart/form-data" id="search">

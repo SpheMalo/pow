@@ -61,30 +61,33 @@
     </div>
     <div id="cont">
       <?php
-        if (isset($_GET['s']))
-        { 
-          if($procList == "query")
-          {
-            echo "<p>There was a problem retrieving procedures. Reffer to help for assistance</p>";
-          }
-          else if ($procList == "rows")
-          {
-             echo "<p>There were no matches for what you are looking for. <a href='../view_procedure/'>Reload the page</a> or try refining your search citeria.</p>";
-          }
-          else
-          {
-            include 'inc/cont.php';
-          }
+        if ($procList == "query")
+        {
+          echo "<p>There was a problem retrieving procedures. Reffer to help for assistance</p>";
         }
         else
         {
-          if ($procList == "rows")
-          {
-            echo "<p>There are currently no procedures according to your database</p>";
+          if (isset($_GET['s']))
+          { 
+            if ($procList == "rows")
+            {
+              echo "<p>There were no matches for what you are looking for. <a href='../view_procedure/'>Reload the page</a> or try refining your search citeria.</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
           }
-          else 
+          else
           {
-            include 'inc/cont.php';
+            if ($procList == "rows")
+            {
+              echo "<p>There are currently no procedures according to your database</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
           }
         }
       ?>

@@ -80,6 +80,26 @@
   width: 75%;
   margin: 0;
   height: 100%;
-  background: transparent, url('../../../img/ico/loading.gif');
+  background: url('../img/ico/loading.gif');
   background-size: auto;
+}
+
+#month_p, #month_n, #week_p, #week_n{
+  position: fixed;
+  top: 50%;
+  height: 10%;
+  width: 5%;
+  cursor: pointer;
+}
+
+#month_p, #week_p{
+  left: 0;
+  background: url('../img/ico/back.png') no-repeat;
+  background-size: contain;
+}
+
+#month_n, #week_n{
+  right: 0;
+  background: url('../img/ico/forward.png') no-repeat;
+  background-size: contain;
 }
