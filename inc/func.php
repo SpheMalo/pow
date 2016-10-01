@@ -1178,7 +1178,7 @@
             from `procedure` 
             join type_procedure on procedure.procedure_typeID = type_procedure.id 
             where procedure.id like '%". $q . "%' or procedure.description like '%". $q . "%' or procedure.code like '%". $q . "%' or price like '%". $q . "%' or `procedure`.favorite like '%". $q . "%' or type_procedure.description like '%". $q . "%'";
-      }
+    }
 
     try
     {
@@ -1662,17 +1662,25 @@
     }
   }
 
-  function loadSuppList($in)
+  function loadSuppList($id, $q)
   {
     require 'dbconn.php';
+
+    $s = "SELECT `id`, `name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference` 
+    FROM `supplier`
+    ORDER BY id";
     
-    //$s = "select supplier.id, Name, ContactPerson, Email, Telephone, Fax, Bank, AccNum, Ref, status from supplier";
-    $s = "select * from supplier order by id";
-    
-    if ($in != null)
+   if ($id != null && $q == null)
     {
-      //$s = "select supplier.id, Name, ContactPerson, Email, Telephone, Fax, Bank, AccNum, Ref, status from supplier". $in;
-      $s = "select * from supplier where id = ". $in;
+      $s = "select * from supplier where id = ". $id;
+    }
+
+    if($id == null && $q != null)
+    {
+      $s= "SELECT `id`, `name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference` 
+           FROM `supplier`
+           where id like '%". $q . "%' or name like '%". $q . "%' or contact_person like '%". $q . "%' or email like '%". $q . "%' or telephone like '%". $q . "%' or fax like '%". $q . "%' or status like '%". $q . "%' or bank_name like '%". $q . "%' or
+                 branch_name like '%". $q . "%' or branch_number like '%". $q . "%' or account_number like '%". $q . "%' or bank_reference like '%". $q . "%'";
     }
     
     try
@@ -1681,7 +1689,7 @@
     }
     catch(PDOException $e)
     {
-      return false;
+      return "query";
     }
 
     if ($r->rowCount() > 0)
@@ -1691,16 +1699,16 @@
       {
         $id[$c] = $row['id'];
         $name[$c] = $row['name'];
-        $contactPerson[$c] = $row['contactPerson'];
+        $contactPerson[$c] = $row['contact_person'];
         $email[$c] = $row['email'];
-        $telephone[$c] = $row['tel'];
+        $telephone[$c] = $row['telephone'];
         $fax[$c] = $row['fax'];
-        $physical[$c] = $row['physical'];
-        $bank[$c] = $row['bankName'];
-        $branchN[$c] = $row['branchName'];
-        $branchC[$c] = $row['branchCode'];
-        $accNum[$c] = $row['accountNumber'];
-        $ref[$c] = $row['reff'];
+        $physical[$c] = $row['address_physical'];
+        $bank[$c] = $row['bank_name'];
+        $branchN[$c] = $row['branch_name'];
+        $branchC[$c] = $row['branch_number'];
+        $accNum[$c] = $row['account_number'];
+        $ref[$c] = $row['bank_reference'];
         $status[$c] = $row['status'];
 
         $supp = new Supplier($id[$c], $name[$c], $contactPerson[$c], $email[$c], $telephone[$c], $fax[$c], $physical[$c], $bank[$c], $branchN[$c], $branchC[$c], $accNum[$c], $ref[$c], $status[$c]);
@@ -1713,7 +1721,7 @@
     }
     else
     {
-      return false;
+      return "rows";
     }
   }
   
@@ -1722,12 +1730,12 @@ function addSupplier($name, $contactPerson , $email, $telephone, $fax, $physical
   require 'dbconn.php';
 
   $a = addAddresses(null, $physical);
-    //$a_po = $a[0]['postal'];
+      //$a_po = $a[0]['postal'];
     $a_ph = $a[0]['physical'];
   
   try
   {
-    $s = "INSERT INTO `supplier`(`id`, `name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference`) VALUES
+    $s = "INSERT INTO `supplier`(`name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference`) VALUES
      ('" . $name . "','" . $contactPerson . "','" .  $email . "'," . $telephone . "," . $fax . ",'" . $a_ph . "','" . $status . "','" . $bank . "','" . $branchN . "'," . $branchC . "," . $accNum . ",'" . $ref . "')";
     $r = $pdo->exec($s);
   }
