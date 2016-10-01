@@ -416,3 +416,6 @@
 
   <div class="clear"></div>
 </ul>
+
+<a id="month_p" onclick="month_p('<?php echo date("m", $t);?>')">s</a>
+<a id="month_n" onclick="month_n('<?php echo date("m", $t1);?>')">s</a>

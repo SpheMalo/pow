@@ -107,6 +107,24 @@ function makeDayUnav(datt)
   });
 }
 
+function month_p(month)
+{
+  var dat = "month=" + month;
+  
+  $.ajax({
+    type: "post",
+    url: "../../../inc/cal.php",
+    cache: false,
+    data: dat,
+    success: function(result){
+      $('#calendar > div').filter(':first').html(result);
+    },
+    error: function(){
+      alert('something went wrong');
+    }
+  });  
+}
+
 function makeSlotAv(datt, tt)
 {
   //var dat = 's_d=' + datt + '&s_t=' + tt + '&makeSlotAv=y';
@@ -146,8 +164,6 @@ function makeSlotUnav(datt, tt)
 }
 
 $(document).ready(function(){
-  //$('')
-
   function mainMember()
   {
     var mem = document.getElementById("main_m");
