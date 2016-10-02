@@ -107,25 +107,7 @@ function makeDayUnav(datt)
   });
 }
 
-function month_p(month)
-{
-  var dat = "month=" + month;
-
-  $.ajax({
-    type: "post",
-    url: "../../../inc/cal.php",
-    cache: false,
-    data: dat,
-    success: function(result){
-      $('#calendar > div').filter(':first').html(result);
-    },
-    error: function(){
-      alert('something went wrong');
-    }
-  });  
-}
-
-function month_n(month)
+function navMonth(month)
 {
   var dat = "month=" + month;
   
@@ -171,28 +153,10 @@ function navWeek(datt)
   });
 }
 
-/*function week_n(date)
+function makeSlot1Av(datt)
 {
-  var dat = "date=" + date;
-  
-  $.ajax({
-    type: "post",
-    url: "../../../inc/cal.php",
-    cache: false,
-    data: dat,
-    success: function(result){
-      $('#calendar > div').filter(':first').html(result);
-    },
-    error: function(){
-      alert('something went wrong');
-    }
-  });  
-}*/
-
-function makeSlotAv(datt, tt)
-{
-  //var dat = 's_d=' + datt + '&s_t=' + tt + '&makeSlotAv=y';
-  alert("dat");
+  var dat = 's_d=' + datt + '&s_t=1&makeSlotAv=y';
+  alert(dat);
   /*$.ajax({
     type: "post",
     url: "../../../inc/call.php",
@@ -208,10 +172,10 @@ function makeSlotAv(datt, tt)
   });*/
 }
 
-function makeSlotUnav(datt, tt)
+function makeSlot1Unav(datt)
 {
-  //var dat = 's_d=' + datt + '&s_t=' + tt + '&makeSlotUnav=y';
-  alert("dat");
+  var dat = 's_d=' + datt + '&s_t=1&makeSlotUnav=y';
+  alert(dat);
   /*$.ajax({
     type: "post",
     url: "../../../inc/call.php",

@@ -576,5 +576,5 @@
   <div class="clear"></div>
 </ul>
 
-<a id="month_p" onclick="month_p('<?php echo date("m", $t);?>')"></a>
-<a id="month_n" onclick="month_n('<?php echo date("m", $t1);?>')"></a>
+<a id="month_p" onclick="navMonth('<?php echo date("m", $t);?>')"></a>
+<a id="month_n" onclick="navMonth('<?php echo date("m", $t1);?>')"></a>
