@@ -616,7 +616,7 @@
   <li><p>week <?php echo date("W", $d);?></p><p>time</p></li>
 
   <li>
-    <?php
+    <?php 
       $d_app = loadShed($mon, 1);
       
       if ($d_app == "query")
@@ -629,13 +629,13 @@
         {}
         else if ($d_app_alt == "rows")
         {
-          /////////////////////////////////////////////////////////////////
-          echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+          echo "<a>not in</a><a onclick='makeSlot1Av('" . $mon . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
         }
         else
         {
-          /////////////////////////////////////////////////////////////////
-          echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+          echo "<a>no app</a><a onclick='makeSlotUn1av('" . $mon . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
         }
       }
       else

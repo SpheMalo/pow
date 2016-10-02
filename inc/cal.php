@@ -357,7 +357,19 @@
         }
         else
         {
-          echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p><br><p onclick=getWeek('" . $lii . "')>review week</p></div></li>";
+          $app = loadShed($lii, NULL);
+          if ($app == "query")
+          {}
+          else if ($app == "rows")
+          {
+            echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p><br><p onclick=getWeek('" . $lii . "')>rw</p></div></li>";
+          }
+          else
+          {
+            $app = count($app);
+            echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p>" . $app . " app<p onclick=getWeek('" . $lii . "')>rw</p></div></li>";
+          }
+
         }
 
         $c++;
@@ -402,13 +414,24 @@
         }
         else
         {
-          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>review week</p></div></li>";  
+          $app = loadShed($lid, NULL);
+          if ($app == "query")
+          {}
+          else if ($app == "rows")
+          {
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
+          }
+          else
+          {
+            $app = count($app);
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p>" . $app . " app<p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
+          } 
         }
 
         $c1++;
       }
 
-      $c2 = 1;
+      /*$c2 = 1;
       if ($first_d + $month_c < 37)
       {
         $lid = date("Y-m-d", mktime(0,0,0,$m + 1, $c2, date("y")));
@@ -447,12 +470,24 @@
           }
           else
           {
-            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $c2 . " " . $lid_m . "</p><br><p onclick=getWeek('" . $lid . "')>review week</p></div></li>";
+            $app = loadShed($lid, NULL);
+            if ($app == "query")
+            {}
+            else if ($app == "rows")
+            {
+              echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $c2 . " " . $lid_m . "</p><br><p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
+            }
+            else
+            {
+              $app = count($app);
+              echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $c2 . " " . $lid_m . "</p>" . $app . " app<p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
+            }
+            
           }
           
           $c2++;
         }
-      }
+      }*/
     }
     else
     {
@@ -494,7 +529,19 @@
         }
         else
         {
-          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $a . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>review week</p></div></li>";  
+          $app = loadShed($lid, NULL);
+          if ($app == "query")
+          {}
+          else if ($app == "rows")
+          {
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $a . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
+          }
+          else
+          {
+            $app = count($app);
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $a . " " . date("M", strtotime($lid)) . "</p>" . $app . " app<p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
+          }
+            
         }
 
         /*$app = loadShed($lid, NULL);
@@ -512,17 +559,17 @@
         $c++;
       }
 
-      $c1 = 1;
+      /*$c1 = 1;
       if ($month_c < 37)
       {
         $lid = date("M", mktime(0,0,0,$m + 1, $c1, date("y")));
         $lid_m = date("M", strtotime($lid));
         while ($c1 < 37 - $month_c - 1)
         {
-          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $c1 . " " . $lid_m . "</p><br><p onclick=getWeek('" . $lid . "')>review week</p></div></li>";
+          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $c1 . " " . $lid_m . "</p><br><p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
           $c1++;
         }
-      }
+      }*/
     }
   ?>
 
