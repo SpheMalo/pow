@@ -928,5 +928,5 @@
   $zz = mktime(0,0,0,date("m", $d), date("d", $d) + 7, date("Y", $d));
   //echo date("Y-m-d", $z) . " " . date("Y-m-d", $zz);
 ?>
-<a id="week_p" onclick="week_p('<?php echo date("Y-m-d", $z);?>')"></a>
-<a id="week_n" onclick="week_n('<?php echo date("Y-m-d", $zz);?>')"></a>
+<a id="week_p" onclick="navWeek('<?php echo date("Y-m-d", $z);?>')"></a>
+<a id="week_n" onclick="navWeek('<?php echo date("Y-m-d", $zz);?>')"></a>

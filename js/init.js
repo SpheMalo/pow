@@ -143,6 +143,52 @@ function month_n(month)
   });  
 }
 
+function navWeek(datt)
+{
+  var dat = 'date=' + datt;
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      $('#nav_c > li > a')
+      .filter('.active')
+      .removeClass();
+
+      $('#nav_c > li > a')
+      .filter(':last')
+      .addClass('active');
+      
+      $('#calendar div').filter(':first').fadeOut('fast', function(){
+        $('#calendar div').filter(':last').fadeIn('slow');
+      });
+    },
+    error: function(){
+      alert('something went wrong');
+    } 
+  });
+}
+
+/*function week_n(date)
+{
+  var dat = "date=" + date;
+  
+  $.ajax({
+    type: "post",
+    url: "../../../inc/cal.php",
+    cache: false,
+    data: dat,
+    success: function(result){
+      $('#calendar > div').filter(':first').html(result);
+    },
+    error: function(){
+      alert('something went wrong');
+    }
+  });  
+}*/
+
 function makeSlotAv(datt, tt)
 {
   //var dat = 's_d=' + datt + '&s_t=' + tt + '&makeSlotAv=y';
