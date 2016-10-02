@@ -326,7 +326,40 @@
         $lid = $li . "-" . $a;
         $lii = date("Y-m-d", mktime(0,0,0,date("m", strtotime($lid)) - 1, date("d", strtotime($lid)), date("Y", strtotime($lid))));
 
-        echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p><br><p onclick=getWeek('" . $lii . "')>review week</p></div></li>";
+        if($lii > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
+        {
+          $app = loadShed($lii, NULL);
+
+          if ($app == "query")
+          {
+            
+          }
+          else if ($app == "rows")
+          {
+            $appAlt = loadShedAlt($lii);
+            $aa = $appAlt[0][0][0];
+            
+            if ($aa == 0)
+            {
+              echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lii . "')>ma</a></p></div></li>";
+            }
+            else
+            {
+              echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p><p><br></p><p><a onclick=makeDayUnav('" . $lii . "')>no app</a></p></div></li>";
+            }
+            
+          }
+          else
+          {
+            $app = count($app);
+            echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p><br><p onclick=getWeek('" . $lii . "')>" . $app . " app</p></div></li>";
+          }
+        }
+        else
+        {
+          echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p><br><p onclick=getWeek('" . $lii . "')>review week</p></div></li>";
+        }
+
         $c++;
       }
 
@@ -338,7 +371,7 @@
         $lid = $li . "-" . $b;
         $lid = date("Y-m-d", strtotime($lid));
 
-        if($lid > date("Y-m-d"))
+        if($lid > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
         {
           $app = loadShed($lid, NULL);
 
@@ -378,11 +411,45 @@
       $c2 = 1;
       if ($first_d + $month_c < 37)
       {
-        $lid = date("M", mktime(0,0,0,$m + 1, $c2, date("y")));
+        $lid = date("Y-m-d", mktime(0,0,0,$m + 1, $c2, date("y")));
         $lid_m = date("M", strtotime($lid));
         while ($c2 < 37 - $first_d - $month_c)
         {
-          echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $c2 . " " . $lid_m . "</p><br><p onclick=getWeek('" . $lid . "')>review week</p></div></li>";
+
+          if($lid > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
+          {
+            $app = loadShed($lid, NULL);
+
+            if ($app == "query")
+            {
+              
+            }
+            else if ($app == "rows")
+            {
+              $appAlt = loadShedAlt($lid);
+              $aa = $appAlt[0][0][0];
+              
+              if ($aa == 0)
+              {
+                echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $c2 . " " . $lid_m . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lid . "')>ma</a></p></div></li>";
+              }
+              else
+              {
+                echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $c2 . " " . $lid_m . "</p><p><br></p><p><a onclick=makeDayUnav('" . $lid . "')>no app</a></p></div></li>";
+              }
+              
+            }
+            else
+            {
+              $app = count($app);
+              echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $c2 . " " . $lid_m . "</p><br><p onclick=getWeek('" . $lid . "')>" . $app . " app</p></div></li>";
+            }
+          }
+          else
+          {
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $c2 . " " . $lid_m . "</p><br><p onclick=getWeek('" . $lid . "')>review week</p></div></li>";
+          }
+          
           $c2++;
         }
       }
