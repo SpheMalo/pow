@@ -402,7 +402,7 @@
 ?>
 
 <ul id="call">
-  
+  <li><p>week <?php echo date("W", $d);?></p><p>time</p></li>
   <li>
     <?php
      //echo "<p>" . $mon . "</p>";
@@ -613,8 +613,8 @@
       }
     ?>
   </li>
-  <li><p>week <?php echo date("W", $d);?></p><p>time</p></li>
-
+  
+  <li><p>08h00 - 08h45</p><br></li>
   <li>
     <?php 
       $d_app = loadShed($mon, 1);
@@ -818,12 +818,10 @@
         else if ($d_app_alt == "rows")
         {
           echo "<a>not in</a><a onclick='makeSlot1Av('" . $sun . "')'>ma</a>";
-          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
         }
         else
         {
           echo "<a>no app</a><a onclick='makeSlot1Unav('" . $sun . "')'>mu</a>";
-          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
         }
       }
       else
@@ -836,8 +834,8 @@
       }
     ?>
   </li>
-  <li><p>08h00 - 08h45</p><br></li>
-
+  
+  <li><p>09h00 - 09h45</p><br></li>
   <li>
     <?php 
       $d_app = loadShed($mon, 2);
@@ -1059,79 +1057,1790 @@
       }
     ?>
   </li>
-  <li><p>09h00 - 09h45</p><br></li>
   
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li><p>10h00 - 10h45</p></li>
+  <li><p>10h00 - 10h45</p><br></li>
+  <li>
+    <?php 
+      $d_app = loadShed($mon, 3);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 3);
 
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li><p>11h00 - 11h45</p></li>
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot3Av('" . $mon . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot3Unav('" . $mon . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
 
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li><p>12h00 - 12h45</p></li>
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($tue, 3);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($tue, 3);
 
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li><p>13h00 - 13h45</p></li>
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot3Av('" . $tue . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot3Unav('" . $tue . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
 
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li><p>14h00 - 14h45</p></li>
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($wed, 3);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($wed, 3);
 
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li><p>15h00 - 15h45</p></li>
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot3Av('" . $wed . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot3Unav('" . $wed . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
 
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li><p>16h00 - 16h45</p></li>
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($thu, 3);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($thu, 3);
 
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li>s</li>
-  <li><p>17h00 - 17h45</p></li>
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot3Av('" . $thu . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot3Unav('" . $thu . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($fri, 3);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($fri, 3);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot3Av('" . $fri . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot3Unav('" . $fri . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sat, 3);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($sat, 3);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot3Av('" . $sat . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot3Unav('" . $sat . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sun, 3);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 3);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot3Av('" . $sun . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot3Unav('" . $sun . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  
+  <li><p>11h00 - 11h45</p><br></li>
+  <li>
+    <?php 
+      $d_app = loadShed($mon, 4);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 4);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot4Av('" . $mon . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot4Unav('" . $mon . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($tue, 4);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($tue, 4);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot4Av('" . $tue . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot4Unav('" . $tue . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($wed, 4);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($wed, 4);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot4Av('" . $wed . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot4Unav('" . $wed . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($thu, 4);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($thu, 4);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot4Av('" . $thu . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot4Unav('" . $thu . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($fri, 4);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($fri, 4);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot4Av('" . $fri . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot4Unav('" . $fri . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sat, 4);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($sat, 4);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot4Av('" . $sat . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot4Unav('" . $sat . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sun, 4);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 4);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot4Av('" . $sun . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot4Unav('" . $sun . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  
+  <li><p>12h00 - 12h45</p><br></li>
+  <li>
+    <?php 
+      $d_app = loadShed($mon, 5);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 5);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot5Av('" . $mon . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot5Unav('" . $mon . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($tue, 5);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($tue, 5);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot5Av('" . $tue . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot5Unav('" . $tue . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($wed, 5);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($wed, 5);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot5Av('" . $wed . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot5Unav('" . $wed . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($thu, 5);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($thu, 5);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot5Av('" . $thu . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot5Unav('" . $thu . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($fri, 5);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($fri, 5);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot5Av('" . $fri . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot5Unav('" . $fri . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sat, 5);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($sat, 5);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot5Av('" . $sat . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot5Unav('" . $sat . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sun, 5);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 5);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot5Av('" . $sun . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot5Unav('" . $sun . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  
+  <li><p>13h00 - 13h45</p><br></li>
+  <li>
+    <?php 
+      $d_app = loadShed($mon, 6);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 6);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot6Av('" . $mon . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot6Unav('" . $mon . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($tue, 6);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($tue, 6);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot6Av('" . $tue . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot6Unav('" . $tue . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($wed, 6);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($wed, 6);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot6Av('" . $wed . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot6Unav('" . $wed . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($thu, 6);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($thu, 6);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot6Av('" . $thu . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot6Unav('" . $thu . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($fri, 6);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($fri, 6);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot6Av('" . $fri . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot6Unav('" . $fri . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sat, 6);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($sat, 6);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot6Av('" . $sat . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot6Unav('" . $sat . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sun, 6);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 6);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot6Av('" . $sun . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot6Unav('" . $sun . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  
+  <li><p>14h00 - 14h45</p><br></li>
+  <li>
+    <?php 
+      $d_app = loadShed($mon, 7);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 7);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot7Av('" . $mon . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot7Unav('" . $mon . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($tue, 7);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($tue, 7);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot7Av('" . $tue . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot7Unav('" . $tue . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($wed, 7);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($wed, 7);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot7Av('" . $wed . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot7Unav('" . $wed . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($thu, 7);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($thu, 7);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot7Av('" . $thu . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot7Unav('" . $thu . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($fri, 7);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($fri, 7);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot7Av('" . $fri . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot7Unav('" . $fri . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sat, 7);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($sat, 7);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot7Av('" . $sat . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot7Unav('" . $sat . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sun, 7);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 7);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot7Av('" . $sun . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot7Unav('" . $sun . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  
+  <li><p>15h00 - 15h45</p><br></li>
+   <li>
+    <?php 
+      $d_app = loadShed($mon, 8);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 8);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot8Av('" . $mon . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot8Unav('" . $mon . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($tue, 8);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($tue, 8);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot8Av('" . $tue . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot8Unav('" . $tue . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($wed, 8);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($wed, 8);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot8Av('" . $wed . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot8Unav('" . $wed . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($thu, 8);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($thu, 8);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot8Av('" . $thu . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot8Unav('" . $thu . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($fri, 8);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($fri, 8);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot8Av('" . $fri . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot8Unav('" . $fri . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sat, 8);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($sat, 8);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot8Av('" . $sat . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot8Unav('" . $sat . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sun, 8);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 8);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot8Av('" . $sun . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot8Unav('" . $sun . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  
+  <li><p>16h00 - 16h45</p><br></li>
+   <li>
+    <?php 
+      $d_app = loadShed($mon, 9);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 9);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot9Av('" . $mon . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot9Unav('" . $mon . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($tue, 9);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($tue, 9);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot9Av('" . $tue . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot9Unav('" . $tue . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($wed, 9);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($wed, 9);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot9Av('" . $wed . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot9Unav('" . $wed . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($thu, 9);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($thu, 9);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot9Av('" . $thu . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot9Unav('" . $thu . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($fri, 9);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($fri, 9);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot9Av('" . $fri . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot9Unav('" . $fri . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sat, 9);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($sat, 9);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot9Av('" . $sat . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot9Unav('" . $sat . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sun, 9);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 9);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot9Av('" . $sun . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot9Unav('" . $sun . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  
+  <li><p>17h00 - 17h45</p><br></li>
+  <li>
+    <?php 
+      $d_app = loadShed($mon, 10);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 10);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot10Av('" . $mon . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot10Unav('" . $mon . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($tue, 10);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($tue, 10);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot10Av('" . $tue . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot10Unav('" . $tue . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($wed, 10);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($wed, 10);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot10Av('" . $wed . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot10Unav('" . $wed . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($thu, 10);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($thu, 10);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot10Av('" . $thu . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot10Unav('" . $thu . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($fri, 10);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($fri, 10);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot10Av('" . $fri . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot10Unav('" . $fri . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sat, 10);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($sat, 10);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick=makeSlot10Av('" . $sat . "')>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick=makeSlot10Unav('" . $sat . "')>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app, $d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det[0]->pat_name);
+
+        echo "<a>" . $s_det[0]->pat_name . " " . $s_det[0]->pat_sur . "</a><a><br></a>";
+      }
+    ?>
+  </li>
+  <li>
+    <?php
+      $d_app = loadShed($sun, 10);
+      
+      if ($d_app == "query")
+      {}
+      else if ($d_app == "rows")
+      {
+        $d_app_alt = loadShedAlt($mon, 10);
+
+        if ($d_app_alt == "query")
+        {}
+        else if ($d_app_alt == "rows")
+        {
+          echo "<a>not in</a><a onclick='makeSlot10Av('" . $sun . "')'>ma</a>";
+          //echo "<a>not in</a><a onclick='makeSlotAv('" . $mon . "', 1)'>ma</a>";
+        }
+        else
+        {
+          echo "<a>no app</a><a onclick='makeSlot10Unav('" . $sun . "')'>mu</a>";
+          //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
+        }
+      }
+      else
+      {
+        //echo var_dump($d_app[0]->id);
+        $s_det = loadShedDet($d_app[0]->id);
+        //echo var_dump($s_det);
+
+        echo "<p>" . $s_det[0]->pat_name . "<br>" . $s_det[0]->pat_sur . "</p>"; //<a><br></a>;
+      }
+    ?>
+  </li>  
 
   <!--<div class="clear"></div>-->
 
