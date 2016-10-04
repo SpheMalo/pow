@@ -1,15 +1,16 @@
 <table>
   <tr>
     <th>Id</th>
-    <th>order amount</th>
-    <th>Order date</th>
-    <th>status</th>
+    <th>order number</th>
+    <th>order status</th>
+    <th>order date</th>
+    <th>order supplier</th>
     <th>action</th>
   </tr>
 <?php
   if(count($oList)> 0)
   {
-    foreach($oList as $o)
+    foreach($oList as $order)
     {
       include 'view_ord_row.php';
     }

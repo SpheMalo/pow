@@ -7,12 +7,38 @@
   {
     $_SESSION['page'] = "place new order";
     $emp = $_SESSION['emp'];
+    $pList = loadprodList(null, null);
     $o = "";
   }
   else
   {
     header("Location: ../../../login/");
   }
+
+  if ($pList == "query")
+  {
+    $o = "There was a problem retrieving products. Reffer to help for assistance";
+  }
+  else if ($pList == "rows")
+  {
+    $o = "There are currently no products according to your database";
+  }
+  else
+  {
+  }
+
+  if(isset($_POST['s_add_prod']))
+  {
+    $arr = $_POST['s_add_prod'];
+    foreach ($pList as $pl)
+    {
+      if ($pl->name == $arr[0] && $pl->type == $arr[0])
+      {
+        $basket[] = $pl;
+      }
+    }   
+  }
+ 
 
 ?>
 
@@ -46,7 +72,7 @@
     <div id="head">
       <h1 id="head_m">Order</h1>
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
-      <h5 id="head_o"><p><?php echo $o; ?></p></h5>
+      <h5 id="head_o"><?php echo $o; ?></h5>
     </div>
     
     <div id="cont">
@@ -72,50 +98,47 @@
         <legend>Product Details</legend>
           <div>
             <label for="productName" >Product Name:</label>
-            <input type="text" name="productName" placeholder="Enter product name" required />
+            <input type="text" name="productName" placeholder="Enter product name" required list="prodList"/>
+
+            <datalist id="prodList">
+              <?php foreach ($pList as $p):?>
+                <option value="<?php echo $p->name . ' - ' . $p->type;?>">
+              <?php endforeach?>
+            </datalist>
+
 
             <label for="productType" >Product Type:</label>
-            <input type="text" name="productType" placeholder="Enter product type" required />
+            <input type="text" name="productType" placeholder="Enter product type" required id="orderProd"/>
             
             <label for="quantity" >Quantity:</label>
             <input type="number" min="1" name="quantity" placeholder="Enter quantity" required />
             
-            <input type="submit" name="s_add_prod_list" value="Add " class="submit" id="orderProdSubmit"/>
+            <a name="s_add_prod" class="submit" id="orderProdSubmit">Add</a>
           </div>
 
           <div>
-            
-            
             <table>
-                <tr>
-                  <th>Product Name</th>
-                  <th>Product Type</th>
-                  <th>Size</th>
-                  <th>Quantity Ordered</th>
-                  <th>action</th>
-                </tr>
-                <tr>
-                  <td>Panado</td>
-                  <td>Pain Killer</td>
-                  <td>500mg</td>
-                  <td>3</td>
-                  <td><a href="">remove</a></td>
-                </tr>
-                <tr>
-                  <td>ibuprofen</td>
-                  <td>Pain Killer</td>
-                  <td>400mg</td>
-                  <td>5</td>
-                  <td><a href="">remove</a></td>
-                </tr>
-                <tr>
-                  <td>Aspirin</td>
-                  <td>Pain Killer</td>
-                  <td>400mg</td>
-                  <td>2</td>
-                  <td><a href="">remove</a></td>
-                </tr>
-              </table>
+              <tr>
+                <th>Product Name</th>
+                <th>Product Type</th>
+                <th>Size</th>
+                <th>Quantity Ordered</th>
+                <th>action</th>
+              </tr>
+            </table>
+
+            <?php
+              if (isset($basket) && $basket != null)
+              {
+                foreach($basket as $prod)
+                {
+                  include 'inc/view_ord_row.php';
+                }
+              }
+              else {
+                echo "<p>select a product to be ordered</p>";
+              }
+            ?>
           </div>
           
         </fieldset>
@@ -129,12 +152,5 @@
     
     <footer></footer>
     
-    <?php
-      if (isset($_GET['u']) && isset($_GET['p']))
-      {
-        echo "<p>A new order has been submitted</p>";
-        include 'inc/s.htm';
-      }
-    ?>
   </body>
 </html>
