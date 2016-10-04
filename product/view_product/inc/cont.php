@@ -8,7 +8,6 @@
     <th>type</th>
     <th>Unit qty</th>
     <th>critical value</th>
-    <th>stock</th>
     <th>favourites</th>
     <th>action</th>
   </tr>

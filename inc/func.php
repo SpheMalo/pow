@@ -1445,8 +1445,8 @@
 
     try
     {
-      $s = "INSERT INTO `product`(`number`, `name`, `description`, `price`, `size`, `quantity`, `critical_value`, `favorite`, `product_typeID`, `stockID`) VALUES
-                                  ('" . $pNumber . "','" . $name . "','" . $desc . "'," . $price . "," . $size . "," . $quantity . "," . $critical . "," . $fav . "," . $prd . "," . $prd . ")";
+      $s = "INSERT INTO `product`(`number`, `name`, `description`, `price`, `size`, `quantity`, `critical_value`, `favorite`, `product_typeID`) VALUES
+                                  ('" . $pNumber . "','" . $name . "','" . $desc . "'," . $price . "," . $size . "," . $quantity . "," . $critical . "," . $fav . "," . $prd . ")";
       $r = $pdo->exec($s);
     }
     catch (PDOException $e)
