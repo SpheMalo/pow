@@ -206,6 +206,32 @@ $(document).ready(function(){
     }
   }
 
+///-----------SPHE
+  function addProdOrder()
+  {
+    var p = $('#orderProd').val(); //document.getElementById("orderProd");
+    //var z = p.innerHTML();
+    alert(p);
+
+    //var dat = "s_add_prod=" + ;
+    /*$.ajax({
+      type: "post",
+      data: dat,
+      url: "../supplier/order/place_new_order/index.php",
+      success: function(){
+
+      },
+      error: function(){
+
+      }
+    });*/
+  }
+
+  $('#orderProdSubmit').click(function(e){
+    addProdOrder();
+    //e.preventDefault();
+  });
+
   function takePicture()
   {
     alert("worked");
@@ -246,6 +272,7 @@ $(document).ready(function(){
     console.log(dat);
     
   }
+  
 
   /*if ($('#check').is(':checked'))
   {

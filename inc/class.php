@@ -152,9 +152,8 @@
     public $critical;
     public $fav;
     public $type;
-    public $stock;
 
-    public function __construct($id, $pNumber,$name, $desc, $price, $size, $quantity, $critical, $fav, $type, $stock)
+    public function __construct($id, $pNumber,$name, $desc, $price, $size, $quantity, $critical, $fav, $type)
     {
       $this->id = $id;
       $this->pNumber = $pNumber;
@@ -166,7 +165,6 @@
       $this->critical = $critical;
       $this->fav = $fav;
       $this->type = $type;
-      $this->stock = $stock;
     }
   }
 
@@ -240,16 +238,18 @@
   class Order
   {
     public $id;
-    public $amount;
+    public $number;
     public $date;
     public $status;
+    public $supplier;
 
-    public function __construct($id, $amount, $date, $status)
+    public function __construct($id, $number, $date, $status, $supplier)
     {
       $this->id = $id;
-      $this->amount = $amount;
+      $this->number = $number;
       $this->date = $date;
       $this->status = $status;
+      $this->supplier = $supplier;
     }
   }
 

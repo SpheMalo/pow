@@ -173,15 +173,15 @@
             <label for="name" >name:</label>
             <input type="text" name="name" placeholder="Enter patient name eg. Sarah" required pattern="[A-Za-z]{1,35}" title="A maximum of 35 letters with no spaces"/>
             
-            <label for="id">id/passport number:</label>
+            <label for="id">ID/Passport number:</label>
             <input type="text" name="id" placeholder="Enter patent id/passport number eg. 8612170554087" required pattern="[0-9]{13}" title="A number of 13 characters"/>
             <label for="DoB">Date of Birth:</label>
             <!--<input type="date" name="dob" placeholder="Enter date of birth eg. 1992-11-30" required title="Must match provided example format"/>-->
-            <input type="number" name="dob1" placeholder="year" required title="" />
+            <input type="number" name="dob1" placeholder="Year" required title="Only numerical characters allowed" />
             <span>-</span>
-            <input type="number" name="dob2" placeholder="month" required title="" />
+            <input type="number" name="dob2" placeholder="Month" required title="Only numerical characters allowed" />
             <span>-</span>
-            <input type="number" name="dob3" placeholder="day" required title="" />
+            <input type="number" name="dob3" placeholder="Day" required title="Only numerical characters allowed" />
           </div>
           <div>
             <label for="proPic" class="display">profile picture:</label>
@@ -273,7 +273,7 @@
 
           <div>
             <label>main member id:</label>
-            <input type="text" name="medical_m_i" list="pat_id" placeholder="Main member id e.g. 9011305265088" id="main_m" pattern="[0-9]{10,13}" required autocomplete="off"/>
+            <input type="text" name="medical_m_i" list="pat_id" placeholder="Enter Main member ID e.g. 9011305265088" id="main_m" pattern="[0-9]{10,13}" required autocomplete="off" title="A number of 13 characters"/>
 
             <datalist id="pat_id">
               <?php foreach ($idList as $i):?>

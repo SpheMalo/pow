@@ -54,7 +54,7 @@
     <div id="head">
       <h1 id="head_m">Patient</h1>
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
-      <h5 id="head_o"><p><?php echo $o; ?></p></h5>
+      <h5 id="head_o"><?php echo $o; ?></h5>
     </div>
     
     <div id="cont">
@@ -69,11 +69,16 @@
             <label for="name" >name:</label>
             <input type="text" name="name" placeholder="Enter patient name eg. Sarah" required pattern="[A-Za-z]{1,35}" title="A maximum of 35 letters with no spaces"/>
             
-            <label for="id">id/passport number:</label>
+            <label for="id">ID/Passport number:</label>
             <input type="text" name="id" placeholder="Enter patent id/passport number eg. 8612170554087" required pattern="[0-9]{13}" title="A number of 13 characters"/>
             <label for="DoB">Date of Birth:</label>
-            <input type="date" name="dob" placeholder="Enter date of birth eg. 1992-11-30" required title="Must match provided example format"/>
-          </div>
+            <!--<input type="date" name="dob" placeholder="Enter date of birth eg. 1992-11-30" required title="Must match provided example format"/>-->
+            <input type="number" name="dob1" placeholder="Year" required title="Only numerical characters allowed" />
+            <span>-</span>
+            <input type="number" name="dob2" placeholder="Month" required title="Only numerical characters allowed" />
+            <span>-</span>
+            <input type="number" name="dob3" placeholder="Day" required title="Only numerical characters allowed" />
+            </div>
           <div>
             <label for="proPic" class="display">profile picture:</label>
             <img src="" alt="" class="display"/>
@@ -163,7 +168,19 @@
             <input type="checkbox" name="standing" class="check" value=1 />
             <label for="standing" id="patStLabel" class="check">is main member</label>
           </div>
-          <div></div>
+          <div>
+            <label>main member id:</label>
+            <input type="text" name="medical_m_i" list="pat_id" placeholder="Enter Main member ID e.g. 9011305265088" id="main_m" pattern="[0-9]{10,13}" required autocomplete="off" title="A number of 13 characters"/>
+
+            <datalist id="pat_id">
+              <?php foreach ($idList as $i):?>
+                <option value="<?php echo $i;?>"> 
+              <?php endforeach;?>
+            </datalist>
+
+            <label>main member name:</label>
+            <input type="text" name="medical_m_n" placeholder="Main member name e.g. Malesela Ramphele" disabled/>
+          </div>
         </fieldset>
         
         <input type="submit" name="s_upd_pat" value="Update Patient" class="submit"/>

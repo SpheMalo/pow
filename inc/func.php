@@ -1445,8 +1445,8 @@
 
     try
     {
-      $s = "INSERT INTO `product`(`number`, `name`, `description`, `price`, `size`, `quantity`, `critical_value`, `favorite`, `product_typeID`, `stockID`) VALUES
-                                  ('" . $pNumber . "','" . $name . "','" . $desc . "'," . $price . "," . $size . "," . $quantity . "," . $critical . "," . $fav . "," . $prd . "," . $prd . ")";
+      $s = "INSERT INTO `product`(`number`, `name`, `description`, `price`, `size`, `quantity`, `critical_value`, `favorite`, `product_typeID`) VALUES
+                                  ('" . $pNumber . "','" . $name . "','" . $desc . "'," . $price . "," . $size . "," . $quantity . "," . $critical . "," . $fav . "," . $prd . ")";
       $r = $pdo->exec($s);
     }
     catch (PDOException $e)
@@ -1553,7 +1553,7 @@
   {
     require 'dbconn.php';
 
-    $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeProd, `stockID` 
+    $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeProd 
           FROM `product` 
           JOIN type_product on product.product_typeID = type_product.id 
           order by id";
@@ -1565,7 +1565,7 @@
 
     if($id == null && $q != null)
     {
-      $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeProd, `stockID` 
+      $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeProd 
             FROM `product` 
             JOIN type_product on product.product_typeID = type_product.id 
             where product.id like '%". $q . "%' or product.name like '%". $q . "%' or number like '%". $q . "%' or product.description like '%". $q . "%' or price like '%". $q . "%' or size like '%". $q . "%' or quantity like '%". $q . "%' or critical_value like '%". $q . "%' or type_product.name like '%". $q . "%'";
@@ -1595,10 +1595,8 @@
         $critical[$c] = $row['critical_value'];
         $fav[$c] = $row['favorite'];
         $type[$c] = $row['typeProd'];
-        $stock[$c] = $row['stockID'];
-        
 
-        $prod = new Product($id[$c], $pNumber[$c], $name[$c], $desc[$c], $price[$c], $size[$c], $quantity[$c], $critical[$c], $fav[$c], $type[$c], $stock[$c]);
+        $prod = new Product($id[$c], $pNumber[$c], $name[$c], $desc[$c], $price[$c], $size[$c], $quantity[$c], $critical[$c], $fav[$c], $type[$c]);
         $prodList[] = $prod;
 
         $c = $c + 1;
@@ -1754,15 +1752,26 @@ function addSupplier($name, $contactPerson , $email, $telephone, $fax, $physical
   }
 }
 
-function loadOrderList($in)
+function loadOrderList($id, $q)
 {
   require 'dbconn.php';
 
-  $s = "select * from `order`";
+  $s = "SELECT order.id, `number`, `order_date`, order.status, supplier.name as supplier 
+        FROM `order` 
+        JOIN supplier on order.supplierID = supplier.id 
+        ORDER BY id";
 
-  if ($in != null)
+  if ($id != null && $q == null)
   {
-    $s = "select * from order where id = " . $in;
+    $s = "select * from `order` where id = " . $id;
+  }
+
+  if($id == null && $q != null)
+  {
+    $s = "SELECT order.id, `number`, `order_date`, order.status, supplier.name as supplier 
+          FROM `order` 
+          JOIN supplier on order.supplierID = supplier.id
+          WHERE order.id like '%". $q . "%' or number like '%". $q . "%' or order_date like '%". $q . "%' or order.status like '%". $q . "%' or supplier.name like '%". $q . "%'";
   }
 
   try
@@ -1771,7 +1780,7 @@ function loadOrderList($in)
   }
   catch(PDOException $e)
   {
-    return false;
+    return "query";
   }
 
   if ($r->rowCount() > 0)
@@ -1780,11 +1789,12 @@ function loadOrderList($in)
     while ($row = $r->fetch())
     {
       $id[$c] = $row['id'];
-      $amount[$c] = $row['amount'];
-      $date[$c] = $row['orderDate'];
-      $status[$c] = $row['statusID'];
+      $number[$c] = $row['number'];
+      $date[$c] = $row['order_date'];
+      $status[$c] = $row['status'];
+      $supplier[$c] = $row['supplier'];
 
-      $ord = new Order($id[$c], $amount[$c], $date[$c], $status[$c]);
+      $ord = new Order($id[$c], $number[$c], $date[$c], $status[$c], $supplier[$c]);
       $oList[] = $ord;
 
       $c = $c + 1;
@@ -1794,9 +1804,8 @@ function loadOrderList($in)
   }
   else
   {
-    return false;
+    return "rows";
   }
-
 }
 
 function loadPayList($in)
@@ -2003,4 +2012,56 @@ function loadConsult($in)
   }
 }
 
+ function loadprod($id, $q)
+ {
+   require 'dbconn.php';
+
+    if($id == null && $q != null)
+    {
+      $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeProd, `stockID` 
+            FROM `product` 
+            JOIN type_product on product.product_typeID = type_product.id 
+            where product.name like '%". $q . "%'";
+    }
+
+    try
+    {
+      $r = $pdo->query($s);
+    }
+    catch (PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      $c = 0;
+      while ($row = $r->fetch()) 
+      {
+        $id[$c] = $row['id'];
+        $pNumber[$c] = $row['number'];
+        $name[$c] = $row['name'];
+        $desc[$c] = $row['description'];
+        $price[$c] = $row['price'];
+        $size[$c] = $row['size'];
+        $quantity[$c] = $row['quantity'];
+        $critical[$c] = $row['critical_value'];
+        $fav[$c] = $row['favorite'];
+        $type[$c] = $row['typeProd'];
+        $stock[$c] = $row['stockID'];
+        
+
+        $prod = new Product($id[$c], $pNumber[$c], $name[$c], $desc[$c], $price[$c], $size[$c], $quantity[$c], $critical[$c], $fav[$c], $type[$c], $stock[$c]);
+        $prodList[] = $prod;
+
+        $c = $c + 1;
+      }
+      
+      return $prodList;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
 ?>

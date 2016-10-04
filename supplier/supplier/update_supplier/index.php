@@ -10,13 +10,66 @@
     $o = "";
 
     $cList = loadCityList();
+     
   }
   else
   {
     header("Location: ../../../login/");
   }
 
-  
+
+
+////////////////////////////////////////////////////////////////////////
+  try
+  {
+    $pdo = new PDO('mysql:host=localhost;dbname=dental', 'DUser','somePassword');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->exec('SET NAMES "utf8"');
+  }
+  catch (PDOException $e)
+  {
+    $o = "unable to connect to database. " . $e;
+    return false;
+  }
+
+   $ID = $_GET['id'];
+  $s = "SELECT `id`, `name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference` 
+    FROM `supplier`
+    WHERE id = $ID";
+
+  $r = $pdo->query($s);
+
+  if ($r->rowCount() > 0)
+  {
+      $c = 0;
+      while ($row = $r->fetch()) 
+      {
+              echo "id: " . $row["id"]. "<br> Name: " . $row["name"]. "<br> Contact Person: " . $row["contact_person"]. "<br>";
+      }
+     //$("#supplierName").val(name);
+  }
+  else 
+    echo "0 results";
+
+  // echo $r->fetch(PDO::FETCH_ASSOC);
+  // echo $_GET['id'];
+   ////////////////////////////////////////////////////////////////////////////
+/*function dbToForm(id) {
+var id_val = id.value;
+var name = '';
+var url = "http://localhost:81/PG_crud_experiment1/retrieve.php?id="+id_val; 
+$.getJSON(url, function(json) {
+               $.each(json, function(i,v) {    
+
+                 name += v.name;   
+                 alert (name);
+
+                });
+                         $("#e_name").val(name);   
+       });
+
+};*/
+   ////////////////////////////////////////
 ?>
 
 <html>

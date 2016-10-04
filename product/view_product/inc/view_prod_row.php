@@ -19,7 +19,6 @@
   <td><?php echo $prod->type;?></td>
   <td><?php echo $prod->quantity;?></td>
   <td><?php echo $prod->critical;?></td>
-  <td><?php echo $prod->stock;?></td>
   <td><?php echo $a;?></td>
   <td><a href="../update_product/?up=<?php echo $prod->id;?>">view</a> <br> <?php echo $b;?></td>
 </tr>
