@@ -406,38 +406,46 @@
   <li>
     <?php
      //echo "<p>" . $mon . "</p>";
+     if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
+     {
+       $d_app = loadShed($mon, null);
 
-      $d_app = loadShed($mon, null);
+       if ($d_app == "query")
+       {}
+       else if ($d_app == "rows")
+       {
+         $d_app_alt = loadShedAlt($mon, null);
 
-      if ($d_app == "query")
-      {}
-      else if ($d_app == "rows")
-      {
-        $d_app_alt = loadShedAlt($mon, null);
+         if ($d_app_alt == "query")
+         {}
+         else if ($d_app_alt == "rows")
+         {
+           echo "<p>monday</p><p>" . date("j M", strtotime($mon)) . " <a onclick=makeDayAv('" . $mon . "')>ma</a></p>";
+         }
+         else
+         {
+           echo "<p>monday</p><p>" . date("j M", strtotime($mon)) . " <a onclick=makeDayUnav('" . $mon . "')>mu</a></p>";
+         }
+       }
+       else
+       {
+         $app = count($d_app);
+         echo "<p>monday</p><p>" . date("j M", strtotime($mon)) . " <a>- " . $app . " app</a></p>";
+       }
+     }
+     else
+     {
+       echo "<p>monday</p><p>" . date("j M", strtotime($mon)) . " <a></a></p>";
+     }
 
-        if ($d_app_alt == "query")
-        {}
-        else if ($d_app_alt == "rows")
-        {
-          echo "<p>monday</p><p>" . date("j M", strtotime($mon)) . " <a onclick=makeDayAv('" . $mon . "')>ma</a></p>";
-        }
-        else
-        {
-          echo "<p>monday</p><p>" . date("j M", strtotime($mon)) . " <a onclick=makeDayUnav('" . $mon . "')>mu</a></p>";
-        }
-      }
-      else
-      {
-        $app = count($d_app);
-        echo "<p>monday</p><p>" . date("j M", strtotime($mon)) . " <a>- " . $app . " app</a></p>";
-      }
     ?>
   </li>
   <li>
     <?php
      //echo "<p>" . $tue . "</p>";
-
-      $d_app = loadShed($tue, null);
+     if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
+     {
+       $d_app = loadShed($tue, null);
 
       if ($d_app == "query")
       {}
@@ -461,156 +469,198 @@
         $app = count($d_app);
         echo "<p>tuesday</p><p>" . date("j M", strtotime($tue)) . " <a>- " . $app . " app</a></p>";
       }
+     }
+     else
+     {
+       echo "<p>tuesday</p><p>" . date("j M", strtotime($tue)) . " <a></a></p>";
+     }
+
     ?>
   </li>
   <li>
     <?php
       //echo "<p>" . $wed . "</p>";
-
-      $d_app = loadShed($wed, null);
-
-      if ($d_app == "query")
-      {}
-      else if ($d_app == "rows")
+      if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app_alt = loadShedAlt($wed, null);
+        $d_app = loadShed($wed, null);
 
-        if ($d_app_alt == "query")
+        if ($d_app == "query")
         {}
-        else if ($d_app_alt == "rows")
+        else if ($d_app == "rows")
         {
-          echo "<p>wednesday</p><p>" . date("j M", strtotime($wed)) . " <a onclick=makeDayAv('" . $wed . "')>ma</a></p>";
+          $d_app_alt = loadShedAlt($wed, null);
+
+          if ($d_app_alt == "query")
+          {}
+          else if ($d_app_alt == "rows")
+          {
+            echo "<p>wednesday</p><p>" . date("j M", strtotime($wed)) . " <a onclick=makeDayAv('" . $wed . "')>ma</a></p>";
+          }
+          else
+          {
+            echo "<p>wednesday</p><p>" . date("j M", strtotime($wed)) . " <a onclick=makeDayUnav('" . $wed . "')>mu</a></p>";
+          }
         }
         else
         {
-          echo "<p>wednesday</p><p>" . date("j M", strtotime($wed)) . " <a onclick=makeDayUnav('" . $wed . "')>mu</a></p>";
+          $app = count($d_app);
+          echo "<p>wednesday</p><p>" . date("j M", strtotime($wed)) . " <a>- " . $app . " app</a></p>";
         }
       }
       else
       {
-        $app = count($d_app);
-        echo "<p>wednesday</p><p>" . date("j M", strtotime($wed)) . " <a>- " . $app . " app</a></p>";
+        echo "<p>wednesday</p><p>" . date("j M", strtotime($wed)) . " <a></a></p>";
       }
+
     ?>
   </li>
   <li> 
     <?php
       //echo "<p>" . $thu . "</p>";
-
-      $d_app = loadShed($thu, null);
-
-      if ($d_app == "query")
-      {}
-      else if ($d_app == "rows")
+      if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app_alt = loadShedAlt($thu, null);
+        $d_app = loadShed($thu, null);
 
-        if ($d_app_alt == "query")
+        if ($d_app == "query")
         {}
-        else if ($d_app_alt == "rows")
+        else if ($d_app == "rows")
         {
-          echo "<p>thursday</p><p>" . date("j M", strtotime($thu)) . " <a onclick=makeDayAv('" . $thu . "')>ma</a></p>";
+          $d_app_alt = loadShedAlt($thu, null);
+
+          if ($d_app_alt == "query")
+          {}
+          else if ($d_app_alt == "rows")
+          {
+            echo "<p>thursday</p><p>" . date("j M", strtotime($thu)) . " <a onclick=makeDayAv('" . $thu . "')>ma</a></p>";
+          }
+          else
+          {
+            echo "<p>thursday</p><p>" . date("j M", strtotime($thu)) . " <a onclick=makeDayUnav('" . $thu . "')>mu</a></p>";
+          }
         }
         else
         {
-          echo "<p>thursday</p><p>" . date("j M", strtotime($thu)) . " <a onclick=makeDayUnav('" . $thu . "')>mu</a></p>";
+          $app = count($d_app);
+          echo "<p>thursday</p><p>" . date("j M", strtotime($thu)) . " <a>- " . $app . " app</a></p>";
         }
       }
       else
       {
-        $app = count($d_app);
-        echo "<p>thursday</p><p>" . date("j M", strtotime($thu)) . " <a>- " . $app . " app</a></p>";
+        echo "<p>thursday</p><p>" . date("j M", strtotime($thu)) . " <a></a></p>";
       }
+
     ?>
   </li>
   <li>
     <?php
       //echo "<p>" . $fri . "</p>";
-
-      $d_app = loadShed($fri, null);
-
-      if ($d_app == "query")
-      {}
-      else if ($d_app == "rows")
+      if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app_alt = loadShedAlt($fri, null);
+        $d_app = loadShed($fri, null);
 
-        if ($d_app_alt == "query")
+        if ($d_app == "query")
         {}
-        else if ($d_app_alt == "rows")
+        else if ($d_app == "rows")
         {
-          echo "<p>friday</p><p>" . date("j M", strtotime($fri)) . " <a onclick=makeDayAv('" . $fri . "')>ma</a></p>";
+          $d_app_alt = loadShedAlt($fri, null);
+
+          if ($d_app_alt == "query")
+          {}
+          else if ($d_app_alt == "rows")
+          {
+            echo "<p>friday</p><p>" . date("j M", strtotime($fri)) . " <a onclick=makeDayAv('" . $fri . "')>ma</a></p>";
+          }
+          else
+          {
+            echo "<p>friday</p><p>" . date("j M", strtotime($fri)) . " <a onclick=makeDayUnav('" . $fri . "')>mu</a></p>";
+          }
         }
         else
         {
-          echo "<p>friday</p><p>" . date("j M", strtotime($fri)) . " <a onclick=makeDayUnav('" . $fri . "')>mu</a></p>";
+          $app = count($d_app);
+          echo "<p>friday</p><p>" . date("j M", strtotime($fri)) . " <a>- " . $app . " app</a></p>";
         }
       }
       else
       {
-        $app = count($d_app);
-        echo "<p>friday</p><p>" . date("j M", strtotime($fri)) . " <a>- " . $app . " app</a></p>";
+        echo "<p>friday</p><p>" . date("j M", strtotime($fri)) . " <a></a></p>";
       }
+
     ?>
   </li>
   <li>
     <?php
       //echo "<p>" . $sat . "</p>";
-
-      $d_app = loadShed($sat, null);
-
-      if ($d_app == "query")
-      {}
-      else if ($d_app == "rows")
+      if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app_alt = loadShedAlt($sat, null);
+        $d_app = loadShed($sat, null);
 
-        if ($d_app_alt == "query")
+        if ($d_app == "query")
         {}
-        else if ($d_app_alt == "rows")
+        else if ($d_app == "rows")
         {
-          echo "<p>saturday</p><p>" . date("j M", strtotime($sat)) . " <a onclick=makeDayAv('" . $sat . "')>ma</a></p>";
+          $d_app_alt = loadShedAlt($sat, null);
+
+          if ($d_app_alt == "query")
+          {}
+          else if ($d_app_alt == "rows")
+          {
+            echo "<p>saturday</p><p>" . date("j M", strtotime($sat)) . " <a onclick=makeDayAv('" . $sat . "')>ma</a></p>";
+          }
+          else
+          {
+            echo "<p>saturday</p><p>" . date("j M", strtotime($sat)) . " <a onclick=makeDayUnav('" . $sat . "')>mu</a></p>";
+          }
         }
         else
         {
-          echo "<p>saturday</p><p>" . date("j M", strtotime($sat)) . " <a onclick=makeDayUnav('" . $sat . "')>mu</a></p>";
+          $app = count($d_app);
+          echo "<p>saturday</p><p>" . date("j M", strtotime($sat)) . " <a>- " . $app . " app</a></p>";
         }
       }
       else
       {
-        $app = count($d_app);
-        echo "<p>saturday</p><p>" . date("j M", strtotime($sat)) . " <a>- " . $app . " app</a></p>";
+        echo "<p>saturday</p><p>" . date("j M", strtotime($sat)) . " <a></a></p>";
       }
+
+      
     ?>
   </li>
   <li> 
     <?php
       //echo "<p>" . $sun . "</p>";
-
-      $d_app = loadShed($sun, null);
-
-      if ($d_app == "query")
-      {}
-      else if ($d_app == "rows")
+      if($sun > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app_alt = loadShedAlt($sun, null);
+        $d_app = loadShed($sun, null);
 
-        if ($d_app_alt == "query")
+        if ($d_app == "query")
         {}
-        else if ($d_app_alt == "rows")
+        else if ($d_app == "rows")
         {
-          echo "<p>sunday</p><p>" . date("j M", strtotime($sun)) . " <a onclick=makeDayAv('" . $sun . "')>ma</a></p>";
+          $d_app_alt = loadShedAlt($sun, null);
+
+          if ($d_app_alt == "query")
+          {}
+          else if ($d_app_alt == "rows")
+          {
+            echo "<p>sunday</p><p>" . date("j M", strtotime($sun)) . " <a onclick=makeDayAv('" . $sun . "')>ma</a></p>";
+          }
+          else
+          {
+            echo "<p>sunday</p><p>" . date("j M", strtotime($sun)) . " <a onclick=makeDayUnav('" . $sun . "')>mu</a></p>";
+          }
         }
         else
         {
-          echo "<p>sunday</p><p>" . date("j M", strtotime($sun)) . " <a onclick=makeDayUnav('" . $sun . "')>mu</a></p>";
+          $app = count($d_app);
+          echo "<p>sunday</p><p>" . date("j M", strtotime($sun)) . " <a>- " . $app . " app</a></p>";
         }
       }
       else
       {
-        $app = count($d_app);
-        echo "<p>sunday</p><p>" . date("j M", strtotime($sun)) . " <a>- " . $app . " app</a></p>";
+        echo "<p>sunday</p><p>" . date("j M", strtotime($sun)) . " <a></a></p>";
       }
+
     ?>
   </li>
   
