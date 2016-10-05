@@ -1,28 +1,43 @@
-function getCal()
+function getCal(someDate)
 {
+  var s_d, S_dd;
+  /*if (someDate = null)
+  {
+    s_dd = 'date=' + Date(year, month, day);
+    s_d = 'month=' + Date(year, month, day);
+  }
+  else
+  {
+    
+  }*/
+
+  s_dd = 'date=' + someDate;
+  s_d = 'month=' + someDate;
+
   $.ajax({
     type: "post",
     url: "../../../inc/cal.php",
     cache: false,
-    //data: dat,
+    data: s_d,
     success: function(result){
       $('#calendar > div').filter(':first').html(result);
     },
     error: function(){
-      alert('something went wrong');
+      //alert('something went wrong');
     }
   });
 
+  
   $.ajax({
     type: "post",
     url: "../../../inc/call.php",
     cache: false,
-    //data: dat,
+    data: s_dd,
     success: function(result){
       $('#calendar > div').filter(':last').html(result);
     },
     error: function(){
-      alert('something went wrong');
+      //alert('something went wrong');
     }
   });
 }
@@ -80,7 +95,7 @@ function makeDayAv(datt)
     cache: false,
     success: function(result){
       //$('#calendar > div').filter(':first').html(result);
-      getCal();
+      getCal(datt);
     },
     error: function(res){
       //location.reload();
@@ -98,7 +113,7 @@ function makeDayUnav(datt)
     data: dat,
     cache: false,
     success: function(result){
-      getCal();
+      getCal(datt);
       //$('#calendar > div').filter(':first').html(result);
     },
     error: function(res){
@@ -156,39 +171,381 @@ function navWeek(datt)
 function makeSlot1Av(datt)
 {
   var dat = 's_d=' + datt + '&s_t=1&makeSlotAv=y';
-  alert(dat);
-  /*$.ajax({
+
+  $.ajax({
     type: "post",
     url: "../../../inc/call.php",
     data: dat,
     cache: false,
     success: function(result){
-      //$('#calendar > div').filter(':first').html(result);
-      getCal();
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
     },
     error: function(res){
       //location.reload();
     }
-  });*/
+  });
 }
 
 function makeSlot1Unav(datt)
 {
   var dat = 's_d=' + datt + '&s_t=1&makeSlotUnav=y';
-  alert(dat);
-  /*$.ajax({
+
+  $.ajax({
     type: "post",
     url: "../../../inc/call.php",
     data: dat,
     cache: false,
     success: function(result){
-      getCal();
-      //$('#calendar > div').filter(':first').html(result);
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
     },
     error: function(res){
       //location.reload();
     }
-  });*/
+  });
+}
+
+function makeSlot2Av(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=2&makeSlotAv=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot2Unav(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=2&makeSlotUnav=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot3Av(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=3&makeSlotAv=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot3Unav(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=3&makeSlotUnav=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot4Av(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=4&makeSlotAv=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot4Unav(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=4&makeSlotUnav=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot5Av(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=5&makeSlotAv=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot5Unav(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=5&makeSlotUnav=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot6Av(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=6&makeSlotAv=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot6Unav(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=6&makeSlotUnav=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot7Av(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=7&makeSlotAv=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot7Unav(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=7&makeSlotUnav=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot8Av(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=8&makeSlotAv=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot8Unav(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=8&makeSlotUnav=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot9Av(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=9&makeSlotAv=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot9Unav(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=9&makeSlotUnav=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot10Av(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=10&makeSlotAv=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
+}
+
+function makeSlot10Unav(datt)
+{
+  var dat = 's_d=' + datt + '&s_t=10&makeSlotUnav=y';
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/call.php",
+    data: dat,
+    cache: false,
+    success: function(result){
+      $('#calendar > div').filter(':last').html(result);
+      //getCal();
+    },
+    error: function(res){
+      //location.reload();
+    }
+  });
 }
 
 $(document).ready(function(){
@@ -206,7 +563,7 @@ $(document).ready(function(){
     }
   }
 
-///-----------SPHE
+
   function addProdOrder()
   {
     var p = $('#orderProd').val(); //document.getElementById("orderProd");

@@ -234,14 +234,13 @@
 
   $emp = $_SESSION['emp'];
 
-  if (isset($_POST['month']))
+  if ($_POST['month'] != "null")
   {
-    $z = mktime(0, 0, 0, $_POST['month'], date("d"), date("Y"));
-    echo "<h2>" . date("F 'y", $z) . "</h2>";
+    $m = strtotime($_POST['month']);
   }
   else
   {
-    echo "<h2>" . date("F 'y") . "</h2>";
+    $m = strtotime(date("Y-m-d"));
   }
 
   if (isset($_POST['makeDayAv']))
@@ -260,8 +259,10 @@
     }
     else
     {
-      header("Location: ");
+
     }
+
+    $m = strtotime($_POST['makeDayAv']); 
   }
 
   if (isset($_POST['makeDayUnav']))
@@ -279,10 +280,20 @@
     }
     else
     {
-      header("Location: ");
     }
+
+    $m = strtotime($_POST['makeDayUnav']);
   }
 
+  echo "<h2>" . date("F 'y", $m) . "</h2>";
+  $first_day = mktime(0,0,0,date("m", $m), 1, date("Y", $m));
+  $t = mktime(0,0,0,date("m", $first_day) - 1, 1, date("Y", $first_day));
+  $t1 = mktime(0,0,0,date("m", $first_day) + 1, 1, date("Y", $first_day));
+
+  $first_d = date("N", $first_day);
+  $month_c = cal_days_in_month(CAL_GREGORIAN, date("m", $first_day), date("Y", $first_day));
+  $month_p = cal_days_in_month(CAL_GREGORIAN, date("m", $t), date("Y", $t));
+  $month_n = cal_days_in_month(CAL_GREGORIAN, date("m", $t1), date("Y", $t1));
 ?>
 
 <ul id="cal">
@@ -295,27 +306,6 @@
   <li>sunday</li>
 
   <?php
-    if (isset($_POST['month']))
-    {
-      $m = $_POST['month'];
-    }
-    else
-    {
-      $m = date("m");
-    }
-
-    $first_day = mktime(0,0,0,$m, 1, date("Y"));
-    $t = mktime(0,0,0,date("m", $first_day) - 1, 1, date("Y", $first_day));
-    $t1 = mktime(0,0,0,date("m", $first_day) + 1, 1, date("Y", $first_day));
-
-    $first_d = date("N", $first_day);
-    $month_c = cal_days_in_month(CAL_GREGORIAN, date("m", $first_day), date("Y", $first_day));
-    $month_p = cal_days_in_month(CAL_GREGORIAN, date("m", $t), date("Y", $t));
-    $month_n = cal_days_in_month(CAL_GREGORIAN, date("m", $t1), date("Y", $t1));
-
-    //echo $first_day . "\n" . date("N", $first_day) . "\n" . $month_c . "\n" . $month_p . "\n" . $month_n;
-    //echo $d . "\n" . date("N", $d) . "\n" . cal_days_in_month(CAL_GREGORIAN, date("m", $d), date("Y", $d));
-
     if ($first_d > 1)
     {
       $c = 1;
@@ -576,5 +566,5 @@
   <div class="clear"></div>
 </ul>
 
-<a id="month_p" onclick="navMonth('<?php echo date("m", $t);?>')"></a>
-<a id="month_n" onclick="navMonth('<?php echo date("m", $t1);?>')"></a>
+<a id="month_p" onclick="navMonth('<?php echo date("Y-m-d", $t);?>')"></a>
+<a id="month_n" onclick="navMonth('<?php echo date("Y-m-d", $t1);?>')"></a>
