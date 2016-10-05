@@ -548,6 +548,21 @@ function makeSlot10Unav(datt)
   });
 }
 
+function toExcel(datt)
+{
+  var datt_id = "#" + datt;
+
+  $(datt_id).table2excel({
+    exclude: ".noExl",
+    name: datt,
+    filename: datt,
+    fileext: ".xls",
+    exclude_img: true,
+    exclude_links: false,
+    exclude_inputs: true
+  });
+}
+
 $(document).ready(function(){
   function mainMember()
   {
@@ -669,20 +684,33 @@ $(document).ready(function(){
     }
   });
 
-  $('#nav > li > ul').css({
+  $('#nav > li > ul, #nav_xtra > li > ul').css({
     display: "none",
     left: "auto"
   });
-  $('#nav > li').hover(function() {
+
+  $('#nav > li, #nav_xtra > li').hoverIntent(function() {
     $(this)
-      .find('ul')
-      .stop(true, true)
-      .slideDown('medium');
+    .find('ul')
+    .stop(true, true)
+    .slideDown('medium');
   }, function() {
     $(this)
-      .find('ul')
-      .stop(true,true)
-      .fadeOut('fast');
+    .find('ul')
+    .stop(true,true)
+    .fadeOut('fast');
+  });
+
+  $('#nav_xtra > li').hover(function(){
+    $('#nav_xtra > li > img').rotate({
+      angle: 0,
+      animateTo: 100
+    });
+  }, function(){
+    $('#nav_xtra > li > img').rotate({
+      angle: 100,
+      animateTo: 0
+    });
   });
 
   $('form > div > div, #calendar > div')

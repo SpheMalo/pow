@@ -168,6 +168,45 @@
     text-decoration: none;
   }
 
+  #nav_xtra{
+    position: fixed;
+    right: 6.6%;
+    top: 20%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 8%;
+  }
+
+  #nav_xtra > li{
+    width: auto;
+  }
+
+  #nav_xtra > li > ul
+  {
+    position: absolute;
+    background: white;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    opacity: 0.95;
+    margin: 0.2em 0 0 0;
+    padding: 0 0.4em 00.3em 0.4em;
+    width: auto;
+    list-style: none;
+  }
+
+  #nav_xtra > li > ul > li{
+    margin: 0.2em 0 0 0;
+    width: auto;
+    cursor: pointer;
+  }
+
+  #nav_xtra > li > img{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
+
   #head
   {
     margin: 0;
