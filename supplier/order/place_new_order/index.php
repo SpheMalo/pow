@@ -113,7 +113,7 @@
             <label for="quantity" >Quantity:</label>
             <input type="number" min="1" name="quantity" placeholder="Enter quantity" required />
             
-            <a name="s_add_prod" class="submit" id="orderProdSubmit">Add</a>
+            <a name="s_add_prod" class="submit" id="orderProdSubmit" onclick="addProdOrder()">Add</a>
           </div>
 
           <div>

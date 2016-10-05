@@ -90,7 +90,6 @@
             }
           }
         }
-
       ?>
     </div>
     <form method="get" action="" enctype="multipart/form-data" id="search">

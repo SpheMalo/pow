@@ -1,6 +1,7 @@
 <table>
   <tr>
     <th>id</th>
+    <th>Product Number</th>
     <th>name</th>
     <th>description</th>
     <th>price</th>

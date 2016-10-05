@@ -9,8 +9,18 @@
     $emp = $_SESSION['emp'];
     $o = "";
     
-    $pList = loadProdList(null, null);
-    
+    if (isset($_GET['id']))
+    {
+      header("Location: ../write_off_stock/?id=" . $_GET['id']);
+    }
+    else if (isset($_GET['s']))
+    {
+      $oList = loadStockList(null, $_GET['s']);
+    }
+    else
+    {
+      $oList = loadStockList(null, null);
+    }
   }
   else
   {
@@ -51,27 +61,37 @@
       <h5 id="head_o"><?php echo $o;?></h5>
     </div>
     <div id="cont">
-      <table>
-        <tr>
-          <th>product number</th>
-          <th>product name</th>
-          <th>product type</th>
-          <th>orderID</th>
-          <th>QoH</th>
-          <th>Available</th>
-          <th>action</th>
-        </tr>
-
-        <tr>
-          <td>P-0981</td>
-          <td>Panado</td>
-          <td>Painkiller</td>
-          <td>O-7564</td>
-          <td>243</td>
-          <td>243</td>
-          <td><a href="../write_off_stock/">Write-Off</a></td>
-        </tr>
-      </table>
+      <?php
+        if ($oList == "query")
+        {
+          echo "<p>There was a problem retrieving stock list. Reffer to help for assistance</p>";
+        }
+        else
+        {
+          if (isset($_GET['s']))
+          { 
+            if ($oList == "rows")
+            {
+              echo "<p>There were no matches for what you are are looking for.  <a href='../view_stock/'>Reload the page</a> or try refining your search citeria.</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
+          }
+          else
+          {
+            if ($oList == "rows")
+            {
+              echo "<p>There is currently no stock according to your database</p>";
+            }
+            else
+            {
+              include 'inc/cont.php';
+            }
+          }
+        }
+      ?>
     </div>
     <form method="get" action="" enctype="multipart/form-data" id="search">
       <input type="search" name="s" placeholder="Search criteria" id="search_input"/>
