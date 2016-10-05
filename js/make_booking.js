@@ -1,4 +1,3 @@
-var idNumbers = ["159", "158", "156", "154", "152"];
 var patients;
 function getPatientById() {
     var id = $("#patientID").val();
@@ -51,7 +50,7 @@ function getPatientById() {
     });
 }
 
-function filterIdNums() {
+/*function filterIdNums() {
     var currentNumber = $("#ids").val();
     var temp = [];
     var count = 0;
@@ -74,7 +73,7 @@ function filterIdNums() {
     }
 
     document.getElementById("idNums").innerHTML = htmlCode;
-}
+}*/
 
 function populateFields() {
 

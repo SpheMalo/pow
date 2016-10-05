@@ -7,6 +7,7 @@
   {
     $_SESSION['page'] = "make a booking";
     $emp = $_SESSION['emp'];
+    $iList = loadIdList(null);
     $o = "";
 
     $result = "";
@@ -77,10 +78,14 @@
           <legend>patient details</legend>
           <div>
             <label for="id">id:</label>
-            <input id="ids" type="text" name="id" list="idNums" onkeypress="filterIdNums()" onchange="populateFields()" placeholder="enter patient id" autofocus autocomplete="off"/>
+            <input id="ids" type="text" name="id" list="idNums" onchange="populateFields()" placeholder="enter patient id" autofocus autocomplete="off"/>
 
             <datalist id="idNums">
+              <?php foreach($iList as $i):?>
+                <option value="<?php echo $i;?>"/>
+              <?php endforeach;?>
             </datalist>
+
             <label for="name">name:</label>
             <input id="patientName" type="text" name="name" placeholder="enter patient name" readonly/>
           </div>
