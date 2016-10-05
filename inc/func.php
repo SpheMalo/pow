@@ -1378,9 +1378,11 @@
 
   }
 
-  function addProduct($pNumber, $name, $price, $size, $quantity, $desc, $critical, $fav, $p_t_name, $p_t_desc, $prdList)
+  function addProduct($name, $price, $size, $quantity, $desc, $critical, $fav, $p_t_name, $p_t_desc, $prdList)
   {
     require 'dbconn.php';
+
+    $prodno = genProductNo();
 
     foreach ($prdList as $p)
      {
@@ -1446,7 +1448,7 @@
     try
     {
       $s = "INSERT INTO `product`(`number`, `name`, `description`, `price`, `size`, `quantity`, `critical_value`, `favorite`, `product_typeID`) VALUES
-                                  ('" . $pNumber . "','" . $name . "','" . $desc . "'," . $price . "," . $size . "," . $quantity . "," . $critical . "," . $fav . "," . $prd . ")";
+                                  ('" . $prodno . "','" . $name . "','" . $desc . "'," . $price . "," . $size . "," . $quantity . "," . $critical . "," . $fav . "," . $prd . ")";
       $r = $pdo->exec($s);
     }
     catch (PDOException $e)
@@ -1461,6 +1463,62 @@
     else 
     {
       return "query ";
+    }
+  }
+   function checkProductNo($f_n)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select number from product";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach($r as $row)
+      {
+        if ($row['number'] === $f_n)
+        {
+          $a = " ";
+        }
+      }
+    }
+    else
+    {
+      return "rows";
+    }
+
+    if (isset($a))
+    {
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+  }
+
+  function genProductNo()
+  {
+    $f_n = "P-" . rand(10000, 99999);
+
+    if (checkProductNo($f_n))
+    {
+      return $f_n;
+    }
+    else if (checkProductNo($f_n) == "rows")
+    {
+      return $f_n;
+    }
+    else
+    {
+      genProductNo();
     }
   }
 
@@ -1610,11 +1668,73 @@
     }
   }
 
+  function loadStockList($id, $q)
+  {
+    require 'dbconn.php';
+
+    $s = "SELECT product.id as prodID, product.number as prodNo, product.name as prodName, product.quantity as prodQty, type_product.name as prodType, order.number as orderNo 
+          FROM `stock` 
+          JOIN product on stock.productID = product.id 
+          JOIN `order` on stock.orderID = order.id 
+          JOIN type_product on product.product_typeID = type_product.id 
+          order by product.id ";
+    
+    if ($id != null && $q == null)
+    {
+      $s = "select * from product where product.id =" .$id;
+    }
+
+    if($id == null && $q != null)
+    {
+      $s = "SELECT product.id as prodID, product.number as prodNo, product.name as prodName, product.quantity as prodQty, type_product.name as prodType, order.number as orderNo 
+            FROM `stock` 
+            JOIN product on stock.productID = product.id 
+            JOIN `order` on stock.orderID = order.id 
+            JOIN type_product on product.product_typeID = type_product.id
+            where product.number like '%". $q . "%' or product.name like '%". $q . "%' or type_product.name like '%". $q . "%' or order.number like '%". $q . "%'";
+    }
+
+    try
+    {
+      $r = $pdo->query($s);
+    }
+    catch (PDOException $e)
+    {
+      return "query";
+    }
+    if ($r->rowCount() > 0)
+    {
+      $c = 0;
+      while ($row = $r->fetch()) 
+      {
+        $id[$c] = $row['prodID'];
+        $prodNo[$c] = $row['prodNo'];
+        $prodName[$c] = $row['prodName'];
+        $prodType[$c] = $row['prodType'];
+        $OrderNo[$c] = $row['orderNo'];
+        $QoH[$c] = $row['prodQty'];
+        $available[$c] = $row['prodQty'];
+
+        $stock = new Stock($id[$c], $prodNo[$c], $prodName[$c], $prodType[$c], $OrderNo[$c], $QoH[$c], $available[$c]);
+        $stockList[] = $stock;
+
+        $c = $c + 1;
+      }
+      
+      return $stockList;
+    }
+    else
+    {
+      return "rows";
+    }
+
+  }
+
   function loadPrdType($id, $q)
   {
     require 'dbconn.php';
 
-    $s = "select type_product.id, name, description from type_product order by name";
+    $s = "select type_product.id, name, description from type_product order by type_product.id";
     
     if ($id != null && $q == null)
     {

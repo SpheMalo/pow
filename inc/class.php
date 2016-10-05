@@ -168,6 +168,30 @@
     }
   }
 
+  class Stock
+  {
+    public $id;
+    public $prodNo;
+    public $prodName;
+    public $prodType;
+    public $OrderNo;
+    public $QoH;
+    public $available;
+    public $productID;
+    public $orderID;
+
+    public function __construct($id, $prodNo, $prodName, $prodType, $OrderNo, $QoH, $available)
+    {
+      $this->id = $id;
+      $this->prodNo = $prodNo;
+      $this->prodName = $prodName;
+      $this->prodType = $prodType;
+      $this->OrderNo = $OrderNo;
+      $this->QoH = $QoH;
+      $this->available = $available;
+    }
+  }
+
   class ProductType
   {
     public $id;

@@ -581,7 +581,7 @@ $(document).ready(function(){
 
   function addProdOrder()
   {
-    var p = $('#orderProd').val(); //document.getElementById("orderProd");
+    var p = document.getElementById("orderProd");
     //var z = p.innerHTML();
     alert(p);
 
@@ -599,10 +599,10 @@ $(document).ready(function(){
     });*/
   }
 
-  $('#orderProdSubmit').click(function(e){
+ /* $('#orderProdSubmit').click(function(e){
     addProdOrder();
     //e.preventDefault();
-  });
+  }); */
 
   function takePicture()
   {

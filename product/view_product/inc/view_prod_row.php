@@ -12,6 +12,7 @@
 ?>
 <tr>
   <td><?php echo $prod->id;?></td>
+  <td><?php echo $prod->pNumber;?></td>
   <td><?php echo $prod->name;?></td>
   <td><?php echo $prod->desc;?></td>
   <td>R<?php echo $prod->price;?></td>

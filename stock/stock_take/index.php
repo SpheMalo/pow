@@ -9,8 +9,18 @@
     $emp = $_SESSION['emp'];
     $o = "";
     
-    $pList = loadProdList(null);
-    
+    if (isset($_GET['id']))
+    {
+      header("Location: ../stock_take/?id=" . $_GET['id']);
+    }
+    else if (isset($_GET['s']))
+    {
+      $oList = loadStockList(null, $_GET['s']);
+    }
+    else
+    {
+      $oList = loadStockList(null, null);
+    }
   }
   else
   {
@@ -66,44 +76,47 @@
         <fieldset>
           <legend>product details</legend>
           <table class="tblBig">
-            <tr>
-              <th>product number</th>
-              <th>product name</th>
-              <th>product type</th>
-              <th>orderID</th>
-              <th>QoH</th>
-              <th>Count</th>
-              <th>Variances</th>
-            </tr>
-
-            <!--<?php
-              if (count($pList) > 0 && $pList != false)
+            <?php
+              if ($oList == "query")
               {
-                foreach($pList as $p)
+                echo "<p>There was a problem retrieving stock list. Reffer to help for assistance</p>";
+              }
+              else
+              {
+                if (isset($_GET['s']))
+                { 
+                  if ($oList == "rows")
+                  {
+                    echo "<p>There were no matches for what you are are looking for.  <a href='../stock_take/'>Reload the page</a> or try refining your search citeria.</p>";
+                  }
+                  else
+                  {
+                    include 'inc/cont.php';
+                  }
+                }
+                else
                 {
-                  include 'inc/view_prod_row.php';
+                  if ($oList == "rows")
+                  {
+                    echo "<p>There is currently no stock according to your database</p>";
+                  }
+                  else
+                  {
+                    include 'inc/cont.php';
+                  }
                 }
               }
-            ?>-->
-            <tr>
-              <td>P-0981</td>
-              <td>Panado</td>
-              <td>Painkiller</td>
-              <td>O-7564</td>
-              <td>243</td>
-              <td><input type="number" placeholder="quantity counted"/></td>
-              <td>3</td>
-            </tr>
-
+            ?>
           </table>
         </fieldset>
 
         <input type="submit" name="s_stock_take" value="save" class="submit" />
       </form>
-
-      <div id="noti"></div>
     </div>
-    
+     <form method="get" action="" enctype="multipart/form-data" id="search">
+      <input type="search" name="s" placeholder="Search criteria" id="search_input"/>
+      <button>s</button>
+    </form>
     <footer></footer>
   </body>
 </html>
