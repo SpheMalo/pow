@@ -16,8 +16,6 @@
   {
     header("Location: ../../login/");
   }
-
-  $o = "";
 ?>
 
 <html>
@@ -28,9 +26,10 @@
     <script type="text/javascript" src="../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
+    <script type="text/javascript" src="../../js/product_update.js"></script>
   </head>
   
-  <body>
+  <body onload="getProductById()">
     <?php
       include '../../inc/menu.htm';
     ?>
@@ -46,27 +45,27 @@
          <legend>product details</legend>
          <div>
              <label for="name">product number:</label>
-            <input type="text" name="pNumber" placeholder="Enter product number e.g. P1001" title="A maximum of 5 characters allowed 'P' must be uppercase" pattern="[A-Z0-9]{1,5}" required/>
+            <input type="text" id="pNumberId" name="pNumber" placeholder="Enter product number e.g. P1001" title="A maximum of 5 characters allowed 'P' must be uppercase" pattern="[-A-Z0-9]{1,6}" required/>
             <label for="name">name:</label>
-            <input type="text" name="name" placeholder="Enter product name e.g. Tramacet" title="A maximum of 35 letters allowed" pattern="[A-Za-z0-9 ]{1,35}" required/>
+            <input type="text"  id="nameId" name="name" placeholder="Enter product name e.g. Tramacet" title="A maximum of 35 letters allowed" pattern="[A-Za-z0-9 ]{1,35}" required/>
             <label for="price">price:</label>
-            <input type="text" name="price" placeholder="Enter product price e.g. 35.00" title="Only numerical characters allowed with no spaces" pattern="[0-9.]{2,10}" required/>
+            <input type="text"  id="priceId" name="price" placeholder="Enter product price e.g. 35.00" title="Only numerical characters allowed with no spaces" pattern="[0-9.]{2,10}" required/>
             <label for="size">size:</label>
-            <input type="text" name="size" placeholder="Enter product size e.g. 32" title="Only numerical characters allowed with no spaces" pattern="[0-9]{2,10}" required/>
+            <input type="text"  id="sizeId" name="size" placeholder="Enter product size e.g. 32" title="Only numerical characters allowed with no spaces" pattern="[0-9]{2,10}" required/>
            
             <label>favorite:</label>
-            <input type="checkbox" name="favo" class="check" value=1 title="Select to add procedure to shortlist when making an invoice."/>
+            <input type="checkbox"  id="favoId" name="favo" class="check" value=1 title="Select to add procedure to shortlist when making an invoice."/>
             <label for="favo" class="check">add to favorite list</label>        
          </div>
          <div>
             <label for="desc">description:</label>
-            <textarea class="prodDesc" name="desc" placeholder="Enter product description e.g. For hard pain relief" title="A maximun of 255 alphabet characters may be used" pattern="[A-Za-z ]{1,255}" required></textarea>
+            <textarea class="prodDesc"  id="descId" name="desc" placeholder="Enter product description e.g. For hard pain relief" title="A maximun of 255 alphabet characters may be used" pattern="[A-Za-z ]{1,255}" required></textarea>
             
             <label for="quantity">unit quantity:</label>
-            <input type="text" name="quantity" placeholder="Enter product unit quantity e.g. 12" title="Only numerical characters allowed with no spaces" pattern="[0-9]{1,10}" required/>     
+            <input type="text"  id="quantityId" name="quantity" placeholder="Enter product unit quantity e.g. 12" title="Only numerical characters allowed with no spaces" pattern="[0-9]{1,10}" required/>     
            
             <label for="critical">Critical Value:</label>
-            <input type="text" name="critical" placeholder="Enter product re-order value e.g. 5"  title="Only numerical characters allowed with no spaces" pattern="[0-9]{1,10}" required/>
+            <input type="text"  id="criticalId" name="critical" placeholder="Enter product re-order value e.g. 5"  title="Only numerical characters allowed with no spaces" pattern="[0-9]{1,10}" required/>
          </div>
         </fieldset>
 
@@ -74,10 +73,10 @@
           <legend>product type</legend>
            <div>
             <label for="name">name:</label>
-            <input type="text" name="p_t_name" placeholder="Enter product type name e.g. Antibiotics" required pattern="[A-Za-z0-9 ]{1,35}" title="A maximum of 35 characters allowed"/>
+            <input type="text" id="p_t_nameId" name="p_t_name" placeholder="Enter product type name e.g. Antibiotics" required pattern="[A-Za-z0-9 ]{1,35}" title="A maximum of 35 characters allowed"/>
            
             <label for="desc">description:</label>
-            <textarea name="p_t_desc" placeholder="Enter product type description e.g. For treatment of infections" pattern="[A-Za-z0-9 ]{1,255}" title="A maximum of 255 alphanumeric characters may be used"></textarea>
+            <textarea id="p_t_descId" name="p_t_desc" placeholder="Enter product type description e.g. For treatment of infections" pattern="[A-Za-z0-9 ]{1,255}" title="A maximum of 255 alphanumeric characters may be used"></textarea>
           </div>
         </fieldset>
         <input type="submit" name="s_upd_prod" value="update product" class="submit"/>

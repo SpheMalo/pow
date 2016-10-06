@@ -100,10 +100,16 @@ function populateFields() {
 function setPracticeLocation() {
     var dentist = $("#dentistSelect").val();
 
-    if (dentist == "Dr J.P. Maponya") {
+    if (dentist == "Dr J.P. Maponya") 
+    {
        $("#optionThembisa").attr('selected','selected');
     }
+<<<<<<< HEAD
     else {
+=======
+    else 
+    {
+>>>>>>> dd0318a771faeec8e43091b72f28128c21cd1278
         $("#optionBirchAcres").attr('selected','selected');
     }
 }
