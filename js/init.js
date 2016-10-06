@@ -563,6 +563,47 @@ function toExcel(datt)
   });
 }
 
+function takePicture()
+  {
+    alert("worked");
+
+    /*$('<video id="video"></video><button id="snap" onclick="snap()">Capture Photo</button><a id="cancelSnap">cancel</a>').appendTo('body');
+
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
+    {
+      // Not adding `{ audio: true }` since we only want video now
+      navigator.mediaDevices.getUserMedia({video: true}).then(function(stream) 
+      {
+        // Grab elements, create settings, etc.
+        var video = document.getElementById('video');
+        video.src = window.URL.createObjectURL(stream);
+        
+        // Elements for taking the snapshot
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+      });
+    }
+    else
+    {
+      alert("not");
+    }*/
+  }
+
+  // Trigger photo take
+  function snap()
+  {
+    // Grab elements, create settings, etc.
+    var video = document.getElementById('video');
+    
+    // Elements for taking the snapshot
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, 640, 480);
+    var dat = canvas.toDataURL('image/png', 1.0);
+    console.log(dat);
+    
+  }
+
 $(document).ready(function(){
   function mainMember()
   {
@@ -604,46 +645,7 @@ $(document).ready(function(){
     //e.preventDefault();
   }); */
 
-  function takePicture()
-  {
-    alert("worked");
-
-    /*$('<video id="video"></video><button id="snap" onclick="snap()">Capture Photo</button><a id="cancelSnap">cancel</a>').appendTo('body');
-
-    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
-    {
-      // Not adding `{ audio: true }` since we only want video now
-      navigator.mediaDevices.getUserMedia({video: true}).then(function(stream) 
-      {
-        // Grab elements, create settings, etc.
-        var video = document.getElementById('video');
-        video.src = window.URL.createObjectURL(stream);
-        
-        // Elements for taking the snapshot
-        var canvas = document.getElementById('canvas');
-        var context = canvas.getContext('2d');
-      });
-    }
-    else
-    {
-      alert("not");
-    }*/
-  }
-
-  // Trigger photo take
-  function snap()
-  {
-    // Grab elements, create settings, etc.
-    var video = document.getElementById('video');
-    
-    // Elements for taking the snapshot
-    var canvas = document.getElementById('canvas');
-    var context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, 640, 480);
-    var dat = canvas.toDataURL('image/png', 1.0);
-    console.log(dat);
-    
-  }
+  
   
 
   /*if ($('#check').is(':checked'))

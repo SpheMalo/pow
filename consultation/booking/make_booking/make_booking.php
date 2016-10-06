@@ -4,7 +4,7 @@
     require '../../../inc/class.php';
     $idNum = $_REQUEST['idNum'];
 
-    $sql = "select patient.id_number, patient.name, patient.surname, medical_aid.name as ma_name from patient join medical_aid on patient.medical_aidID=medical_aid.id";
+    $sql = "select patient.id_number, patient.name, patient.surname, type_medical_aid.description as ma_name from patient join type_medical_aid on patient.medical_aid_typeID=type_medical_aid.id where medical_aid_type == null or where medical_aid_type != null";
 
      try
      {
@@ -24,6 +24,6 @@
             $count++;
          }
      }
-
+ 
     echo json_encode($id);
 ?>
