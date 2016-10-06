@@ -1,5 +1,5 @@
-var supplier;
-function getSupplierById() {
+var stock;
+function getStockById() {
     var url = window.location.href;
     url = url.split("=");
     var id = url[1];
@@ -7,7 +7,7 @@ function getSupplierById() {
     var count = 0;
 
     $.ajax({
-        url: "update_supplier.php",
+        url: "update_stock.php",
         type: "GET",
         data: { idNum: id},
         cache: false,
@@ -34,9 +34,8 @@ function getSupplierById() {
                 {
                     break;
                 }
-            }
-
-            supplier = temp[0];
+            }  
+            stock = temp[0];
             populateFields();
         },
         error: function (error) {
@@ -47,23 +46,8 @@ function getSupplierById() {
 
 function populateFields() 
 {
-    supplier = JSON.parse(supplier);
-    $("#supplierNameId").val(supplier.name);
-    $("#contactPersonNameId").val(supplier.contactPerson);
-    $("#supplierEmailId").val(supplier.email);
-    $("#telephoneId").val(supplier.telephone);
-    $("#faxNumberId").val(supplier.fax);
-
-    $("#add_line_ph1").val(supplier.physical);
-    $("#add_line_ph2").val(supplier.physical);
-    $("#add_line_ph3").val(supplier.physical);
-    $("#add_line_ph4").val(supplier.physical);
-    $("#add_line_ph5").val(supplier.physical);
-
-    $("#bankNameId").val(supplier.bank);
-    $("#branchNameId").val(supplier.branchN);
-    $("#branchCodeId").val(supplier.branchC);
-    $("#accountNumberId").val(supplier.accNum);
-    $("#referenceId").val(supplier.ref);
-    $("#statusId").val(supplier.status);
+    stock = JSON.parse(stock);
+    $("#nameId").val(stock.name);
+    $("#sizeId").val(stock.size);
+    $("#typeId").val(stock.type);
 }

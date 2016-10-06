@@ -97,6 +97,13 @@
           <input type="text" id="referenceId" name="reference" placeholder="Enter Reference e.g. DMaponya09"  required pattern= "[A-Za-z0-9 ]{1,35}" title="A maximum of 35 alphanumeric characters allowed" />
        </div>
        </fieldset>
+       <fieldset>
+       <legend>Status</legend>
+       <div>
+         <label for="status">Supplier Status</label>
+         <input type="text" id="statusId" name="status" placeholder="Supplier status" required pattern= "[A-Za-z ]{6,8}" title="Only used to display supplier's status" />
+       </div>
+       </fieldset>
         
          <input type="submit" name="s_upd_sup" value="Update Supplier" class="submit"/>
          <input type="submit" name="rem" value="Remove Supplier" class="submit"/>
