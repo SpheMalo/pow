@@ -38,7 +38,7 @@
     </script>
   </head>
   
-  <body onload="getCal()">
+  <body onload="getCal(null)">
     <?php
       include '../../../inc/menu.htm';
     ?>

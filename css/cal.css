@@ -67,10 +67,12 @@
   padding: 0;
   width: 100%;
   display: block;
+  text-align: center;
 }
 
 #call > li > a:last-of-type{
-  cursor: pointer; 
+  cursor: pointer;
+  text-align: right; 
 }
 
 #loader{
