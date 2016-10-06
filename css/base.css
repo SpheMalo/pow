@@ -185,12 +185,12 @@
   #nav_xtra > li > ul
   {
     position: absolute;
-    background: white;
+    background: transparent;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     opacity: 0.95;
-    margin: 0.2em 0 0 0;
-    padding: 0 0.4em 00.3em 0.4em;
+    margin: 0;
+    padding: 0.2em 0.4em 00.3em 0.4em;
     width: auto;
     list-style: none;
   }
