@@ -13,8 +13,6 @@
   {
     header("Location: ../../../login/");
   }
-
-  $o = "";
 ?>
 
 <html>
@@ -25,9 +23,10 @@
     <script type="text/javascript" src="../../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../../js/init.js"></script>
+    <script type="text/javascript" src="../../../js/type_product_update.js"></script>
   </head>
   
-  <body>
+  <body onload="getTypeProductById()">
     <?php
       include '../../../inc/menu.htm';
     ?>
@@ -44,9 +43,9 @@
         <legend>product type details</legend>
          <div>
             <label for="name">name:</label>
-            <input type="text" name="name" placeholder="Enter product type name e.g. Antibiotics" required pattern="[A-Za-z0-9 ]{1,35}" title="A maximum of 35 characters allowed"/>
+            <input type="text" id="nameId" name="name" placeholder="Enter product type name e.g. Antibiotics" required pattern="[A-Za-z0-9 ]{1,35}" title="A maximum of 35 characters allowed"/>
             <label for="desc">description:</label>
-            <textarea name="desc" placeholder="Enter product type description e.g. For treatment of infections" pattern="[A-Za-z0-9 ]{1,255}" title="A maximum of 255 alphanumeric characters may be used"></textarea>
+            <textarea id="descId" name="desc" placeholder="Enter product type description e.g. For treatment of infections" pattern="[A-Za-z0-9 ]{1,255}" title="A maximum of 255 alphanumeric characters may be used"></textarea>
           </div>
         </fieldset>
 

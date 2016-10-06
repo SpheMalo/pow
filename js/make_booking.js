@@ -96,9 +96,12 @@ function populateFields() {
 function setPracticeLocation() {
     var dentist = $("#dentistSelect").val();
 
-    if (dentist == "Dr J.P. Maponya") {
+    if (dentist == "Dr J.P. Maponya") 
+    {
        $("#optionThembisa").attr('selected','selected');
     }
-    else {
-        $("#optionBirchAcres").attr('selected','selected');;
+    else 
+    {
+        $("#optionBirchAcres").attr('selected','selected');
     }
+}

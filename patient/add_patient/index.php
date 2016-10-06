@@ -150,6 +150,9 @@
   </head>
   
   <body>
+  <div id="pic">
+  
+  </div>
     <?php
       include '../../inc/menu.htm';
     ?>
@@ -166,8 +169,8 @@
         <legend>personal details</legend>
           <div>
             <label for="proPic" >profile picture:</label>
-            <img src="" alt=""/>
-            <a id="takeP">t</a>
+            <img id="picOfficial" src="" alt=""/>
+            <span id="takeP" onclick="takePicture()"><a>take</a></span>
             <input type="file" name="proPic"/>
 
             <label for="name" >name:</label>

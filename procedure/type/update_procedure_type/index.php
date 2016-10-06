@@ -24,9 +24,10 @@
     <script type="text/javascript" src="../../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../../js/init.js"></script>
+    <script type="text/javascript" src="../../../js/type_procedure_update.js"></script>
   </head>
   
-  <body>
+  <body onload="getTypeProcedureById()">
     <?php
       include '../../../inc/menu.htm';
     ?>
@@ -43,9 +44,9 @@
         <legend>procedure type details</legend>
           <div>
             <label for="code">code:</label>
-            <input type="text" name="code" placeholder="Enter procedure type code eg. Z01" required pattern="[A-Z0-9.]{3,5}" title="Enter procedure type code eg. Z01.1"/>
+            <input type="text" id="codeId" name="code" placeholder="Enter procedure type code eg. Z01" required pattern="[A-Z0-9.]{3,5}" title="Enter procedure type code eg. Z01.1"/>
             <label for="desc">description:</label>
-            <textarea name="desc" placeholder="Enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis" pattern="[a-zA-Z0-9 ]{1,255}" title="Enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis. A maximum of 255 alphanumeric characters may be used" required></textarea>
+            <textarea id="descId" name="desc" placeholder="Enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis" pattern="[a-zA-Z0-9 ]{1,255}" title="Enter procedure type decription eg. Encounter for other special examination without complaint, suspected or reported diagnosis. A maximum of 255 alphanumeric characters may be used" required></textarea>
           </div>
         </fieldset>
 
