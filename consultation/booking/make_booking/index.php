@@ -90,7 +90,7 @@
             <input id="patientName" type="text" name="name" placeholder="enter patient name" readonly/>
           </div>
           <div>
-            <label for="medical">medical aid:</label>
+            <label for="medical">medical aid:</label> 
             <input id="patientMedicalAid" type="text" name="medical" placeholder="patient medical aid" readonly/>
             <label for="surname">surname:</label>
             <input id="patientSurname" type="text" name="surname" placeholder="enter patient surname" readonly/>
