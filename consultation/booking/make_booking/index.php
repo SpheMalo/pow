@@ -109,12 +109,9 @@
             
           <div>
             <label for="location">practice location:</label>
-            <select id="locationSelect" name="location" disabled>
-              <option id="optionThembisa">Thembisa</option>
-              <option id="optionBirchAcres">Birch Acres</option>
-              <?php
-                 
-              ?>
+            <select id="locationSelect" name="location" readonly>
+              <option id="optionThembisa" value="Tembisa">Tembisa</option>
+              <option id="optionBirchAcres" value="Birch Acres">Birch Acres</option>
             </select>
             <label for="time">consultation time:</label>
             <select name="time">

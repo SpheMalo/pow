@@ -314,7 +314,8 @@
 
       try
       {
-        $s = "select type_medical_aid.decription as med_type from patient where patientID = " . $pat;
+        $s = "select type_medical_aid.decription as med_type from patient where 
+        JOIN type_medical_aid on patient.medical_aid_typeID = type_medical_aid.id where patient.patientID = " . $pat;
         $r = $pdo->query($s); 
       }
       catch(PDOException $e)

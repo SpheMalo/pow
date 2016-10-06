@@ -16,60 +16,6 @@
   {
     header("Location: ../../../login/");
   }
-
-
-
-////////////////////////////////////////////////////////////////////////
-  try
-  {
-    $pdo = new PDO('mysql:host=localhost;dbname=dental', 'DUser','somePassword');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->exec('SET NAMES "utf8"');
-  }
-  catch (PDOException $e)
-  {
-    $o = "unable to connect to database. " . $e;
-    return false;
-  }
-
-   $ID = $_GET['id'];
-  $s = "SELECT `id`, `name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference` 
-    FROM `supplier`
-    WHERE id = $ID";
-
-  $r = $pdo->query($s);
-
-  if ($r->rowCount() > 0)
-  {
-      $c = 0;
-      while ($row = $r->fetch()) 
-      {
-              echo "id: " . $row["id"]. "<br> Name: " . $row["name"]. "<br> Contact Person: " . $row["contact_person"]. "<br>";
-      }
-     //$("#supplierName").val(name);
-  }
-  else 
-    echo "0 results";
-
-  // echo $r->fetch(PDO::FETCH_ASSOC);
-  // echo $_GET['id'];
-   ////////////////////////////////////////////////////////////////////////////
-/*function dbToForm(id) {
-var id_val = id.value;
-var name = '';
-var url = "http://localhost:81/PG_crud_experiment1/retrieve.php?id="+id_val; 
-$.getJSON(url, function(json) {
-               $.each(json, function(i,v) {    
-
-                 name += v.name;   
-                 alert (name);
-
-                });
-                         $("#e_name").val(name);   
-       });
-
-};*/
-   ////////////////////////////////////////
 ?>
 
 <html>
@@ -80,9 +26,10 @@ $.getJSON(url, function(json) {
     <script type="text/javascript" src="../../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../../js/init.js"></script>
+    <script type="text/javascript" src="../../../js/supplier_update.js"></script>
   </head>
   
-  <body>
+  <body onload="getSupplierById()">
     <?php
       include '../../../inc/menu.htm';
     ?>
@@ -99,21 +46,21 @@ $.getJSON(url, function(json) {
         <legend>Contact Details</legend>
         <div>
           <label for="supplierName">Name:</label>
-          <input type="text" name="supplierName" placeholder="Enter Supplier Name e.g. ABC Medical Supplies" required pattern= "[A-Za-z0-9 ]{1,35}" title="A maximum of 35 letters allowed" />
+          <input type="text" id="supplierNameId" name="supplierName" placeholder="Enter Supplier Name e.g. ABC Medical Supplies" required pattern= "[A-Za-z0-9 ]{1,35}" title="A maximum of 35 letters allowed" />
           
           <label for="contactPersonName">Contact Person Name:</label>
-          <input type="text" name="contactPersonName" placeholder="Enter Contact Person Name e.g. Vuyani Mati" required pattern="[A-Za-z ]{1,35}" title="A maximum of 35 letters allowed"/>
+          <input type="text" id="contactPersonNameId" name="contactPersonName" placeholder="Enter Contact Person Name e.g. Vuyani Mati" required pattern="[A-Za-z ]{1,35}" title="A maximum of 35 letters allowed"/>
           
           <label for="supplierEmail">Email Address:</label>
-          <input type="email" name="supplierEmail" placeholder="Enter Email e.g. supplier@example.co.za" required />
+          <input type="email" id="supplierEmailId" name="supplierEmail" placeholder="Enter Email e.g. supplier@example.co.za" required />
 
           <label for="telephone">Telephone:</label>
-          <input type="tel" name="telephone" placeholder="Enter Telephone Number e.g. 0119724075" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
+          <input type="tel" id="telephoneId" name="telephone" placeholder="Enter Telephone Number e.g. 0119724075" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
         </div>
 
        <div>
           <label for="faxNumber">Fax Number:</label>
-          <input type="tel" name="faxNumber" placeholder="Enter Fax Number e.g. 0863483678" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
+          <input type="tel" id="faxNumberId" name="faxNumber" placeholder="Enter Fax Number e.g. 0863483678" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
 
           <label for="physical" >physical address:</label>
             <input type="text" name="add_line_ph1" id="add_line_ph1" placeholder="Enter street number e.g. 395" required pattern="[A-Za-z0-9]{1,5}" title="A maximum of 5 characters"/>
@@ -133,21 +80,21 @@ $.getJSON(url, function(json) {
        <legend>Bank Details</legend>
        <div>
           <label for="bankName">Bank Name:</label>
-          <input type="text" name="bankName" placeholder="Enter bank name e.g. ABSA" required pattern= "[A-Za-z ]{1,35}" title="A maximum of 35 letters allowed" />
+          <input type="text" id="bankNameId" name="bankName" placeholder="Enter bank name e.g. ABSA" required pattern= "[A-Za-z ]{1,35}" title="A maximum of 35 letters allowed" />
 
           <label for="branchName">Branch Name:</label>
-          <input type="text" name="branchName" placeholder="Enter Branch Name e.g. Brooklyn " required pattern= "[A-Za-z ]{1,35}" title="A maximum of 35 letters allowed" />
+          <input type="text" id="branchNameId" name="branchName" placeholder="Enter Branch Name e.g. Brooklyn " required pattern= "[A-Za-z ]{1,35}" title="A maximum of 35 letters allowed" />
           
           <label for="branchCode">Branch Code:</label>
-          <input type="tel" name="branchCode" placeholder="Enter Branch Code e.g. 246000" required pattern= "[0-9]{6}" title="A maximum of 4 numbers allowed with no spaces" />
+          <input type="tel" id="branchCodeId" name="branchCode" placeholder="Enter Branch Code e.g. 246000" required pattern= "[0-9]{6}" title="A maximum of 4 numbers allowed with no spaces" />
        </div>
 
        <div>
           <label for="accountNumber">Acount Number:</label>
-          <input type="text" name="accountNumber" placeholder="Enter Account Number e.g. 402560581" required pattern= "[0-9]{8,15}" title="A minimum of 8 and maximum of 15 digits allowed with no spaces" />
+          <input type="text" id="accountNumberId" name="accountNumber" placeholder="Enter Account Number e.g. 402560581" required pattern= "[0-9]{8,15}" title="A minimum of 8 and maximum of 15 digits allowed with no spaces" />
 
           <label for="reference">Reference:</label>
-          <input type="text" name="reference" placeholder="Enter Reference e.g. DMaponya09"  required pattern= "[A-Za-z0-9 ]{1,35}" title="A maximum of 35 alphanumeric characters allowed" />
+          <input type="text" id="referenceId" name="reference" placeholder="Enter Reference e.g. DMaponya09"  required pattern= "[A-Za-z0-9 ]{1,35}" title="A maximum of 35 alphanumeric characters allowed" />
        </div>
        </fieldset>
         

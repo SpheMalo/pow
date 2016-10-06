@@ -9,7 +9,7 @@
     $emp = $_SESSION['emp'];
     $o = "";
     
-    $pList = loadProdList(null);
+    $oList = loadStockList(null, null);
     
   }
   else

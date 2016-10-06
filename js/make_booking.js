@@ -87,10 +87,10 @@ function populateFields() {
             break;
         }
     }
-
+ 
     $("#patientName").val(patient.name);
     $("#patientSurname").val(patient.surname);
-    $("#patientMedicalAid").val(patient.medicalAid);
+    $("#patientMedicalAid").val(patient.medical_aid_type);
 }
 
 function setPracticeLocation() {

@@ -210,11 +210,10 @@ $(document).ready(function(){
   function addProdOrder()
   {
     var p = document.getElementById("orderProd");
-    //var z = p.innerHTML();
-    alert(p);
-
-    //var dat = "s_add_prod=" + ;
-    /*$.ajax({
+   // var z = p.innerHTML();
+   alert("dfsd");
+    var dat = "s_add_prod=";
+    $.ajax({
       type: "post",
       data: dat,
       url: "../supplier/order/place_new_order/index.php",
@@ -224,13 +223,13 @@ $(document).ready(function(){
       error: function(){
 
       }
-    });*/
+    });
   }
 
- /* $('#orderProdSubmit').click(function(e){
+$('#orderProdSubmit').click(function(e){
     addProdOrder();
     //e.preventDefault();
-  }); */
+  }); 
 
   function takePicture()
   {
