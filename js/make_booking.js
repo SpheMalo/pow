@@ -104,12 +104,8 @@ function setPracticeLocation() {
     {
        $("#optionThembisa").attr('selected','selected');
     }
-<<<<<<< HEAD
-    else {
-=======
     else 
     {
->>>>>>> dd0318a771faeec8e43091b72f28128c21cd1278
         $("#optionBirchAcres").attr('selected','selected');
     }
 }

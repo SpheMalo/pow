@@ -8,6 +8,7 @@
     $_SESSION['page'] = "make a booking";
     $emp = $_SESSION['emp'];
     $iList = loadIdList(null);
+    $dList = loadDocList();
     $o = "";
 
     $result = "";
@@ -102,11 +103,13 @@
            <div>
             <label for="dentist">dentist:</label>
             <select id="dentistSelect" name="dentist" onchange="setPracticeLocation()">
-              <option name="jpMaponya">Dr J.P. Maponya</option>
-              <option name="yMaponya">Dr Y. Maponya</option>
-              <?php
-                 
-              ?>
+              <!--<option name="jpMaponya">Dr J.P. Maponya</option>
+              <option name="yMaponya">Dr Y. Maponya</option>-->
+
+              <?php foreach($dList as $d):?>
+                <?php $name = $d['name'];?>
+                <option value="<?php echo $d['id'];?>">Dr. <?php echo $name[0] . ". " . $d['surname'];?></option>
+              <?php endforeach;?>
             </select>
             <label for="date">consultation date:</label>
             <input type="date" name="date" placeholder="select consultation date"/>

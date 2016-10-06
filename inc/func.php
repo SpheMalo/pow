@@ -515,6 +515,39 @@
     }
   }
 
+  function loadDocList()
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select id, name, surname from employee where employee_typeID = 2";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach ($r as $row)
+      {
+        $dList[] = array(
+          'id' => $row['id'],
+          'name' => $row['name'],
+          'surname' => $row['surname']
+        );
+      }
+      
+      return $dList;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
   function addEmployee($name, $surname, $id, $cell, $tell, $email, $banking, $postal, $physical, $gender, $title, $type, $loc)
   {
     require 'dbconn.php';
