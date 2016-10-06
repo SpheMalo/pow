@@ -9,7 +9,7 @@
     $emp = $_SESSION['emp'];
     $o = "";
     
-    $pList = loadProdList(null);
+    //$oList = loadStockList(null, null);
     
   }
   else
@@ -27,9 +27,10 @@
     <script type="text/javascript" src="../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
+    <script type="text/javascript" src="../../js/stock_update.js"></script>
   </head>
   
-  <body>
+  <body onload="getStockById()">
     <?php
       include '../../inc/menu.htm';
     ?>
@@ -45,11 +46,11 @@
          <legend>product details</legend>
          <div>
             <label for="name">name:</label>
-            <input type="text" name="name" placeholder="enter product name" />
+            <input type="text" id="nameId" name="name" placeholder="enter product name" />
             <label for="size">size:</label>
-            <input type="text" name="size" placeholder="product size" />
+            <input type="text" id="sizeId" name="size" placeholder="product size" />
             <label for="type">type:</label>
-            <input type="text" name="type" placeholder="product type" />            
+            <input type="text" id="typeId" name="type" placeholder="product type" />            
          </div>
          <div>
             <label for="desc">reason:</label>

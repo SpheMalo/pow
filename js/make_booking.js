@@ -1,3 +1,4 @@
+var idNumbers = ["159", "158", "156", "154", "152"];
 var patients;
 function getPatientById() {
     var id = $("#patientID").val();
@@ -50,7 +51,7 @@ function getPatientById() {
     });
 }
 
-/*function filterIdNums() {
+function filterIdNums() {
     var currentNumber = $("#ids").val();
     var temp = [];
     var count = 0;
@@ -73,7 +74,7 @@ function getPatientById() {
     }
 
     document.getElementById("idNums").innerHTML = htmlCode;
-}*/
+}
 
 function populateFields() {
 
@@ -86,10 +87,10 @@ function populateFields() {
             break;
         }
     }
-
+ 
     $("#patientName").val(patient.name);
     $("#patientSurname").val(patient.surname);
-    $("#patientMedicalAid").val(patient.medicalAid);
+    $("#patientMedicalAid").val(patient.medical_aid_type);
 }
 
 function setPracticeLocation() {
@@ -101,4 +102,3 @@ function setPracticeLocation() {
     else {
         $("#optionBirchAcres").attr('selected','selected');;
     }
-}
