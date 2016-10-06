@@ -97,7 +97,7 @@ function populateFields() {
     $("#patientMedicalAid").val(patient.medical_aid_type);
 }
 
-function setPracticeLocation() {
+/*function setPracticeLocation() {
     var dentist = $("#dentistSelect").val();
 
     if (dentist == "Dr J.P. Maponya") 
@@ -108,4 +108,4 @@ function setPracticeLocation() {
     {
         $("#optionBirchAcres").attr('selected','selected');
     }
-}
+}*/
