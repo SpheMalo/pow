@@ -97,15 +97,26 @@ function populateFields() {
     $("#patientMedicalAid").val(patient.medical_aid_type);
 }
 
-/*function setPracticeLocation() {
+function getBookWeek() {
     var dentist = $("#dentistSelect").val();
-
-    if (dentist == "Dr J.P. Maponya") 
+    var d = "doc=" + dentist;
+    if (dentist != "--select dentist--") 
     {
-       $("#optionThembisa").attr('selected','selected');
+       $.ajax({
+           type: "post",
+            url: "../../../inc/calll.php",
+            cache: false,
+            data: d,
+            success: function(result){
+                $('#calendar').filter(':last').html(result);
+            },
+            error: function(){
+            //alert('something went wrong');
+            }
+       });
     }
     else 
     {
-        $("#optionBirchAcres").attr('selected','selected');
+        //$("#optionBirchAcres").attr('selected','selected');
     }
-}*/
+}

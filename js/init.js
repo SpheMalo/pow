@@ -587,22 +587,21 @@ function takePicture()
   }
 }
 
-  // Trigger photo take
-  function snap()
-  {
-    // Grab elements, create settings, etc.
-    var video = document.getElementById('video');
-    
-    // Elements for taking the snapshot
-    var canvas = document.getElementById('canvas');
-    var context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, 640, 480);
-    var dat = canvas.toDataURL('image/png', 1.0);
-    console.log(dat);
-    $("#test").html(dat);
-    $("#picOfficial").attr("src",dat);
-    $("#pic").html("");
-   }
+function snap()
+{
+  // Grab elements, create settings, etc.
+  var video = document.getElementById('video');
+  
+  // Elements for taking the snapshot
+  var canvas = document.getElementById('canvas');
+  var context = canvas.getContext('2d');
+  context.drawImage(video, 0, 0, 640, 480);
+  var dat = canvas.toDataURL('image/png', 1.0);
+  console.log(dat);
+  $("#test").html(dat);
+  $("#picOfficial").attr("src",dat);
+  $("#pic").html("");
+}
 
 $(document).ready(function()
 {
@@ -690,7 +689,7 @@ $('#orderProdSubmit').click(function(e){
     left: "auto"
   });
 
-  $('#nav > li, #nav_xtra > li').hoverIntent(function() {
+  $('#nav > li').hoverIntent(function() { 
     $(this)
     .find('ul')
     .stop(true, true)
@@ -702,12 +701,24 @@ $('#orderProdSubmit').click(function(e){
     .fadeOut('fast');
   });
 
-  $('#nav_xtra > li').hover(function(){
+  $('#nav_xtra > li').hover(function() {
+    $(this)
+    .find('ul')
+    .stop(true, true)
+    .slideDown('medium')
+    .css({display: "block"});
+
     $('#nav_xtra > li > img').rotate({
       angle: 0,
       animateTo: 100
     });
-  }, function(){
+  }, function() {
+    $(this)
+    .find('ul')
+    .stop(true,true)
+    .fadeOut('fast')
+    .css({display: "none"});
+
     $('#nav_xtra > li > img').rotate({
       angle: 100,
       animateTo: 0

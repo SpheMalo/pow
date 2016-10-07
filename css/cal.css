@@ -1,3 +1,9 @@
+#calendar{
+  position: fixed;
+  top: 30%;
+  left: 0;
+}
+
 #calendar > div > h2{
   margin: 0.4% 0 0 0;
   padding: 0 0 0 15%;
