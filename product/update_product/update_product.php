@@ -4,7 +4,7 @@
     require '../../inc/class.php';
 
     $id = $_GET["idNum"];
-    $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeProd 
+    $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeName, type_product.description as typeDesc  
           FROM `product` 
           JOIN type_product on product.product_typeID = type_product.id 
           where product.id = $id
@@ -33,7 +33,7 @@
         $quantity[$c] = $row['quantity'];
         $critical[$c] = $row['critical_value'];
         $fav[$c] = $row['favorite'];
-        $type[$c] = $row['typeProd'];
+        $type[$c] = $row['typeName'].'_'.$row['typeDesc'];
 
         $prod = new Product($id[$c], $pNumber[$c], $name[$c], $desc[$c], $price[$c], $size[$c], $quantity[$c], $critical[$c], $fav[$c], $type[$c]);
         $prodList[] = $prod;

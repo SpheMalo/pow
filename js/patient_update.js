@@ -72,14 +72,20 @@ function populateFields()
     $("#tellId").val(patient.tell);
     $("#cellId").val(patient.cell);
 
+    patient.postal =  patient.postal.split("_");
+    $("#add_line_po1").val(patient.postal[0]);
+    $("#add_line_po2").val(patient.postal[1]);
+    $("#add_line_po3").val(patient.postal[2]);
+    var city = "#"+ patient.postal[3];
+    $(city).attr("selected", "selected");
+    $("#add_line_po5").val(patient.postal[4]);
+
     patient.physical =  patient.physical.split("_");
     $("#add_line_ph1").val(patient.physical[0]);
     $("#add_line_ph2").val(patient.physical[1]);
     $("#add_line_ph3").val(patient.physical[2]);
-
     var city = "#"+ patient.physical[3];
     $(city).attr("selected", "selected");
-
     $("#add_line_ph5").val(patient.physical[4]);
 
     var med = "#"+ patient.med_type;

@@ -599,6 +599,7 @@ function takePicture()
     context.drawImage(video, 0, 0, 640, 480);
     var dat = canvas.toDataURL('image/png', 1.0);
     console.log(dat);
+    $("#test").html(dat);
     $("#picOfficial").attr("src",dat);
     $("#pic").html("");
    }

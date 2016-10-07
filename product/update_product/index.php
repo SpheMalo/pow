@@ -27,14 +27,24 @@
     <script type="text/javascript" src="../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
     <script type="text/javascript" src="../../js/product_update.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('#s62').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+      $('#s62').parent().parent().css({'background': 'white', 'color': '#00314c'});
+      $('#s62').parent().prevUntil().css({'color': '#00314c'});
+      $('#s62').parent().nextUntil().css({'color': '#00314c'});
+      $('#s62').parent().prevUntil().children().css({'color': '#00314c'});
+      $('#s62').parent().nextUntil().children().css({'color': '#00314c'});
+      $('#s62').css({'color': '#00314c', 'text-decoration': 'underline'});
+    });
+  </script>
   </head>
   
   <body onload="getProductById()">
     <?php
       include '../../inc/menu.htm';
-    ?>
-    
-    <div id="head">
+    ?>    
+     <div id="head">
       <h1 id="head_m">Product</h1>
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
       <h5 id="head_o"><?php echo $o;?></h5>
