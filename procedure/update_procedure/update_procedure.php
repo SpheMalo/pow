@@ -4,7 +4,7 @@
     require '../../inc/class.php';
 
     $id = $_GET["idNum"];
-    $s = "select procedure.id, procedure.description, procedure.code, price, `procedure`.favorite, type_procedure.code as type_procedure 
+    $s = "select procedure.id, procedure.description, procedure.code, price, `procedure`.favorite, type_procedure.code as type_code, type_procedure.description as type_desc  
         from `procedure` 
         join type_procedure on procedure.procedure_typeID = type_procedure.id 
         where procedure.id = $id
@@ -29,9 +29,7 @@
         $code[$c] = $row['code'];
         $price[$c] = $row['price'];
         $fav[$c] = $row['favorite'];
-        $type[$c] = $row['type_procedure'];
-       // $type[$c] = $row['type_proc'];
-        
+        $type[$c] = $row['type_code'].'_'.$row['type_desc'];        
 
         $proc = new Procedure($id[$c], $desc[$c], $code[$c], $price[$c], $fav[$c], $type[$c]);
         $procList[] = $proc;

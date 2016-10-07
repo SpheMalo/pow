@@ -60,9 +60,10 @@ function populateFields()
         $("#favoId").attr("checked", "checked");
     }
 
-
     $("#quantityId").val(product.quantity);
-    $("#p_t_nameId").val(product.type);
-      
+
+    product.type = product.type.split("_");
+    $("#p_t_nameId").val(product.type[0]);
+    $("#p_t_descId").val(product.type[1]);
 
 }

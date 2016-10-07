@@ -52,7 +52,13 @@ function populateFields()
     $("#codeId").val(procedure.code);
     $("#descId").val(procedure.desc);
     $("#priceId").val(procedure.price);
-    $("#favoId").val(procedure.fav);
-    $("#p_t_codeId").val(procedure.type);
-    //$("#p_t_descId").val(procedure.type);
+
+    if(procedure.fav == 1)
+    {
+      $("#favoId").attr("checked", "checked");
+    }
+
+    procedure.type = procedure.type.split("_");
+    $("#p_t_codeId").val(procedure.type[0]);
+    $("#p_t_descId").val(procedure.type[1]);
 }

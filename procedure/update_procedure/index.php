@@ -16,21 +16,6 @@
   {
     header("Location: ../../login/");
   }
-
-  if (isset($_POST['s_new_proc']))
-  {
-    $proc = addProcedure($_POST['desc'], $_POST['type'], $_POST['code'], $_POST['price'], $_POST['favo']);
-
-    if ($proc == true)
-    {
-      $o = "The procedure was added successfuly";
-    }
-    else
-    {
-      $o = "The procedure was not added due to a server error";
-    }
-
-  }
 ?>
 
 <html>
@@ -65,7 +50,6 @@
             <label>favorite:</label>
             <input type="checkbox" id="favoId" name="favo" class="check" value=1 title="select to add procedure to shortlist when making an invoice."/>
             <label for="favo" class="check">add to favorite list</label>
-            
           </div>
 
           <div>
