@@ -1,14 +1,13 @@
-var idNumbers = ["159", "158", "156", "154", "152"];
 var patients;
 function getPatientById() {
-    var id = $("#patientID").val();
+    var id = $("#ids").val();
     var temp = [];
     var count = 0;
 
     $.ajax({
         url: "make_booking.php",
         type: "GET",
-        data: { idNum: id},
+        //data: { idNum: id},
         cache: false,
         success: function (response) {
             patients = response;
@@ -44,6 +43,7 @@ function getPatientById() {
             }
 
             patients = temp;
+            return patients;
         },
         error: function (error) {
             console.log(error);
@@ -51,7 +51,7 @@ function getPatientById() {
     });
 }
 
-function filterIdNums() {
+/*function filterIdNums() {
     var currentNumber = $("#ids").val();
     var temp = [];
     var count = 0;
@@ -74,19 +74,23 @@ function filterIdNums() {
     }
 
     document.getElementById("idNums").innerHTML = htmlCode;
-}
+}*/
 
 function populateFields() {
 
-
+    var patient// = getPatientById();
     var value = $("#ids").val();
-    var patient;
+    //var patient;
+
+    //alert(patient + " " + value);
     for (var i=0; i<patients.length; i++) {
-        if (JSON.parse(patients[i]).id == value) {
+        if (JSON.parse(patients[i]).id_number == value) {
             patient = JSON.parse(patients[i]);
             break;
         }
     }
+
+    
  
     $("#patientName").val(patient.name);
     $("#patientSurname").val(patient.surname);
@@ -100,8 +104,12 @@ function setPracticeLocation() {
     {
        $("#optionThembisa").attr('selected','selected');
     }
+<<<<<<< HEAD
+    else {
+=======
     else 
     {
+>>>>>>> dd0318a771faeec8e43091b72f28128c21cd1278
         $("#optionBirchAcres").attr('selected','selected');
     }
 }

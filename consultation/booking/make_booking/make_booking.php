@@ -1,7 +1,7 @@
 <?php
-
     require '../../../inc/func.php';
-    $idNum = $_REQUEST['idNum'];
+    require '../../../inc/dbconn.php';
+    //$idNum = $_REQUEST['idNum'];
 
     $sql = "select * from patient where medical_aid_typeID is null or medical_aid_typeID is not null";
 
@@ -20,10 +20,10 @@
      if ($r->rowCount() > 0) {
          while ($row = $r->fetch()) {
              $id[$c] = $row['id'];
-            $title[$c] = $row['title'];
+            $title[$c] = $row['titleID'];
             $name[$c] = $row['name'];
             $surname[$c] = $row['surname'];
-            $gender[$c] = $row['gender'];
+            $gender[$c] = $row['genderID'];
             $id_num[$c] = $row['id_number'];
             $dob[$c] = $row['dob'];
             $email[$c] = $row['email'];
@@ -36,7 +36,7 @@
             $med_type[$c] = $row['medical_aid_typeID'];
             $mem_type[$c] = $row['member_typeID']; 
 
-            $id[$count] = new Patient($id[$c], $title[$c], $name[$c], $surname[$c], $gender[$c], $id_num[$c], $dob[$c], $email[$c], $img[$c], $file[$c], $tell[$c], $cell[$c], $physical[$c], $postal[$c], $med_type[$c], $mem_type[$c]);
+            $id[$c] = new Patient($id[$c], $title[$c], $name[$c], $surname[$c], $gender[$c], $id_num[$c], $dob[$c], $email[$c], $img[$c], $file[$c], $tell[$c], $cell[$c], $physical[$c], $postal[$c], $med_type[$c], $mem_type[$c]);
              //$id[$count] = new Patient($row['id_number'], "", $row['name'], $row['surname'], "","" ,"" ,"" ,"" ,"" ,"" ,$row['ma_name']);
             $c++;
          }
