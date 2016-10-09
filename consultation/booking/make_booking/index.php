@@ -8,6 +8,7 @@
     $_SESSION['page'] = "make a booking";
     $emp = $_SESSION['emp'];
     $iList = loadIdList(null);
+    $dList = loadDocList();
     $o = "";
 
     $result = "";
@@ -101,24 +102,26 @@
           <legend>booking details</legend>
            <div>
             <label for="dentist">dentist:</label>
-            <select id="dentistSelect" name="dentist" onchange="setPracticeLocation()">
-              <option name="jpMaponya">Dr J.P. Maponya</option>
-              <option name="yMaponya">Dr Y. Maponya</option>
-              <?php
-                 
-              ?>
+            <select id="dentistSelect" name="dentist" onchange="getBookWeek()">
+              <!--<option name="jpMaponya">Dr J.P. Maponya</option>
+              <option name="yMaponya">Dr Y. Maponya</option>-->
+              <option>--select dentist--</option>
+              <?php foreach($dList as $d):?>
+                <?php $name = $d['name'];?>
+                <option value="<?php echo $d['id'];?>">Dr. <?php echo $name[0] . ". " . $d['surname'];?></option>
+              <?php endforeach;?>
             </select>
-            <label for="date">consultation date:</label>
-            <input type="date" name="date" placeholder="select consultation date"/>
+            <!--<label for="date">consultation date:</label>
+            <input type="date" name="date" placeholder="select consultation date"/>-->
           </div>
             
-          <div>
+          <div style="visibility: hidden">
             <label for="location">practice location:</label>
             <select id="locationSelect" name="location" readonly>
               <option id="optionThembisa" value="Tembisa">Tembisa</option>
               <option id="optionBirchAcres" value="Birch Acres">Birch Acres</option>
             </select>
-            <label for="time">consultation time:</label>
+            <!--<label for="time">consultation time:</label>
             <select name="time">
               <?php
               $timeSlots = loadTimeSlots();
@@ -131,8 +134,9 @@
                   }
                 }
               ?>
-            </select>
+            </select>-->
           </div>
+          <div id="calendar"></div>
           
         </fieldset>
 
