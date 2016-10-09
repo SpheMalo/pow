@@ -54,11 +54,13 @@ function populateFields()
     $("#telephoneId").val(supplier.telephone);
     $("#faxNumberId").val(supplier.fax);
 
-    $("#add_line_ph1").val(supplier.physical);
-    $("#add_line_ph2").val(supplier.physical);
-    $("#add_line_ph3").val(supplier.physical);
-    $("#add_line_ph4").val(supplier.physical);
-    $("#add_line_ph5").val(supplier.physical);
+    supplier.physical = supplier.physical.split("_");
+    $("#add_line_ph1").val(supplier.physical[0]);
+    $("#add_line_ph2").val(supplier.physical[1]);
+    $("#add_line_ph3").val(supplier.physical[2]);
+    var city = "#"+supplier.physical[3];
+    $(city).attr("selected", "selected");
+    $("#add_line_ph5").val(supplier.physical[4]);
 
     $("#bankNameId").val(supplier.bank);
     $("#branchNameId").val(supplier.branchN);

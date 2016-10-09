@@ -69,7 +69,7 @@
             <select name="add_line_ph4" id="add_line_ph4">
               <option>Select city/town</option>
               <?php foreach ($cList as $c):?>
-                <option value="<?php echo $c['id'];?>"><?php echo $c['desc'];?></option>
+                <option id="<?php echo $c['desc'];?>" value="<?php echo $c['id'];?>"><?php echo $c['desc'];?></option>
               <?php endforeach;?>
             </select>
             <input type="text" name="add_line_ph5" id="add_line_ph5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{4}" title="A maximum of 4 digits with no spaces"/>
@@ -101,7 +101,7 @@
        <legend>Status</legend>
        <div>
          <label for="status">Supplier Status</label>
-         <input type="text" id="statusId" name="status" placeholder="Supplier status" required pattern= "[A-Za-z ]{6,8}" title="Only used to display supplier's status" />
+         <input type="text" id="statusId" name="status" placeholder="Supplier status" required pattern= "[A-Za-z]{6,8}" title="Only used to display supplier's status" />
        </div>
        </fieldset>
         

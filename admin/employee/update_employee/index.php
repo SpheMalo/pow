@@ -7,6 +7,7 @@
   {
     $_SESSION['page'] = "update employee";
     $emp = $_SESSION['emp'];
+    $o = "";
     
     $tList = loadTitleList();
     $gList = loadGenderList();
@@ -19,9 +20,7 @@
     header("Location: ../../../login/");
   }
 
-  $o = "";
-
-  if (isset($_POST['s_upd_emp']))
+ /* if (isset($_POST['s_upd_emp']))
   {
     $empDet = addEmployee($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['gender'], $_POST['id'], $_POST['banking'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical'], $_POST['type']);
     
@@ -67,7 +66,7 @@
       'tel' => "enter employees telephone number",
       'physical' => "enter employees physical address"
     );
-  }
+  }*/
 ?>
 
 <html>
@@ -79,9 +78,10 @@
     <script type="text/javascript" src="../../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../../js/init.js"></script>
+    <script type="text/javascript" src="../../../js/employee_update.js"></script>
   </head>
   
-  <body>
+  <body onload="getEmployeeById()">
     <?php
       include '../../../inc/menu.htm';
     ?>
@@ -92,35 +92,35 @@
       <h5 id="head_o"><?php echo $o;?></h5>
     </div>
     <div id="cont">
-      <form method="post" action="" enctype="multipart/form-data">
+      <form method="post" action="">
         <fieldset>
         <legend>personal details</legend>
           <div>
             <label for="proPic" >profile picture:</label>
-            <img src="" alt="" />
+            <img  id="proPicId" src="" alt="" />
             <input type="file" name="proPic"/>
 
             <label for="name" >name:</label>
-            <input type="text" name="name" placeholder="Enter employee name e.g. Simon" required pattern="[A-Za-z]{1,35}" title="A maximum of 35 letters with no spaces"/>
+            <input id="nameId" type="text" name="name" placeholder="Enter employee name e.g. Simon" required pattern="[A-Za-z]{1,35}" title="A maximum of 35 letters with no spaces"/>
             
             <label for="title" >title:</label>
-            <select name="title" >
+            <select id="titleId" name="title" >
               <option>select title</option>
               <?php foreach ($tList as $ti):?>
-                <option value="<?php echo $ti['id'];?>"><?php echo $ti['desc'];?></option>
+                <option id="<?php echo $ti['desc'];?>" value="<?php echo $ti['id'];?>"><?php echo $ti['desc'];?></option>
               <?php endforeach;?>
             </select>
             
             <label for="gender" >gender:</label>
-            <select name="gender" >
+            <select id="genderId" name="gender" >
               <option>select gender</option>
               <?php foreach ($gList as $ge):?>
-                <option value="<?php echo $ge['id'];?>"><?php echo $ge['desc'];?></option>
+                <option id="<?php echo $ge['desc'];?>" value="<?php echo $ge['id'];?>"><?php echo $ge['desc'];?></option>
               <?php endforeach;?>
             </select>
             
             <label for="id" >ID/Passport number:</label>
-            <input type="text" name="id" placeholder="Enter employee ID/Passport number e.g. 8612170554087" required pattern="[0-9]{13}" title="A number of 13 characters"/>
+            <input id="id_Id" type="text" name="id" placeholder="Enter employee ID/Passport number e.g. 8612170554087" required pattern="[0-9]{13}" title="A number of 13 characters"/>
           </div>
 
           <div>
@@ -128,10 +128,10 @@
             <img src="" alt="" class="display"/>
             <input type="file" name="proPic" class="display"/>
 
-            <label for="surname" >surame:</label>
-            <input type="text" name="surname" placeholder="Enter employee surname e.g. Kekana" required pattern="[A-Za-z]{1,35}" title="A maximum of 35 letters with no spaces"/>
+            <label for="surname" >surname:</label>
+            <input id="surnameId" type="text" name="surname" placeholder="Enter employee surname e.g. Kekana" required pattern="[A-Za-z]{1,35}" title="A maximum of 35 letters with no spaces"/>
             <label for="banking" >banking details:</label>
-            <textarea name="banking" class="empBanking" placeholder="Enter employee banking details e.g. ABSA, 4078080733, Hatfield, 687453" title="Must match provided example format"></textarea>
+            <textarea id="bankingId" name="banking" class="empBanking" placeholder="Enter employee banking details e.g. ABSA, 4078080733, Hatfield, 687453" title="Must match provided example format"></textarea>
           </div>
           
         </fieldset>
@@ -140,10 +140,10 @@
         <legend>contact details</legend>
           <div>
             <label for="cell">cellphone:</label>
-            <input type="tel" name="cell" placeholder="Enter employee cellphone number e.g. 0824897654" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
+            <input id="cellId" type="tel" name="cell" placeholder="Enter employee cellphone number e.g. 0824897654" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
             
             <label for="email">email:</label>
-            <input type="email" name="email" placeholder="Enter employee email e.g. employee@example.co.za" required />
+            <input id="emailId" type="email" name="email" placeholder="Enter employee email e.g. employee@example.co.za" required />
             
             <label for="physical" >physical address:</label>
             <!--<textarea name="physical" class="empPhysical" placeholder="enter employee physical address eg. 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>-->
@@ -156,15 +156,15 @@
             <select name="add_line_ph4" id="add_line_ph4">
               <option>Select city/town</option>
               <?php foreach ($cList as $c):?>
-                <option value="<?php echo $c['id'];?>"><?php echo $c['desc'];?></option>
+                <option id="<?php echo $c['desc'];?>" value="<?php echo $c['id'];?>"><?php echo $c['desc'];?></option>
               <?php endforeach;?>
             </select>
-            <input type="text" name="add_line_ph5" id="add_line_ph5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]" title="A maximum of 4 digits with no spaces"/>
+            <input type="text" name="add_line_ph5" id="add_line_ph5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{4}" title="A maximum of 4 digits with no spaces"/>
           </div>
 
           <div>
             <label for="tell">telephone:</label>
-            <input type="tel" name="tell" placeholder="Enter employee telephone number eg. 0112478832" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
+            <input id="telId" type="tel" name="tell" placeholder="Enter employee telephone number eg. 0112478832" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
             <label for="tell" class="display">telephone:</label>
             <input type="tel" name="tell" placeholder="Enter employee telephone number eg. 0112478832" required pattern="[0-9]{10,10}" title="A number of 10 characters" class="display"/>
             <label for="postal">postal address:</label>
@@ -175,11 +175,11 @@
             <!--<input type="text" name="add_line_po4" id="add_line_po4" placeholder="Town/ City"/>-->
             <select name="add_line_po4" id="add_line_po4">
               <option>Select city/town</option>
-              <?php foreach ($cList as $c):?>
-                <option value="<?php echo $c['id'];?>"><?php echo $c['desc'];?></option>
+              <?php foreach ($cList as $ci):?>
+                <option id="<?php echo $ci['desc'];?>" value="<?php echo $ci['id'];?>"><?php echo $ci['desc'];?></option>
               <?php endforeach;?>
             </select>
-            <input type="text" name="add_line_po5" id="add_line_po5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]" title="A maximum of 4 digits with no spaces"/>
+            <input type="text" name="add_line_po5" id="add_line_po5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{4}" title="A maximum of 4 digits with no spaces"/>
             <button class="submit" title="copy physical address to postal address">same postal as physical</button>
           </div>
           
@@ -189,22 +189,26 @@
         <legend>employee status</legend>
           <div>
             <label for="type" >employee type:</label>
-            <select name="type">
+            <select id="typeId" name="type">
               <option>select position</option>
               <?php foreach ($sList as $st):?>
-                <option value="<?php echo $st['id'];?>"><?php echo $st['desc'];?></option>
+                <option id="<?php echo $st['desc'];?>" value="<?php echo $st['id'];?>"><?php echo $st['desc'];?></option>
               <?php endforeach;?>
             </select>
-          </div>  
+          </div>
            <div>
             <label for="loc" >Practice location:</label>
-            <select name="loc">
+            <select id="locId" name="loc">
               <option>select position</option>
               <?php foreach ($plist as $p):?>
-                <option value="<?php echo $p['id'];?>"><?php echo $p['desc'];?></option>
+                <option id="<?php echo $p['desc'];?>" value="<?php echo $p['id'];?>"><?php echo $p['desc'];?></option>
               <?php endforeach;?>
             </select>
-          </div>             
+          </div>    
+          <div>
+            <label for="status">Status</label>
+            <input type="text" id="statusId" name="status" placeholder="Employee status" required pattern= "[A-Za-z]{6,8}" title="Only used to display employee's status" />
+          </div>         
         </fieldset>
         
         <input type="submit" name="s_upd_emp" value="Update Employee" class="submit"/>

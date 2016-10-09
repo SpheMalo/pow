@@ -49,7 +49,6 @@ function getPatientById() {
 function populateFields() 
 {
     patient = JSON.parse(patient);
-    console.log(patient);
     $("#proPicId").attr("src","http://localhost/Prac/qualit1/pow/img/profilePic/"+ patient.img);
     $("#nameId").val(patient.name);
     $("#surnameId").val(patient.surname);
@@ -84,8 +83,8 @@ function populateFields()
     $("#add_line_ph1").val(patient.physical[0]);
     $("#add_line_ph2").val(patient.physical[1]);
     $("#add_line_ph3").val(patient.physical[2]);
-    var city = "#"+ patient.physical[3];
-    $(city).attr("selected", "selected");
+    var city2 = "#"+ patient.physical[3];
+    $(city2).attr("selected", "selected");
     $("#add_line_ph5").val(patient.physical[4]);
 
     var med = "#"+ patient.med_type;

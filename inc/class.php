@@ -16,8 +16,10 @@
     public $tel;
     public $physical;
     public $location;
+    public $status;
+    public $img;
     
-    public function __construct($id, $title, $name, $surname, $username, $gender, $type, $location)
+    public function __construct($id, $title, $name, $surname, $username, $gender, $type, $location, $idnum, $bank, $cell, $email, $postal, $tel, $physical, $status, $img)
     {
       $this->id = $id;
       $this->title = $title;
@@ -27,9 +29,18 @@
       $this->gender = $gender;
       $this->type = $type;
       $this->location = $location;
+      $this->idnum = $idnum;
+      $this->bank = $bank;
+      $this->cell = $cell;
+      $this->email = $email;
+      $this->postal = $postal;
+      $this->tel = $tel;
+      $this->physical = $physical;
+      $this->status = $status;
+      $this->img = $img;
     }
 
-    public function loadRest($idnum, $bank, $cell, $email, $postal, $tel, $physical)
+   /* public function loadRest($idnum, $bank, $cell, $email, $postal, $tel, $physical)
     {
       $this->idnum = $idnum;
       $this->bank = $bank;
@@ -38,7 +49,7 @@
       $this->postal = $postal;
       $this->tel = $tel;
       $this->physical = $physical;
-    }
+    }*/
   }
 
   class MedicalAid

@@ -451,7 +451,17 @@
   {
     require 'dbconn.php';
     
-    $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, type_employee.description, practice_location.description as practice_location from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id join practice_location on employee.practice_locationID = practice_location.id order by id";
+    $s = "SELECT employee.id, title.description as title, name, surname, username, status, `img`, gender.description as gender, type_employee.description, practice_location.description as practice_location,  id_number, banking_details, cellphone, email, telephone,
+          address_postalID, address_physicalID
+          from employee 
+          join title on employee.titleID = title.id 
+          join gender on employee.genderID = gender.id 
+          join type_employee on employee.employee_typeID = type_employee.id 
+          join practice_location on employee.practice_locationID = practice_location.id 
+          join address_pyhsical on employee.address_physicalID = address_pyhsical.id
+          join address_postal on employee.address_postalID = address_postal.id
+          join city on address_pyhsical.cityID = city.id
+          order by id";
     
     if ($id != null && $q == null)
     {
@@ -486,10 +496,19 @@
         $gender[$c] = $row['gender'];
         $type[$c] = $row['description'];
         $loc[$c] = $row['practice_location'];
+        $idnum[$c] = $row['id_number'];
+        $bank[$c] = $row['banking_details'];
+        $cell[$c] = $row['cellphone'];
+        $email[$c] = $row['email'];
+        $postal[$c] = $row['address_postalID'];
+        $tel[$c] = $row['telephone'];
+        $physical[$c] = $row['address_physicalID'];
+        $status[$c] = $row['status'];
+        $img[$c] = $row['img'];
 
-        $emp = new Employee($id[$c], $title[$c], $name[$c], $surname[$c], $username[$c], $gender[$c], $type[$c], $loc[$c]);
+        $emp = new Employee($id[$c], $title[$c], $name[$c], $surname[$c], $username[$c], $gender[$c], $type[$c], $loc[$c], $idnum[$c], $bank[$c], $cell[$c], $email[$c], $postal[$c], $tel[$c], $physical[$c], $status[$c], $img[$c]);
 
-        if (isset($t))
+       /* if (isset($t))
         {
           $idnum[$c] = $row['id_number'];
           $bank[$c] = $row['bank'];
@@ -500,7 +519,7 @@
           $physical[$c] = $row['address_physicalID'];
 
           $emp = $emp::loadRest($idnum[$c], $bank[$c], $cell[$c], $email[$c], $postal[$c], $tel[$c], $physical[$c]);
-        }
+        }*/
 
         $eList[] = $emp;
 
@@ -529,6 +548,7 @@
     $a = addAddresses($postal, $physical);
     $a_po = $a[0]['postal'];
     $a_ph = $a[0]['physical'];
+
     
     try
     {

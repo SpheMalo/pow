@@ -15,6 +15,7 @@
        join address_pyhsical on patient.address_physicalID = address_pyhsical.id
        join address_postal on patient.address_postalID = address_postal.id
        join city on address_pyhsical.cityID = city.id
+       join city cu on address_postal.cityID = cu.id
        WHERE patient.id =  $id 
        order by patient.id";
 

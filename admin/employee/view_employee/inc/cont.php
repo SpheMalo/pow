@@ -6,6 +6,7 @@
     <th>surname</th>
     <th>practice location</th>
     <th>position</th>
+    <th>status</th>
     <th class="noExl">action</th>
   </tr>
   <?php

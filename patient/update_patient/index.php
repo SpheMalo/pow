@@ -9,7 +9,7 @@
     $emp = $_SESSION['emp'];
     $o = "";
     
-   $tList = loadTitleList();
+    $tList = loadTitleList();
     $gList = loadGenderList();
     $mList = loadMedListS();
     $cList = loadCityList(); 
