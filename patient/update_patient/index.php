@@ -154,7 +154,7 @@
             <select name="add_line_po4" id="add_line_po4">
               <option>Select city/town</option>
               <?php foreach ($cList as $c):?>
-                <option id="<?php echo $c['desc'];?>" value="<?php echo $c['id'];?>"><?php echo $c['desc'];?></option>
+                <option id="<?php echo $c['desc'].'Postal';?>" value="<?php echo $c['id'];?>"><?php echo $c['desc'];?></option>
               <?php endforeach;?>
             </select>
             <input type="text" name="add_line_po5" id="add_line_po5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{4}" title="A maximum of 4 digits with no spaces"/>
@@ -170,7 +170,7 @@
             <select id="medicalId" name="medical">
               <option>Select medical aid</option>
               <?php foreach ($mList as $med):?>
-                <option id="<?php echo $med['name'];?>" value="<?php echo $med['id'];?>"><?php echo $med['name'] . "-" . $med['desc'];?></option>
+                <option id="<?php echo $med['desc'];?>" value="<?php echo $med['id'];?>"><?php echo $med['desc'];?></option>
               <?php endforeach;?>
             </select>
 

@@ -13,7 +13,8 @@ function getPatientById() {
         cache: false,
         success: function (response) {
 
-            for (var i = 0; i<response.length; i++) 
+           response = JSON.parse(response);
+           /* for (var i = 0; i<response.length; i++) 
             {
 
                 var obj = "";
@@ -34,10 +35,10 @@ function getPatientById() {
                 {
                     break;
                 }
-            }
+            }*/
 
-            patient = temp[0];
-           
+            patient = response.patient; 
+            patient.mainm = response.mainm;
             populateFields();
         },
         error: function (error) {
@@ -48,7 +49,6 @@ function getPatientById() {
 
 function populateFields() 
 {
-    patient = JSON.parse(patient);
     $("#proPicId").attr("src","http://localhost/Prac/qualit1/pow/img/profilePic/"+ patient.img);
     $("#nameId").val(patient.name);
     $("#surnameId").val(patient.surname);
@@ -75,7 +75,7 @@ function populateFields()
     $("#add_line_po1").val(patient.postal[0]);
     $("#add_line_po2").val(patient.postal[1]);
     $("#add_line_po3").val(patient.postal[2]);
-    var city = "#"+ patient.postal[3];
+    var city = "#"+ patient.postal[3]+"Postal";
     $(city).attr("selected", "selected");
     $("#add_line_po5").val(patient.postal[4]);
 
@@ -87,10 +87,19 @@ function populateFields()
     $(city2).attr("selected", "selected");
     $("#add_line_ph5").val(patient.physical[4]);
 
-    var med = "#"+ patient.med_type;
+    var med = "#"+ patient.medical_aid_type;
     $(med).attr("selected", "selected");
 
-    $("#medical_m_iId").val(patient.mem_type);
-    $("#medical_m_nId").val(patient.mem_type);
+    if(patient.mainm.id === patient.id_num )
+    {
+       // must not populate main member if its your own
+    }
+    else
+    {
+        $("#medical_m_iId").val(patient.mainm.id);
+        $("#medical_m_nId").val(patient.mainm.name);
+    }
+
+    //window.print();
     
 }

@@ -49,7 +49,7 @@ function getEmployeeById() {
 function populateFields() 
 {
     employee = JSON.parse(employee);
-  //console.log(employee);
+    console.log(employee);
     $("#proPicId").attr("src","http://localhost/Prac/qualit1/pow/img/profilePic/"+ employee.img);
     $("#nameId").val(employee.name);
     $("#surnameId").val(employee.surname);
@@ -70,7 +70,7 @@ function populateFields()
     $("#add_line_po1").val(employee.postal[0]);
     $("#add_line_po2").val(employee.postal[1]);
     $("#add_line_po3").val(employee.postal[2]);
-    var city = "#"+employee.postal[3];
+    var city = "#"+employee.postal[3]+"Postal";
     $(city).attr("selected", "selected");
     $("#add_line_po5").val(employee.postal[4]);
 
@@ -82,7 +82,7 @@ function populateFields()
     $(city).attr("selected", "selected");
     $("#add_line_ph5").val(employee.physical[4]);
 
-    var locc = "#"+employee.loc;
+    var locc = "#"+employee.location;
     $(locc).attr("selected", "selected");
     var typee = "#"+employee.type;
     $(typee).attr("selected", "selected");
