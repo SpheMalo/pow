@@ -17,5 +17,5 @@
   <td>R<?php echo $proc->price;?></td>
   <td><?php echo $proc->type;?></td>
   <td><?php echo $a;?></td>
-  <td><a href="../update_procedure/?up=<?php echo $proc->id;?>">view</a> <br> <?php echo $b;?></td>
+  <td><a href="../update_procedure/?up=<?php echo $proc->id;?>">View</a> <br> <?php echo $b;?></td>
 </tr>

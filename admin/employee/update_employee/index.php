@@ -77,6 +77,8 @@
     <link rel="stylesheet" type="text/css" media="all" href="../../../css/addUpd.css" />
     <script type="text/javascript" src="../../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../../js/jquery.hoverIntent.minified.js"></script>
+    <script type="text/javascript" src="../../../js/jquery.table2excel.js"></script>
+    <script type="text/javascript" src="../../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../../js/init.js"></script>
     <script type="text/javascript" src="../../../js/employee_update.js"></script>
   </head>
@@ -91,6 +93,15 @@
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
       <h5 id="head_o"><?php echo $o;?></h5>
     </div>
+
+     <ul id="nav_xtra">
+      <li><img src="../../../img/ico/gear.png" alt="gear"/>
+        <ul>
+          <li><a href="../../../helpFiles/Add Employee.pdf" target="_blank">Help</a></li>
+        </ul>
+      </li>
+    </ul>
+
     <div id="cont">
       <form method="post" action="">
         <fieldset>

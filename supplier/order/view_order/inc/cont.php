@@ -1,11 +1,11 @@
-<table>
+<table id="view_orders">
   <tr>
-    <th>Id</th>
-    <th>order number</th>
-    <th>order status</th>
-    <th>order date</th>
-    <th>order supplier</th>
-    <th>action</th>
+    <th>ID</th>
+    <th>Order Number</th>
+    <th>Order Status</th>
+    <th>Order Date</th>
+    <th>Order Supplier</th>
+    <th>Action</th>
   </tr>
 <?php
   if(count($oList)> 0)

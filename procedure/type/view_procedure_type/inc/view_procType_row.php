@@ -16,5 +16,5 @@
 <tr>
   <td><?php echo $prctype->code;?></td>
   <td><?php echo $prctype->desc;?></td>
-  <td><a href="../update_procedure_type/?up=<?php echo $prctype->id;?>">view</a></td>
+  <td><a href="../update_procedure_type/?up=<?php echo $prctype->id;?>">View</a></td>
 </tr>

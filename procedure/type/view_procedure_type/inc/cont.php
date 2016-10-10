@@ -1,8 +1,8 @@
-<table>
+<table id="view_procedure_type">
   <tr>
-    <th>code</th>
-    <th>description</th>
-    <th>actions</th>
+    <th>Code</th>
+    <th>Description</th>
+    <th>Actions</th>
   </tr>
   <?php
     if (count($prcTypList) > 0)

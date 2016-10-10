@@ -62,11 +62,12 @@
       <h4 id="head_s"><?php echo $_SESSION['page'];?></h4>
       <h5 id="head_o"><?php echo $o;?></h5>
     </div>
+
     <ul id="nav_xtra">
       <li><img src="../../../img/ico/gear.png" alt="gear"/>
         <ul>
-          <li><a onclick=toExcel("view_emp")>export to excel</a></li>
-          <li>help</li>
+          <li><a onclick=toExcel("view_emp")>Export to excel</a></li>
+          <li><a href="../../../helpFiles/Add Employee.pdf" target="_blank">Help</a></li>
         </ul>
       </li>
     </ul>

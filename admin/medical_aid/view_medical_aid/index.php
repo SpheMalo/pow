@@ -67,8 +67,8 @@
     <ul id="nav_xtra">
       <li><img src="../../../img/ico/gear.png" alt="gear"/>
         <ul>
-          <li><a onclick=toExcel("view_med")>export to excel</a></li>
-          <li>help</li>
+          <li><a onclick=toExcel("view_med")>Export to excel</a></li>
+          <li><a href="../../../helpFiles/Add Employee.pdf" target="_blank">Help</a></li>
         </ul>
       </li>
     </ul>

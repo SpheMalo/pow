@@ -1,4 +1,4 @@
-<table>
+<table id="view_patient">
   <tr>
     <th>id</th>
     <th>title</th>

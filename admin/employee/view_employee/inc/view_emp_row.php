@@ -6,5 +6,5 @@
   <td><?php echo $emp->location;?></td>
   <td><?php echo $emp->type;?></td>
   <td><?php echo $emp->status;?></td>
-  <td class="noExl"><a href='../update_employee/?up=<?php echo $emp->id;?>'>view</a></td>
+  <td class="noExl"><a href='../update_employee/?up=<?php echo $emp->id;?>'>View</a></td>
 </tr>

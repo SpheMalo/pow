@@ -1,14 +1,14 @@
-<table>
+<table id="view_consultation">
   <tr>
     <th>ID</th>
-    <th>patient name</th>
-    <th>medical aid</th>
-    <th>dentist name</th>
-    <th>practice location</th>
-    <th>appointment date</th>
-    <th>appointment time</th>
-    <th>Consultation status</th>
-    <th>booking type</th>
+    <th>Patient Name</th>
+    <th>Medical Aid</th>
+    <th>Dentist Name</th>
+    <th>Practice Location</th>
+    <th>Appointment Date</th>
+    <th>Appointment Time</th>
+    <th>Consultation Status</th>
+    <th>Booking Type</th>
     <th>Action</th>
   </tr>
   <?php

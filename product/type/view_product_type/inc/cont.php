@@ -1,8 +1,8 @@
-<table>
+<table id="view_product_type">
   <tr>
-    <th>name</th>
-    <th>description</th>
-    <th>actions</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Actions</th>
   </tr>
   <?php
     if (count($prdTypList) > 0)

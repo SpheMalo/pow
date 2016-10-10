@@ -1,14 +1,14 @@
 <table id="view_med">
   <tr>
-    <th>id</th>
-    <th>description</th>
-    <th>name</th>
-    <th>email</th>
-    <th>tell</th>
-    <th>fax</th>
-    <th>physical address</th>
-    <th>postal address</th>
-    <th>action</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Tell</th>
+    <th>Fax</th>
+    <th>Physical Address</th>
+    <th>Postal Address</th>
+    <th>Action</th>
   </tr>
   <?php
     if (count($mList) > 0)

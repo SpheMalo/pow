@@ -1,12 +1,12 @@
-<table>
+<table id="view_procedure">
   <tr>
-    <th>id</th>
-    <th>description</th>
-    <th>code</th>
-    <th>price</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Code</th>
+    <th>Price</th>
     <th>Procedure type</th>
-    <th>favourites</th>
-    <th>actions</th>
+    <th>Favourites</th>
+    <th>Actions</th>
   </tr>
   <?php
     if (count($procList) > 0)

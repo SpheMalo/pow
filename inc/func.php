@@ -614,7 +614,8 @@
   {
     require 'dbconn.php';
     
-    $s  = "select type_medical_aid.id, description, medical_aid.name, medical_aid.email, medical_aid.telephone, medical_aid.fax, medical_aid.address_postalID, medical_aid.address_physicalID from type_medical_aid join medical_aid on type_medical_aid.medical_aidID = medical_aid.id";
+    $s  = "select type_medical_aid.id, description, medical_aid.name, medical_aid.email, medical_aid.telephone, medical_aid.fax, medical_aid.address_postalID, medical_aid.address_physicalID from type_medical_aid 
+           join medical_aid on type_medical_aid.medical_aidID = medical_aid.id";
     
     if ($id != null && $q == null)
     {

@@ -1,4 +1,4 @@
-<table>
+<table id="view_stock">
   <tr>
     <th>Product Number</th>
     <th>Product Name</th>

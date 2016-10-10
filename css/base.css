@@ -200,7 +200,8 @@
     padding: 0;
     list-style: none;
     width: 8%;
-    border: 1px dashed orangered;
+   /* border: 1px dashed orangered;*/
+     z-index: 9999988;
   }
 
   #nav_xtra > li{
@@ -218,7 +219,7 @@
     padding: 0.2em 0.4em 00.3em 0.4em;
     width: auto;
     list-style: none;
-    border: 1px dashed purple;
+   /* border: 1px dashed purple;*/
   }
 
   #nav_xtra > li > ul > li{

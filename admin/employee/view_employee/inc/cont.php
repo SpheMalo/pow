@@ -1,13 +1,13 @@
 <table id="view_emp">
   <tr>
-    <th>id</th>
-    <th>title</th>
-    <th>name</th>
-    <th>surname</th>
-    <th>practice location</th>
-    <th>position</th>
-    <th>status</th>
-    <th class="noExl">action</th>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Practice Location</th>
+    <th>Position</th>
+    <th>Status</th>
+    <th class="noExl">Action</th>
   </tr>
   <?php
     if (count($eList) > 0)

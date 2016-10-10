@@ -1,6 +1,6 @@
-<table>
+<table id="view_supplier">
   <tr>
-    <th>Id</th>
+    <th>ID</th>
     <th>Supplier Name</th>
     <th>Contact Person</th>
     <th>Email</th>

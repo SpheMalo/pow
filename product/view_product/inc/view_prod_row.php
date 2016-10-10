@@ -21,5 +21,5 @@
   <td><?php echo $prod->quantity;?></td>
   <td><?php echo $prod->critical;?></td>
   <td><?php echo $a;?></td>
-  <td><a href="../update_product/?up=<?php echo $prod->id;?>">view</a> <br> <?php echo $b;?></td>
+  <td><a href="../update_product/?up=<?php echo $prod->id;?>">View</a> <br> <?php echo $b;?></td>
 </tr>

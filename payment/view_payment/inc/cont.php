@@ -1,11 +1,11 @@
-<table>
+<table id="view_payments">
   <tr>
-    <th>id</th>
-    <th>amount</th>
-    <th>date</th>
-    <th>payment type</th>
-    <th>invoice id</th>
-    <th>action</th>
+    <th>ID</th>
+    <th>Amount</th>
+    <th>Date</th>
+    <th>Payment Type</th>
+    <th>Invoice ID</th>
+    <th>Action</th>
   </tr>
   <?php
     if (count($payList) > 0)
