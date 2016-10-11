@@ -7,7 +7,7 @@
   {
     $_SESSION['page'] = "add employee";
     $emp = $_SESSION['emp'];
-    $o = "";dsgdf
+    $o = "";
     
     $tList = loadTitleList();
     $gList = loadGenderList();
