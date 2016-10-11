@@ -1918,6 +1918,8 @@ function addSupplier($name, $contactPerson , $email, $telephone, $fax, $physical
 
   if($r > 0)
   {
+    
+    
     return true;
   }
   else 

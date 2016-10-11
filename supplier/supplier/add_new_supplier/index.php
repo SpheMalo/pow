@@ -35,6 +35,25 @@
       if($supplier == true)
       {
         $o = "A new supplier has successfully been added to the system";
+
+/////////////////////EMAIL ////////////////////////////////////
+      require_once '../../../swift/lib/swift_required.php';
+
+      $message = "Good day \n\nA new supplier has been added to the system. \n\nContact details\n\nSupplier name: ".$_POST['supplierName']." \nContact Person: ".$_POST['supplierEmail']. "\nTelephone: ".$_POST['telephone']."\n\n Kind regards \n D+M Maponya Dental Practice";
+
+      $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
+          ->setUsername('ntokozo.sindane12')
+          ->setPassword('Fugaejou12');
+
+      $mailer = Swift_Mailer::newInstance($transport);
+
+      $message = Swift_Message::newInstance("New supplier added")
+          ->setFrom(array('ntokozo.sindane12@gmail.com'))
+          ->setTo(array("keaobee@gmail.com"))
+          ->setBody($message);
+
+      $result = $mailer->send($message);
+/////////////////////EMAIL ////////////////////////////////////
       }
       else if($supplier == "query")
       {
