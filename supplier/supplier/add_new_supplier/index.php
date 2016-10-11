@@ -49,7 +49,7 @@
 
       $message = Swift_Message::newInstance("New supplier added")
           ->setFrom(array('ntokozo.sindane12@gmail.com'))
-          ->setTo(array("keaobee@gmail.com"))
+          ->setTo(array("u12074332@tuks.co.za"))
           ->setBody($message);
 
       $result = $mailer->send($message);

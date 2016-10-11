@@ -51,6 +51,25 @@
       {
         $o = "The employee has been addedd succesfully";
         //header("Location: ?u=" . $empDet[0] . "&p=" . $empDet[1]);
+
+        /////////////////////EMAIL ////////////////////////////////////
+        require_once '../../../swift/lib/swift_required.php';
+
+        $message = "Good day \n\nA new employee has been added to the system. \n\nContact details\n\nEmployee name: ".$_POST['name']." \nEmployee surname: ".$_POST['surname']. "\nTelephone: ".$_POST['tell']."\n\n Kind regards \n D+M Maponya Dental Practice";
+
+        $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
+            ->setUsername('ntokozo.sindane12')
+            ->setPassword('Fugaejou12');
+
+        $mailer = Swift_Mailer::newInstance($transport);
+
+        $message = Swift_Message::newInstance("New employee added")
+            ->setFrom(array('ntokozo.sindane12@gmail.com'))
+            ->setTo(array("u12074332@tuks.co.za"))
+            ->setBody($message);
+
+        $result = $mailer->send($message);
+/////////////////////EMAIL ////////////////////////////////////
       }
     }
     else
