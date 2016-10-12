@@ -51,7 +51,7 @@
   }
 
   #takeP{
-    border: 1px dashed purple;
+    border: 1px dashed red;
     display: inline-block;
     width: auto;
     height: auto;
@@ -267,12 +267,36 @@
     margin-bottom: 1em;
   }
 
-  #video, #canvas{
+  #activateWebcam{
     position: fixed;
-    top: 10%;
-    left: 15%;
-    height: 30%;
-    width: 30%;
+    top: 15%;
+    left: 41%;
+    width: 15%;
+    height: 10%;
+
+  }
+
+  #snap {
+    position: fixed;
+    top: 87%;
+    left: 42%;
+    width: 15%;
+    height: 10%;
+  }
+
+   #canvas{
+    position: fixed;
+    top: 20%;
+    left: 31%;
+    height: 68%;
+    width: 35%;
+  }
+  #video{
+    position: fixed;
+    top: 30%;
+    left: 32%;
+    height: 54%;
+    width: 35%;
     border: 1px dashed lime;
   }
 

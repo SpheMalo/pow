@@ -89,6 +89,8 @@
             <input type="number" id="dob2Id" name="dob2" placeholder="Month" required title="Only numerical characters allowed" />
             <span>-</span>
             <input type="number" id="dob3Id" name="dob3" placeholder="Day" required title="Only numerical characters allowed" />
+            <label for="fileNo">File Number:</label>
+            <input type="text" id="fileNoId" name="fileNo" placeholder="Placeholder for file number eg. F-0001" required pattern="[-f0-9]{7,10}" title="A maximum of 6 characters with no spaces"/>
             </div>
           <div>
             <label for="proPic" class="display">profile picture:</label>
