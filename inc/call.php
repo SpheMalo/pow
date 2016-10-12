@@ -3451,7 +3451,7 @@
   </li>
   <li>
     <?php
-      if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
+      if($sun > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
         $d_app = loadShed($sun, 10);
       
