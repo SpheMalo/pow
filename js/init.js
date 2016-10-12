@@ -585,7 +585,7 @@ function toExcel(datt)
 
 function takePicture()
 {
-  $("#pic").html("<video id='video' width='640' height='480' autoplay style='border: 1px dashed lime;'></video><button id='snap' onclick='snap()'>Capture Photo</button><canvas id='canvas' width='640' height='480' style='border: 1px dashed lime;'></canvas><a id='cancelSnap'>cancel</a>");
+  $("#pic").html("<video id='video' width='640' height='480' autoplay></video><button id='snap' onclick='snap()'>Capture Photo</button><canvas id='canvas' width='640' height='480''></canvas>");
 
   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
   {
@@ -611,7 +611,7 @@ function snap()
 {
   // Grab elements, create settings, etc.
   var video = document.getElementById('video');
-  
+  var modal = document.getElementById('myModal');
   // Elements for taking the snapshot
   var canvas = document.getElementById('canvas');
   var context = canvas.getContext('2d');
@@ -621,6 +621,7 @@ function snap()
   $("#test").html(dat);
   $("#picOfficial").attr("src",dat);
   $("#pic").html("");
+  modal.style.display = "none";
 }
 
 $(document).ready(function()

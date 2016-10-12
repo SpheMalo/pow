@@ -87,6 +87,8 @@ function populateFields()
     $(city2).attr("selected", "selected");
     $("#add_line_ph5").val(patient.physical[4]);
 
+    $("#fileNoId").val(patient.file);
+
     var med = "#"+ patient.medical_aid_type;
     $(med).attr("selected", "selected");
 

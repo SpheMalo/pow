@@ -1,13 +1,13 @@
 <table id="view_patient">
   <tr>
-    <th>id</th>
-    <th>title</th>
-    <th>name</th>
-    <th>surname</th>
-    <th>cellphone</th>
-    <th>telephone</th>
-    <th>physical address</th>
-    <th>postal address</th>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>ID Number</th>
+    <th>Cellphone</th>
+    <th>File Number</th>
+    <th>Physical Address</th>
     <th>action</th>
   </tr>
   <?php

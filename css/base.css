@@ -77,7 +77,7 @@
     top: 15%;
     left: 0;
     width: 85%;
-    z-index: 9999999;
+    z-index: 2;
   }
   
   #nav > li
@@ -201,7 +201,7 @@
     list-style: none;
     width: 8%;
    /* border: 1px dashed orangered;*/
-     z-index: 9999988;
+    z-index: 2;
   }
 
   #nav_xtra > li{
