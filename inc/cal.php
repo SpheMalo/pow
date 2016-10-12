@@ -63,15 +63,15 @@
     }
   }
 
-  function loadShed($date, $time)
+  function loadShed($date, $time, $eID)
   {
     require 'dbconn.php';
 
-    $s = "select * from schedule where available_date = '" . $date . "' and available !=1";
+    $s = "select * from schedule where available_date = '" . $date . "' and available !=1 and employeeID = " . $eID;
 
     if ($time != NULL)
     {
-      $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $time;
+      $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $time . "' and available !=1 and employeeID = " . $eID;
     }
 
     try
@@ -109,13 +109,13 @@
     }
   }
 
-  function loadShedAlt($date)
+  function loadShedAlt($date, $eID)
   {
     require 'dbconn.php';
 
     try
     {
-      $s = "select count(*) from schedule where available_date = '" . $date . "' and available = 1";
+      $s = "select count(*) from schedule where available_date = '" . $date . "' and available = 1 and employeeID = " . $eID;
       $r = $pdo->query($s);
     }
     catch(PDOException $e)
@@ -143,7 +143,7 @@
 
     try
     {
-      $s = "select consultation.id, notesm status, type_booking.description as type, employeeID, timeslotID, practice_locationID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, employee_typeID, patientID as pat from consultation where scheduleID = " . $id;
+      $s = "select consultation.id, notes, status, type_booking.description as type, employeeID, timeslotID, practice_locationID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, employee_typeID, patientID as pat from consultation where scheduleID = " . $id;
       $r = $pdo->query($s);
     }
     catch(PDOException $e)
@@ -318,7 +318,7 @@
 
         if($lii > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
         {
-          $app = loadShed($lii, NULL);
+          $app = loadShed($lii, NULL, $emp->id);
 
           if ($app == "query")
           {
@@ -326,7 +326,7 @@
           }
           else if ($app == "rows")
           {
-            $appAlt = loadShedAlt($lii);
+            $appAlt = loadShedAlt($lii, $emp->id);
             $aa = $appAlt[0][0][0];
             
             if ($aa == 0)
@@ -347,7 +347,7 @@
         }
         else
         {
-          $app = loadShed($lii, NULL);
+          $app = loadShed($lii, NULL, $emp->id);
           if ($app == "query")
           {}
           else if ($app == "rows")
@@ -375,7 +375,7 @@
 
         if($lid > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
         {
-          $app = loadShed($lid, NULL);
+          $app = loadShed($lid, NULL, $emp->id);
 
           if ($app == "query")
           {
@@ -383,7 +383,7 @@
           }
           else if ($app == "rows")
           {
-            $appAlt = loadShedAlt($lid);
+            $appAlt = loadShedAlt($lid, $emp->id);
             $aa = $appAlt[0][0][0];
             
             if ($aa == 0)
@@ -404,7 +404,7 @@
         }
         else
         {
-          $app = loadShed($lid, NULL);
+          $app = loadShed($lid, NULL, $emp->id);
           if ($app == "query")
           {}
           else if ($app == "rows")
@@ -431,7 +431,7 @@
 
           if($lid > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
           {
-            $app = loadShed($lid, NULL);
+            $app = loadShed($lid, NULL, $emp->id);
 
             if ($app == "query")
             {
@@ -439,7 +439,7 @@
             }
             else if ($app == "rows")
             {
-              $appAlt = loadShedAlt($lid);
+              $appAlt = loadShedAlt($lid, $emp->id);
               $aa = $appAlt[0][0][0];
               
               if ($aa == 0)
@@ -460,7 +460,7 @@
           }
           else
           {
-            $app = loadShed($lid, NULL);
+            $app = loadShed($lid, NULL, $emp->id);
             if ($app == "query")
             {}
             else if ($app == "rows")
@@ -490,7 +490,7 @@
 
         if($lid > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
         {
-          $app = loadShed($lid, NULL);
+          $app = loadShed($lid, NULL, $emp->id);
 
           if ($app == "query")
           {
@@ -498,7 +498,7 @@
           }
           else if ($app == "rows")
           {
-            $appAlt = loadShedAlt($lid);
+            $appAlt = loadShedAlt($lid, $emp->id);
             $aa = $appAlt[0][0][0];
             
             if ($aa == 0)
@@ -519,7 +519,7 @@
         }
         else
         {
-          $app = loadShed($lid, NULL);
+          $app = loadShed($lid, NULL, $emp->id);
           if ($app == "query")
           {}
           else if ($app == "rows")
@@ -534,7 +534,7 @@
             
         }
 
-        /*$app = loadShed($lid, NULL);
+        /*$app = loadShed($lid, NULL, $emp->id);
 
         if ($app === false)
         {

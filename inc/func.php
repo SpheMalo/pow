@@ -32,7 +32,7 @@
     
     try
     {
-      $s = "select employee.id, titleID, name, surname, username, password, genderID, employee_typeID, practice_locationID from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id where username = '" . $user . "'";
+      $s = "select * from employee where username = '" . $user . "'";
       $r = $pdo->query($s);
     }
     catch(PDOException $e)
@@ -42,22 +42,32 @@
     
     if ($r->rowCount() > 0)
     {
+      $c = 0;
       while ($row = $r->fetch())
       {
-        $id[] = $row['id'];
-        $title[] = $row['titleID'];
-        $name[] = $row['name'];
-        $surname[] = $row['surname'];
-        $username[] = $row['username'];
-        $p[] = $row['password'];
-        $gender[] = $row['genderID'];
-        $type[] = $row['employee_typeID'];
-        $loc[] = $row['practice_locationID'];
+        $id[$c] = $row['id'];
+        $title[$c] = $row['titleID'];
+        $name[$c] = $row['name'];
+        $surname[$c] = $row['surname'];
+        $username[$c] = $row['username'];
+        $gender[$c] = $row['genderID'];
+        $type[$c] = $row['employee_typeID'];
+        $loc[$c] = $row['practice_locationID'];
+        $idnum[$c] = $row['id_number'];
+        $bank[$c] = $row['banking_details'];
+        $cell[$c] = $row['cellphone'];
+        $email[$c] = $row['email'];
+        $postal[$c] = $row['address_postalID'];
+        $tel[$c] = $row['telephone'];
+        $physical[$c] = $row['address_physicalID'];
+        $status[$c] = $row['status'];
+        $img[$c] = $row['img'];
+        $p[$c] = $row['password'];
       }
 
       if (password_verify($pass, $p[0]))
       {
-        $emp = new Employee($id[0], $title[0], $name[0], $surname[0], $username[0], $gender[0], $type[0], $loc[0]);
+        $emp = new Employee($id[0], $title[0], $name[0], $surname[0], $username[0], $gender[0], $type[0], $loc[0], $idnum[0], $bank[0], $cell[0], $email[0], $postal[0], $tel[0], $physical[0], $status[0], $img[0]);
 
         return $emp;
       }
@@ -451,7 +461,7 @@
   {
     require 'dbconn.php';
     
-    $s = "SELECT employee.id, title.description as title, name, surname, username, status, `img`, gender.description as gender, type_employee.description, practice_location.description as practice_location,  id_number, banking_details, cellphone, email, telephone,
+    $s = "SELECT employee.id, title.description as titleID, name, surname, username, status, `img`, gender.description as genderID, type_employee.description as employee_typeID, practice_location.description as practice_locationID,  id_number, banking_details, cellphone, email, telephone,
           address_postalID, address_physicalID
           from employee 
           join title on employee.titleID = title.id 
@@ -471,7 +481,7 @@
 
     if ($id == null && $q != null)
     {
-      $s = "select employee.id, title.description as title, name, surname, username, gender.description as gender, type_employee.description, practice_location.description as practice_location from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id join practice_location on employee.practice_locationID = practice_location.id where employee.id like '%" . $q . "%' or name like '%" . $q . "%' or surname like '%" . $q . "%' or type_employee.description like '%" . $q . "%' or practice_location.description like '%" . $q . "%'";
+      $s = "select employee.id, title.description as titleID, name, surname, username, gender.description as genderID, type_employee.description as employee_typeID, practice_location.description as practice_locationID from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id join practice_location on employee.practice_locationID = practice_location.id where employee.id like '%" . $q . "%' or name like '%" . $q . "%' or surname like '%" . $q . "%' or type_employee.description like '%" . $q . "%' or practice_location.description like '%" . $q . "%'";
     }
     
     try
@@ -489,13 +499,13 @@
       while ($row = $r->fetch()) 
       {
         $id[$c] = $row['id'];
-        $title[$c] = $row['title'];
+        $title[$c] = $row['titleID'];
         $name[$c] = $row['name'];
         $surname[$c] = $row['surname'];
         $username[$c] = $row['username'];
-        $gender[$c] = $row['gender'];
-        $type[$c] = $row['description'];
-        $loc[$c] = $row['practice_location'];
+        $gender[$c] = $row['genderID'];
+        $type[$c] = $row['employee_typeID'];
+        $loc[$c] = $row['practice_locationID'];
         $idnum[$c] = $row['id_number'];
         $bank[$c] = $row['banking_details'];
         $cell[$c] = $row['cellphone'];

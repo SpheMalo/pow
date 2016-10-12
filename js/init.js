@@ -1,6 +1,6 @@
 function getCal(someDate)
 {
-  var s_d, S_dd;
+  var s_d, s_dd, doc = document.getElementById("empID");
   /*if (someDate = null)
   {
     s_dd = 'date=' + Date(year, month, day);
@@ -11,8 +11,8 @@ function getCal(someDate)
     
   }*/
 
-  s_dd = 'date=' + someDate;
-  s_d = 'month=' + someDate;
+  s_dd = 'date=' + someDate + '&doc=' + doc.innerHTML;
+  s_d = 'month=' + someDate + '&doc=' + doc.innerHTML;
 
   $.ajax({
     type: "post",
@@ -164,6 +164,26 @@ function navWeek(datt)
     },
     error: function(){
       alert('something went wrong');
+    } 
+  });
+}
+
+function navBookWeek(datt)
+{
+  var dat = '&date=' + datt;
+  var dentist = $("#dentistSelect").val();
+  var d = 'doc=' + dentist + dat;
+
+  $.ajax({
+    type: "post",
+    url: "../../../inc/calll.php",
+    cache: false,
+    data: d,
+    success: function(result){
+        $('#calendar').filter(':last').html(result);
+    },
+    error: function(){
+    //alert('something went wrong');
     } 
   });
 }

@@ -126,15 +126,15 @@
     }
   }
 
-  function loadShed($date, $time)
+  function loadShed($date, $time, $eID)
   {
     require 'dbconn.php';
 
-    $s = "select * from schedule where available_date = '" . $date . "' and available != 1";
+    $s = "select * from schedule where available_date = '" . $date . "' and available != 1 and employeeID = " . $eID;
 
     if ($time != null)
     {
-      $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $time . " and available != 1";
+      $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $time . " and available != 1 and employeeID = " . $eID;
     }
 
     try
@@ -172,14 +172,14 @@
     }
   }
 
-  function loadShedAlt($date, $t_s)
+  function loadShedAlt($date, $t_s, $eID)
   {
     require 'dbconn.php';
-    $s = "select * from schedule where available_date = '" . $date . "' and available = 1";
+    $s = "select * from schedule where available_date = '" . $date . "' and available = 1 and employeeID = " . $eID;
 
     if ($t_s != null)
     {
-      $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $t_s . " and available = 1";
+      $s = "select * from schedule where available_date = '" . $date . "' and timeslotID = " . $t_s . " and available = 1 and employeeID = " . $eID;
     }
 
     try
@@ -461,13 +461,13 @@
      //echo "<p>" . $mon . "</p>";
      if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
      {
-       $d_app = loadShed($mon, null);
+       $d_app = loadShed($mon, null, $emp->id);
 
        if ($d_app == "query")
        {}
        else if ($d_app == "rows")
        {
-         $d_app_alt = loadShedAlt($mon, null);
+         $d_app_alt = loadShedAlt($mon, null, $emp->id);
 
          if ($d_app_alt == "query")
          {}
@@ -498,13 +498,13 @@
      //echo "<p>" . $tue . "</p>";
      if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
      {
-       $d_app = loadShed($tue, null);
+       $d_app = loadShed($tue, null, $emp->id);
 
       if ($d_app == "query")
       {}
       else if ($d_app == "rows")
       {
-        $d_app_alt = loadShedAlt($tue, null);
+        $d_app_alt = loadShedAlt($tue, null, $emp->id);
 
         if ($d_app_alt == "query")
         {}
@@ -535,13 +535,13 @@
       //echo "<p>" . $wed . "</p>";
       if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($wed, null);
+        $d_app = loadShed($wed, null, $emp->id);
 
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($wed, null);
+          $d_app_alt = loadShedAlt($wed, null, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -572,13 +572,13 @@
       //echo "<p>" . $thu . "</p>";
       if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($thu, null);
+        $d_app = loadShed($thu, null, $emp->id);
 
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($thu, null);
+          $d_app_alt = loadShedAlt($thu, null, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -609,13 +609,13 @@
       //echo "<p>" . $fri . "</p>";
       if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($fri, null);
+        $d_app = loadShed($fri, null, $emp->id);
 
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($fri, null);
+          $d_app_alt = loadShedAlt($fri, null, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -646,13 +646,13 @@
       //echo "<p>" . $sat . "</p>";
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sat, null);
+        $d_app = loadShed($sat, null, $emp->id);
 
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sat, null);
+          $d_app_alt = loadShedAlt($sat, null, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -684,13 +684,13 @@
       //echo "<p>" . $sun . "</p>";
       if($sun > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sun, null);
+        $d_app = loadShed($sun, null, $emp->id);
 
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sun, null);
+          $d_app_alt = loadShedAlt($sun, null, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -720,7 +720,7 @@
   <li><p>08h00 - 08h45</p><br></li>
   <li>
     <?php 
-      $d_app = loadShed($mon, 1);
+      $d_app = loadShed($mon, 1, $emp->id);
       
       if ($d_app == "query")
       {}
@@ -728,7 +728,7 @@
       {
         if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
         {
-          $d_app_alt = loadShedAlt($mon, 1);
+          $d_app_alt = loadShedAlt($mon, 1, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -762,7 +762,7 @@
   </li>
   <li>
     <?php
-      $d_app = loadShed($tue, 1);
+      $d_app = loadShed($tue, 1, $emp->id);
       
         if ($d_app == "query")
         {}
@@ -770,7 +770,7 @@
         {
           if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
           {
-            $d_app_alt = loadShedAlt($tue, 1);
+            $d_app_alt = loadShedAlt($tue, 1, $emp->id);
 
             if ($d_app_alt == "query")
             {}
@@ -804,13 +804,13 @@
     <?php
       if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($wed, 1);
+        $d_app = loadShed($wed, 1, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($wed, 1);
+          $d_app_alt = loadShedAlt($wed, 1, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -843,13 +843,13 @@
     <?php
       if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($thu, 1);
+        $d_app = loadShed($thu, 1, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($thu, 1);
+          $d_app_alt = loadShedAlt($thu, 1, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -882,13 +882,13 @@
     <?php
       if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($fri, 1);
+        $d_app = loadShed($fri, 1, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($fri, 1);
+          $d_app_alt = loadShedAlt($fri, 1, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -921,13 +921,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sat, 1);
+        $d_app = loadShed($sat, 1, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sat, 1);
+          $d_app_alt = loadShedAlt($sat, 1, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -960,13 +960,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sun, 1);
+        $d_app = loadShed($sun, 1, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sun, 1);
+          $d_app_alt = loadShedAlt($sun, 1, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1001,13 +1001,13 @@
     <?php 
       if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($mon, 2);
+        $d_app = loadShed($mon, 2, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($mon, 2);
+          $d_app_alt = loadShedAlt($mon, 2, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1042,13 +1042,13 @@
     <?php
       if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($tue, 2);
+        $d_app = loadShed($tue, 2, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($tue, 2);
+          $d_app_alt = loadShedAlt($tue, 2, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1081,13 +1081,13 @@
     <?php
       if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($wed, 2);
+        $d_app = loadShed($wed, 2, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($wed, 2);
+          $d_app_alt = loadShedAlt($wed, 2, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1120,13 +1120,13 @@
     <?php
       if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($thu, 2);
+        $d_app = loadShed($thu, 2, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($thu, 2);
+          $d_app_alt = loadShedAlt($thu, 2, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1159,13 +1159,13 @@
     <?php
       if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($fri, 2);
+        $d_app = loadShed($fri, 2, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($fri, 2);
+          $d_app_alt = loadShedAlt($fri, 2, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1198,13 +1198,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sat, 2);
+        $d_app = loadShed($sat, 2, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sat, 2);
+          $d_app_alt = loadShedAlt($sat, 2, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1237,13 +1237,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sun, 2);
+        $d_app = loadShed($sun, 2, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sun, 2);
+          $d_app_alt = loadShedAlt($sun, 2, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1278,13 +1278,13 @@
     <?php 
       if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($mon, 3);
+        $d_app = loadShed($mon, 3, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($mon, 3);
+          $d_app_alt = loadShedAlt($mon, 3, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1319,13 +1319,13 @@
     <?php
       if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($tue, 3);
+        $d_app = loadShed($tue, 3, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($tue, 3);
+          $d_app_alt = loadShedAlt($tue, 3, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1358,13 +1358,13 @@
     <?php
       if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($wed, 3);
+        $d_app = loadShed($wed, 3, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($wed, 3);
+          $d_app_alt = loadShedAlt($wed, 3, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1397,13 +1397,13 @@
     <?php
       if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($thu, 3);
+        $d_app = loadShed($thu, 3, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($thu, 3);
+          $d_app_alt = loadShedAlt($thu, 3, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1436,13 +1436,13 @@
     <?php
       if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($fri, 3);
+        $d_app = loadShed($fri, 3, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($fri, 3);
+          $d_app_alt = loadShedAlt($fri, 3, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1475,13 +1475,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sat, 3);
+        $d_app = loadShed($sat, 3, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sat, 3);
+          $d_app_alt = loadShedAlt($sat, 3, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1514,13 +1514,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sun, 3);
+        $d_app = loadShed($sun, 3, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sun, 3);
+          $d_app_alt = loadShedAlt($sun, 3, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1555,13 +1555,13 @@
     <?php 
       if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($mon, 4);
+        $d_app = loadShed($mon, 4, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($mon, 4);
+          $d_app_alt = loadShedAlt($mon, 4, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1596,13 +1596,13 @@
     <?php
       if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($tue, 4);
+        $d_app = loadShed($tue, 4, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($tue, 4);
+          $d_app_alt = loadShedAlt($tue, 4, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1635,13 +1635,13 @@
     <?php
       if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($wed, 4);
+        $d_app = loadShed($wed, 4, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($wed, 4);
+          $d_app_alt = loadShedAlt($wed, 4, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1674,13 +1674,13 @@
     <?php
       if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($thu, 4);
+        $d_app = loadShed($thu, 4, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($thu, 4);
+          $d_app_alt = loadShedAlt($thu, 4, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1713,13 +1713,13 @@
     <?php
       if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($fri, 4);
+        $d_app = loadShed($fri, 4, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($fri, 4);
+          $d_app_alt = loadShedAlt($fri, 4, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1752,13 +1752,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sat, 4);
+        $d_app = loadShed($sat, 4, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sat, 4);
+          $d_app_alt = loadShedAlt($sat, 4, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1791,13 +1791,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sun, 4);
+        $d_app = loadShed($sun, 4, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sun, 4);
+          $d_app_alt = loadShedAlt($sun, 4, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1832,13 +1832,13 @@
     <?php 
       if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($mon, 5);
+        $d_app = loadShed($mon, 5, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($mon, 5);
+          $d_app_alt = loadShedAlt($mon, 5, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1873,13 +1873,13 @@
     <?php
       if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($tue, 5);
+        $d_app = loadShed($tue, 5, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($tue, 5);
+          $d_app_alt = loadShedAlt($tue, 5, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1912,13 +1912,13 @@
     <?php
       if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($wed, 5);
+        $d_app = loadShed($wed, 5, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($wed, 5);
+          $d_app_alt = loadShedAlt($wed, 5, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1951,13 +1951,13 @@
     <?php
       if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($thu, 5);
+        $d_app = loadShed($thu, 5, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($thu, 5);
+          $d_app_alt = loadShedAlt($thu, 5, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -1990,13 +1990,13 @@
     <?php
       if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($fri, 5);
+        $d_app = loadShed($fri, 5, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($fri, 5);
+          $d_app_alt = loadShedAlt($fri, 5, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2029,13 +2029,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sat, 5);
+        $d_app = loadShed($sat, 5, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sat, 5);
+          $d_app_alt = loadShedAlt($sat, 5, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2068,13 +2068,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sun, 5);
+        $d_app = loadShed($sun, 5, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sun, 5);
+          $d_app_alt = loadShedAlt($sun, 5, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2109,13 +2109,13 @@
     <?php 
       if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($mon, 6);
+        $d_app = loadShed($mon, 6, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($mon, 6);
+          $d_app_alt = loadShedAlt($mon, 6, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2150,13 +2150,13 @@
     <?php
       if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($tue, 6);
+        $d_app = loadShed($tue, 6, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($tue, 6);
+          $d_app_alt = loadShedAlt($tue, 6, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2189,13 +2189,13 @@
     <?php
       if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($wed, 6);
+        $d_app = loadShed($wed, 6, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($wed, 6);
+          $d_app_alt = loadShedAlt($wed, 6, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2228,13 +2228,13 @@
     <?php
       if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($thu, 6);
+        $d_app = loadShed($thu, 6, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($thu, 6);
+          $d_app_alt = loadShedAlt($thu, 6, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2267,13 +2267,13 @@
     <?php
       if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($fri, 6);
+        $d_app = loadShed($fri, 6, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($fri, 6);
+          $d_app_alt = loadShedAlt($fri, 6, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2306,13 +2306,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sat, 6);
+        $d_app = loadShed($sat, 6, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sat, 6);
+          $d_app_alt = loadShedAlt($sat, 6, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2345,13 +2345,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sun, 6);
+        $d_app = loadShed($sun, 6, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sun, 6);
+          $d_app_alt = loadShedAlt($sun, 6, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2386,13 +2386,13 @@
     <?php 
       if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($mon, 7);
+        $d_app = loadShed($mon, 7, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($mon, 7);
+          $d_app_alt = loadShedAlt($mon, 7, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2427,13 +2427,13 @@
     <?php
       if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($tue, 7);
+        $d_app = loadShed($tue, 7, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($tue, 7);
+          $d_app_alt = loadShedAlt($tue, 7, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2466,13 +2466,13 @@
     <?php
       if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($wed, 7);
+        $d_app = loadShed($wed, 7, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($wed, 7);
+          $d_app_alt = loadShedAlt($wed, 7, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2505,13 +2505,13 @@
     <?php
       if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($thu, 7);
+        $d_app = loadShed($thu, 7, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($thu, 7);
+          $d_app_alt = loadShedAlt($thu, 7, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2544,13 +2544,13 @@
     <?php
       if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($fri, 7);
+        $d_app = loadShed($fri, 7, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($fri, 7);
+          $d_app_alt = loadShedAlt($fri, 7, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2583,13 +2583,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sat, 7);
+        $d_app = loadShed($sat, 7, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sat, 7);
+          $d_app_alt = loadShedAlt($sat, 7, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2622,13 +2622,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sun, 7);
+        $d_app = loadShed($sun, 7, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sun, 7);
+          $d_app_alt = loadShedAlt($sun, 7, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2663,13 +2663,13 @@
     <?php 
       if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($mon, 8);
+        $d_app = loadShed($mon, 8, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($mon, 8);
+          $d_app_alt = loadShedAlt($mon, 8, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2704,13 +2704,13 @@
     <?php
       if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($tue, 8);
+        $d_app = loadShed($tue, 8, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($tue, 8);
+          $d_app_alt = loadShedAlt($tue, 8, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2743,13 +2743,13 @@
     <?php
       if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($wed, 8);
+        $d_app = loadShed($wed, 8, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($wed, 8);
+          $d_app_alt = loadShedAlt($wed, 8, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2782,13 +2782,13 @@
     <?php
       if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($thu, 8);
+        $d_app = loadShed($thu, 8, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($thu, 8);
+          $d_app_alt = loadShedAlt($thu, 8, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2821,13 +2821,13 @@
     <?php
       if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($fri, 8);
+        $d_app = loadShed($fri, 8, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($fri, 8);
+          $d_app_alt = loadShedAlt($fri, 8, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2860,13 +2860,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sat, 8);
+        $d_app = loadShed($sat, 8, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sat, 8);
+          $d_app_alt = loadShedAlt($sat, 8, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2899,13 +2899,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sun, 8);
+        $d_app = loadShed($sun, 8, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sun, 8);
+          $d_app_alt = loadShedAlt($sun, 8, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2940,13 +2940,13 @@
     <?php 
       if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($mon, 9);
+        $d_app = loadShed($mon, 9, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($mon, 9);
+          $d_app_alt = loadShedAlt($mon, 9, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -2981,13 +2981,13 @@
     <?php
       if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($tue, 9);
+        $d_app = loadShed($tue, 9, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($tue, 9);
+          $d_app_alt = loadShedAlt($tue, 9, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -3020,13 +3020,13 @@
     <?php
       if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($wed, 9);
+        $d_app = loadShed($wed, 9, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($wed, 9);
+          $d_app_alt = loadShedAlt($wed, 9, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -3059,13 +3059,13 @@
     <?php
       if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($thu, 9);
+        $d_app = loadShed($thu, 9, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($thu, 9);
+          $d_app_alt = loadShedAlt($thu, 9, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -3098,13 +3098,13 @@
     <?php
       if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($fri, 9);
+        $d_app = loadShed($fri, 9, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($fri, 9);
+          $d_app_alt = loadShedAlt($fri, 9, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -3137,13 +3137,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sat, 9);
+        $d_app = loadShed($sat, 9, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sat, 9);
+          $d_app_alt = loadShedAlt($sat, 9, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -3176,13 +3176,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sun, 9);
+        $d_app = loadShed($sun, 9, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sun, 9);
+          $d_app_alt = loadShedAlt($sun, 9, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -3217,13 +3217,13 @@
     <?php 
       if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($mon, 10);
+        $d_app = loadShed($mon, 10, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($mon, 10);
+          $d_app_alt = loadShedAlt($mon, 10, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -3258,13 +3258,13 @@
     <?php
       if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($tue, 10);
+        $d_app = loadShed($tue, 10, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($tue, 10);
+          $d_app_alt = loadShedAlt($tue, 10, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -3297,13 +3297,13 @@
     <?php
       if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($wed, 10);
+        $d_app = loadShed($wed, 10, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($wed, 10);
+          $d_app_alt = loadShedAlt($wed, 10, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -3336,13 +3336,13 @@
     <?php
       if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($thu, 10);
+        $d_app = loadShed($thu, 10, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($thu, 10);
+          $d_app_alt = loadShedAlt($thu, 10, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -3375,13 +3375,13 @@
     <?php
       if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($fri, 10);
+        $d_app = loadShed($fri, 10, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($fri, 10);
+          $d_app_alt = loadShedAlt($fri, 10, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -3414,13 +3414,13 @@
     <?php
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sat, 10);
+        $d_app = loadShed($sat, 10, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sat, 10);
+          $d_app_alt = loadShedAlt($sat, 10, $emp->id);
 
           if ($d_app_alt == "query")
           {}
@@ -3453,13 +3453,13 @@
     <?php
       if($sun > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
       {
-        $d_app = loadShed($sun, 10);
+        $d_app = loadShed($sun, 10, $emp->id);
       
         if ($d_app == "query")
         {}
         else if ($d_app == "rows")
         {
-          $d_app_alt = loadShedAlt($sun, 10);
+          $d_app_alt = loadShedAlt($sun, 10, $emp->id);
 
           if ($d_app_alt == "query")
           {}

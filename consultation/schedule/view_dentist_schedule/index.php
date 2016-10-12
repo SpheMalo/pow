@@ -1,7 +1,6 @@
 <?php
-  session_start();
-  
   require '../../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
@@ -65,6 +64,7 @@
     </ul>
     
     <div id="calendar">
+      <?php echo "<p id='empID' style='position: fixed; bottom:0; left:0; visibility:hidden'>" . $emp->id . "</p>";?>
       <div></div>
       <div></div>
     </div>

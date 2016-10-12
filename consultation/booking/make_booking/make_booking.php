@@ -3,8 +3,7 @@
     require '../../../inc/dbconn.php';
     //$idNum = $_REQUEST['idNum'];
 
-    $sql = "select * from patient where
-     medical_aid_typeID is null or medical_aid_typeID is not null";
+    $sql = "select * from patient where medical_aid_typeID is null or medical_aid_typeID is not null";
 
      try
      {
