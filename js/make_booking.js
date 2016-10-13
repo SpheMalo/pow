@@ -1,5 +1,6 @@
 var patients;
-function getPatientById() {
+function getPatientById() 
+{
     var id = $("#ids").val();
     var temp = [];
     var count = 0;
@@ -77,7 +78,7 @@ function getPatientById() {
 }*/
 
 function populateFields() {
-
+    
     //var patient = getPatientById();
     var value = $("#ids").val();
     var patient;
@@ -98,6 +99,7 @@ function populateFields() {
 function getBookWeek() {
     var dentist = $("#dentistSelect").val();
     var d = "doc=" + dentist;
+
     if (dentist != "--select dentist--") 
     {
        $.ajax({

@@ -4,6 +4,8 @@
 
     $idNum = $_REQUEST['idNum'];
 
+    $sql = "select * from patient where medical_aid_typeID is null or medical_aid_typeID is not null";
+
     $sql = "select * from patient 
             join type_medical_aid on patient.medical_aid_typeID = type_medical_aid.id
             where patient.id_number = $idNum";
