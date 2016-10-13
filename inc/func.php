@@ -1529,7 +1529,8 @@
       return "query ";
     }
   }
-   function checkProductNo($f_n)
+   
+  function checkProductNo($f_n)
   {
     require 'dbconn.php';
 

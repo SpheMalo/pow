@@ -25,19 +25,21 @@
   }
   else
   {
+
   }
 
-  if(isset($_POST['s_add_prod']))
+  /*if(isset($_POST['add_prod']))
   {
-    $arr = $_POST['s_add_prod'];
-    foreach ($pList as $pl)
+    $arr = $_POST['add_prod'];
+    echo var_dump($arr);
+    /*foreach ($pList as $pl)
     {
       if ($pl->name == $arr[0] && $pl->type == $arr[0])
       {
         $basket[] = $pl;
       }
-    }   
-  }
+    }*/   
+  //}
  
 
 ?>
@@ -65,7 +67,7 @@
     </script>
   </head>
   
-  <body>
+  <body onload="getOrderB()">
     <?php
       include '../../../inc/menu.htm';
     ?>
@@ -87,17 +89,17 @@
         <fieldset>
           <legend>Order Details</legend>
           <div>
-            <label for="orderNumber" >Order Number:</label>
-              <input type="text" name="orderNumber" placeholder="P-001" required />
-              
-              <label for="selectSupplier" >Select Supplier:</label>
-              <input type="text" name="selectSupplier" placeholder="Type Supplier Name" required />
+            <!--<label for="orderNumber" >Order Number:</label>
+            <input type="text" name="orderNumber" placeholder="P-001" required />-->
+            
+            <label for="selectSupplier" >Select Supplier:</label>
+            <input type="text" name="selectSupplier" placeholder="Type Supplier Name" required />
             
           </div>
           <div>
-              <label for="date" >Date:</label>
-              <input type="date" name="date" placeholder="<?php echo date('Y/m/d');?>" required />
-            </div>          
+            <label for="date" >Date:</label>
+            <input type="date" name="date" placeholder="<?php echo date('Y-m-d');?>" readonly />
+          </div>          
 
         </fieldset>
 
@@ -105,47 +107,25 @@
         <legend>Product Details</legend>
           <div>
             <label for="productName" >Product Name:</label>
-            <input type="text" name="productName" placeholder="Enter product name" required list="prodList"/>
+            <input type="text" name="productName" placeholder="Enter product name" required id="orderProd" list="prodList"/>
 
             <datalist id="prodList">
               <?php foreach ($pList as $p):?>
-                <option value="<?php echo $p->name . ' - ' . $p->type;?>">
+                <option value="<?php echo $p->name . '-' . $p->type;?>">
               <?php endforeach?>
             </datalist>
 
-
-            <label for="productType" >Product Type:</label>
-            <input type="text" name="productType" placeholder="Enter product type" required id="orderProd"/>
+            <!--<label for="productType" >Product Type:</label>
+            <input type="text" name="productType" placeholder="Enter product type" required/>-->
             
             <label for="quantity" >Quantity:</label>
-            <input type="number" min="1" name="quantity" placeholder="Enter quantity" required />
+            <input type="number" min="1" name="quantity" placeholder="Enter quantity" required id="orderProdQ"/>
             
-            <span onclick="addProdOrder()"><a name="s_add_prod" class="submit" id="orderProdSubmit" >Add</a></span>
+            <span onclick="addProdOrder()" class="submitt" id="orderProdSubmit"><a>Add</a></span>
           </div>
 
-          <div>
-            <table>
-              <tr>
-                <th>Product Name</th>
-                <th>Product Type</th>
-                <th>Size</th>
-                <th>Quantity Ordered</th>
-                <th>action</th>
-              </tr>
-            </table>
-
-            <?php
-              if (isset($basket) && $basket != null)
-              {
-                foreach($basket as $prod)
-                {
-                  include 'inc/view_ord_row.php';
-                }
-              }
-              else {
-                echo "<p>select a product to be ordered</p>";
-              }
-            ?>
+          <div id="prodOrderB">
+            
           </div>
           
         </fieldset>

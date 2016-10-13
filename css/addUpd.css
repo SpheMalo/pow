@@ -136,6 +136,7 @@
     border-radius: 3px;
     background: #00314c;
     clear: both;
+    cursor: pointer;
   }
 
   button.submit{
@@ -307,9 +308,7 @@
     padding: 0;
   }
 
-  #calendar > h2{
-
-  }
+  #calendar > h2{}
 
   #calendar > ul{
     width: 100%;

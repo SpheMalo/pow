@@ -1,18 +1,9 @@
 function getCal(someDate)
 {
-  var s_d, s_dd, doc = document.getElementById("empID");
-  /*if (someDate = null)
-  {
-    s_dd = 'date=' + Date(year, month, day);
-    s_d = 'month=' + Date(year, month, day);
-  }
-  else
-  {
-    
-  }*/
+  var s_d, s_dd;
 
-  s_dd = 'date=' + someDate + '&doc=' + doc.innerHTML;
-  s_d = 'month=' + someDate + '&doc=' + doc.innerHTML;
+  s_dd = 'date=' + someDate;
+  s_d = 'month=' + someDate;
 
   $.ajax({
     type: "post",
@@ -27,7 +18,6 @@ function getCal(someDate)
     }
   });
 
-  
   $.ajax({
     type: "post",
     url: "../../../inc/call.php",
@@ -624,6 +614,37 @@ function snap()
   modal.style.display = "none";
 }
 
+function getOrderB()
+{
+  $.ajax({
+    type: "post",
+    url: "../../../supplier/order/place_new_order/inc/cont.php",
+    success: function(result){
+      $("#prodOrderB").html(result);
+    },
+    error: function(){
+
+    }
+  });
+}
+
+function addProdOrder()
+{
+  var z = $("#orderProd").val(), pq = $("#orderProdQ").val();
+  var dat = "add_prod=" + z + "&add_prodq=" + pq;
+  $.ajax({
+    type: "post",
+    data: dat,
+    url: "../../../supplier/order/place_new_order/inc/cont.php",
+    success: function(result){
+      $("#prodOrderB").html(result);
+    },
+    error: function(){
+
+    }
+  });
+}
+
 $(document).ready(function()
 {
   function mainMember()
@@ -638,45 +659,7 @@ $(document).ready(function()
     {
       mem.removeAttribute('disabled');
     }
-  }
-
-
-  function addProdOrder()
-  {
-    var p = document.getElementById("orderProd");
-   // var z = p.innerHTML();
-   alert("dfsd");
-    var dat = "s_add_prod=";
-    $.ajax({
-      type: "post",
-      data: dat,
-      url: "../supplier/order/place_new_order/index.php",
-      success: function(){
-
-      },
-      error: function(){
-
-      }
-    });
-  }
-
-  
-
-$('#orderProdSubmit').click(function(e){
-    addProdOrder();
-    //e.preventDefault();
-  }); 
-
-  /*if ($('#check').is(':checked'))
-  {
-    //alert("worked");
-    $('#main_m').removeAttribute("readonly");
-  }
-  else
-  {
-    //alert("didnt worked");
-    $('#main_m').setAttribute("readonly");
-  }*/
+  } 
 
   $('takeP').click(function(e){
     takePicture();
