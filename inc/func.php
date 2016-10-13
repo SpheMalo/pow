@@ -2251,4 +2251,16 @@ function loadConsult($in)
       return "rows";
     }
   }
+
+function backUp()
+{
+  $dump_path = "./"; //input location for the backup to be saved
+  $host = "localhost";  //db host e.g.- localhost
+  $user = "DUser";  //user e.g.-root
+  $pass = "somePassword";  //password
+  $command='mysqldump -h localhost -u DUser -psomePassword dental > backUpFile.sql';
+  system($command);
+  return true;
+}
+
 ?>
