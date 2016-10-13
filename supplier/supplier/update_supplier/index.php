@@ -62,7 +62,7 @@
           <input type="email" id="supplierEmailId" name="supplierEmail" placeholder="Enter Email e.g. supplier@example.co.za" required />
 
           <label for="telephone">Telephone:</label>
-          <input type="tel" id="telephoneId" name="telephone" placeholder="Enter Telephone Number e.g. 0119724075" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
+          <input type="tel" id="telephoneId" name="telephone" placeholder="Enter Telephone Number e.g. 0119724075" required pattern="[0-9]{10,10}" title="A number of 10 characters" <?php echo "%05d"; ?>/>
         </div>
 
        <div>
