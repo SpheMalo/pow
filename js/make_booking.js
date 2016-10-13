@@ -7,7 +7,7 @@ function getPatientById() {
     $.ajax({
         url: "make_booking.php",
         type: "GET",
-        //data: { idNum: id},
+        data: { idNum: id},
         cache: false,
         success: function (response) {
             patients = response;
@@ -43,7 +43,7 @@ function getPatientById() {
             }
 
             patients = temp;
-            return patients;
+            populateFields();
         },
         error: function (error) {
             console.log(error);
@@ -78,20 +78,18 @@ function getPatientById() {
 
 function populateFields() {
 
-    var patient// = getPatientById();
+    //var patient = getPatientById();
     var value = $("#ids").val();
-    //var patient;
-
-    //alert(patient + " " + value);
+    var patient;
+    
     for (var i=0; i<patients.length; i++) {
-        if (JSON.parse(patients[i]).id_number == value) {
+        if (JSON.parse(patients[i]).id_num == value) {
             patient = JSON.parse(patients[i]);
             break;
         }
     }
+    console.log(patient);
 
-    
- 
     $("#patientName").val(patient.name);
     $("#patientSurname").val(patient.surname);
     $("#patientMedicalAid").val(patient.medical_aid_type);

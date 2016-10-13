@@ -64,7 +64,7 @@
     </script>
   </head>
   
-  <body onload="getPatientById()">
+  <body>
     <?php
       include '../../../inc/menu.htm';
     ?>
@@ -87,7 +87,7 @@
           <legend>patient details</legend>
           <div>
             <label for="id">id:</label>
-            <input id="ids" type="text" name="id" list="idNums" onchange="populateFields()" placeholder="enter patient id" autofocus autocomplete="off"/>
+            <input id="ids" type="text" name="id" list="idNums" onchange="getPatientById()" placeholder="enter patient id" autofocus autocomplete="off"/>
 
             <datalist id="idNums">
               <?php foreach($iList as $i):?>

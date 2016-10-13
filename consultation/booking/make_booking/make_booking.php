@@ -1,11 +1,12 @@
 <?php
     require '../../../inc/func.php';
     require '../../../inc/dbconn.php';
-    //$idNum = $_REQUEST['idNum'];
 
-    $sql = "select * from patient where
-     medical_aid_typeID is null or medical_aid_typeID is not null";
+    $idNum = $_REQUEST['idNum'];
 
+    $sql = "select * from patient 
+            join type_medical_aid on patient.medical_aid_typeID = type_medical_aid.id
+            where patient.id_number = $idNum";
      try
      {
          $r = $pdo->query($sql);
@@ -17,10 +18,13 @@
      }
 
 
-    $c = 0;
-     if ($r->rowCount() > 0) {
-         while ($row = $r->fetch()) {
-             $id[$c] = $row['id'];
+
+       if ($r->rowCount() > 0)
+       {
+         $c = 0;
+         while ($row = $r->fetch())
+         {
+            $id[$c] = $row['id'];
             $title[$c] = $row['titleID'];
             $name[$c] = $row['name'];
             $surname[$c] = $row['surname'];
@@ -34,14 +38,15 @@
             $cell[$c] = $row['cellphone'];
             $physical[$c] = $row['address_physicalID'];
             $postal[$c] = $row['address_postalID'];
-            $med_type[$c] = $row['medical_aid_typeID'];
+            $med_type[$c] = $row['description'];
             $mem_type[$c] = $row['member_typeID']; 
 
-            $id[$c] = new Patient($id[$c], $title[$c], $name[$c], $surname[$c], $gender[$c], $id_num[$c], $dob[$c], $email[$c], $img[$c], $file[$c], $tell[$c], $cell[$c], $physical[$c], $postal[$c], $med_type[$c], $mem_type[$c]);
+            $ids[$c] = new Patient($id[$c], $title[$c], $name[$c], $surname[$c], $gender[$c], $id_num[$c], $dob[$c], $email[$c], $img[$c], $file[$c], $tell[$c], $cell[$c], $physical[$c], $postal[$c], $med_type[$c], $mem_type[$c]);
              //$id[$count] = new Patient($row['id_number'], "", $row['name'], $row['surname'], "","" ,"" ,"" ,"" ,"" ,"" ,$row['ma_name']);
             $c++;
          }
-     } 
- 
-    echo json_encode($id);
+
+         echo json_encode($ids);
+       }
+
 ?>
