@@ -27,7 +27,7 @@
   <tr>
     <th>Product Name</th>
     <th>Product Type</th>
-    <th1>Size</th>
+    <th>Size</th>
     <th>Quantity Ordered</th>
     <th>action</th>
   </tr>
