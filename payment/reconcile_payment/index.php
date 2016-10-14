@@ -9,21 +9,34 @@
     $emp = $_SESSION['emp'];
     $o = "";
     
-    if (isset($_GET['id']))
-    {
-      
-    }
-    else if (isset($_GET['search']))
-    {}
-    else
-    {
-      
-    }
-    
   }
   else
   {
     header("Location: ../../login/");
+  }
+
+  if (isset($_POST['s_new_pay']))
+  {
+    $p = addPayment($_POST['amount'], $_POST['inv'], null);
+    //echo var_dump($p);
+    
+    if ($p == "paid")
+    {
+      $o = "There invoice has been fully been paid for.";
+    }
+    else if ($p == "query" || $p == "query1")
+    {
+      $o = "There was an error capturing the payment due to a server error.";
+    }
+    else if ($p == "rows" || $p == "rows1")
+    {
+      $o = "The selected invoice number does not exist";
+    }
+    else
+    {
+      $o = "The payment has been added successfuly.";
+    }
+
   }
 ?>
 
@@ -73,14 +86,20 @@
       <form method="" action="">
         <fieldset>
         <legend>invoice details</legend>
-          <div>
+          <!--<div>
             <label for="patient">patient name:</label>
             <input type="text"  name="patient" placeholder="select patient" required />
             
-          </div>
+          </div>-->
           <div>
             <label for="inv">invoice id:</label>
-            <input type="text"  name="inv" placeholder="invoice number" required />
+            <input type="text"  name="inv" placeholder="invoice number" required list="invNum"/>
+
+            <datalist id="invNum">
+              <?php foreach($payList as $p):?>
+                <option value="<?php echo $p->invLine?>" />
+              <?php endforeach;?>
+            </datalist>
           </div>
         </fieldset>
         <fieldset>
