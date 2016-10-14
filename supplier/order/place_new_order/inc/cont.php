@@ -10,7 +10,7 @@
     {
       if ($pl->name == $arr[0] && $pl->type == $arr[1])
       {
-        $_SESSION['orderBasket'][] = array(
+        $_SESSION['orderBask'][] = array(
           'name' => $pl->name,
           'type' => $pl->type,
           'size' => $pl->size,
@@ -32,9 +32,9 @@
     <th>action</th>
   </tr>
 <?php
-  if (isset($_SESSION['orderBasket']))
+  if (isset($_SESSION['orderBask']))
   {
-    $basket = $_SESSION['orderBasket'];
+    $basket = $_SESSION['orderBask'];
   }
   if(isset($basket) && count($basket)> 0) 
   {
@@ -47,7 +47,8 @@
 </table>
 
 <?php
-  if(!isset($basket))
+  
+  if(!isset($basket) || count($basket) < 1)
   {
     echo "<p>the are no products selected</p>";
   }

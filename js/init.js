@@ -558,6 +558,8 @@ function makeSlot10Unav(datt)
   });
 }
 
+
+
 function toExcel(datt)
 {
   var datt_id = "#" + datt;
@@ -645,8 +647,7 @@ function addProdOrder()
   });
 }
 
-$(document).ready(function()
-{
+$(document).ready(function(){
   function mainMember()
   {
     var mem = document.getElementById("main_m");

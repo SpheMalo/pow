@@ -14,10 +14,12 @@
       header("Location: ../reconcile_payment/?id=" . $_GET['id']);
     }
     else if (isset($_GET['search']))
-    {}
+    {
+      $payList = loadPayList(null, $_GET['search']);
+    }
     else
     {
-      $payList = loadPayList(null);
+      $payList = loadPayList(null, null);
     }
     
   }
@@ -93,6 +95,10 @@
       
     </div>
     
+    <form method="get" action="" enctype="multipart/form-data" id="search">
+      <input type="search" name="s" placeholder="Search criteria" id="search_input"/>
+      <button>s</button>
+    </form>
     <footer></footer>
   </body>
 </html>
