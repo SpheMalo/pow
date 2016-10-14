@@ -627,6 +627,7 @@ function getOrderB()
     }
   });
 }
+var OrderList = [];
 
 function addProdOrder()
 {
@@ -635,14 +636,57 @@ function addProdOrder()
   $.ajax({
     type: "post",
     data: dat,
-    url: "../../../supplier/order/place_new_order/inc/cont.php",
+    url: "../../../supplier/order/place_new_order/inc/addProdtoTable.php",
     success: function(result){
-      $("#prodOrderB").html(result);
+      result = result.substring(1,result.length-1);
+      result = JSON.parse(result);
+      OrderList.push(result);
+
+      var newRow = ""+
+      "<tr>"
+        +"<td>"+result.name+"</td>"+
+        "<td>"+result.type+"</td>"+
+        "<td>"+result.size+"</td>"+
+        "<td>"+result.quantity+"</td>"+
+        "<td><span id="+"remove_"+ (OrderList.length-1) +" onclick='removeOrderItem(this.id)'><a>Remove</a></span></td>"+
+      "</tr>";
+      $("#prodDivID").html( $("#prodDivID").html()+ newRow);
+
     },
     error: function(){
 
     }
   });
+  //console.log(OrderList);
+}
+
+function removeOrderItem(id)
+{
+  var productIndex = id.split("_")[1];
+  productIndex = parseInt(productIndex);
+  for (var i = productIndex; i < OrderList.length-1; i++)
+  {
+    OrderList[i].name = OrderList[i+1].name;
+    OrderList[i].type = OrderList[i+1].type;
+    OrderList[i].size = OrderList[i+1].size;
+    OrderList[i].quantity = OrderList[i+1].quantity;
+  }
+
+  OrderList.pop();
+  var tableHtml = "";
+  for (var i = 0; i < OrderList.length-1; i++)
+  {
+      tableHtml +=
+      "<tr>"
+      +"<td>"+OrderList[i].name+"</td>"+
+      "<td>"+OrderList[i].type+"</td>"+
+      "<td>"+OrderList[i].size+"</td>"+
+      "<td>"+OrderList[i].quantity+"</td>"+
+      "<td><span id="+"remove_"+ (i) +" onclick='removeOrderItem(this.id)'><a>Remove</a></span></td>"+
+      "</tr>";
+  }
+  $("#prodDivID").html(tableHtml);
+
 }
 
 $(document).ready(function()

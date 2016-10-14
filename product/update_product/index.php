@@ -63,7 +63,7 @@
          <legend>product details</legend>
          <div>
              <label for="name">product number:</label>
-            <input type="text" id="pNumberId" name="pNumber" placeholder="Enter product number e.g. P1001" title="A maximum of 5 characters allowed 'P' must be uppercase" pattern="[-A-Z0-9]{1,6}" required/>
+            <input disabled "text" id="pNumberId" name="pNumber" placeholder="Enter product number e.g. P1001" title="A maximum of 5 characters allowed 'P' must be uppercase" pattern="[-A-Z0-9]{1,6}" required/>
             <label for="name">name:</label>
             <input type="text"  id="nameId" name="name" placeholder="Enter product name e.g. Tramacet" title="A maximum of 35 letters allowed" pattern="[A-Za-z0-9 ]{1,35}" required/>
             <label for="price">price:</label>

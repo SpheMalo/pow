@@ -2263,4 +2263,16 @@ function backUp()
   return true;
 }
 
+function restore()
+{
+  echo true;
+ // $dump_path = "./"; //input location for the backup to be saved
+  $host = "localhost";  //db host e.g.- localhost
+  $user = "DUser";  //user e.g.-root
+  $pass = "somePassword";  //password
+  $command='mysql -h localhost -u DUser -psomePassword dental < C:\xampp\htdocs\Prac\qualit1\pow\admin\system\backUpFile.sql';
+  system($command);
+  return true;
+}
+
 ?>

@@ -216,9 +216,9 @@
       $this->desc = $desc;
     }
   }
-  
 
-  class Supplier
+
+class Supplier
   {
     public $id;
     public $name;
