@@ -17,13 +17,13 @@
           'quantity' => $_POST['add_prodq']
         );
       }
-
       //$_SESSION['orderBasket'][] = $basket;
-    }   
+    }
+    echo json_encode($_SESSION['orderBasket']);
   } 
 ?>
 
-<table>
+<table id="prodID">
   <tr>
     <th>Product Name</th>
     <th>Product Type</th>
@@ -31,7 +31,8 @@
     <th>Quantity Ordered</th>
     <th>action</th>
   </tr>
-<?php
+
+<!--<?php
   if (isset($_SESSION['orderBask']))
   {
     $basket = $_SESSION['orderBask'];
@@ -52,4 +53,9 @@
   {
     echo "<p>the are no products selected</p>";
   }
-?>
+?>-->
+
+  <tbody id="prodDivID">
+
+  </tbody>
+</table>

@@ -108,7 +108,7 @@
        <legend>Status</legend>
        <div>
          <label for="status">Supplier Status</label>
-         <input type="text" id="statusId" name="status" placeholder="Supplier status" required pattern= "[A-Za-z]{6,8}" title="Only used to display supplier's status" />
+         <input disabled type="text" id="statusId" name="status" placeholder="Supplier status" required pattern= "[A-Za-z]{6,8}" title="Only used to display supplier's status" />
        </div>
        </fieldset>
         

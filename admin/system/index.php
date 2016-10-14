@@ -22,6 +22,13 @@
     echo json_encode($temp);
   }
 
+  if(isset($_REQUEST['restore']))
+  {
+    $temp = restore();
+
+    echo json_encode($temp);
+  }
+
 ?>
 
 <html>
@@ -36,6 +43,7 @@
     <script type="text/javascript" src="../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
     <script type="text/javascript" src="../../js/backup.js"></script>
+    <script type="text/javascript" src="../../js/restore.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
         $('#s24').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
@@ -79,7 +87,7 @@
           </div>
           <div>
             <label class="display">types:</label>
-            <a class="submit" style="padding: 5px;" title="Triggers the system to run a restore" id="btnRestore">Restore system</a>
+            <a onclick="restore()" class="submit" style="padding: 5px;" title="Triggers the system to run a restore" id="btnRestore">Restore system</a>
           </div>
         </fieldset>
 

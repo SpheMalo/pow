@@ -481,7 +481,12 @@
 
     if ($id == null && $q != null)
     {
-      $s = "select employee.id, title.description as titleID, name, surname, username, gender.description as genderID, type_employee.description as employee_typeID, practice_location.description as practice_locationID, id_number, banking_details, cellphone, telephone, email, img, status, address_postalID, address_physicalID from employee join title on employee.titleID = title.id join gender on employee.genderID = gender.id join type_employee on employee.employee_typeID = type_employee.id join practice_location on employee.practice_locationID = practice_location.id where employee.id like '%" . $q . "%' or name like '%" . $q . "%' or surname like '%" . $q . "%' or type_employee.description like '%" . $q . "%' or practice_location.description like '%" . $q . "%'";
+      $s = "select employee.id, title.description as titleID, name, surname, username, gender.description as genderID, type_employee.description as employee_typeID, practice_location.description as practice_locationID, id_number, banking_details, cellphone, telephone, email, img, status, address_postalID, address_physicalID 
+            from employee join title on employee.titleID = title.id 
+            join gender on employee.genderID = gender.id 
+            join type_employee on employee.employee_typeID = type_employee.id 
+            join practice_location on employee.practice_locationID = practice_location.id 
+            where employee.id like '%" . $q . "%' or name like '%" . $q . "%' or surname like '%" . $q . "%' or type_employee.description like '%" . $q . "%' or practice_location.description like '%" . $q . "%'";
     }
     
     try
@@ -2335,5 +2340,17 @@ function loadConsult($in)
     system($command);
     return true;
   }
+
+function restore()
+{
+  echo true;
+ // $dump_path = "./"; //input location for the backup to be saved
+  $host = "localhost";  //db host e.g.- localhost
+  $user = "DUser";  //user e.g.-root
+  $pass = "somePassword";  //password
+  $command='mysql -h localhost -u DUser -psomePassword dental < C:\xampp\htdocs\Prac\qualit1\pow\admin\system\backUpFile.sql';
+  system($command);
+  return true;
+}
 
 ?>

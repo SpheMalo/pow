@@ -25,9 +25,10 @@
     <script type="text/javascript" src="../../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../../js/init.js"></script>
+    <script type="text/javascript" src="../../../js/order_update.js"></script>
   </head>
   
-  <body>
+  <body onload="getOrderById()">
     <?php
       include '../../../inc/menu.htm';
     ?>
@@ -50,21 +51,21 @@
         <legend>Order Details</legend>
           <div>
             <label for="orderNumber" class="left">Order Number:</label>
-            <input type="text" name="orderNumber" placeholder="P-001" required  class="middle"/>
+            <input type="text" id="orderNumberId" name="orderNumber" placeholder="Placeholder for product number e.g. O-1001" title="A maximum of 5 characters allowed 'O' must be uppercase" pattern="[-A-Z0-9]{1,6}" required />
 
             <label for="supplierName" class="left">Supplier Name:</label>
-          <input type="text" name="supplierName" placeholder="Mabaso Traders" required class="middle" />
+          <input type="text" id="supplierNameId" name="supplierName" placeholder="Enter Supplier Name e.g. ABC Medical Supplies" required pattern= "[A-Za-z0-9 ]{1,35}" title="A maximum of 35 letters allowed"  />
 
           </div>
 
           <div>
             <label for="orderDate" class="left">Order Date:</label>
-            <input type="text" name="orderDate" placeholder="2016/06/29 3:29" required  class="middle"/>
+            <input type="text" id="orderDateId" name="orderDate" placeholder="Placeholder for the date" title="Placeholder for the date" required/>
             
             
 
             <label for="orderStatus" class="left">Order Status:</label>
-            <input type="text" name="orderStatus" placeholder="in-transit" required class="middle"/>
+            <input type="text" id="orderStatusId" name="orderStatus" placeholder="Placeholder for the order status" title="Placeholder for the order status" required class="middle"/>
           </div>
 
         </fieldset>
@@ -114,13 +115,6 @@
     </div>
     
     <footer></footer>
-    
-    <?php
-      if (isset($_GET['u']) && isset($_GET['p']))
-      {
-        echo "<p>A new supplier has been added</p>";
-        include 'inc/s.htm';
-      }
-    ?>
+
   </body>
 </html>

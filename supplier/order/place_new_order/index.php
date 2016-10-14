@@ -99,7 +99,7 @@
           </div>
           <div>
             <label for="date" >Date:</label>
-            <input type="date" name="date" placeholder="<?php echo date('Y-m-d');?>" readonly />
+            <input type="date" name="date" placeholder="<?php echo date('Y-m-d');?>" />
           </div>          
 
         </fieldset>
@@ -108,7 +108,7 @@
         <legend>Product Details</legend>
           <div>
             <label for="productName" >Product Name:</label>
-            <input type="text" name="productName" placeholder="Enter product name" required id="orderProd" list="prodList"/>
+            <input type="text" name="productName" placeholder="Enter product name"  id="orderProd" required list="prodList"/>
 
             <datalist id="prodList">
               <?php foreach ($pList as $p):?>
@@ -126,7 +126,7 @@
           </div>
 
           <div id="prodOrderB">
-            
+
           </div>
           
         </fieldset>

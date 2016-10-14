@@ -218,7 +218,7 @@
           </div>    
           <div>
             <label for="status">Status</label>
-            <input type="text" id="statusId" name="status" placeholder="Employee status" required pattern= "[A-Za-z]{6,8}" title="Only used to display employee's status" />
+            <input disabled "text" id="statusId" name="status" placeholder="Employee status" required pattern= "[A-Za-z]{6,8}" title="Only used to display employee's status" />
           </div>         
         </fieldset>
         
