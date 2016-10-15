@@ -701,7 +701,9 @@ function getOrderProdConsultation()
     error: function(){
 
     }
+
   });
+  getOrderProcConsultation();
 }
 var OrderList = [];
 
@@ -722,7 +724,7 @@ function addProdOrderCon()
           "<tr>"
           +"<td>"+result.name+"</td>"+
           "<td>"+result.type+"</td>"+
-          "<td>"+result.price+"</td>"+
+          "<td>R"+result.price+"</td>"+
           "<td>"+result.quantity+"</td>"+
           "<td><span id="+"remove_"+ (OrderList.length-1) +" onclick='removeOrderItem(this.id)'><a>Remove</a></span></td>"+
           "</tr>";
@@ -756,7 +758,7 @@ function removeOrderItem(id)
         "<tr>"
         +"<td>"+OrderList[i].name+"</td>"+
         "<td>"+OrderList[i].type+"</td>"+
-        "<td>"+OrderList[i].price+"</td>"+
+        "<td>R"+ OrderList[i].price+"</td>"+
         "<td>"+OrderList[i].quantity+"</td>"+
         "<td><span id="+"remove_"+ (i) +" onclick='removeOrderItem(this.id)'><a>Remove</a></span></td>"+
         "</tr>";
@@ -770,7 +772,6 @@ function removeOrderItem(id)
 // }
 
   ////////////////////////////Consultation invoice add to proc table  /////////////////////
-var OrderList = [];
   function getOrderProcConsultation()
   {
     $.ajax({
@@ -784,12 +785,13 @@ var OrderList = [];
       }
     });
   }
-  var OrderList = [];
+  var OrderProcList = [];
 
   function addProcOrderCon()
   {
-    var z = $("#procNameId").val(), pq = $("#procPriceId").val();
-    var dat = "add_proc=" + z + "&add_procq=" + pq;
+    var z = $("#procNameId").val();
+    console.log(z);
+    var dat = "add_proc=" + z;
     $.ajax({
       type: "post",
       data: dat,
@@ -797,14 +799,14 @@ var OrderList = [];
       success: function(result){
         result = result.substring(1,result.length-1);
         result = JSON.parse(result);
-        OrderList.push(result);
+        OrderProcList.push(result);
 
         var newRow = ""+
             "<tr>"
             +"<td>"+result.desc+"</td>"+
             "<td>"+result.type+"</td>"+
-            "<td>"+result.price+"</td>"+
-            "<td><span id="+"remove_"+ (OrderList.length-1) +" onclick='removeOrderItemProc(this.id)'><a>Remove</a></span></td>"+
+            "<td>R"+result.price+"</td>"+
+            "<td><span id="+"remove_"+ (OrderProcList.length-1) +" onclick='removeOrderItemProc(this.id)'><a>Remove</a></span></td>"+
             "</tr>";
         $("#procDivID").html($("#procDivID").html()+ newRow);
 
@@ -820,22 +822,22 @@ var OrderList = [];
   {
     var productIndex = id.split("_")[1];
     productIndex = parseInt(productIndex);
-    for (var i = productIndex; i < OrderList.length-1; i++)
+    for (var i = productIndex; i < OrderProcList.length-1; i++)
     {
-      OrderList[i].desc = OrderList[i+1].desc;
-      OrderList[i].type = OrderList[i+1].type;
-      OrderList[i].price = OrderList[i+1].price;
+      OrderProcList[i].desc = OrderProcList[i+1].desc;
+      OrderProcList[i].type = OrderProcList[i+1].type;
+      OrderProcList[i].price = OrderProcList[i+1].price;
     }
 
-    OrderList.pop();
+    OrderProcList.pop();
     var tableHtml = "";
-    for (var i = 0; i < OrderList.length-1; i++)
+    for (var i = 0; i < OrderProcList.length-1; i++)
     {
       tableHtml +=
           "<tr>"
-          +"<td>"+OrderList[i].desc+"</td>"+
-          "<td>"+OrderList[i].type+"</td>"+
-          "<td>"+OrderList[i].price+"</td>"+
+          +"<td>"+OrderProcList[i].desc+"</td>"+
+          "<td>"+OrderProcList[i].type+"</td>"+
+          "<td>R"+OrderProcList[i].price+"</td>"+
           "<td><span id="+"remove_"+ (i) +" onclick='removeOrderItemProc(this.id)'><a>Remove</a></span></td>"+
           "</tr>";
     }

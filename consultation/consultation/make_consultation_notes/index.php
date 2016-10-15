@@ -42,12 +42,12 @@
     </script>
   </head>
 
-  <script>
-    document.body.onload = function() {
-      getOrderProdConsultation();
-      getOrderProcConsultation();
-    };
-  </script>
+<!--  <script>-->
+<!--    document.body.onload = function() {-->
+<!--      getOrderProdConsultation();-->
+<!--      getOrderProcConsultation();-->
+<!--    };-->
+<!--  </script>-->
 
   <body onload="getOrderProdConsultation()">
     <?php
@@ -137,8 +137,8 @@
                   <?php endforeach?>
               </datalist>
 
-              <label>Procedure Price:</label>
-              <input type="text" id="procPriceId" name="price" placeholder="Procedure price"/>
+              <label class="display">Procedure Price:</label>
+              <input class="display" type="text" id="procPriceId" name="price" placeholder="Procedure price"/>
 
               <span onclick="addProcOrderCon()" class="submitt" id="orderProcSubmit"><a>Add</a></span>
             </div>

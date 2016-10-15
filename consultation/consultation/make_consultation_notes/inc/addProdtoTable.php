@@ -14,7 +14,7 @@
                 $_SESSION['orderBasket'][] = array(
                     'name' => $pl->name,
                     'type' => $pl->type,
-                    'size' => $pl->price,
+                    'price' => $pl->price,
                     'quantity' => $_POST['add_prodq']
                 );
             }
