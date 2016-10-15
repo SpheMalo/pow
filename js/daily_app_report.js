@@ -58,7 +58,16 @@ function getDrSchedule() {
 }
 
 function generateTable() {
-    var newHtml = "<table class='reportTable'>" +
+    var newHtml = "<table width=''>" +
+        "<colgroup>"+
+        "<col width='10%'>"+
+        "<col width='10%'>"+
+        "<col width='10%'>"+
+        "<col width='30%'>"+
+        "<col width='30%'>"+
+        "<col width='10%'>"+
+        "</colgroup>"+
+        "</thread>"+
         "<tr>" +
         "<th>Schedule Date</th>"+
         "<th>Start Time</th>"+
@@ -66,7 +75,8 @@ function generateTable() {
         "<th>Employee Name</th>"+
         "<th>Patient Name</th>"+
         "<th>Booking Description</th>"+
-        "</tr>";
+        "</tr>"
+        "</thread>";
 
 
     for (var i = 0; i<bookings.length; i++) {
@@ -81,6 +91,5 @@ function generateTable() {
     }
 
     newHtml += "</table>";
-    $("#noti").html(newHtml);
-   // $("<style>").text("#reportTable {border: solid darkgrey 1px;text-align: center;}").appendTo("head");
+    $("#Sphe").html(newHtml);
 }

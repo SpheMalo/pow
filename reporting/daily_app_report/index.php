@@ -15,16 +15,20 @@
   }
 ?>
 
-<html>
+<html xmlns="http://www.w3.org/1999/html">
   <head>
     <title>D+M Dental Practice System - <?php echo $_SESSION['page'];?></title>
     <link rel="stylesheet" type="text/css" media="all" href="../../css/base.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../../css/addUpd.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/viewBase.css" />
     <script type="text/javascript" src="../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
     <script type="text/javascript" src="../../js/daily_app_report.js"></script>
-    <script type="text/javascript" src="../../../js/jQueryRotate.js"></script>
+    <script type="text/javascript" src="../../js/jQueryRotate.js"></script>
+    <script type="text/javascript" src="../../js/jsPDF/dist/jspdf.min.js"></script>
+    <script type="text/javascript" src="../../js/convertPDF.js"></script>
+
     <script type="text/javascript">
       $(document).ready(function(){
         $('#s101').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
@@ -69,10 +73,12 @@
           </div>
         </fieldset>
 
-        <input type="submit" name="p_daily_app" value="print" class="submit"/>
+        <span onclick="convertToPDF()" name="p_daily_app" class="submit"/><a>Print</a></span>
       </form>
-      <div id="noti"></div>
-    </div>
+           
+      <div id="Sphe">
+        
+      </div>
     
     <footer></footer>
   </body>
