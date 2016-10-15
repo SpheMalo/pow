@@ -17,12 +17,12 @@
 
   if (isset($_POST['s_new_pay']))
   {
-    $p = addPayment($_POST['amount'], $_POST['inv'], null);
+    $p = addPayment($_POST['amount'], $_POST['inv'], null, null);
     //echo var_dump($p);
     
     if ($p == "paid")
     {
-      $o = "There invoice has been fully been paid for.";
+      $o = "The selected invoice has been fully been paid for.";
     }
     else if ($p == "query" || $p == "query1")
     {

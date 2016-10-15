@@ -8,21 +8,36 @@
     $_SESSION['page'] = "reconcile a payment";
     $emp = $_SESSION['emp'];
     $o = "";
-    
+    $rList = loadReasonList();    
   }
   else
   {
     header("Location: ../../login/");
   }
 
-  if (isset($_POST['s_new_pay']))
+  if (isset($_POST['s_rec']))
   {
-    $p = addPayment($_POST['amount'], $_POST['inv'], null);
+    if ($_POST['reason'] != "--select a reason--")
+    {
+      $rec[] = array(
+        'reasonID' => $_POST['reason'],
+        'comment' => "NULL"
+      );  
+    }
+    else
+    {
+      $rec[] = array(
+        'reasonID' => "NULL",
+        'comment' => $_POST['com']
+      );
+    }
+    //echo var_dump($rec, $_POST['write'], $_POST['inv'], $_POST['amount']);
+    $p = addPayment($_POST['amount'], $_POST['inv'], null, $rec);
     //echo var_dump($p);
     
     if ($p == "paid")
     {
-      $o = "There invoice has been fully been paid for.";
+      $o = "The selected invoice has been fully been paid for.";
     }
     else if ($p == "query" || $p == "query1")
     {
@@ -83,7 +98,7 @@
     </ul>
 
     <div id="cont">
-      <form method="" action="">
+      <form method="post" action="">
         <fieldset>
         <legend>invoice details</legend>
           <!--<div>
@@ -97,26 +112,33 @@
 
             <datalist id="invNum">
               <?php foreach($payList as $p):?>
-                <option value="<?php echo $p->invLine?>" />
+                <option value="<?php echo $p->invLine;?>" />
               <?php endforeach;?>
             </datalist>
           </div>
-        </fieldset>
+        </fieldset> 
         <fieldset>
           <legend>payment details</legend>
           <div>
             <label for="amount">amount:</label>
             <input type="text"  name="amount" placeholder="payment amount" required />
-            <input type="checkbox" name="write" required class="check"/>
-            <label for="write" class="check">is being written off</label>
+            <input type="checkbox" name="write" id="w_off" class="check" value=1 onchange='write_off()' checked/>
+            <label for="write" id="w_o_label" class="check">is being written off</label>
           </div>
           <div>
-            <label for="com">comments:</label>
-            <textarea name="com" placeholder="comments"></textarea>
+            <label for="reason">reason:</label>
+            <select name="reason">
+              <option>--select a reason--</option>
+              <?php foreach($rList as $r):?>
+                <option value="<?php echo $r['id'];?>"><?php echo $r['desc'];?></option>
+              <?php endforeach;?>
+            </select>
+            <label for="com">other reason:</label>
+            <textarea name="com" placeholder="comments" id="w_o_comment"></textarea>
           </div>
         </fieldset>
 
-        <input type="submit" name="s_new_pay" value="capture payment" class="submit"/>
+        <input type="submit" name="s_rec" value="reconcile payment" class="submit"/>
 
       </form>
       

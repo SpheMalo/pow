@@ -733,6 +733,31 @@ $(document).ready(function(){
     }
   });
 
+  function write_off()
+  {
+    if ($('#w_off').is(':checked'))
+    {
+      $('w_o_comment').removeAttribute("disabled");
+    }
+    else
+    {
+      $('w_o_comment').setAttribute("disabled", "disabled");
+    }
+  }
+
+  $('#w_o_label').click(function(){
+    if ($(this).prev().is(':checked'))
+    {
+      $(this).prev().prop('checked', false);
+      $('w_o_comment').setAttribute("disabled", "disabled");
+    }
+    else
+    {
+      $(this).prev().prop('checked', "checked");
+      $('w_o_comment').removeAttribute("disabled");
+    }
+  });
+
   $('#nav > li > ul, #nav_xtra > li > ul').css({
     display: "none",
     left: "auto"

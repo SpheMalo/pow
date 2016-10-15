@@ -2208,7 +2208,7 @@ function loadConsult($in)
     }
   }
 
-  function addPayment($amount, $inv_num, $p)
+  function addPayment($amount, $inv_num, $p, $rec)
   {
     require 'dbconn.php';
 
@@ -2242,9 +2242,21 @@ function loadConsult($in)
 
         $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",1)";
 
-        if (isset($p))
+        if (isset($p) && !isset($rec))
         {
-          $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",1)";
+          $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",2)";
+        }
+        else if (!isset($p) && isset($rec))
+        {
+          if ($rec[0]['reasonID'] != "NULL")
+          {
+            $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`, `write_off_typeID`) VALUES (" . $amount . ", " . $d . ",'write off', " . $inv .", " . $rec[0]['reasonID'] . ")";
+          }
+          else
+          {
+            $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`, `write_off_typeID`) VALUES (" . $amount . ", " . $d . ",'write off', " . $inv .", " . $rec[0]['comment'] . ")";
+          }
+          
         }
 
         try
@@ -2275,6 +2287,38 @@ function loadConsult($in)
       return "rows";
     }
 
+  }
+
+  function loadReasonList()
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select * from type_write_off";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $s)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach ($r as $row)
+      {
+        $rList[] = array(
+          'id' => $row['id'],
+          'desc' => $row['description']
+        );
+      }
+
+      return $rList;
+    }
+    else
+    {
+      return "rows";
+    }
   }
 
   function loadprod($id, $q)
