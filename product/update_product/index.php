@@ -25,7 +25,7 @@
   {
     $r_link = $_GET['rem'];
     $r_i = removeProduct($_GET['rem']);
-    echo var_dump($r_i);
+    //echo var_dump($r_i);
 
     if ($r_i == "inactive" || $r_i == "remove")
     {
