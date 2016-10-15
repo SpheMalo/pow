@@ -8,6 +8,7 @@
     $_SESSION['page'] = "place new order";
     $emp = $_SESSION['emp'];
     $pList = loadprodList(null, null);
+    $sList = loadSuppList(null, null);
     $o = "";
     $_SESSION['orderBask'][] = null;
   }
@@ -18,7 +19,7 @@
 
   if ($pList == "query")
   {
-    $o = "There was a problem retrieving products. Reffer to help for assistance";
+    $o = "There was a problem retrieving products. Refer to help for assistance";
   }
   else if ($pList == "rows")
   {
@@ -41,7 +42,6 @@
       }
     }*/   
   //}
- 
 
 ?>
 
@@ -94,12 +94,17 @@
             <input type="text" name="orderNumber" placeholder="P-001" required />-->
             
             <label for="selectSupplier" >Select Supplier:</label>
-            <input type="text" name="selectSupplier" placeholder="Type Supplier Name" required />
+            <input type="text" id="selectSupplierId" name="selectSupplier" placeholder="Type Supplier Name" required list="suppList"/>
+            <datalist id="suppList">
+              <?php foreach ($sList as $s):?>
+              <option value="<?php echo $s->name;?>">
+              <?php endforeach?>
+            </datalist>
             
           </div>
           <div>
             <label for="date" >Date:</label>
-            <input type="date" name="date" placeholder="<?php echo date('Y-m-d');?>" />
+            <input type="date" id="dateId" name="date" value="<?php echo date("Y-m-d g:i");?>" placeholder="<?php echo date('Y-m-d');?>" />
           </div>          
 
         </fieldset>
@@ -108,19 +113,18 @@
         <legend>Product Details</legend>
           <div>
             <label for="productName" >Product Name:</label>
-            <input type="text" name="productName" placeholder="Enter product name"  id="orderProd" required list="prodList"/>
+            <input type="text" name="productName" placeholder="Enter product name"  title="Search for product to add to order list" id="orderProd" required list="prodList"/>
 
             <datalist id="prodList">
               <?php foreach ($pList as $p):?>
                 <option value="<?php echo $p->name . '-' . $p->type;?>">
               <?php endforeach?>
             </datalist>
-
-            <!--<label for="productType" >Product Type:</label>
+         <!--<label for="productType" >Product Type:</label>
             <input type="text" name="productType" placeholder="Enter product type" required/>-->
             
             <label for="quantity" >Quantity:</label>
-            <input type="number" min="1" name="quantity" placeholder="Enter quantity" required id="orderProdQ"/>
+            <input type="number" min="1" name="quantity" title="Add quantity to be ordered" placeholder="Enter quantity" required id="orderProdQ"/>
             
             <span onclick="addProdOrder()" class="submitt" id="orderProdSubmit"><a>Add</a></span>
           </div>
