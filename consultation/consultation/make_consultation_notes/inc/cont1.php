@@ -1,7 +1,11 @@
-<?php
-/**
- * Created by IntelliJ IDEA.
- * User: Administrator
- * Date: 10/15/2016
- * Time: 4:15 AM
- */
+    <table id="procID">
+        <tr>
+            <th>Procedure Name</th>
+            <th>Procedure Type</th>
+            <th>Procedure Price</th>
+            <th>Action</th>
+        </tr>
+        <tbody id="procDivID">
+    
+        </tbody>
+    </table>
