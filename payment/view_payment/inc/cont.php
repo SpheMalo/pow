@@ -1,10 +1,10 @@
 <table id="view_payments">
   <tr>
-    <th>ID</th>
+    <th>#</th>
     <th>Amount</th>
     <th>Date</th>
     <th>Payment Type</th>
-    <th>Invoice ID</th>
+    <th>Invoice #</th>
     <th>Action</th>
   </tr>
   <?php

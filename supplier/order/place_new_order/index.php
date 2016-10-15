@@ -10,6 +10,7 @@
     $pList = loadprodList(null, null);
     $sList = loadSuppList(null, null);
     $o = "";
+    $_SESSION['orderBask'][] = null;
   }
   else
   {

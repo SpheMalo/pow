@@ -2000,51 +2000,6 @@ function loadOrderList($id, $q)
   }
 }
 
-function loadPayList($in)
-{
-  require 'dbconn.php';
-
-  $s = "select * from payment";
-
-  if ($in != null)
-  {
-    $s = "select * from payment where id = " . $in;
-  }
-
-  try
-  {
-    $r = $pdo->query($s);
-  }
-  catch(PDOException $e)
-  {
-    return false;
-  }
-
-  if ($r->rowCount() > 0)
-  {
-    $c = 0;
-    while ($row = $r->fetch())
-    {
-      $id[$c] = $row['id'];
-      $amount[$c] = $row['amount'];
-      $date[$c] = $row['date'];
-      $pType[$c] = $row['paymentTypeID'];
-      $invLine[$c] = $row['invoiceLineID'];
-
-      $pay = new Payment($id[$c], $amount[$c], $date[$c], $pType[$c], $invLine[$c]);
-      $payList[] = $pay;
-
-      $c = $c + 1;
-    }
-
-    return $payList;
-  }
-  else
-  {
-    return false;
-  }
-}
-
 function loadTimeSlots() {
   require 'dbconn.php';
 
@@ -2204,9 +2159,127 @@ function loadConsult($in)
   }
 }
 
- function loadprod($id, $q)
- {
-   require 'dbconn.php';
+  function loadPayList($id, $q)
+  {
+    require 'dbconn.php';
+
+    $s = "select payment.id, status, payment.amount, payment_date, type_payment.description as payment_typeID, invoice.number as invoiceID from payment join type_payment on payment.payment_typeID = type_payment.id join invoice on payment.invoiceID = invoice.ID";
+
+    if (isset($id) && !isset($q))
+    {
+      $s = "select * from payment where id = $id";
+    }
+    else if (!isset($id) && isset($q))
+    {
+      $s = "select payment.id, status, payment.amount, payment_date, type_payment.description as payment_typeID, invoice.number as invoiceID from payment join type_payment on payment.payment_typeID = type_payment.id join invoice on payment.invoiceID = invoice.ID where payment.id like '%$q%' or status like '%$q%' or payment.amount like '%$q%' or payment_date like '%$q%' or payment_typeID like '%$q%' or invoiceID like '%$q%'";
+    }
+
+    try
+    {
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      $c = 0;
+      while ($row = $r->fetch())
+      {
+        $id[$c] = $row['id'];
+        $amount[$c] = $row['amount'];
+        $date[$c] = $row['payment_date'];
+        $pType[$c] = $row['payment_typeID'];
+        $invLine[$c] = $row['invoiceID'];
+
+        $pay = new Payment($id[$c], $amount[$c], $date[$c], $pType[$c], $invLine[$c]);
+        $payList[] = $pay;
+
+        $c++;
+      }
+
+      return $payList;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
+  function addPayment($amount, $inv_num, $p)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "SELECT id, amount, status FROM `invoice` where `number` = '" . $inv_num . "'";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach($r as $row)
+      {
+        $a = $row['amount'];
+        $inv = $row['id'];
+        $st = $row['status'];
+      }
+
+      if ($amount >= $a)
+      {
+        $c = $amount - $a;
+      }
+
+      if ($st != "paid")
+      {
+        $d = date("Y-m-d");
+
+        $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",1)";
+
+        if (isset($p))
+        {
+          $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",1)";
+        }
+
+        try
+        {
+          $r1 = $pdo->exec($s1);
+        }
+        catch(PDOException $e)
+        {
+          return "query1";
+        }
+
+        if ($r1 > 0)
+        {
+          return true;
+        }
+        else
+        {
+          return "rows1";
+        }
+      }
+      else
+      {
+        return "paid";
+      }
+    }
+    else
+    {
+      return "rows";
+    }
+
+  }
+
+  function loadprod($id, $q)
+  {
+    require 'dbconn.php';
 
     if($id == null && $q != null)
     {
@@ -2257,16 +2330,16 @@ function loadConsult($in)
     }
   }
 
-function backUp()
-{
-  $dump_path = "./"; //input location for the backup to be saved
-  $host = "localhost";  //db host e.g.- localhost
-  $user = "DUser";  //user e.g.-root
-  $pass = "somePassword";  //password
-  $command='mysqldump -h localhost -u DUser -psomePassword dental > backUpFile.sql';
-  system($command);
-  return true;
-}
+  function backUp()
+  {
+    $dump_path = "./"; //input location for the backup to be saved
+    $host = "localhost";  //db host e.g.- localhost
+    $user = "DUser";  //user e.g.-root
+    $pass = "somePassword";  //password
+    $command='mysqldump -h localhost -u DUser -psomePassword dental > backUpFile.sql';
+    system($command);
+    return true;
+  }
 
 function restore()
 {
