@@ -758,6 +758,37 @@ $(document).ready(function(){
     }
   });
 
+  $('#remove').click(function(e){
+    var proceed_ans;
+    $('<div id="proceed" style="z-index:99999999999999; position:fixed; top: 50%; left: 50%;"><p>Are you sure you wish to continue?</p><a id="rem_yes" style="cursor:pointer;" >yes</a><a id="rem_no" style="cursor:pointer;">no</a></div>').appendTo('body');
+    $('#rem_yes').bind('click', function(){
+      proceed_ans = "yes";
+      $('#proceed').fadeOut('fast').remove();
+      alert(proceed_ans);
+    });
+
+    $('#rem_no').bind('click', function(){
+      proceed_ans = "no";
+      if (proceed_ans == "no")
+      {
+        e.preventDefault();
+      }
+      else
+      {
+
+      }
+      $('#proceed').fadeOut('fast').remove();
+      alert(proceed_ans);
+      
+    });
+    //alert(proceed_ans);
+    
+    
+
+  });
+
+  
+
   $('#nav > li > ul, #nav_xtra > li > ul').css({
     display: "none",
     left: "auto"

@@ -1738,6 +1738,90 @@
     }
   }
 
+  function removeProduct($id)
+  {
+    require 'dbconn.php';
+
+    //$u_pList = loadProdList($id, null);
+
+    try
+    {
+      $s = "select * from line_invoice where productID = $id";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      try
+      {
+        $s1 = "select active from product where id = $id";
+        $r1 = $pdo->query($s1);
+      }
+      catch(PDOException $e)
+      {
+        return "query1";
+      }
+
+      while ($row = $r1->fetch())
+      {
+        $a = $row['active'];
+      }
+
+      if ($a == 0)
+      {
+        return "removed";
+      }
+      else
+      {
+        try
+        {
+          $s2 = "UPDATE `product` SET `active`= 0 WHERE  id= $id";
+          $r2 = $pdo->exec($s2);
+        }
+        catch(PDOException $e)
+        {
+          return "query2";
+        }
+
+        if ($r2 > 0)
+        {
+          return "inactive";
+        }
+        else
+        {
+          return "rows";
+        }
+      }
+      
+    }
+    else
+    {
+      try
+      {
+        $s3 = "DELETE FROM `product` WHERE id= $id";
+        $r3 = $pdo->exec($s3);
+      }
+      catch(PDOException $e)
+      {
+        return "query1";
+      }
+
+      if ($r3 > 0)
+      {
+        return "remove";
+      }
+      else
+      {
+        return "rows";
+      }
+    }    
+
+  }
+
   function loadStockList($id, $q)
   {
     require 'dbconn.php';

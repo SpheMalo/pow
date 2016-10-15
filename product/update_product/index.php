@@ -16,6 +16,38 @@
   {
     header("Location: ../../login/");
   }
+
+  if (isset($_GET['up']))
+  {
+    $r_link = $_GET['up'];
+  }
+  else if (isset($_GET['rem']))
+  {
+    $r_link = $_GET['rem'];
+    $r_i = removeProduct($_GET['rem']);
+    echo var_dump($r_i);
+
+    if ($r_i == "inactive" || $r_i == "remove")
+    {
+      $o = "The product has been succesfuly removed.";
+    }
+    else if ($r_i == "removed")
+    {
+      $o = "The product has already been removed.";
+    }
+    else if ($r_i == "query" || $r_i == "query1")
+    {
+      $o = "The product was not removed due to a server error. Try again later.";
+    }
+    else if ($r_i == "rows" || $r_i == "rows1")
+    {
+      $o = "The product was not removed, please try again";
+    }
+  }
+  else
+  {
+    header("Location: ../view_product/");
+  }
 ?>
 
 <html>
@@ -30,13 +62,13 @@
     <script type="text/javascript" src="../../js/jQueryRotate.js"></script>
     <script type="text/javascript">
     $(document).ready(function(){
-      $('#s62').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
-      $('#s62').parent().parent().css({'background': 'white', 'color': '#00314c'});
-      $('#s62').parent().prevUntil().css({'color': '#00314c'});
-      $('#s62').parent().nextUntil().css({'color': '#00314c'});
-      $('#s62').parent().prevUntil().children().css({'color': '#00314c'});
-      $('#s62').parent().nextUntil().children().css({'color': '#00314c'});
-      $('#s62').css({'color': '#00314c', 'text-decoration': 'underline'});
+      $('#s61').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+      $('#s61').parent().parent().css({'background': 'white', 'color': '#00314c'});
+      $('#s61').parent().prevUntil().css({'color': '#00314c'});
+      $('#s61').parent().nextUntil().css({'color': '#00314c'});
+      $('#s61').parent().prevUntil().children().css({'color': '#00314c'});
+      $('#s61').parent().nextUntil().children().css({'color': '#00314c'});
+      $('#s61').css({'color': '#00314c'});
     });
   </script>
   </head>
@@ -98,7 +130,7 @@
           </div>
         </fieldset>
         <input type="submit" name="s_upd_prod" value="update product" class="submit"/>
-        <input type="submit" name="rem" value="remove product" class="submit"/>
+        <a href="?rem=<?php echo $r_link;?>" class="submitt" id="remove">remove product</a>
       </form>
 
       <div id="noti"></div>
