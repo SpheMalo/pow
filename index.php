@@ -1,12 +1,12 @@
-<?php
-  session_start();
-  
+<?php  
   require 'inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "home";
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
   }
   else
@@ -25,7 +25,6 @@
     <script type="text/javascript" src="js/init.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        //alert("worked");
         $('#s1').css({'background': 'white', 'color': '#00314c'});
       });
     </script>
@@ -47,6 +46,9 @@
       <div id="noti"></div>
     </div>
     
+    <?php
+      echo "<p id='access_level' style='display: none;'>" . $emp_access_level . "</p>";
+    ?>
     <footer></footer>
   </body>
 </html>

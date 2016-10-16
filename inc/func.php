@@ -549,6 +549,64 @@
     }
   }
 
+  function loadEmpAccessLevel($id)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select type_employee.access_level from employee join type_employee on employee.employee_typeID = type_employee.id where employee.id = $id";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach($r as $row)
+      {
+        $a_l = $row["access_level"];
+      }
+
+      return $a_l;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
+  function loadEmpLocation($id)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select practice_location.description from employee join practice_location on employee.practice_locationID = practice_location.id where employee.id = $id";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach($r as $row)
+      {
+        $l = $row['description']; 
+      }
+
+      return $l;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
   function loadDocList()
   {
     require 'dbconn.php';
@@ -575,6 +633,36 @@
       }
       
       return $dList;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
+  function loadDocInitials($id)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select name, surname from employee where id = $id";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach($r as $row)
+      {
+        $d_n = $row['name'];
+        $d_s = $row['surname'];
+      }
+
+      return $d_n[0] . "." . $d_s;
     }
     else
     {
@@ -863,6 +951,35 @@
     else
     {
       return "rows";
+    }
+  }
+
+  function loadPatMed($id)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select type_medical_aid.description from patient join type_medical_aid on patient.medical_aid_typeID = type_medical_aid.id where patient.id = $id";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach($r as $row)
+      {
+        $m = $row['description'];
+      }
+
+      return $m;
+    }
+    else
+    {
+      return "none";
     }
   }
 
@@ -2112,17 +2229,107 @@ function loadTimeSlots() {
   return false;
 }
 
-function bookConsultation($idNum, $patientName, $patientSurname, $medicalAidID, $dentistID, $practiceLocationID, $date, $timeslot) {
+function loadBookTypeList()
+{
   require 'dbconn.php';
 
-  if ($dentistID == "Dr J.P. Maponya") {
-    $dentistID = 1;
+  try
+  {
+    $s = "select * from type_booking";
+    $r = $pdo->query($s);
   }
-  else {
-    $dentistID = 2;
+  catch(PDOException $e)
+  {
+    return "query";
   }
 
-  $sql = "select id from timeslot where description='$timeslot'";
+  if ($r->rowCount() > 0)
+  {
+    foreach($r as $row)
+    {
+      $bList[] = array(
+        'id' => $row['id'],
+        'desc' => $row['description']
+      );
+    }
+
+    return $bList;
+  }
+  else
+  {
+    return "rows";
+  }
+}
+
+function bookConsultation($idNum, $empID, $d_t, $type) 
+{
+  require 'dbconn.php';
+
+  $date_t = explode(",", $d_t);
+  try
+  {
+    $s = "select id from schedule where available_date = '" . $date_t[0] . "' and employeeID = " . $empID . " and timeslotID = " . $date_t[1];
+    $r = $pdo->query($s); 
+  }
+  catch(PDOException $e)
+  {
+    return "query";
+  }
+
+  if ($r->rowCount() > 0)
+  {
+    foreach($r as $row)
+    {
+      $sID = $row['id'];
+    }
+
+    try
+    {
+      $s1 = "select id from patient where id_number = $idNum";
+      $r1 = $pdo->query($s1);
+    }
+    catch(PDOException $e)
+    {
+      return "query1";
+    }
+
+    if ($r1->rowCount() > 0)
+    {
+      foreach($r1 as $row)
+      {
+        $pID = $row['id'];
+      }
+
+      try
+      {
+        $s2 = "INSERT INTO `consultation`(`status`, `booking_typeID`, `employeeID`, `patientID`, `scheduleID`, `timeslotID`) VALUES ('pending', $type, $empID, $pID, $sID, " . $date_t[1] . ")";
+        $r2 = $pdo->exec($s2);
+      }
+      catch(PDOException $e)
+      {
+        return "query2";
+      }
+
+      if ($r2 > 0)
+      {
+        return true;
+      }
+      else
+      {
+        return "rows2";  
+      }
+    }
+    else
+    {
+      return "rows1";
+    }
+  }
+  else
+  {
+    return "rows";
+  }
+
+  /*$sql = "select id from timeslot where description='$timeslot'";
 
   try
   {
@@ -2188,18 +2395,18 @@ function bookConsultation($idNum, $patientName, $patientSurname, $medicalAidID, 
   {
     return false;
   }
-  return true;
+  return true;*/
 }
 
 function loadConsult($in)
 {
   require 'dbconn.php';
 
-  $s = "select consultation.id, notes, status, type_booking.description as book_type, consultation.employeeID, timeslot.description as timeslot, practice_location.description as location, patient.name as pat_name, patient.surname as pat_sur, scheduleID, schedule.available_date as c_date, patientID from consultation join type_booking on consultation.booking_typeID = type_booking.id join timeslot on consultation.timeslotID = timeslot.id join practice_location on consultation.practice_locationID = practice_location.id join patient on consultation.patientID = patient.ID join schedule on consultation.scheduleID = schedule.id order by consultation.id";
+  $s = "select consultation.id, notes, status, type_booking.description as booking_typeID, consultation.employeeID, timeslot.description as timeslotID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, schedule.available_date as c_date, patientID from consultation join type_booking on consultation.booking_typeID = type_booking.id join timeslot on consultation.timeslotID = timeslot.id join patient on consultation.patientID = patient.ID join schedule on consultation.scheduleID = schedule.id order by consultation.id";
 
   if ($in !== null)
   {
-    $s = "select consultation.id, notes, status, type_booking.description as book_type, consultation.employeeID, timeslot.description as timeslot, practice_location.description as location, patient.name as pat_name, patient.surname as pat_sur, scheduleID, schedule.available_date as c_date, patientID from consultation join type_booking on consultation.booking_typeID = type_booking.id join timeslot on consultation.timeslotID = timeslot.id join practice_location on consultation.practice_locationID = practice_location.id join patient on consultation.patientID = patient.ID join schedule on consultation.scheduleID = schedule.id where consultation.id = " . $in . " order by consultation.id";
+    $s = "select consultation.id, notes, status, type_booking.description as booking_typeID, consultation.employeeID, timeslot.description as timeslotID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, schedule.available_date as c_date, patientID from consultation join type_booking on consultation.booking_typeID = type_booking.id join timeslot on consultation.timeslotID = timeslot.id join patient on consultation.patientID = patient.ID join schedule on consultation.scheduleID = schedule.id order by consultation.id where consultation.id = " . $in . " order by consultation.id";
   }
 
   try
@@ -2219,17 +2426,16 @@ function loadConsult($in)
       $id[$c] = $row['id'];
       $notes[$c] = $row['notes'];
       $status[$c] = $row['status']; 
-      $book_type[$c] = $row['book_type'];
+      $book_type[$c] = $row['booking_typeID'];
       $emp[$c] = $row['employeeID'];
-      $timeslot[$c] = $row['timeslot'];
-      $loc[$c] = $row['location'];
+      $timeslot[$c] = $row['timeslotID'];
       $pat_n[$c] = $row['pat_name'];
       $pat_s[$c] = $row['pat_sur'];
       $schedule[$c] = $row['scheduleID'];
       $c_date[$c] = $row['c_date'];
       $pat[$c] = $row['patientID'];
 
-      $consul = new Consultation($id[$c], $notes[$c], $status[$c], $book_type[$c], $emp[$c], $timeslot[$c], $loc[$c], $pat_n[$c], $pat_s[$c], $schedule[$c], $c_date[$c], $pat[$c]);
+      $consul = new Consultation($id[$c], $notes[$c], $status[$c], $book_type[$c], $emp[$c], $timeslot[$c], "", $pat_n[$c], $pat_s[$c], $schedule[$c], $c_date[$c], $pat[$c]);
       $cList[$c] = $consul; 
 
       $c++;

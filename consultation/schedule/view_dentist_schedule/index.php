@@ -6,6 +6,7 @@
   {
     $_SESSION['page'] = "view dentist schedule";
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
   }
   else
@@ -69,6 +70,9 @@
       <div></div>
     </div>
     
+    <?php
+      echo "<p id='access_level' style='display: none;'>" . $emp_access_level . "</p>";
+    ?>
     <footer></footer>
 
   </body>

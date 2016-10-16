@@ -3386,6 +3386,9 @@
 
 </ul>
 
+<label for="d_t">Appointment date and time slot:</label>
+<input type="text" name="d_t" readonly id="app_d_t"/>
+
 <?php
   $z = mktime(0,0,0,date("m", $d), date("d", $d) - 7, date("Y", $d));
   $zz = mktime(0,0,0,date("m", $d), date("d", $d) + 7, date("Y", $d));

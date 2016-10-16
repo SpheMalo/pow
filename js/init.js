@@ -558,6 +558,12 @@ function makeSlot10Unav(datt)
   });
 }
 
+function bookSlot1(datt)
+{
+  var app_d_t = datt + ",1";
+  $('#app_d_t').val(app_d_t);
+}
+
 
 
 function toExcel(datt)
@@ -738,38 +744,38 @@ function addProdOrderCon()
   //console.log(OrderList);
 }
 
-function removeOrderItem(id)
-{
-  var productIndex = id.split("_")[1];
-  productIndex = parseInt(productIndex);
-  for (var i = productIndex; i < OrderList.length-1; i++)
+  function removeOrderItem(id)
   {
-    OrderList[i].name = OrderList[i+1].name;
-    OrderList[i].type = OrderList[i+1].type;
-    OrderList[i].price = OrderList[i+1].price;
-    OrderList[i].quantity = OrderList[i+1].quantity;
-  }
+    var productIndex = id.split("_")[1];
+    productIndex = parseInt(productIndex);
+    for (var i = productIndex; i < OrderList.length-1; i++)
+    {
+      OrderList[i].name = OrderList[i+1].name;
+      OrderList[i].type = OrderList[i+1].type;
+      OrderList[i].price = OrderList[i+1].price;
+      OrderList[i].quantity = OrderList[i+1].quantity;
+    }
 
-  OrderList.pop();
-  var tableHtml = "";
-  for (var i = 0; i < OrderList.length-1; i++)
-  {
-    tableHtml +=
-        "<tr>"
-        +"<td>"+OrderList[i].name+"</td>"+
-        "<td>"+OrderList[i].type+"</td>"+
-        "<td>R"+ OrderList[i].price+"</td>"+
-        "<td>"+OrderList[i].quantity+"</td>"+
-        "<td><span id="+"remove_"+ (i) +" onclick='removeOrderItem(this.id)'><a>Remove</a></span></td>"+
-        "</tr>";
+    OrderList.pop();
+    var tableHtml = "";
+    for (var i = 0; i < OrderList.length-1; i++)
+    {
+      tableHtml +=
+          "<tr>"
+          +"<td>"+OrderList[i].name+"</td>"+
+          "<td>"+OrderList[i].type+"</td>"+
+          "<td>R"+ OrderList[i].price+"</td>"+
+          "<td>"+OrderList[i].quantity+"</td>"+
+          "<td><span id="+"remove_"+ (i) +" onclick='removeOrderItem(this.id)'><a>Remove</a></span></td>"+
+          "</tr>";
+    }
+    $("#prodDivID").html(tableHtml);
   }
-  $("#prodDivID").html(tableHtml);
-}
-// function ClearFields()
-// {
-//   document.getElementById("orderProd").value = "";
-//   document.getElementById("orderProdQ").value = "";
-// }
+//function ClearFields()
+//{
+//  document.getElementById("orderProd").value = "";
+//  document.getElementById("orderProdQ").value = "";
+//}
 
   ////////////////////////////Consultation invoice add to proc table  /////////////////////
   function getOrderProcConsultation()
@@ -842,9 +848,29 @@ function removeOrderItem(id)
           "</tr>";
     }
     $("#procDivID").html(tableHtml);
-}
+  }
+
+  
 
 $(document).ready(function(){
+  function accessLevel()
+  {
+    var a_l = document.getElementById("access_level");
+    //alert(a_l.innerHTML);
+
+    if (a_l.innerHTML == "A")
+    {
+      //var a_l_class = document.getElementsByClassName(a_l.innerHTML);
+      //$(a_l_class:contains('AD')).css({'display': 'none'});
+      //$("#nav > li > ul > li > a:contains('A')").css({'display': 'none'});
+      $("#nav > li > ul > li > a").hasClass(function(){
+        $(this).contains(a_l.innerHTML).css({'display': 'none'});
+      });
+    }
+    
+  }
+  accessLevel();
+
   function mainMember()
   {
     var mem = document.getElementById("main_m");
@@ -913,7 +939,7 @@ $(document).ready(function(){
 
   $('#remove').click(function(e){
     var proceed_ans;
-    $('<div id="proceed" style="z-index:99999999999999; position:fixed; top: 50%; left: 50%;"><p>Are you sure you wish to continue?</p><a id="rem_yes" style="cursor:pointer;" >yes</a><a id="rem_no" style="cursor:pointer;">no</a></div>').appendTo('body');
+    $('<div id="proceed" style="z-index:99999999999999; position:fixed; top: 50%; left: 50%;"><p>Are you sure you wish to continue?</p><a id="rem_yes" style="cursor:pointer;" >yes</a><a id="rem_no" style="cursor:pointer;">no</a></div>').appendTo('body').fadeIn('fast');
 
     $('#rem_yes').bind('click', function(){
       proceed_ans = "yes";
@@ -926,7 +952,7 @@ $(document).ready(function(){
       }
       else
       {}
-      $('#proceed').fadeOut('fast').remove();
+      $('#proceed').fadeOut('slow').remove();
     });
 
     $('#rem_no').bind('click', function(){
@@ -938,17 +964,10 @@ $(document).ready(function(){
       }
       else
       {}
-      $('#proceed').fadeOut('fast').remove();
-      alert(proceed_ans);
-      
+      $('#proceed').fadeOut('slow').remove();
+      alert(proceed_ans);   
     });
-    //alert(proceed_ans);
-    
-    
-
   });
-
-  
 
   $('#nav > li > ul, #nav_xtra > li > ul').css({
     display: "none",

@@ -298,12 +298,10 @@
     left: 32%;
     height: 54%;
     width: 35%;
-    border: 1px dashed lime;
   }
 
   #calendar{
-    border: 1px dashed lime;
-    width: 94%;
+    width: 96%;
     margin: 0 0 0 2%;
     padding: 0;
   }
@@ -321,7 +319,7 @@
     float: left;
     margin: 0;
     padding: 0;
-    border: 1px dashed red;
+    border: 1px dashed #00314c;
     list-style: none;
   }
 

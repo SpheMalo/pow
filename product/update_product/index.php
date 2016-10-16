@@ -1,12 +1,12 @@
-<?php
-  session_start();
-  
+<?php  
   require '../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "update product";
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
     
     $prdList = loadProdTypeList();
@@ -19,11 +19,13 @@
 
   if (isset($_GET['up']))
   {
-    $r_link = $_GET['up'];
+    unset($r_link);
+    $r_link = "?rem=" . $_GET['up'];
   }
   else if (isset($_GET['rem']))
   {
-    $r_link = $_GET['rem'];
+    unset($r_link);
+    $r_link = "";
     $r_i = removeProduct($_GET['rem']);
     //echo var_dump($r_i);
 
@@ -69,6 +71,7 @@
       $('#s61').parent().prevUntil().children().css({'color': '#00314c'});
       $('#s61').parent().nextUntil().children().css({'color': '#00314c'});
       $('#s61').css({'color': '#00314c'});
+
     });
   </script>
   </head>
@@ -130,12 +133,15 @@
           </div>
         </fieldset>
         <input type="submit" name="s_upd_prod" value="update product" class="submit"/>
-        <a href="?rem=<?php echo $r_link;?>" class="submitt" id="remove">remove product</a>
+        <a href="<?php echo $r_link;?>" class="submitt" id="remove">remove product</a>
       </form>
 
       <div id="noti"></div>
     </div>
     
+    <?php
+      echo "<p id='access_level' style='display: none;'>" . $emp_access_level . "</p>";
+    ?>
     <footer></footer>
   </body>
 </html>

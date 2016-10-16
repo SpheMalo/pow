@@ -1,7 +1,6 @@
 <?php
-  session_start();
-  
   require '../../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
@@ -9,34 +8,33 @@
     $emp = $_SESSION['emp'];
     $iList = loadIdList(null);
     $dList = loadDocList();
+    $book_typeList = loadBookTypeList(); 
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
-
-    $result = "";
-
-    if (isset($_POST['id'])) {
-      $result = bookConsultation($_POST['id'],$_POST["name"] ,$_POST["surname"] ,$_POST["medical"] 
-          , $_POST["dentist"], $_POST["location"],$_POST["date"] , $_POST["time"]);
-      //check above form to see what I do with $result
-    }
-
-    if ($result == true) 
-    {
-      $o =  "Successfully booked consultation";
-    }
-    else
-    {
-      if (isset($_POST["id"])) 
-      {
-        $o = "Error booking Consultation. Please try again";
-      }
-    }
   }
-
   else
   {
     header("Location: ../../../login/");
   }
 
+  if (isset($_POST['s_new_book'])) 
+  {
+    //echo var_dump($_POST['id'],$_POST["dentist"],$_POST["d_t"] , $_POST["type"]);
+    $result = bookConsultation($_POST['id'],$_POST["dentist"],$_POST["d_t"], $_POST["type"]);
+    
+    if ($result == true) 
+    {
+      $o =  "Successfully booked consultation";
+    }
+    else if ($result == "query" || $result == "query1" || $result == "query2")
+    {
+      $o = "Server error booking Consultation. Please try again later";
+    }
+    else if ($result == "rows" || $result == "rows1" || $result == "rows2")
+    {
+      $o = "Error booking Consultation. Please try again";
+    }
+  }
 ?>
 
 <html>
@@ -96,13 +94,13 @@
             </datalist>
 
             <label for="name">name:</label>
-            <input id="patientName" type="text" name="name" placeholder="enter patient name" readonly/>
+            <input id="patientName" type="text" name="name" placeholder="enter patient name" disabled/>
           </div>
           <div>
-            <label for="medical">medical aid:</label> 
-            <input id="patientMedicalAid" type="text" name="medical" placeholder="patient medical aid" readonly/>
+            <label for="medical" class="display">medical aid:</label> 
+            <input id="patientMedicalAid" type="text" name="medical" placeholder="patient medical aid" readonly class="display"/>
             <label for="surname">surname:</label>
-            <input id="patientSurname" type="text" name="surname" placeholder="enter patient surname" readonly/>
+            <input id="patientSurname" type="text" name="surname" placeholder="enter patient surname" disabled/>
           </div>
         </fieldset>
 
@@ -123,37 +121,28 @@
             <input type="date" name="date" placeholder="select consultation date"/>-->
           </div>
             
-          <div style="visibility: hidden">
-            <label for="location">practice location:</label>
-            <select id="locationSelect" name="location" readonly>
-              <option id="optionThembisa" value="Tembisa">Tembisa</option>
-              <option id="optionBirchAcres" value="Birch Acres">Birch Acres</option>
+          <div>
+            <label for="location">booking type:</label>
+            <select id="locationSelect" name="type" readonly>
+              <option>--select booking type--</option>
+              <?php foreach($book_typeList as $b):?>
+                <option value="<?php echo $b['id'];?>"><?php echo $b['desc'];?></option>              
+              <?php endforeach;?>              
             </select>
-            <!--<label for="time">consultation time:</label>
-            <select name="time">
-              <?php
-              $timeSlots = loadTimeSlots();
-
-                if ($timeSlots != false) {
-                  for ($i = 0; $i < count($timeSlots["ids"]); $i++){
-                    $currentID = $timeSlots["ids"][$i];
-                    $currentTime = $timeSlots["descriptions"][$i];
-                    echo "<option name='$currentID'>".$currentTime."</option>";
-                  }
-                }
-              ?>
-            </select>-->
+              
           </div>
           <div id="calendar"></div>
+          <!--<label for="d_t">Appointment date and time:</label>
+          <input type="text" name="d_t" readonly id="app_d_t"/>-->
           
         </fieldset>
 
         <input type="submit" name="s_new_book" class="submit" value="add appointment"/>
       </form>
       
-      <div id="noti"></div>
-    </div>
-    
+    <?php
+      echo "<p id='access_level' style='display: none;'>" . $emp_access_level . "</p>";
+    ?>
     <footer></footer>
   </body>
 </html>

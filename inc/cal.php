@@ -357,7 +357,7 @@
           else
           {
             $app = count($app);
-            echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p>" . $app . " app<p onclick=getWeek('" . $lii . "')>rw</p></div></li>";
+            echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p>" . $app . " app<p class='rw' onclick=getWeek('" . $lii . "')><img src='../../../../img/ico/rw.png' alt='rw'/></p></div></li>";
           }
 
         }
@@ -414,7 +414,7 @@
           else
           {
             $app = count($app);
-            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p>" . $app . " app<p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
+            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p>" . $app . " app<p onclick=getWeek('" . $lid . "') >rw</p></div></li>";
           } 
         }
 

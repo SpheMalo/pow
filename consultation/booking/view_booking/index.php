@@ -1,12 +1,12 @@
-<?php
-  session_start();
-  
+<?php  
   require '../../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "view bookings";
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
 
     if (isset($_GET['id']))
@@ -97,6 +97,10 @@
       <input type="search" name="s" placeholder="Search criteria" id="search_input"/>
       <button>s</button>
     </form>
+
+    <?php
+      echo "<p id='access_level' style='display: none;'>" . $emp_access_level . "</p>";
+    ?>
     <footer></footer>
   </body>
 </html>
