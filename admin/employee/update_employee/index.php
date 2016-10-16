@@ -177,7 +177,7 @@
             <label for="tell">telephone:</label>
             <input id="telId" type="tel" name="tell" placeholder="Enter employee telephone number eg. 0112478832" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
             <label for="tell" class="display">telephone:</label>
-            <input type="tel" name="tell" placeholder="Enter employee telephone number eg. 0112478832" required pattern="[0-9]{10,10}" title="A number of 10 characters" class="display"/>
+            <input type="tel" name="tell" placeholder="Enter employee telephone number eg. 0112478832"  pattern="[0-9]{10,10}" title="A number of 10 characters" class="display"/>
             <label for="postal">postal address:</label>
             <!--<textarea name="postal" placeholder="enter employee postal address eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>-->
             <input type="text" name="add_line_po1" id="add_line_po1" placeholder="address line 1"/>
