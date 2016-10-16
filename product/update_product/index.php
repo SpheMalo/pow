@@ -5,24 +5,21 @@
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "update product";
+    $_SESSION['c_p'] = $_GET['up'];
     $emp = $_SESSION['emp'];
     $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
     
     $prdList = loadProdTypeList();
-    
+    unset($r_link);
+    $r_link = "?rem=" . $_GET['up'];
   }
   else
   {
     header("Location: ../../login/");
   }
 
-  if (isset($_GET['up']))
-  {
-    unset($r_link);
-    $r_link = "?rem=" . $_GET['up'];
-  }
-  else if (isset($_GET['rem']))
+  if (isset($_GET['rem']))
   {
     unset($r_link);
     $r_link = "";
@@ -46,9 +43,17 @@
       $o = "The product was not removed, please try again";
     }
   }
-  else
+  else if (isset($_POST['s_upd_prod']))
   {
-    header("Location: ../view_product/");
+    if (!isset($_POST['favo']) || $_POST['favo'] == null)
+    {
+      $f = 0;
+    }
+    else 
+    {
+      $f = $_POST['favo'];
+    }
+    echo var_dump($_POST['name'], $_POST['price'], $_POST['size'], $_POST['quantity'], $_POST['desc'],$_POST['critical'], $f, $_POST['p_t_name'], $_POST['p_t_desc']);
   }
 ?>
 
