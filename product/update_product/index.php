@@ -133,7 +133,7 @@
           </div>
         </fieldset>
         <input type="submit" name="s_upd_prod" value="update product" class="submit"/>
-        <a class="submitt" id="remove" onclick='confirmation("<?php echo $_GET['up'];?>")'>remove product</a>
+        <a id="remove" onclick='confirmation("<?php echo $_GET['up'];?>")'>remove product</a>
       </form>
 
       <div id="noti"></div>
