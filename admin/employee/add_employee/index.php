@@ -1,12 +1,12 @@
 <?php
-  session_start();
-  
   require '../../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "add employee";
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
     
     $tList = loadTitleList();
@@ -243,7 +243,9 @@
       </form>
       
     </div>
-    
+    <?php
+      echo "<p id='access_level' style='display: none;'>" . $emp_access_level . "</p>";
+    ?>
     <footer></footer>
     
   </body>

@@ -45,7 +45,7 @@
   <body>
     <form method="post" action="">
       <img src="../img/logo.png" alt="logo"/>
-      <input type="text" name="user" placeholder="username" pattern="[a-zA-Z0-9]{7}" required title="only alphanumeric characters allowed" autocomplete="off"/>
+      <input type="text" name="user" placeholder="username" pattern="[a-zA-Z0-9]{7}" required title="only alphanumeric characters allowed" autocomplete="off" autofocus/>
       <input type="password" name="pass" placeholder="password" pattern="[a-zA-Z0-9]{7,8}" required autocomplete="off"/>
       <input type="submit" name="login" value="login" />
       <p><?php echo $o;?></p>
