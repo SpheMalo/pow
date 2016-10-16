@@ -1,12 +1,12 @@
 <?php
-  session_start();
-  
   require '../../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "add employee";
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
     
     $tList = loadTitleList();
@@ -246,6 +246,7 @@
       </form>
       
     </div>
+<<<<<<< HEAD
     <!-- /////////////    Modal      //////////// -->
 
     <!-- The Modal -->
@@ -270,6 +271,11 @@
     </div>
     <!-- ////////////////////////// -->
     
+=======
+    <?php
+      echo "<p id='access_level' style='display: none;'>" . $emp_access_level . "</p>";
+    ?>
+>>>>>>> 7cc8e94838f979c8cc3bc0e4aa6cd6d636ebfb78
     <footer></footer>
     
   </body>
