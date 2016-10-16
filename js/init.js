@@ -850,9 +850,19 @@ function addProdOrderCon()
     $("#procDivID").html(tableHtml);
   }
 
+  function confirmation(datt)
+  {
+    $('<div id="proceed"><p>Are you sure you wish to continue?</p><a href="?rem=' + datt + '" id="rem_yes" style="cursor:pointer;" >yes</a><a href="" id="rem_no" style="cursor:pointer;">no</a></div>').appendTo('body').fadeIn('fast');
+    e.preventDefault();
+  }
   
 
 $(document).ready(function(){
+  $('#rem_no').bind('click', function(){
+    alert('clicked');
+      $('#proceed').fadeOut('slow').remove();
+    });
+
   function accessLevel()
   {
     var a_l = document.getElementById("access_level");
@@ -937,37 +947,39 @@ $(document).ready(function(){
     }
   });
 
-  $('#remove').click(function(e){
-    var proceed_ans;
-    $('<div id="proceed" style="z-index:99999999999999; position:fixed; top: 50%; left: 50%;"><p>Are you sure you wish to continue?</p><a id="rem_yes" style="cursor:pointer;" >yes</a><a id="rem_no" style="cursor:pointer;">no</a></div>').appendTo('body').fadeIn('fast');
-
+  var proceed_ans = false;
+  /*$('#remove').click(function(e){
+    //$('<div id="proceed" style="z-index:99999999999999; position:fixed; top: 50%; left: 50%;"><p>Are you sure you wish to continue?</p><a id="rem_yes" style="cursor:pointer;" >yes</a><a id="rem_no" style="cursor:pointer;">no</a></div>').appendTo('body').fadeIn('fast');
+    e.preventDefault();
+    
     $('#rem_yes').bind('click', function(){
-      proceed_ans = "yes";
+      alert("yes");
+      //proceed_ans = "yes";
       
-      alert(proceed_ans);
+      /*alert(proceed_ans);
 
       if (proceed_ans == "no")
       {
         e.preventDefault();
       }
       else
-      {}
-      $('#proceed').fadeOut('slow').remove();
+      {}*//*
+      //$('#proceed').fadeOut('slow').remove();
     });
 
     $('#rem_no').bind('click', function(){
-      proceed_ans = "no";
-
-      if (proceed_ans == "no")
+      alert("no");
+      //proceed_ans = "no";
+      /*if (proceed_ans == "no")
       {
         e.preventDefault();
       }
       else
-      {}
-      $('#proceed').fadeOut('slow').remove();
-      alert(proceed_ans);   
+      {}*//*
+      //$('#proceed').fadeOut('slow').remove();
+      //alert(proceed_ans); 
     });
-  });
+  });*/
 
   $('#nav > li > ul, #nav_xtra > li > ul').css({
     display: "none",

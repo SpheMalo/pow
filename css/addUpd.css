@@ -349,4 +349,35 @@
   background-size: contain;
 }
 
+  #proceed{
+  z-index:99999999999999;
+  position:fixed;
+  width: 25%;
+  border-radius: 3px;
+  background: #00314c;
+  top: 50%;
+  left: 37.5%;
+  margin: 0;
+  padding: 1em 0.3;
+  }
+
+  #proceed > p{
+    color: white;
+    display: block;
+    text-align: center;
+    margin: 0 0 1em 0;
+    padding: 0;
+  }
+
+  #proceed > a{
+    display: inline-block;
+    width: 30%;
+    color: #00314c;
+    background: white;
+    border-radius: 3px;
+    margin: 0 0 0 12.5%;
+    padding: 0;
+    text-align: center;
+  }
+
 }
