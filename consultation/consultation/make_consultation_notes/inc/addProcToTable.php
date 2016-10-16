@@ -5,7 +5,7 @@
 
     if(isset($_POST['add_proc']))
     {
-        //$arr = explode("-", $_POST['add_proc']);
+        $arr = explode("-", $_POST['add_proc']);
 
         foreach ($pcList as $pc)
         {
@@ -14,6 +14,7 @@
                     'desc' => $pc->desc,
                     'type' => $pc->type,
                     'price' => $pc->price,
+                    'quantity' => $_POST['add_procq']
                  );
             }
         }
