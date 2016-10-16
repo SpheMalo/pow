@@ -61,7 +61,7 @@
     //$c_p = loadProdList($_SESSION['c_p'], null);
     //echo var_dump($_POST['name'], $_POST['price'], $_POST['size'], $_POST['quantity'], $_POST['desc'],$_POST['critical'], $f, $_POST['p_t_name'], $_POST['p_t_desc']);
     $updated_p = updateProduct($_SESSION['c_p'], $_POST['name'], $_POST['price'], $_POST['size'], $_POST['quantity'], $_POST['desc'],$_POST['critical'], $f, $_POST['p_t_name'], $_POST['p_t_desc']);
-    //echo var_dump($updated_p);
+    //Becho var_dump($updated_p);
 
     if ($updated_p == true)
     {
