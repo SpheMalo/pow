@@ -246,7 +246,6 @@
       </form>
       
     </div>
-<<<<<<< HEAD
     <!-- /////////////    Modal      //////////// -->
 
     <!-- The Modal -->
@@ -270,12 +269,10 @@
       </div>
     </div>
     <!-- ////////////////////////// -->
-    
-=======
+
     <?php
       echo "<p id='access_level' style='display: none;'>" . $emp_access_level . "</p>";
     ?>
->>>>>>> 7cc8e94838f979c8cc3bc0e4aa6cd6d636ebfb78
     <footer></footer>
     
   </body>
