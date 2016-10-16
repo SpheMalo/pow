@@ -1,17 +1,56 @@
 <?php
-  session_start();
   
   require '../../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "update product type";
+
+    if (isset($_GET['up']))
+    {
+      $_SESSION['c_p'] = $_GET['up'];
+    }
+
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
+
+    unset($r_link);
+    $r_link = "?rem=" . $_SESSION['c_p'];
   }
   else
   {
     header("Location: ../../../login/");
+  }
+
+  if (isset($_GET['rem']))
+  {
+    unset($r_link);
+    $r_link = "";
+    $r_i = removeProductType($_GET['rem']);
+    //echo var_dump($r_i);
+
+    if ($r_i == "remove")
+    {
+      $o = "The product type has been successfully removed.";
+    }
+//    else if ($r_i == "removed")
+//    {
+//      $o = "The product type has already been removed.";
+//    }
+    else if ($r_i == "query" || $r_i == "query1")
+    {
+      $o = "The product type was not removed due to a server error. Try again later.";
+    }
+    else if ($r_i == "inUse")
+    {
+      $o = "Cannot perform action. Product Type is linked to an existing product";
+    }
+    else if ($r_i == "rows")
+    {
+      $o = "The product type was not removed, please try again";
+    }
   }
 ?>
 
@@ -25,6 +64,18 @@
     <script type="text/javascript" src="../../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../../js/init.js"></script>
     <script type="text/javascript" src="../../../js/type_product_update.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#s61').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+        $('#s61').parent().parent().css({'background': 'white', 'color': '#00314c'});
+        $('#s61').parent().prevUntil().css({'color': '#00314c'});
+        $('#s61').parent().nextUntil().css({'color': '#00314c'});
+        $('#s61').parent().prevUntil().children().css({'color': '#00314c'});
+        $('#s61').parent().nextUntil().children().css({'color': '#00314c'});
+        $('#s61').css({'color': '#00314c'});
+
+      });
+    </script>
   </head>
   
   <body onload="getTypeProductById()">
@@ -57,7 +108,7 @@
         </fieldset>
 
         <input type="submit" value="Update product type" name="s_new_prodT" class="submit" />
-        <input type="submit" name="rem" value="remove product type" class="submit"/>
+        <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>remove product</a>
       </form>
       
     </div>

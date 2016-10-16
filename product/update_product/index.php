@@ -5,6 +5,7 @@
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "update product";
+
     if (isset($_GET['up']))
     {
       $_SESSION['c_p'] = $_GET['up'];  
@@ -32,7 +33,7 @@
 
     if ($r_i == "inactive" || $r_i == "remove")
     {
-      $o = "The product has been succesfuly removed.";
+      $o = "The product has been successfully removed.";
     }
     else if ($r_i == "removed")
     {

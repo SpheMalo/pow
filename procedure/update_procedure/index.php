@@ -1,20 +1,52 @@
 <?php
-  session_start();
-  
   require '../../inc/func.php';
-  
+  session_start();
+
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "update procedure";
+
+    if (isset($_GET['up']))
+    {
+      $_SESSION['c_p'] = $_GET['up'];
+    }
+
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
 
     $prtList = loadPrTList();
-    
+    unset($r_link);
+    $r_link = "?rem=" . $_SESSION['c_p'];
   }
   else
   {
     header("Location: ../../login/");
+  }
+
+  if (isset($_GET['rem']))
+  {
+    unset($r_link);
+    $r_link = "";
+    $r_i = removeProcedure($_GET['rem']);
+    //echo var_dump($r_i);
+
+    if ($r_i == "inactive" || $r_i == "remove")
+    {
+      $o = "The procedure has been successfully removed.";
+    }
+    else if ($r_i == "removed")
+    {
+      $o = "The procedure has already been removed.";
+    }
+    else if ($r_i == "query" || $r_i == "query1")
+    {
+      $o = "The procedure was not removed due to a server error. Try again later.";
+    }
+    else if ($r_i == "rows" || $r_i == "rows1")
+    {
+      $o = "The procedure was not removed, please try again";
+    }
   }
 ?>
 
@@ -28,6 +60,17 @@
     <script type="text/javascript" src="../../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
     <script type="text/javascript" src="../../js/procedure_update.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#s54').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+        $('#s54').parent().parent().css({'background': 'white', 'color': '#00314c'});
+        $('#s54').parent().prevUntil().css({'color': '#00314c'});
+        $('#s54').parent().nextUntil().css({'color': '#00314c'});
+        $('#s54').parent().prevUntil().children().css({'color': '#00314c'});
+        $('#s54').parent().nextUntil().children().css({'color': '#00314c'});
+        $('#s54').css({'color': '#00314c'});
+      });
+    </script>
   </head>
   
   <body onload="getProcedureById()">
@@ -81,7 +124,7 @@
         </fieldset>
 
         <input type="submit" name="s_new_proc" value="Add Procedure" class="submit"/>
-        <input type="submit" name="rem" value="Remove Procedure" class="submit"/>
+        <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>remove procedure</a>
       </form>
 
       <div id="noti"></div>
