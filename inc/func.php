@@ -2154,7 +2154,7 @@
   }
 
 ////////////////////////////////////////////////// Method to remove Employee //////////////////////////////////
-function removeEmployee($id)
+  function removeEmployee($id)
 {
   require 'dbconn.php';
 
@@ -2172,7 +2172,7 @@ function removeEmployee($id)
 
   if ($r->rowCount() > 0)
   {
-    
+
     try
     {
       $s3 = "DELETE FROM `employee` WHERE id= $id";
@@ -2194,7 +2194,6 @@ function removeEmployee($id)
   }
 
 }
-
 
   function loadStockList($id, $q)
     {
