@@ -1940,7 +1940,7 @@
   }
 
 ////////////////////////////////////////////////// Method to remove Procedure ////////////////////////////////
-function removeProcedure($id)
+  function removeProcedure($id)
 {
   require 'dbconn.php';
 
@@ -1950,8 +1950,7 @@ function removeProcedure($id)
   {
     $s = "select * from line_invoice where procedureID = $id";
     $r = $pdo->query($s);
-  }
-  catch(PDOException $e)
+  } catch (PDOException $e)
   {
     return "query";
   }
@@ -1962,8 +1961,7 @@ function removeProcedure($id)
     {
       $s1 = "select active from `procedure` where id = $id";
       $r1 = $pdo->query($s1);
-    }
-    catch(PDOException $e)
+    } catch (PDOException $e)
     {
       return "query1";
     }
@@ -1976,15 +1974,13 @@ function removeProcedure($id)
     if ($a == 0)
     {
       return "removed";
-    }
-    else
+    } else
     {
       try
       {
         $s2 = "UPDATE `procedure` SET `active`= 0 WHERE  id= $id";
         $r2 = $pdo->exec($s2);
-      }
-      catch(PDOException $e)
+      } catch (PDOException $e)
       {
         return "query2";
       }
@@ -2006,8 +2002,7 @@ function removeProcedure($id)
     {
       $s3 = "DELETE FROM `procedure` WHERE id= $id";
       $r3 = $pdo->exec($s3);
-    }
-    catch(PDOException $e)
+    } catch (PDOException $e)
     {
       return "query1";
     }
@@ -2016,7 +2011,14 @@ function removeProcedure($id)
     {
       return "remove";
     }
+    else
+    {
+      return "rows";
+    }
+  }
+}
 
+////////////////////////////////////////////////// Method to UPDATE Procedure Type //////////////////////////////////
   function updateProduct($pID, $name, $price, $size, $quantity, $desc, $critical, $fav, $p_t_name, $p_t_desc)
   {
     require 'dbconn.php';
@@ -2062,10 +2064,9 @@ function removeProcedure($id)
       return "rows";
     }
   }
-}
 
 ////////////////////////////////////////////////// Method to remove Product Type //////////////////////////////////
-function removeProductType($id)
+  function removeProductType($id)
 {
   require 'dbconn.php';
 
@@ -2108,10 +2109,52 @@ function removeProductType($id)
   }
 }
 
-/////////////////////////////////////////////////////////// END of Function ////////////////////////////////////
-
 ////////////////////////////////////////////////// Method to remove Procedure Type //////////////////////////////////
-function removeProcedureType($id)
+  function removeProcedureType($id)
+  {
+    require 'dbconn.php';
+
+    //$u_pList = loadProdList($id, null);
+
+    try
+    {
+      $s = "select * from `procedure` where procedure_typeID = $id";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      return "inUse";
+    }
+    else
+    {
+      try
+      {
+        $s3 = "DELETE FROM `type_procedure` WHERE id= $id";
+        $r3 = $pdo->exec($s3);
+      }
+      catch(PDOException $e)
+      {
+        return "query1";   //// delete
+      }
+
+      if ($r3 > 0)
+      {
+        return "remove";   ///successful
+      }
+      else
+      {
+        return "rows";   ////delete not successful
+      }
+    }
+  }
+
+////////////////////////////////////////////////// Method to remove Employee //////////////////////////////////
+  function removeEmployee($id)
 {
   require 'dbconn.php';
 
@@ -2119,7 +2162,7 @@ function removeProcedureType($id)
 
   try
   {
-    $s = "select * from `procedure` where procedure_typeID = $id";
+    $s = "select * from employee where employee_typeID = $id";
     $r = $pdo->query($s);
   }
   catch(PDOException $e)
@@ -2129,559 +2172,255 @@ function removeProcedureType($id)
 
   if ($r->rowCount() > 0)
   {
-    return "inUse";
-  }
-  else
-  {
+
     try
     {
-      $s3 = "DELETE FROM `type_procedure` WHERE id= $id";
+      $s3 = "DELETE FROM `employee` WHERE id= $id";
       $r3 = $pdo->exec($s3);
-    }
-    catch(PDOException $e)
-    {
-      return "query1";   //// delete
-    }
-
-    if ($r3 > 0)
-    {
-      return "remove";   ///successful
-    }
-    else
-    {
-      return "rows";   ////delete not successful
-    }
-  }
-}
-
-/////////////////////////////////////////////////////////// END of Function ////////////////////////////////////
-
-  function loadStockList($id, $q)
-  {
-    require 'dbconn.php';
-
-    $s = "SELECT product.id as prodID, product.number as prodNo, product.name as prodName, product.quantity as prodQty, type_product.name as prodType, order.number as orderNo 
-          FROM `stock` 
-          JOIN product on stock.productID = product.id 
-          JOIN `order` on stock.orderID = order.id 
-          JOIN type_product on product.product_typeID = type_product.id 
-          order by product.id ";
-    
-    if ($id != null && $q == null)
-    {
-      $s = "select * from product where product.id =" .$id;
-    }
-
-    if($id == null && $q != null)
-    {
-      $s = "SELECT product.id as prodID, product.number as prodNo, product.name as prodName, product.quantity as prodQty, type_product.name as prodType, order.number as orderNo 
-            FROM `stock` 
-            JOIN product on stock.productID = product.id 
-            JOIN `order` on stock.orderID = order.id 
-            JOIN type_product on product.product_typeID = type_product.id
-            where product.number like '%". $q . "%' or product.name like '%". $q . "%' or type_product.name like '%". $q . "%' or order.number like '%". $q . "%'";
-    }
-
-    try
-    {
-      $r = $pdo->query($s);
-    }
-    catch (PDOException $e)
-    {
-      return "query";
-    }
-    if ($r->rowCount() > 0)
-    {
-      $c = 0;
-      while ($row = $r->fetch()) 
-      {
-        $id[$c] = $row['prodID'];
-        $prodNo[$c] = $row['prodNo'];
-        $prodName[$c] = $row['prodName'];
-        $prodType[$c] = $row['prodType'];
-        $OrderNo[$c] = $row['orderNo'];
-        $QoH[$c] = $row['prodQty'];
-        $available[$c] = $row['prodQty'];
-
-        $stock = new Stock($id[$c], $prodNo[$c], $prodName[$c], $prodType[$c], $OrderNo[$c], $QoH[$c], $available[$c]);
-        $stockList[] = $stock;
-
-        $c = $c + 1;
-      }
-      
-      return $stockList;
-    }
-    else
-    {
-      return "rows";
-    }
-
-  }
-
-  function loadPrdType($id, $q)
-  {
-    require 'dbconn.php';
-
-    $s = "select type_product.id, name, description from type_product order by type_product.id";
-    
-    if ($id != null && $q == null)
-    {
-      
-      $s = "select * from type_product where type_product.id = " . $id;
-    }
-
-   if($id == null && $q != null)
-   {
-     $s = "select * from type_product where type_product.id like '%" . $q . "%' or name like '%" . $q . "%' or description like '%" . $q . "%'";
-   }
-
-    try
-    {
-      $r = $pdo->query($s);
-    }
-    catch (PDOException $e)
-    {
-      return "query";
-    }
-
-    if ($r->rowCount() > 0)
-    {
-      $c = 0;
-      while($row = $r->fetch())
-      {
-        $id[$c] = $row['id'];
-        $name[$c] = $row['name'];
-        $desc[$c] = $row['description'];
-        
-
-        $prd = new ProductType($id[$c], $name[$c], $desc[$c]);
-
-        $prdTypList[] = $prd;
-
-        $c = $c + 1;
-      }
-      return $prdTypList;
-    }
-    else
-    {
-      return "rows";
-    }
-  }
-
-  function loadSuppList($id, $q)
-  {
-    require 'dbconn.php';
-
-    $s = "SELECT `id`, `name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference` 
-    FROM `supplier`
-    ORDER BY id";
-    
-   if ($id != null && $q == null)
-    {
-      $s = "select * from supplier where id = ". $id;
-    }
-
-    if($id == null && $q != null)
-    {
-      $s= "SELECT `id`, `name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference` 
-           FROM `supplier`
-           where id like '%". $q . "%' or name like '%". $q . "%' or contact_person like '%". $q . "%' or email like '%". $q . "%' or telephone like '%". $q . "%' or fax like '%". $q . "%' or status like '%". $q . "%' or bank_name like '%". $q . "%' or
-                 branch_name like '%". $q . "%' or branch_number like '%". $q . "%' or account_number like '%". $q . "%' or bank_reference like '%". $q . "%'";
-    }
-    
-    try
-    {
-      $r = $pdo->query($s);
-    }
-    catch(PDOException $e)
-    {
-      return "query";
-    }
-
-    if ($r->rowCount() > 0)
-    {
-      $c = 0;
-      while ($row = $r->fetch()) 
-      {
-        $id[$c] = $row['id'];
-        $name[$c] = $row['name'];
-        $contactPerson[$c] = $row['contact_person'];
-        $email[$c] = $row['email'];
-        $telephone[$c] = $row['telephone'];
-        $fax[$c] = $row['fax'];
-        $physical[$c] = $row['address_physical'];
-        $bank[$c] = $row['bank_name'];
-        $branchN[$c] = $row['branch_name'];
-        $branchC[$c] = $row['branch_number'];
-        $accNum[$c] = $row['account_number'];
-        $ref[$c] = $row['bank_reference'];
-        $status[$c] = $row['status'];
-
-        $supp = new Supplier($id[$c], $name[$c], $contactPerson[$c], $email[$c], $telephone[$c], $fax[$c], $physical[$c], $bank[$c], $branchN[$c], $branchC[$c], $accNum[$c], $ref[$c], $status[$c]);
-        $sList[] = $supp;
-
-        $c = $c + 1;
-      }
-
-      return $sList;
-    }
-    else
-    {
-      return "rows";
-    }
-  }
-  
-function addSupplier($name, $contactPerson , $email, $telephone, $fax, $physical, $bank, $branchN, $branchC, $accNum, $ref, $status)
-{
-  require 'dbconn.php';
-
-  $a = addAddresses(null, $physical);
-      //$a_po = $a[0]['postal'];
-    $a_ph = $a[0]['physical'];
-  
-  try
-  {
-    $s = "INSERT INTO `supplier`(`name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference`) VALUES
-     ('" . $name . "','" . $contactPerson . "','" .  $email . "'," . $telephone . "," . $fax . ",'" . $a_ph . "','" . $status . "','" . $bank . "','" . $branchN . "'," . $branchC . "," . $accNum . ",'" . $ref . "')";
-    $r = $pdo->exec($s);
-  }
-  catch(PDOException $e)
-  {
-    return "query";
-  }
-
-  if($r > 0)
-  {
-    
-    
-    return true;
-  }
-  else 
-  {
-    return "rows";
-  }
-}
-
-function loadOrderList($id, $q)
-{
-  require 'dbconn.php';
-
-  $s = "SELECT order.id, `number`, `order_date`, order.status, supplier.name as supplier 
-        FROM `order` 
-        JOIN supplier on order.supplierID = supplier.id 
-        ORDER BY id";
-
-  if ($id != null && $q == null)
-  {
-    $s = "select * from `order` where id = " . $id;
-  }
-
-  if($id == null && $q != null)
-  {
-    $s = "SELECT order.id, `number`, `order_date`, order.status, supplier.name as supplier 
-          FROM `order` 
-          JOIN supplier on order.supplierID = supplier.id
-          WHERE order.id like '%". $q . "%' or number like '%". $q . "%' or order_date like '%". $q . "%' or order.status like '%". $q . "%' or supplier.name like '%". $q . "%'";
-  }
-
-  try
-  {
-    $r = $pdo->query($s);
-  }
-  catch(PDOException $e)
-  {
-    return "query";
-  }
-
-  if ($r->rowCount() > 0)
-  {
-    $c = 0;
-    while ($row = $r->fetch())
-    {
-      $id[$c] = $row['id'];
-      $number[$c] = $row['number'];
-      $date[$c] = $row['order_date'];
-      $status[$c] = $row['status'];
-      $supplier[$c] = $row['supplier'];
-
-      $ord = new Order($id[$c], $number[$c], $date[$c], $status[$c], $supplier[$c]);
-      $oList[] = $ord;
-
-      $c = $c + 1;
-    }
-
-    return $oList;
-  }
-  else
-  {
-    return "rows";
-  }
-}
-
-function loadTimeSlots() {
-  require 'dbconn.php';
-
-  $s = "select * from timeslot";
-
-  try
-  {
-    $r = $pdo->query($s);
-  }
-  catch(PDOException $e)
-  {
-    return false;
-  }
-
-  if ($r->rowCount() > 0)
-  {
-    while ($row = $r->fetch()) {
-      $ids[] = $row["id"];
-      $descriptions[] = $row["description"];
-    }
-    
-    $timeSlots["ids"] = $ids;
-    $timeSlots["descriptions"] = $descriptions;
-    return $timeSlots;
-  }
-  return false;
-}
-
-function loadBookTypeList()
-{
-  require 'dbconn.php';
-
-  try
-  {
-    $s = "select * from type_booking";
-    $r = $pdo->query($s);
-  }
-  catch(PDOException $e)
-  {
-    return "query";
-  }
-
-  if ($r->rowCount() > 0)
-  {
-    foreach($r as $row)
-    {
-      $bList[] = array(
-        'id' => $row['id'],
-        'desc' => $row['description']
-      );
-    }
-
-    return $bList;
-  }
-  else
-  {
-    return "rows";
-  }
-}
-
-function bookConsultation($idNum, $empID, $d_t, $type) 
-{
-  require 'dbconn.php';
-
-  $date_t = explode(",", $d_t);
-  try
-  {
-    $s = "select id from schedule where available_date = '" . $date_t[0] . "' and employeeID = " . $empID . " and timeslotID = " . $date_t[1];
-    $r = $pdo->query($s);
-  }
-  catch(PDOException $e)
-  {
-    return "query";
-  }
-
-  if ($r->rowCount() > 0)
-  {
-    foreach($r as $row)
-    {
-      $sID = $row['id'];
-    }
-
-    try
-    {
-      $s1 = "select id from patient where id_number = $idNum";
-      $r1 = $pdo->query($s1);
-
-      $s3 = "UPDATE `schedule` SET `available`=0 WHERE `id`=$sID";
-      $r3 = $pdo->exec($s3); 
     }
     catch(PDOException $e)
     {
       return "query1";
     }
 
-    if ($r1->rowCount() > 0)
+    if ($r3 > 0)
     {
-      foreach($r1 as $row)
+      return "remove";
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
+}
+
+  function loadStockList($id, $q)
+    {
+      require 'dbconn.php';
+
+      $s = "SELECT product.id as prodID, product.number as prodNo, product.name as prodName, product.quantity as prodQty, type_product.name as prodType, order.number as orderNo 
+            FROM `stock` 
+            JOIN product on stock.productID = product.id 
+            JOIN `order` on stock.orderID = order.id 
+            JOIN type_product on product.product_typeID = type_product.id 
+            order by product.id ";
+
+      if ($id != null && $q == null)
       {
-        $pID = $row['id'];
+        $s = "select * from product where product.id =" .$id;
+      }
+
+      if($id == null && $q != null)
+      {
+        $s = "SELECT product.id as prodID, product.number as prodNo, product.name as prodName, product.quantity as prodQty, type_product.name as prodType, order.number as orderNo 
+              FROM `stock` 
+              JOIN product on stock.productID = product.id 
+              JOIN `order` on stock.orderID = order.id 
+              JOIN type_product on product.product_typeID = type_product.id
+              where product.number like '%". $q . "%' or product.name like '%". $q . "%' or type_product.name like '%". $q . "%' or order.number like '%". $q . "%'";
       }
 
       try
       {
-        $s2 = "INSERT INTO `consultation`(`status`, `booking_typeID`, `employeeID`, `patientID`, `scheduleID`, `timeslotID`) VALUES ('pending', $type, $empID, $pID, $sID, " . $date_t[1] . ")";
-        $r2 = $pdo->exec($s2);
+        $r = $pdo->query($s);
       }
-      catch(PDOException $e)
+      catch (PDOException $e)
       {
-        return "query2";
+        return "query";
       }
+      if ($r->rowCount() > 0)
+      {
+        $c = 0;
+        while ($row = $r->fetch())
+        {
+          $id[$c] = $row['prodID'];
+          $prodNo[$c] = $row['prodNo'];
+          $prodName[$c] = $row['prodName'];
+          $prodType[$c] = $row['prodType'];
+          $OrderNo[$c] = $row['orderNo'];
+          $QoH[$c] = $row['prodQty'];
+          $available[$c] = $row['prodQty'];
 
-      if ($r2 > 0)
-      {
-        return true;
+          $stock = new Stock($id[$c], $prodNo[$c], $prodName[$c], $prodType[$c], $OrderNo[$c], $QoH[$c], $available[$c]);
+          $stockList[] = $stock;
+
+          $c = $c + 1;
+        }
+
+        return $stockList;
       }
       else
       {
-        return "rows2";  
+        return "rows";
+      }
+
+    }
+
+  function loadPrdType($id, $q)
+    {
+      require 'dbconn.php';
+
+      $s = "select type_product.id, name, description from type_product order by type_product.id";
+
+      if ($id != null && $q == null)
+      {
+
+        $s = "select * from type_product where type_product.id = " . $id;
+      }
+
+     if($id == null && $q != null)
+     {
+       $s = "select * from type_product where type_product.id like '%" . $q . "%' or name like '%" . $q . "%' or description like '%" . $q . "%'";
+     }
+
+      try
+      {
+        $r = $pdo->query($s);
+      }
+      catch (PDOException $e)
+      {
+        return "query";
+      }
+
+      if ($r->rowCount() > 0)
+      {
+        $c = 0;
+        while($row = $r->fetch())
+        {
+          $id[$c] = $row['id'];
+          $name[$c] = $row['name'];
+          $desc[$c] = $row['description'];
+
+
+          $prd = new ProductType($id[$c], $name[$c], $desc[$c]);
+
+          $prdTypList[] = $prd;
+
+          $c = $c + 1;
+        }
+        return $prdTypList;
+      }
+      else
+      {
+        return "rows";
       }
     }
-    else
+
+  function loadSuppList($id, $q)
     {
-      return "rows1";
-    }
-  }
-  else
-  {
-    return "rows";
-  }
+      require 'dbconn.php';
 
-  /*$sql = "select id from timeslot where description='$timeslot'";
+      $s = "SELECT `id`, `name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference` 
+      FROM `supplier`
+      ORDER BY id";
 
-  try
-  {
-    $r = $pdo->query($sql);
-  }
-  catch(PDOException $e)
-  {
-    return false;
-  }
+     if ($id != null && $q == null)
+      {
+        $s = "select * from supplier where id = ". $id;
+      }
 
-  if ($r->rowCount() > 0) {
-    $row = $r->fetch();
-    $timeslot = $row["id"];
-  }
+      if($id == null && $q != null)
+      {
+        $s= "SELECT `id`, `name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference` 
+             FROM `supplier`
+             where id like '%". $q . "%' or name like '%". $q . "%' or contact_person like '%". $q . "%' or email like '%". $q . "%' or telephone like '%". $q . "%' or fax like '%". $q . "%' or status like '%". $q . "%' or bank_name like '%". $q . "%' or
+                   branch_name like '%". $q . "%' or branch_number like '%". $q . "%' or account_number like '%". $q . "%' or bank_reference like '%". $q . "%'";
+      }
 
-  $sql = "select id from patient where id_number='$idNum'";
-  try
-  {
-    $r = $pdo->query($sql);
-  }
-  catch(PDOException $e)
-  {
-    return false;
-  }
+      try
+      {
+        $r = $pdo->query($s);
+      }
+      catch(PDOException $e)
+      {
+        return "query";
+      }
 
-  if ($r->rowCount() > 0) {
-    $row = $r->fetch();
-    $idNum = $row["id"];
-  }
+      if ($r->rowCount() > 0)
+      {
+        $c = 0;
+        while ($row = $r->fetch())
+        {
+          $id[$c] = $row['id'];
+          $name[$c] = $row['name'];
+          $contactPerson[$c] = $row['contact_person'];
+          $email[$c] = $row['email'];
+          $telephone[$c] = $row['telephone'];
+          $fax[$c] = $row['fax'];
+          $physical[$c] = $row['address_physical'];
+          $bank[$c] = $row['bank_name'];
+          $branchN[$c] = $row['branch_name'];
+          $branchC[$c] = $row['branch_number'];
+          $accNum[$c] = $row['account_number'];
+          $ref[$c] = $row['bank_reference'];
+          $status[$c] = $row['status'];
 
-  $sql = "select id from schedule where available_date='$date'";
-  try
-  {
-    $r = $pdo->query($sql);
-  }
-  catch(PDOException $e)
-  {
-    return false;
-  }
+          $supp = new Supplier($id[$c], $name[$c], $contactPerson[$c], $email[$c], $telephone[$c], $fax[$c], $physical[$c], $bank[$c], $branchN[$c], $branchC[$c], $accNum[$c], $ref[$c], $status[$c]);
+          $sList[] = $supp;
 
-  if ($r->rowCount() > 0) {
-    $row = $r->fetch();
-    $date = $row["id"];
-  }
+          $c = $c + 1;
+        }
 
-  //setting the locationID
-  if ($practiceLocationID == "Tembisa") {
-    $practiceLocationID=1;
-  }
-  else {
-    $practiceLocationID=2;
-  }
-
-  $s = "INSERT INTO `consultation`(`notes`, `status`, `booking_typeID`,
- `employeeID`, `timeslotID`, `practice_locationID`, `patientID`, `scheduleID`, `employee_typeID`)
- VALUES ('', 'Pending', 3, '$dentistID',$timeslot, $practiceLocationID,$idNum,$date,2)";
-
-  try
-  {
-    $r = $pdo->query($s);
-  }
-  catch(PDOException $e)
-  {
-    return false;
-  }
-  return true;*/
-}
-
-function loadConsult($in)
-{
-  require 'dbconn.php';
-
-  $s = "select consultation.id, notes, status, type_booking.description as booking_typeID, consultation.employeeID, timeslot.description as timeslotID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, schedule.available_date as c_date, patientID from consultation join type_booking on consultation.booking_typeID = type_booking.id join timeslot on consultation.timeslotID = timeslot.id join patient on consultation.patientID = patient.ID join schedule on consultation.scheduleID = schedule.id order by consultation.id";
-
-  if ($in !== null)
-  {
-    $s = "select consultation.id, notes, status, type_booking.description as booking_typeID, consultation.employeeID, timeslot.description as timeslotID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, schedule.available_date as c_date, patientID from consultation join type_booking on consultation.booking_typeID = type_booking.id join timeslot on consultation.timeslotID = timeslot.id join patient on consultation.patientID = patient.ID join schedule on consultation.scheduleID = schedule.id order by consultation.id where consultation.id = " . $in . " order by consultation.id";
-  }
-
-  try
-  {
-    $r = $pdo->query($s);
-  }
-  catch(PDOException $e)
-  {
-    return false;
-  }
-
-  if ($r->rowCount() > 0)
-  {
-    $c = 0;
-    while ($row = $r->fetch())
-    {
-      $id[$c] = $row['id'];
-      $notes[$c] = $row['notes'];
-      $status[$c] = $row['status']; 
-      $book_type[$c] = $row['booking_typeID'];
-      $emp[$c] = $row['employeeID'];
-      $timeslot[$c] = $row['timeslotID'];
-      $pat_n[$c] = $row['pat_name'];
-      $pat_s[$c] = $row['pat_sur'];
-      $schedule[$c] = $row['scheduleID'];
-      $c_date[$c] = $row['c_date'];
-      $pat[$c] = $row['patientID'];
-
-      $consul = new Consultation($id[$c], $notes[$c], $status[$c], $book_type[$c], $emp[$c], $timeslot[$c], "", $pat_n[$c], $pat_s[$c], $schedule[$c], $c_date[$c], $pat[$c]);
-      $cList[$c] = $consul; 
-
-      $c++;
+        return $sList;
+      }
+      else
+      {
+        return "rows";
+      }
     }
 
-    return $cList;
-  }
-  else
-  {
-    return false;
-  }
-}
-
-  function loadPayList($id, $q)
+  function addSupplier($name, $contactPerson , $email, $telephone, $fax, $physical, $bank, $branchN, $branchC, $accNum, $ref, $status)
   {
     require 'dbconn.php';
 
-    $s = "select payment.id, status, payment.amount, payment_date, type_payment.description as payment_typeID, invoice.number as invoiceID from payment join type_payment on payment.payment_typeID = type_payment.id join invoice on payment.invoiceID = invoice.ID";
+    $a = addAddresses(null, $physical);
+        //$a_po = $a[0]['postal'];
+      $a_ph = $a[0]['physical'];
 
-    if (isset($id) && !isset($q))
+    try
     {
-      $s = "select * from payment where id = $id";
+      $s = "INSERT INTO `supplier`(`name`, `contact_person`, `email`, `telephone`, `fax`, `address_physical`, `status`, `bank_name`, `branch_name`, `branch_number`, `account_number`, `bank_reference`) VALUES
+       ('" . $name . "','" . $contactPerson . "','" .  $email . "'," . $telephone . "," . $fax . ",'" . $a_ph . "','" . $status . "','" . $bank . "','" . $branchN . "'," . $branchC . "," . $accNum . ",'" . $ref . "')";
+      $r = $pdo->exec($s);
     }
-    else if (!isset($id) && isset($q))
+    catch(PDOException $e)
     {
-      $s = "select payment.id, status, payment.amount, payment_date, type_payment.description as payment_typeID, invoice.number as invoiceID from payment join type_payment on payment.payment_typeID = type_payment.id join invoice on payment.invoiceID = invoice.ID where payment.id like '%$q%' or status like '%$q%' or payment.amount like '%$q%' or payment_date like '%$q%' or payment_typeID like '%$q%' or invoiceID like '%$q%'";
+      return "query";
+    }
+
+    if($r > 0)
+    {
+
+
+      return true;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
+  function loadOrderList($id, $q)
+  {
+    require 'dbconn.php';
+
+    $s = "SELECT order.id, `number`, `order_date`, order.status, supplier.name as supplier 
+          FROM `order` 
+          JOIN supplier on order.supplierID = supplier.id 
+          ORDER BY id";
+
+    if ($id != null && $q == null)
+    {
+      $s = "select * from `order` where id = " . $id;
+    }
+
+    if($id == null && $q != null)
+    {
+      $s = "SELECT order.id, `number`, `order_date`, order.status, supplier.name as supplier 
+            FROM `order` 
+            JOIN supplier on order.supplierID = supplier.id
+            WHERE order.id like '%". $q . "%' or number like '%". $q . "%' or order_date like '%". $q . "%' or order.status like '%". $q . "%' or supplier.name like '%". $q . "%'";
     }
 
     try
@@ -2699,18 +2438,18 @@ function loadConsult($in)
       while ($row = $r->fetch())
       {
         $id[$c] = $row['id'];
-        $amount[$c] = $row['amount'];
-        $date[$c] = $row['payment_date'];
-        $pType[$c] = $row['payment_typeID'];
-        $invLine[$c] = $row['invoiceID'];
+        $number[$c] = $row['number'];
+        $date[$c] = $row['order_date'];
+        $status[$c] = $row['status'];
+        $supplier[$c] = $row['supplier'];
 
-        $pay = new Payment($id[$c], $amount[$c], $date[$c], $pType[$c], $invLine[$c]);
-        $payList[] = $pay;
+        $ord = new Order($id[$c], $number[$c], $date[$c], $status[$c], $supplier[$c]);
+        $oList[] = $ord;
 
-        $c++;
+        $c = $c + 1;
       }
 
-      return $payList;
+      return $oList;
     }
     else
     {
@@ -2718,13 +2457,41 @@ function loadConsult($in)
     }
   }
 
-  function addPayment($amount, $inv_num, $p, $rec)
+  function loadTimeSlots() {
+    require 'dbconn.php';
+
+    $s = "select * from timeslot";
+
+    try
+    {
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return false;
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      while ($row = $r->fetch()) {
+        $ids[] = $row["id"];
+        $descriptions[] = $row["description"];
+      }
+
+      $timeSlots["ids"] = $ids;
+      $timeSlots["descriptions"] = $descriptions;
+      return $timeSlots;
+    }
+    return false;
+  }
+
+  function loadBookTypeList()
   {
     require 'dbconn.php';
 
     try
     {
-      $s = "SELECT id, amount, status FROM `invoice` where `number` = '" . $inv_num . "'";
+      $s = "select * from type_booking";
       $r = $pdo->query($s);
     }
     catch(PDOException $e)
@@ -2736,94 +2503,13 @@ function loadConsult($in)
     {
       foreach($r as $row)
       {
-        $a = $row['amount'];
-        $inv = $row['id'];
-        $st = $row['status'];
-      }
-
-      if ($amount >= $a)
-      {
-        $c = $amount - $a;
-      }
-
-      if ($st != "paid")
-      {
-        $d = date("Y-m-d");
-
-        $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",1)";
-
-        if (isset($p) && !isset($rec))
-        {
-          $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",2)";
-        }
-        else if (!isset($p) && isset($rec))
-        {
-          if ($rec[0]['reasonID'] != "NULL")
-          {
-            $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`, `write_off_typeID`) VALUES (" . $amount . ", " . $d . ",'write off', " . $inv .", " . $rec[0]['reasonID'] . ")";
-          }
-          else
-          {
-            $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`, `write_off_typeID`) VALUES (" . $amount . ", " . $d . ",'write off', " . $inv .", " . $rec[0]['comment'] . ")";
-          }
-          
-        }
-
-        try
-        {
-          $r1 = $pdo->exec($s1);
-        }
-        catch(PDOException $e)
-        {
-          return "query1";
-        }
-
-        if ($r1 > 0)
-        {
-          return true;
-        }
-        else
-        {
-          return "rows1";
-        }
-      }
-      else
-      {
-        return "paid";
-      }
-    }
-    else
-    {
-      return "rows";
-    }
-
-  }
-
-  function loadReasonList()
-  {
-    require 'dbconn.php';
-
-    try
-    {
-      $s = "select * from type_write_off";
-      $r = $pdo->query($s);
-    }
-    catch(PDOException $s)
-    {
-      return "query";
-    }
-
-    if ($r->rowCount() > 0)
-    {
-      foreach ($r as $row)
-      {
-        $rList[] = array(
+        $bList[] = array(
           'id' => $row['id'],
           'desc' => $row['description']
         );
       }
 
-      return $rList;
+      return $bList;
     }
     else
     {
@@ -2831,80 +2517,432 @@ function loadConsult($in)
     }
   }
 
-  function loadprod($id, $q)
+  function bookConsultation($idNum, $empID, $d_t, $type)
   {
     require 'dbconn.php';
 
-    if($id == null && $q != null)
-    {
-      $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeProd, `stockID` 
-            FROM `product` 
-            JOIN type_product on product.product_typeID = type_product.id 
-            where product.name like '%". $q . "%'";
-    }
-
+    $date_t = explode(",", $d_t);
     try
     {
+      $s = "select id from schedule where available_date = '" . $date_t[0] . "' and employeeID = " . $empID . " and timeslotID = " . $date_t[1];
       $r = $pdo->query($s);
     }
-    catch (PDOException $e)
+    catch(PDOException $e)
     {
       return "query";
     }
 
     if ($r->rowCount() > 0)
     {
-      $c = 0;
-      while ($row = $r->fetch()) 
+      foreach($r as $row)
       {
-        $id[$c] = $row['id'];
-        $pNumber[$c] = $row['number'];
-        $name[$c] = $row['name'];
-        $desc[$c] = $row['description'];
-        $price[$c] = $row['price'];
-        $size[$c] = $row['size'];
-        $quantity[$c] = $row['quantity'];
-        $critical[$c] = $row['critical_value'];
-        $fav[$c] = $row['favorite'];
-        $type[$c] = $row['typeProd'];
-        $stock[$c] = $row['stockID'];
-        
-
-        $prod = new Product($id[$c], $pNumber[$c], $name[$c], $desc[$c], $price[$c], $size[$c], $quantity[$c], $critical[$c], $fav[$c], $type[$c], $stock[$c]);
-        $prodList[] = $prod;
-
-        $c = $c + 1;
+        $sID = $row['id'];
       }
-      
-      return $prodList;
+
+      try
+      {
+        $s1 = "select id from patient where id_number = $idNum";
+        $r1 = $pdo->query($s1);
+
+        $s3 = "UPDATE `schedule` SET `available`=0 WHERE `id`=$sID";
+        $r3 = $pdo->exec($s3);
+      }
+      catch(PDOException $e)
+      {
+        return "query1";
+      }
+
+      if ($r1->rowCount() > 0)
+      {
+        foreach($r1 as $row)
+        {
+          $pID = $row['id'];
+        }
+
+        try
+        {
+          $s2 = "INSERT INTO `consultation`(`status`, `booking_typeID`, `employeeID`, `patientID`, `scheduleID`, `timeslotID`) VALUES ('pending', $type, $empID, $pID, $sID, " . $date_t[1] . ")";
+          $r2 = $pdo->exec($s2);
+        }
+        catch(PDOException $e)
+        {
+          return "query2";
+        }
+
+        if ($r2 > 0)
+        {
+          return true;
+        }
+        else
+        {
+          return "rows2";
+        }
+      }
+      else
+      {
+        return "rows1";
+      }
     }
     else
     {
       return "rows";
     }
+
+    /*$sql = "select id from timeslot where description='$timeslot'";
+
+    try
+    {
+      $r = $pdo->query($sql);
+    }
+    catch(PDOException $e)
+    {
+      return false;
+    }
+
+    if ($r->rowCount() > 0) {
+      $row = $r->fetch();
+      $timeslot = $row["id"];
+    }
+
+    $sql = "select id from patient where id_number='$idNum'";
+    try
+    {
+      $r = $pdo->query($sql);
+    }
+    catch(PDOException $e)
+    {
+      return false;
+    }
+
+    if ($r->rowCount() > 0) {
+      $row = $r->fetch();
+      $idNum = $row["id"];
+    }
+
+    $sql = "select id from schedule where available_date='$date'";
+    try
+    {
+      $r = $pdo->query($sql);
+    }
+    catch(PDOException $e)
+    {
+      return false;
+    }
+
+    if ($r->rowCount() > 0) {
+      $row = $r->fetch();
+      $date = $row["id"];
+    }
+
+    //setting the locationID
+    if ($practiceLocationID == "Tembisa") {
+      $practiceLocationID=1;
+    }
+    else {
+      $practiceLocationID=2;
+    }
+
+    $s = "INSERT INTO `consultation`(`notes`, `status`, `booking_typeID`,
+   `employeeID`, `timeslotID`, `practice_locationID`, `patientID`, `scheduleID`, `employee_typeID`)
+   VALUES ('', 'Pending', 3, '$dentistID',$timeslot, $practiceLocationID,$idNum,$date,2)";
+
+    try
+    {
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return false;
+    }
+    return true;*/
   }
 
-  function backUp()
+  function loadConsult($in)
   {
-    $dump_path = "./"; //input location for the backup to be saved
+    require 'dbconn.php';
+
+    $s = "select consultation.id, notes, status, type_booking.description as booking_typeID, consultation.employeeID, timeslot.description as timeslotID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, schedule.available_date as c_date, patientID from consultation join type_booking on consultation.booking_typeID = type_booking.id join timeslot on consultation.timeslotID = timeslot.id join patient on consultation.patientID = patient.ID join schedule on consultation.scheduleID = schedule.id order by consultation.id";
+
+    if ($in !== null)
+    {
+      $s = "select consultation.id, notes, status, type_booking.description as booking_typeID, consultation.employeeID, timeslot.description as timeslotID, patient.name as pat_name, patient.surname as pat_sur, scheduleID, schedule.available_date as c_date, patientID from consultation join type_booking on consultation.booking_typeID = type_booking.id join timeslot on consultation.timeslotID = timeslot.id join patient on consultation.patientID = patient.ID join schedule on consultation.scheduleID = schedule.id order by consultation.id where consultation.id = " . $in . " order by consultation.id";
+    }
+
+    try
+    {
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return false;
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      $c = 0;
+      while ($row = $r->fetch())
+      {
+        $id[$c] = $row['id'];
+        $notes[$c] = $row['notes'];
+        $status[$c] = $row['status'];
+        $book_type[$c] = $row['booking_typeID'];
+        $emp[$c] = $row['employeeID'];
+        $timeslot[$c] = $row['timeslotID'];
+        $pat_n[$c] = $row['pat_name'];
+        $pat_s[$c] = $row['pat_sur'];
+        $schedule[$c] = $row['scheduleID'];
+        $c_date[$c] = $row['c_date'];
+        $pat[$c] = $row['patientID'];
+
+        $consul = new Consultation($id[$c], $notes[$c], $status[$c], $book_type[$c], $emp[$c], $timeslot[$c], "", $pat_n[$c], $pat_s[$c], $schedule[$c], $c_date[$c], $pat[$c]);
+        $cList[$c] = $consul;
+
+        $c++;
+      }
+
+      return $cList;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  function loadPayList($id, $q)
+    {
+      require 'dbconn.php';
+
+      $s = "select payment.id, status, payment.amount, payment_date, type_payment.description as payment_typeID, invoice.number as invoiceID from payment join type_payment on payment.payment_typeID = type_payment.id join invoice on payment.invoiceID = invoice.ID";
+
+      if (isset($id) && !isset($q))
+      {
+        $s = "select * from payment where id = $id";
+      }
+      else if (!isset($id) && isset($q))
+      {
+        $s = "select payment.id, status, payment.amount, payment_date, type_payment.description as payment_typeID, invoice.number as invoiceID from payment join type_payment on payment.payment_typeID = type_payment.id join invoice on payment.invoiceID = invoice.ID where payment.id like '%$q%' or status like '%$q%' or payment.amount like '%$q%' or payment_date like '%$q%' or payment_typeID like '%$q%' or invoiceID like '%$q%'";
+      }
+
+      try
+      {
+        $r = $pdo->query($s);
+      }
+      catch(PDOException $e)
+      {
+        return "query";
+      }
+
+      if ($r->rowCount() > 0)
+      {
+        $c = 0;
+        while ($row = $r->fetch())
+        {
+          $id[$c] = $row['id'];
+          $amount[$c] = $row['amount'];
+          $date[$c] = $row['payment_date'];
+          $pType[$c] = $row['payment_typeID'];
+          $invLine[$c] = $row['invoiceID'];
+
+          $pay = new Payment($id[$c], $amount[$c], $date[$c], $pType[$c], $invLine[$c]);
+          $payList[] = $pay;
+
+          $c++;
+        }
+
+        return $payList;
+      }
+      else
+      {
+        return "rows";
+      }
+    }
+
+  function addPayment($amount, $inv_num, $p, $rec)
+    {
+      require 'dbconn.php';
+
+      try
+      {
+        $s = "SELECT id, amount, status FROM `invoice` where `number` = '" . $inv_num . "'";
+        $r = $pdo->query($s);
+      }
+      catch(PDOException $e)
+      {
+        return "query";
+      }
+
+      if ($r->rowCount() > 0)
+      {
+        foreach($r as $row)
+        {
+          $a = $row['amount'];
+          $inv = $row['id'];
+          $st = $row['status'];
+        }
+
+        if ($amount >= $a)
+        {
+          $c = $amount - $a;
+        }
+
+        if ($st != "paid")
+        {
+          $d = date("Y-m-d");
+
+          $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",1)";
+
+          if (isset($p) && !isset($rec))
+          {
+            $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",2)";
+          }
+          else if (!isset($p) && isset($rec))
+          {
+            if ($rec[0]['reasonID'] != "NULL")
+            {
+              $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`, `write_off_typeID`) VALUES (" . $amount . ", " . $d . ",'write off', " . $inv .", " . $rec[0]['reasonID'] . ")";
+            }
+            else
+            {
+              $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`, `write_off_typeID`) VALUES (" . $amount . ", " . $d . ",'write off', " . $inv .", " . $rec[0]['comment'] . ")";
+            }
+
+          }
+
+          try
+          {
+            $r1 = $pdo->exec($s1);
+          }
+          catch(PDOException $e)
+          {
+            return "query1";
+          }
+
+          if ($r1 > 0)
+          {
+            return true;
+          }
+          else
+          {
+            return "rows1";
+          }
+        }
+        else
+        {
+          return "paid";
+        }
+      }
+      else
+      {
+        return "rows";
+      }
+
+    }
+
+  function loadReasonList()
+    {
+      require 'dbconn.php';
+
+      try
+      {
+        $s = "select * from type_write_off";
+        $r = $pdo->query($s);
+      }
+      catch(PDOException $s)
+      {
+        return "query";
+      }
+
+      if ($r->rowCount() > 0)
+      {
+        foreach ($r as $row)
+        {
+          $rList[] = array(
+            'id' => $row['id'],
+            'desc' => $row['description']
+          );
+        }
+
+        return $rList;
+      }
+      else
+      {
+        return "rows";
+      }
+    }
+
+  function loadprod($id, $q)
+    {
+      require 'dbconn.php';
+
+      if($id == null && $q != null)
+      {
+        $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeProd, `stockID` 
+              FROM `product` 
+              JOIN type_product on product.product_typeID = type_product.id 
+              where product.name like '%". $q . "%'";
+      }
+
+      try
+      {
+        $r = $pdo->query($s);
+      }
+      catch (PDOException $e)
+      {
+        return "query";
+      }
+
+      if ($r->rowCount() > 0)
+      {
+        $c = 0;
+        while ($row = $r->fetch())
+        {
+          $id[$c] = $row['id'];
+          $pNumber[$c] = $row['number'];
+          $name[$c] = $row['name'];
+          $desc[$c] = $row['description'];
+          $price[$c] = $row['price'];
+          $size[$c] = $row['size'];
+          $quantity[$c] = $row['quantity'];
+          $critical[$c] = $row['critical_value'];
+          $fav[$c] = $row['favorite'];
+          $type[$c] = $row['typeProd'];
+          $stock[$c] = $row['stockID'];
+
+
+          $prod = new Product($id[$c], $pNumber[$c], $name[$c], $desc[$c], $price[$c], $size[$c], $quantity[$c], $critical[$c], $fav[$c], $type[$c], $stock[$c]);
+          $prodList[] = $prod;
+
+          $c = $c + 1;
+        }
+
+        return $prodList;
+      }
+      else
+      {
+        return "rows";
+      }
+    }
+
+  function backUp()
+    {
+      $dump_path = "./"; //input location for the backup to be saved
+      $host = "localhost";  //db host e.g.- localhost
+      $user = "DUser";  //user e.g.-root
+      $pass = "somePassword";  //password
+      $command='mysqldump -h localhost -u DUser -psomePassword dental > backUpFile.sql';
+      system($command);
+      return true;
+    }
+
+  function restore()
+  {
+    echo true;
+   // $dump_path = "./"; //input location for the backup to be saved
     $host = "localhost";  //db host e.g.- localhost
     $user = "DUser";  //user e.g.-root
     $pass = "somePassword";  //password
-    $command='mysqldump -h localhost -u DUser -psomePassword dental > backUpFile.sql';
+    $command='mysql -h localhost -u DUser -psomePassword dental < C:\xampp\htdocs\Prac\qualit1\pow\admin\system\backUpFile.sql';
     system($command);
     return true;
   }
-
-function restore()
-{
-  echo true;
- // $dump_path = "./"; //input location for the backup to be saved
-  $host = "localhost";  //db host e.g.- localhost
-  $user = "DUser";  //user e.g.-root
-  $pass = "somePassword";  //password
-  $command='mysql -h localhost -u DUser -psomePassword dental < C:\xampp\htdocs\Prac\qualit1\pow\admin\system\backUpFile.sql';
-  system($command);
-  return true;
-}
-
 ?>
