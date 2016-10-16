@@ -5,14 +5,18 @@
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "update product";
-    $_SESSION['c_p'] = $_GET['up'];
+    if (isset($_GET['up']))
+    {
+      $_SESSION['c_p'] = $_GET['up'];  
+    }
+    
     $emp = $_SESSION['emp'];
     $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
     
     $prdList = loadProdTypeList();
     unset($r_link);
-    $r_link = "?rem=" . $_GET['up'];
+    $r_link = "?rem=" . $_SESSION['c_p'];
   }
   else
   {
@@ -138,7 +142,7 @@
           </div>
         </fieldset>
         <input type="submit" name="s_upd_prod" value="update product" class="submit"/>
-        <a id="remove" onclick='confirmation("<?php echo $_GET['up'];?>")'>remove product</a>
+        <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>remove product</a>
       </form>
 
       <div id="noti"></div>
