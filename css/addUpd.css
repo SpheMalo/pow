@@ -366,6 +366,7 @@
   left: 37.5%;
   margin: 0;
   padding: 1em 0.3;
+  box-shadow: 2px 1px 0 gray;
   }
 
   #proceed > p{
@@ -385,6 +386,7 @@
     margin: 0 0 0 12.5%;
     padding: 0;
     text-align: center;
+    text-decoration: none;
   }
 
 }
