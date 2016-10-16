@@ -1939,6 +1939,52 @@
 
   }
 
+  function updateProduct($pID, $name, $price, $size, $quantity, $desc, $critical, $fav, $p_t_name, $p_t_desc)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select id from type_product where name = '". $p_t_name . "'";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if($r->rowCount() > 0)
+    {
+      while ($row = $r->fetch())
+      {
+        $prdT = $row['id'];
+      }
+
+      try
+      {
+        $s1 = "UPDATE `product` SET `name`='" . $name . "',`description`='" . $desc . "',`price`=" . $price . ",`size`=" . $size . ",`critical_value`=" . $critical . ",`favorite`=" . $fav . ",`product_typeID`=" . $prdT . ",`unit_vol`=" . $quantity . " WHERE `product`.id = " . $pID;
+        $r1 = $pdo->exec($s1);
+      }
+      catch(PDOException $e)
+      {
+        return "query1";
+      }
+
+      if ($r1 > 0)
+      {
+        return true;
+      }
+      else
+      {
+        return "rows1";
+      }
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
   function loadStockList($id, $q)
   {
     require 'dbconn.php';

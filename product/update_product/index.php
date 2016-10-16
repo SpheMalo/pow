@@ -57,7 +57,25 @@
     {
       $f = $_POST['favo'];
     }
-    echo var_dump($_POST['name'], $_POST['price'], $_POST['size'], $_POST['quantity'], $_POST['desc'],$_POST['critical'], $f, $_POST['p_t_name'], $_POST['p_t_desc']);
+
+    //$c_p = loadProdList($_SESSION['c_p'], null);
+    //echo var_dump($_POST['name'], $_POST['price'], $_POST['size'], $_POST['quantity'], $_POST['desc'],$_POST['critical'], $f, $_POST['p_t_name'], $_POST['p_t_desc']);
+    $updated_p = updateProduct($_SESSION['c_p'], $_POST['name'], $_POST['price'], $_POST['size'], $_POST['quantity'], $_POST['desc'],$_POST['critical'], $f, $_POST['p_t_name'], $_POST['p_t_desc']);
+    //echo var_dump($updated_p);
+
+    if ($updated_p == true)
+    {
+      $o = "The product has been successfully updated.";
+    }
+    else if ($updated_p == "query" || $updated_p == "query1")
+    {
+      $o = "The product has not been updated due to a server error. Please try again later.";
+    }
+    else if ($updated_p == "rows" || $updated_p == "rows1")
+    {
+      $o = "The product has not been updated. Please try again.";
+    }
+    
   }
 ?>
 
