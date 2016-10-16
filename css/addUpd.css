@@ -82,7 +82,7 @@
     width: 31.2%;
   }
 
-  fieldset > div > input[type="number"]:nth-of-type(2), fieldset > div > input[type="number"]:last-of-type(){
+  fieldset > div > input[type="number"]:nth-of-type(2), fieldset > div > input[type="number"]:last-of-type{
     margin: 0;
     padding: 0;
   }
