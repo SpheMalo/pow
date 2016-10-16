@@ -564,7 +564,59 @@ function bookSlot1(datt)
   $('#app_d_t').val(app_d_t);
 }
 
+function bookSlot2(datt)
+{
+  var app_d_t = datt + ",2";
+  $('#app_d_t').val(app_d_t);
+}
 
+function bookSlot3(datt)
+{
+  var app_d_t = datt + ",3";
+  $('#app_d_t').val(app_d_t);
+}
+
+function bookSlot4(datt)
+{
+  var app_d_t = datt + ",4";
+  $('#app_d_t').val(app_d_t);
+}
+
+function bookSlot5(datt)
+{
+  var app_d_t = datt + ",5";
+  $('#app_d_t').val(app_d_t);
+}
+
+function bookSlot6(datt)
+{
+  var app_d_t = datt + ",6";
+  $('#app_d_t').val(app_d_t);
+}
+
+function bookSlot7(datt)
+{
+  var app_d_t = datt + ",7";
+  $('#app_d_t').val(app_d_t);
+}
+
+function bookSlot8(datt)
+{
+  var app_d_t = datt + ",8";
+  $('#app_d_t').val(app_d_t);
+}
+
+function bookSlot9(datt)
+{
+  var app_d_t = datt + ",9";
+  $('#app_d_t').val(app_d_t);
+}
+
+function bookSlot10(datt)
+{
+  var app_d_t = datt + ",10";
+  $('#app_d_t').val(app_d_t);
+}
 
 function toExcel(datt)
 {
@@ -771,11 +823,6 @@ function addProdOrderCon()
     }
     $("#prodDivID").html(tableHtml);
   }
-//function ClearFields()
-//{
-//  document.getElementById("orderProd").value = "";
-//  document.getElementById("orderProdQ").value = "";
-//}
 
   ////////////////////////////Consultation invoice add to proc table  /////////////////////
   function getOrderProcConsultation()
