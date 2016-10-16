@@ -1939,6 +1939,50 @@
 
   }
 
+////////////////////////////////////////////////// Method to remove Product Type //////////////////////////////////
+function removeProductType($id)
+{
+  require 'dbconn.php';
+
+  //$u_pList = loadProdList($id, null);
+
+  try
+  {
+    $s = "select * from product where product_typeID = $id";
+    $r = $pdo->query($s);
+  }
+  catch(PDOException $e)
+  {
+    return "query";
+  }
+
+  if ($r->rowCount() > 0)
+  {
+    return "inUse";
+  }
+  else
+  {
+    try
+    {
+      $s3 = "DELETE FROM `type_product` WHERE id= $id";
+      $r3 = $pdo->exec($s3);
+    }
+    catch(PDOException $e)
+    {
+      return "query1";   //// delete
+    }
+
+    if ($r3 > 0)
+    {
+      return "remove";   ///successful
+    }
+    else
+    {
+      return "rows";   ////delete not successful
+    }
+  }
+}
+
   function loadStockList($id, $q)
   {
     require 'dbconn.php';
