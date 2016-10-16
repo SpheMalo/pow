@@ -444,7 +444,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $mon . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot1('" . $mon . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -486,7 +486,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $tue . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot1('" . $tue . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -528,7 +528,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $wed . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot1('" . $wed . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -570,7 +570,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $thu . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot1('" . $thu . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -612,7 +612,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $fri . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot1('" . $fri . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -654,7 +654,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sat . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot1('" . $sat . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -696,7 +696,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sun . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot1('" . $sun . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -740,7 +740,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $mon . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot2('" . $mon . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -782,7 +782,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $tue . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot2('" . $tue . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -824,7 +824,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $wed . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot2('" . $wed . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -866,7 +866,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $thu . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot2('" . $thu . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -908,7 +908,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $fri . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot2('" . $fri . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -950,7 +950,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sat . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot2('" . $sat . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -992,7 +992,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sun . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot2('" . $sun . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1036,7 +1036,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $mon . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot3('" . $mon . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1078,7 +1078,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $tue . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot3('" . $tue . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1120,7 +1120,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $wed . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot3('" . $wed . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1162,7 +1162,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $thu . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot3('" . $thu . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1204,7 +1204,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $fri . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot3('" . $fri . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1246,7 +1246,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sat . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot3('" . $sat . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1288,7 +1288,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sun . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot3('" . $sun . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1332,7 +1332,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $mon . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot4('" . $mon . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1374,7 +1374,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $tue . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot4('" . $tue . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1416,7 +1416,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $wed . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot4('" . $wed . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1458,7 +1458,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $thu . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot4('" . $thu . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1500,7 +1500,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $fri . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot4('" . $fri . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1542,7 +1542,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sat . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot4=('" . $sat . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1584,7 +1584,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sun . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot4('" . $sun . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1628,7 +1628,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $mon . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot5('" . $mon . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1670,7 +1670,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $tue . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot5('" . $tue . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1712,7 +1712,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $wed . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot5('" . $wed . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1754,7 +1754,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $thu . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot5('" . $thu . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1796,7 +1796,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $fri . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot5('" . $fri . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1838,7 +1838,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sat . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot5('" . $sat . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1880,7 +1880,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sun . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot5('" . $sun . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1924,7 +1924,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $mon . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot6('" . $mon . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -1966,7 +1966,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $tue . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot6('" . $tue . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2008,7 +2008,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $wed . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot6('" . $wed . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2050,7 +2050,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $thu . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot6('" . $thu . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2092,7 +2092,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $fri . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot6('" . $fri . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2134,7 +2134,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sat . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot6('" . $sat . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2176,7 +2176,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sun . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot6('" . $sun . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2220,7 +2220,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $mon . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot7('" . $mon . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2262,7 +2262,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $tue . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot7('" . $tue . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2304,7 +2304,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $wed . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot7('" . $wed . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2346,7 +2346,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $thu . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot7('" . $thu . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2388,7 +2388,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $fri . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot7('" . $fri . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2430,7 +2430,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sat . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot7('" . $sat . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2472,7 +2472,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sun . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot7('" . $sun . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2516,7 +2516,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $mon . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot8('" . $mon . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2558,7 +2558,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $tue . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot8('" . $tue . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2600,7 +2600,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $wed . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot8('" . $wed . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2642,7 +2642,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $thu . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot8('" . $thu . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2684,7 +2684,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $fri . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot8('" . $fri . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2726,7 +2726,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sat . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot8('" . $sat . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2768,7 +2768,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sun . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot8('" . $sun . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2812,7 +2812,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $mon . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot9('" . $mon . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2854,7 +2854,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $tue . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot9('" . $tue . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2896,7 +2896,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $wed . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot9('" . $wed . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2938,7 +2938,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $thu . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot9('" . $thu . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -2980,7 +2980,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $fri . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot9('" . $fri . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -3022,7 +3022,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sat . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot9('" . $sat . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -3064,7 +3064,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sun . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot9('" . $sun . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -3108,7 +3108,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $mon . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot10('" . $mon . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -3150,7 +3150,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $tue . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot10('" . $tue . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -3192,7 +3192,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $wed . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot10('" . $wed . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -3234,7 +3234,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $thu . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot10('" . $thu . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -3276,7 +3276,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $fri . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot10('" . $fri . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -3318,7 +3318,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sat . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot10('" . $sat . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }
@@ -3360,7 +3360,7 @@
           }
           else
           {
-            echo "<a onclick=bookSlot1('" . $sun . "')>book</a>";
+            echo "<a class='av' onclick=bookSlot10('" . $sun . "')>book</a>";
             //echo "<a>no app</a><a onclick='makeSlotUnav('" . $mon . "', 1)'>mu</a>";
           }
         }

@@ -328,6 +328,7 @@
     padding: 0;
     border: 1px dashed #00314c;
     list-style: none;
+    text-transform: capitalize; 
   }
 
   #calendar > ul > li > p{
@@ -387,6 +388,26 @@
     padding: 0;
     text-align: center;
     text-decoration: none;
+  }
+
+  .red{
+    cursor: not-allowed;
+    display: block;
+    text-align: center;
+    background: red;
+  }
+
+  .gray{
+    cursor: not-allowed;
+    display: block;
+    text-align: center;
+    background: dimgray;
+  }
+
+  .av{
+    cursor: pointer;
+    display: block;
+    text-align: center;
   }
 
 }
