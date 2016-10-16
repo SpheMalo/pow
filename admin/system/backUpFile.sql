@@ -668,8 +668,9 @@ CREATE TABLE `procedure` (
   `price` double NOT NULL,
   `favorite` int(1) NOT NULL DEFAULT '0',
   `procedure_typeID` int(11) NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -678,7 +679,7 @@ CREATE TABLE `procedure` (
 
 LOCK TABLES `procedure` WRITE;
 /*!40000 ALTER TABLE `procedure` DISABLE KEYS */;
-INSERT INTO `procedure` VALUES (1,' Abrasion of teeth','K03.10',156,1,4),(2,'Dental root caries','K02.70',345,0,3);
+INSERT INTO `procedure` VALUES (1,' Abrasion of teeth','K03.10',156,1,4,1),(2,'Dental root caries','K02.70',345,0,3,0);
 /*!40000 ALTER TABLE `procedure` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -712,7 +713,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'P-7503','Aderol','For hard pain relief',200,50,20,15,0,1,0,0),(2,'P-9290','Dolorol Forte','For serious pain relief',265,100,30,10,0,1,0,1),(3,'P-3882','Myprodol','Anti-Inflammatory',85,20,18,6,0,1,0,1),(4,'P-3592','Gen Payne','For Unbearable pain relief',200,125,30,5,1,2,0,1),(5,'P-6988','Bio Stratch','Natural nutritional supplement - supports immune system',76,23,60,5,0,3,0,1);
+INSERT INTO `product` VALUES (1,'P-7503','Aderol','For hard pain relief',200,50,20,15,0,1,20,0),(2,'P-9290','Dolorol Forte','For serious pain relief',265,100,30,10,0,1,0,1),(3,'P-3882','Myprodol','Anti-Inflammatory',85,20,18,6,0,1,0,1),(4,'P-3592','Gen Payne','For Unbearable pain relief',200,125,30,5,1,2,0,1),(5,'P-6988','Bio Stratch','Natural nutritional supplement - supports immune system',76,23,60,5,0,3,0,1);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1097,7 +1098,7 @@ CREATE TABLE `type_procedure` (
 
 LOCK TABLES `type_procedure` WRITE;
 /*!40000 ALTER TABLE `type_procedure` DISABLE KEYS */;
-INSERT INTO `type_procedure` VALUES (1,'Z01','Dental examination'),(2,'K02','Caries of dentine'),(3,'K01','Impacted teeth'),(4,'K03','Dental and oral diseases with mcc'),(5,'Z01','dgfhylkjhkjl;uygdfghjkl');
+INSERT INTO `type_procedure` VALUES (1,'Z01','Dental examination'),(2,'K02','Caries of dentine'),(3,'K01','Impacted teeth'),(4,'K03','Dental and oral diseases with mcc');
 /*!40000 ALTER TABLE `type_procedure` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1159,4 +1160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-16 20:33:34
+-- Dump completed on 2016-10-16 22:34:16

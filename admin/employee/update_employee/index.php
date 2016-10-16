@@ -1,23 +1,55 @@
 <?php
-  session_start();
-  
+
   require '../../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "update employee";
+
+    if (isset($_GET['up']))
+    {
+      $_SESSION['c_p'] = $_GET['up'];
+    }
+
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
-    
+
     $tList = loadTitleList();
     $gList = loadGenderList();
     $sList = loadStatusList();
     $cList = loadCityList();
     $plist = loadPracticeLocList();
+
+    $prdList = loadProdTypeList();
+    unset($r_link);
+    $r_link = "?rem=" . $_SESSION['c_p'];
   }
   else
   {
     header("Location: ../../../login/");
+  }
+
+  if (isset($_GET['rem']))
+  {
+    unset($r_link);
+    $r_link = "";
+    $r_i = removeEmployee($_GET['rem']);
+    //echo var_dump($r_i);
+
+    if ($r_i == "inactive" || $r_i == "remove")
+    {
+      $o = "The employee has been successfully removed.";
+    }
+    else if ($r_i == "query" || $r_i == "query1")
+    {
+      $o = "The employee was not removed due to a server error. Try again later.";
+    }
+    else if ($r_i == "rows" || $r_i == "rows1")
+    {
+      $o = "The employee was not removed, please try again";
+    }
   }
 
  /* if (isset($_POST['s_upd_emp']))
@@ -81,6 +113,17 @@
     <script type="text/javascript" src="../../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../../js/init.js"></script>
     <script type="text/javascript" src="../../../js/employee_update.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#s22').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+        $('#s22').parent().parent().css({'background': 'white', 'color': '#00314c'});
+        $('#s22').parent().prevUntil().css({'color': '#00314c'});
+        $('#s22').parent().nextUntil().css({'color': '#00314c'});
+        $('#s22').parent().prevUntil().children().css({'color': '#00314c'});
+        $('#s22').parent().nextUntil().children().css({'color': '#00314c'});
+        $('#s22').css({'color': '#00314c', 'text-decoration': 'underline'});
+      });
+    </script>
   </head>
   
   <body onload="getEmployeeById()">
@@ -223,7 +266,7 @@
         </fieldset>
         
         <input type="submit" name="s_upd_emp" value="Update Employee" class="submit"/>
-        <input type="submit" name="rem" value="Remove Employee" class="submit"/>
+        <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>remove employee</a>
         
       </form>
       
