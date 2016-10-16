@@ -15,7 +15,7 @@
   }
 ?>
 
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
   <head>
     <title>D+M Dental Practice System - <?php echo $_SESSION['page'];?></title>
     <link rel="stylesheet" type="text/css" media="all" href="../../css/base.css" />
@@ -72,8 +72,7 @@
             </select>      
           </div>
         </fieldset>
-
-        <span onclick="convertToPDF()" name="p_daily_app" class="submit"/><a>Print</a></span>
+        <span onclick="convertToPDF()" name="p_daily_app" class="submit" style="padding: 2px;"/><a>  Print Report  </a></span>
       </form>
            
       <div id="Sphe">
