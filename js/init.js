@@ -795,9 +795,8 @@ function addProdOrderCon()
 
   function addProcOrderCon()
   {
-    var z = $("#procNameId").val();
-    console.log(z);
-    var dat = "add_proc=" + z;
+    var z = $("#procNameId").val(), pq = $("#procQtyId").val();
+    var dat = "add_proc=" + z + "&add_procq=" + pq;
     $.ajax({
       type: "post",
       data: dat,
@@ -812,6 +811,7 @@ function addProdOrderCon()
             +"<td>"+result.desc+"</td>"+
             "<td>"+result.type+"</td>"+
             "<td>R"+result.price+"</td>"+
+            "<td>"+result.quantity+"</td>"+
             "<td><span id="+"remove_"+ (OrderProcList.length-1) +" onclick='removeOrderItemProc(this.id)'><a>Remove</a></span></td>"+
             "</tr>";
         $("#procDivID").html($("#procDivID").html()+ newRow);
@@ -833,6 +833,7 @@ function addProdOrderCon()
       OrderProcList[i].desc = OrderProcList[i+1].desc;
       OrderProcList[i].type = OrderProcList[i+1].type;
       OrderProcList[i].price = OrderProcList[i+1].price;
+      OrderProcList[i].quantity = OrderProcList[i+1].quantity;
     }
 
     OrderProcList.pop();
@@ -844,6 +845,7 @@ function addProdOrderCon()
           +"<td>"+OrderProcList[i].desc+"</td>"+
           "<td>"+OrderProcList[i].type+"</td>"+
           "<td>R"+OrderProcList[i].price+"</td>"+
+          "<td>R"+OrderProcList[i].quantity+"</td>"+
           "<td><span id="+"remove_"+ (i) +" onclick='removeOrderItemProc(this.id)'><a>Remove</a></span></td>"+
           "</tr>";
     }

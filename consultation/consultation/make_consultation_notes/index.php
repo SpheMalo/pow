@@ -137,8 +137,8 @@
                   <?php endforeach?>
               </datalist>
 
-              <label class="display">Procedure Price:</label>
-              <input class="display" type="text" id="procPriceId" name="price" placeholder="Procedure price"/>
+              <label>Quantity:</label>
+              <input id="procQtyId" type="number" name="quantity" placeholder="Select product quantity used"/>
 
               <span onclick="addProcOrderCon()" class="submitt" id="orderProcSubmit"><a>Add</a></span>
             </div>
