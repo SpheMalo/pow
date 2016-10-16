@@ -60,9 +60,9 @@ function getDrSchedule() {
 function generateTable() {
     var newHtml = "<table width=''>" +
         "<colgroup>"+
-        "<col width='10%'>"+
-        "<col width='10%'>"+
-        "<col width='10%'>"+
+        "<col width='15%'>"+
+        "<col width='15%'>"+
+        // "<col width='10%'>"+
         "<col width='30%'>"+
         "<col width='30%'>"+
         "<col width='10%'>"+
@@ -70,10 +70,10 @@ function generateTable() {
         "</thread>"+
         "<tr>" +
         "<th>Schedule Date</th>"+
-        "<th>Start Time</th>"+
-        "<th>End Time</th>"+
-        "<th>Employee Name</th>"+
-        "<th>Patient Name</th>"+
+        "<th>Time</th>"+
+        // "<th>End Time</th>"+
+        "<th>Doctor</th>"+
+        "<th>Patient</th>"+
         "<th>Booking Description</th>"+
         "</tr>"
         "</thread>";
@@ -83,8 +83,8 @@ function generateTable() {
         newHtml += "<tr>" +
             "<td>" + bookings[i].appointment_date.substring(0, 10) + "</td>" +
             "<td>" + bookings[i].appointment_time + "</td>" +
-            "<td>" + bookings[i].appointment_time.substring(0, 3) + "45" + "</td>" +
-            "<td>" + bookings[i].empl_name + " " + bookings[i].empl_surname + "</td>"  +
+            // "<td>" + bookings[i].appointment_time.substring(0, 3) + "45" + "</td>" +
+            "<td>Dr. " + bookings[i].empl_name[0] + ". " + bookings[i].empl_surname + "</td>"  +
             "<td>" + bookings[i].patient_name + "</td>" +
             "<td>" + bookings[i].booking_type + "</td>" +
                 "</tr>"

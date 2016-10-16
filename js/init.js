@@ -907,10 +907,6 @@ function addProdOrderCon()
   
 
 $(document).ready(function(){
-  $('#rem_no').bind('click', function(){
-    alert('clicked');
-      $('#proceed').fadeOut('slow').remove();
-    });
 
   function accessLevel()
   {

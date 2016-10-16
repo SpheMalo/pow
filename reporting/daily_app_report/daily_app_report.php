@@ -2,15 +2,16 @@
 
     require "../../inc/dbconn.php";
     $doctorName = $_REQUEST['doctorName'];
-    $doctorId=0;
-    if (isset($doctorName)) {
-
-        if ($doctorName == "Dr J.P. Maponya") {
-            $doctorId=1;
-        }
-        else {
-            $doctorId=2;
-        }
+    $doctorId = $doctorName;
+echo $doctorName;
+  if (isset($doctorName)) {
+//
+//        if ($doctorName == "Dr J.P. Maponya") {
+//            $doctorId=1;
+//        }
+//        else {
+//            $doctorId=2;
+//        }
 
 
         $sql = "select schedule.available_date as appointment_date, timeslot.description as appointment_time, 
@@ -51,5 +52,7 @@
         else {
             echo false;
         }
+
+
     }
 ?>

@@ -1088,7 +1088,7 @@ CREATE TABLE `type_procedure` (
   `code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1097,7 +1097,7 @@ CREATE TABLE `type_procedure` (
 
 LOCK TABLES `type_procedure` WRITE;
 /*!40000 ALTER TABLE `type_procedure` DISABLE KEYS */;
-INSERT INTO `type_procedure` VALUES (1,'Z01','Dental examination'),(2,'K02','Caries of dentine'),(3,'K01','Impacted teeth'),(4,'K03','Dental and oral diseases with mcc');
+INSERT INTO `type_procedure` VALUES (1,'Z01','Dental examination'),(2,'K02','Caries of dentine'),(3,'K01','Impacted teeth'),(4,'K03','Dental and oral diseases with mcc'),(5,'Z01','dgfhylkjhkjl;uygdfghjkl');
 /*!40000 ALTER TABLE `type_procedure` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1113,7 +1113,7 @@ CREATE TABLE `type_product` (
   `name` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1159,4 +1159,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-16 18:41:23
+-- Dump completed on 2016-10-16 20:33:34

@@ -7,6 +7,7 @@
   {
     $_SESSION['page'] = "daily appointment schedule";
     $emp = $_SESSION['emp'];
+    $dList = loadDocList();
     $o = "";
   }
   else
@@ -65,11 +66,20 @@
           <legend>doctor details</legend>
           <div>
             <label for="DrSelect">name:</label>
-            <select id="DrSelect" onchange="getDrSchedule()">
-              <option >-- Select Dentist --</option>
-              <option name="jpMaponya">Dr J.P. Maponya</option>
-              <option name="yMaponya">Dr Y. Maponya</option>
-            </select>      
+            <select id="DrSelect" name="dentist" onchange="getDrSchedule()">
+              <!--<option name="jpMaponya">Dr J.P. Maponya</option>
+              <option name="yMaponya">Dr Y. Maponya</option>-->
+              <option>--select dentist--</option>
+              <?php foreach($dList as $d):?>
+                <?php $name = $d['name'];?>
+                <option value="<?php echo $d['id'];?>">Dr. <?php echo $name[0] . ". " . $d['surname'];?></option>
+              <?php endforeach;?>
+            </select>
+<!--            <select id="DrSelect" onchange="getDrSchedule()">-->
+<!--              <option >-- Select Dentist --</option>-->
+<!--              <option name="jpMaponya">Dr J.P. Maponya</option>-->
+<!--              <option name="yMaponya">Dr Y. Maponya</option>-->
+<!--            </select>-->
           </div>
         </fieldset>
         <span onclick="convertToPDF()" name="p_daily_app" class="submit" style="padding: 2px;"/><a>  Print Report  </a></span>

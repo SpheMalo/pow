@@ -1,19 +1,57 @@
 <?php
-  session_start();
-  
+
   require '../../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "Update procedure type";
+
+    if (isset($_GET['up']))
+    {
+      $_SESSION['c_p'] = $_GET['up'];
+    }
+
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
+
+    unset($r_link);
+    $r_link = "?rem=" . $_SESSION['c_p'];
   }
   else
   {
     header("Location: ../../../login/");
   }
 
+  if (isset($_GET['rem']))
+  {
+    unset($r_link);
+    $r_link = "";
+    $r_i = removeProcedureType($_GET['rem']);
+    //echo var_dump($r_i);
+
+    if ($r_i == "remove")
+    {
+      $o = "The procedure type has been successfully removed.";
+    }
+  //    else if ($r_i == "removed")
+  //    {
+  //      $o = "The product type has already been removed.";
+  //    }
+    else if ($r_i == "query" || $r_i == "query1")
+    {
+      $o = "The procedure type was not removed due to a server error. Try again later.";
+    }
+    else if ($r_i == "inUse")
+    {
+      $o = "Cannot perform action. Procedure Type is linked to an existing procedure";
+    }
+    else if ($r_i == "rows")
+    {
+      $o = "The procedure type was not removed, please try again";
+    }
+  }
 ?>
 
 <html>
@@ -26,6 +64,17 @@
     <script type="text/javascript" src="../../../js/init.js"></script>
     <script type="text/javascript" src="../../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../../js/type_procedure_update.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#s54').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+        $('#s54').parent().parent().css({'background': 'white', 'color': '#00314c'});
+        $('#s54').parent().prevUntil().css({'color': '#00314c'});
+        $('#s54').parent().nextUntil().css({'color': '#00314c'});
+        $('#s54').parent().prevUntil().children().css({'color': '#00314c'});
+        $('#s54').parent().nextUntil().children().css({'color': '#00314c'});
+        $('#s54').css({'color': '#00314c', 'text-decoration': 'underline'});
+      });
+    </script>
   </head>
   
   <body onload="getTypeProcedureById()">
@@ -57,8 +106,8 @@
           </div>
         </fieldset>
 
-       <input type="submit" value="Update procedure type" name="s_new_prodT" class="submit" />
-        <input type="submit" name="rem" value="remove procedure type" class="submit"/>
+        <input type="submit" value="Update procedure type" name="s_new_prodT" class="submit" />
+        <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>remove procedure type</a>
       </form>
       
       <div id="noti"></div>

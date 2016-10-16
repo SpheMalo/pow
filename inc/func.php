@@ -1854,7 +1854,7 @@
       return "rows";
     }
   }
-
+////////////////////////////////////////////////// Method to remove Product ////////////////////////////////
   function removeProduct($id)
   {
     require 'dbconn.php';
@@ -1939,6 +1939,84 @@
 
   }
 
+////////////////////////////////////////////////// Method to remove Procedure ////////////////////////////////
+function removeProcedure($id)
+{
+  require 'dbconn.php';
+
+  //$u_pList = loadProdList($id, null);
+
+  try
+  {
+    $s = "select * from line_invoice where procedureID = $id";
+    $r = $pdo->query($s);
+  }
+  catch(PDOException $e)
+  {
+    return "query";
+  }
+
+  if ($r->rowCount() > 0)
+  {
+    try
+    {
+      $s1 = "select active from `procedure` where id = $id";
+      $r1 = $pdo->query($s1);
+    }
+    catch(PDOException $e)
+    {
+      return "query1";
+    }
+
+    while ($row = $r1->fetch())
+    {
+      $a = $row['active'];
+    }
+
+    if ($a == 0)
+    {
+      return "removed";
+    }
+    else
+    {
+      try
+      {
+        $s2 = "UPDATE `procedure` SET `active`= 0 WHERE  id= $id";
+        $r2 = $pdo->exec($s2);
+      }
+      catch(PDOException $e)
+      {
+        return "query2";
+      }
+
+      if ($r2 > 0)
+      {
+        return "inactive";
+      }
+      else
+      {
+        return "rows";
+      }
+    }
+
+  }
+  else
+  {
+    try
+    {
+      $s3 = "DELETE FROM `procedure` WHERE id= $id";
+      $r3 = $pdo->exec($s3);
+    }
+    catch(PDOException $e)
+    {
+      return "query1";
+    }
+
+    if ($r3 > 0)
+    {
+      return "remove";
+    }
+
   function updateProduct($pID, $name, $price, $size, $quantity, $desc, $critical, $fav, $p_t_name, $p_t_desc)
   {
     require 'dbconn.php';
@@ -1984,6 +2062,99 @@
       return "rows";
     }
   }
+}
+
+////////////////////////////////////////////////// Method to remove Product Type //////////////////////////////////
+function removeProductType($id)
+{
+  require 'dbconn.php';
+
+  //$u_pList = loadProdList($id, null);
+
+  try
+  {
+    $s = "select * from product where product_typeID = $id";
+    $r = $pdo->query($s);
+  }
+  catch(PDOException $e)
+  {
+    return "query";
+  }
+
+  if ($r->rowCount() > 0)
+  {
+    return "inUse";
+  }
+  else
+  {
+    try
+    {
+      $s3 = "DELETE FROM `type_product` WHERE id= $id";
+      $r3 = $pdo->exec($s3);
+    }
+    catch(PDOException $e)
+    {
+      return "query1";   //// delete
+    }
+
+    if ($r3 > 0)
+    {
+      return "remove";   ///successful
+    }
+    else
+    {
+      return "rows";   ////delete not successful
+    }
+  }
+}
+
+/////////////////////////////////////////////////////////// END of Function ////////////////////////////////////
+
+////////////////////////////////////////////////// Method to remove Procedure Type //////////////////////////////////
+function removeProcedureType($id)
+{
+  require 'dbconn.php';
+
+  //$u_pList = loadProdList($id, null);
+
+  try
+  {
+    $s = "select * from `procedure` where procedure_typeID = $id";
+    $r = $pdo->query($s);
+  }
+  catch(PDOException $e)
+  {
+    return "query";
+  }
+
+  if ($r->rowCount() > 0)
+  {
+    return "inUse";
+  }
+  else
+  {
+    try
+    {
+      $s3 = "DELETE FROM `type_procedure` WHERE id= $id";
+      $r3 = $pdo->exec($s3);
+    }
+    catch(PDOException $e)
+    {
+      return "query1";   //// delete
+    }
+
+    if ($r3 > 0)
+    {
+      return "remove";   ///successful
+    }
+    else
+    {
+      return "rows";   ////delete not successful
+    }
+  }
+}
+
+/////////////////////////////////////////////////////////// END of Function ////////////////////////////////////
 
   function loadStockList($id, $q)
   {
