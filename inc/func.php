@@ -2486,7 +2486,7 @@ function bookConsultation($idNum, $empID, $d_t, $type)
   try
   {
     $s = "select id from schedule where available_date = '" . $date_t[0] . "' and employeeID = " . $empID . " and timeslotID = " . $date_t[1];
-    $r = $pdo->query($s); 
+    $r = $pdo->query($s);
   }
   catch(PDOException $e)
   {
@@ -2504,6 +2504,9 @@ function bookConsultation($idNum, $empID, $d_t, $type)
     {
       $s1 = "select id from patient where id_number = $idNum";
       $r1 = $pdo->query($s1);
+
+      $s3 = "UPDATE `schedule` SET `available`=0 WHERE `id`=$sID";
+      $r3 = $pdo->exec($s3); 
     }
     catch(PDOException $e)
     {
