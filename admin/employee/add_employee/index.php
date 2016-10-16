@@ -86,10 +86,12 @@
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" type="text/css" media="all" href="../../../css/base.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../../../css/addUpd.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../../css/modalStyle.css"/>
     <script type="text/javascript" src="../../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../../js/jquery.table2excel.js"></script>
     <script type="text/javascript" src="../../../js/jQueryRotate.js"></script>
+    <script type="text/javascript" src="../../../js/modalScript.js"></script>
     <script type="text/javascript" src="../../../js/init.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -129,7 +131,8 @@
         <legend>personal details</legend>
           <div>
             <label for="proPic" >profile picture:</label>
-            <img src="" alt="" />
+            <img id="picOfficial" src="" alt=""/>
+            <span id="takeP"><a id="takeImage">Take</a></span>
             <input type="file" name="proPic"/>
 
             <label for="name" >name:</label>
@@ -243,6 +246,30 @@
       </form>
       
     </div>
+    <!-- /////////////    Modal      //////////// -->
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- The Close Button -->
+      <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+
+      <!-- Modal content -->
+      <div class="modal-content">
+
+        <!-- Used to call the take picture function -->
+        <button id="activateWebcam" onclick="takePicture()">Activate Webcam</button>
+        <!-- <script type="text/javascript">
+            takePicture();
+         </script> -->
+
+        <!-- Used to display Canvas for the picture on modal -->
+        <div id="pic">
+        </div>
+      </div>
+    </div>
+    <!-- ////////////////////////// -->
+
     <?php
       echo "<p id='access_level' style='display: none;'>" . $emp_access_level . "</p>";
     ?>
