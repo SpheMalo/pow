@@ -122,7 +122,7 @@
     text-transform: capitalize;
   }
 
-  submitt 
+  .submitt 
   {
     display: block;
     width: 30%;
@@ -322,7 +322,7 @@
   }
 
   #calendar > ul > li{
-    width: 12.3%;
+    width: 12%;
     float: left;
     margin: 0;
     padding: 0;

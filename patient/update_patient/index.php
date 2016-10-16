@@ -48,7 +48,19 @@
     <script type="text/javascript" src="../../js/jquery.table2excel.js"></script>
     <script type="text/javascript" src="../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
-    <script type="text/javascript" src="../../js/patient_update.js"></script>
+    <script type="text/javascript" src="../../js/patient_update.js">
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('#s42').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+      $('#s42').parent().parent().css({'background': 'white', 'color': '#00314c'});
+      $('#s42').parent().prevUntil().css({'color': '#00314c'});
+      $('#s42').parent().nextUntil().css({'color': '#00314c'});
+      $('#s42').parent().prevUntil().children().css({'color': '#00314c'});
+      $('#s42').parent().nextUntil().children().css({'color': '#00314c'});
+      $('#s42').css({'color': '#00314c'});
+
+    });
+  </script>   
   </head>
   
   <body onload="getPatientById()">
