@@ -57,6 +57,107 @@
     {
       $o = "The patient was not removed, please try again";
     }
+  } 
+  else if (isset($_POST['s_upd_pat']))
+  {
+    $i_l = loadIdList(null);
+    
+    $id_exist = 0;
+    foreach($i_l as $il)
+    {
+      if ($il == $_POST['id'])
+      {
+        $id_exist += 1;
+      }
+    }
+
+    if (isset($id_exist) && $id_exist > 1)
+    {
+      $o = "A patient already exists with the provided ID/Passport number";
+    }
+    else
+    {
+      $postal[] = array(
+        'number' => $_POST['add_line_po1'],
+        'street' => $_POST['add_line_po2'],
+        'suburb' => $_POST['add_line_po3'],
+        'code' => $_POST['add_line_po5'],
+        'city' => $_POST['add_line_po4']
+      );
+
+      $physical[] = array(
+        'number' => $_POST['add_line_ph1'],
+        'street' => $_POST['add_line_ph2'],
+        'suburb' => $_POST['add_line_ph3'],
+        'code' => $_POST['add_line_ph5'],
+        'city' => $_POST['add_line_ph4']
+      );
+
+      $dob = $_POST['dob1'] . "-" . $_POST['dob2'] . "-" . $_POST['dob3'];
+
+      if (!isset($_POST['medical_m_i']))
+      {
+        $medical_m_i = null;
+      }
+      else
+      {
+        $medical_m_i = $_POST['medical_m_i'];
+      }
+
+      if (!isset($_POST['fileToUpload']))
+      {
+        $img = null;
+      }
+
+      if (!is_numeric($_POST['medical']))
+      {
+        $medical = null;
+        $medical_m_i = null;
+        $standing = null;
+      }
+      else
+      {
+        $medical = $_POST['medical'];
+
+        if (!isset($_POST['standing']))
+        {
+          $standing = null;
+        }
+        else
+        {
+          $standing = $_POST['standing'];
+        }
+      }
+
+      echo var_dump($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $medical, $standing, $medical_m_i);
+      $p = updatePatient($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['title'], $dob, $_POST['gender'], $_POST['cell'], $_POST['tell'], $_POST['email'], $physical, $postal, $medical, $standing, $medical_m_i, $img);
+      //echo var_dump($p);
+
+      /*if ($p == true)
+      {
+        $o = "The patient has been added successfuly";
+      }
+      else if ($p == "query")
+      {
+        $o = "The patient was not added successfuly due to a server error.";
+      }
+      else if ($p == "rows")
+      {
+        $o = "The patient was not added successfuly, please try again.";
+      }
+      else if ($p == "e_mainMember")
+      {
+        $o = "The main member provided is not a main member or does not exist. Please try again.";
+      }
+      else if ($p == "e_loadMemberTypeCode_query")
+      {
+        $o = "There was an error adding the patient to the member table. Please try again.";
+      }
+      else if ($p == "e_loadMemberTypeCode_rows")
+      {
+        $o = "There was an error retrieving the patients member code.";
+      }*/
+    } 
   }
  /*if (isset($_POST['s_upd_pat']))
   {
