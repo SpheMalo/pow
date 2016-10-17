@@ -2162,7 +2162,95 @@
 
   try
   {
-    $s = "select * from employee where employee_typeID = $id";
+    $s3 = "DELETE FROM `employee` WHERE id= $id";
+    $r3 = $pdo->exec($s3);
+  }
+  catch(PDOException $e)
+  {
+    return "query1";
+  }
+
+  if ($r3 > 0)
+  {
+    return "remove";
+  }
+  else
+  {
+    return "rows";
+  }
+
+}
+
+////////////////////////////////////////////////// Method to remove Medical Aid //////////////////////////////////
+  function removeMedicalAid($id)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select * from `patient` where medical_aid_typeID = $id";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      return "inUse";
+    }
+    else
+    {
+      try
+      {
+        $s = "select medical_aidID from type_medical_aid where id = $id";
+        $r = $pdo->query($s);
+      }
+      catch(PDOException $e)
+      {
+        return "query";
+      }
+
+      if ($r->rowCount() > 0)
+      {
+  //      foreach($r as $row)
+  //      {
+  //          $sID = $row['medical_aidID'];
+  //      }
+
+        try
+        {
+          // $s3 = "DELETE FROM `medical_aid` WHERE id= $sID";
+          $s4 = "DELETE FROM `type_medical_aid` WHERE id = $id";
+          //  $r3 = $pdo->exec($s3);
+          $r4 = $pdo->exec($s4);
+        }
+        catch(PDOException $e)
+        {
+          return "query1";   //// delete
+        }
+
+        if ($r4 > 0)
+        {
+          return "remove";   ///successful
+        }
+        else
+        {
+          return "rows";   ////delete not successful
+        }
+      }
+    }
+  }
+
+////////////////////////////////////////////////// Method to remove Patient //////////////////////////////////
+  function removePatient($id)
+{
+  require 'dbconn.php';
+
+  try
+  {
+    $s = "select * from `consultation` where patientID = $id";
     $r = $pdo->query($s);
   }
   catch(PDOException $e)
@@ -2172,28 +2260,31 @@
 
   if ($r->rowCount() > 0)
   {
-
-    try
-    {
-      $s3 = "DELETE FROM `employee` WHERE id= $id";
-      $r3 = $pdo->exec($s3);
-    }
-    catch(PDOException $e)
-    {
-      return "query1";
-    }
-
-    if ($r3 > 0)
-    {
-      return "remove";
-    }
-    else
-    {
-      return "rows";
-    }
+    return "inUse";
   }
+  else
+  {
+      try
+      {
+        $s4 = "DELETE FROM `patient` WHERE id = $id";
+        $r4 = $pdo->exec($s4);
+      }
+      catch(PDOException $e)
+      {
+        return "query1";   //// delete
+      }
 
+      if ($r4 > 0)
+      {
+        return "remove";   ///successful
+      }
+      else
+      {
+        return "rows";   ////delete not successful
+      }
+    }
 }
+
 
   function loadStockList($id, $q)
     {

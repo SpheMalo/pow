@@ -1,19 +1,57 @@
 <?php
-  session_start();
   
   require '../../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "update medical aid";
+
+    if (isset($_GET['up']))
+    {
+      $_SESSION['c_p'] = $_GET['up'];
+    }
+
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
 
-    $cList = loadCityList(); 
+    unset($r_link);
+    $r_link = "?rem=" . $_SESSION['c_p'];
+    $cList = loadCityList();
   }
   else
   {
     header("Location: ../../../login/");
+  }
+
+  if (isset($_GET['rem']))
+  {
+    unset($r_link);
+    $r_link = "";
+    $r_i = removeMedicalAid($_GET['rem']);
+    //echo var_dump($r_i);
+
+    if ($r_i == "remove")
+    {
+      $o = "The medical aid has been successfully removed.";
+    }
+    //    else if ($r_i == "removed")
+    //    {
+    //      $o = "The product type has already been removed.";
+    //    }
+    else if ($r_i == "query" || $r_i == "query1")
+    {
+      $o = "The medical aid was not removed due to a server error. Try again later.";
+    }
+    else if ($r_i == "inUse")
+    {
+      $o = "Cannot perform action. Medical aid is linked to an existing patient";
+    }
+    else if ($r_i == "rows")
+    {
+      $o = "The medical aid was not removed, please try again";
+    }
   }
 ?>
 
@@ -29,6 +67,17 @@
     <script type="text/javascript" src="../../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../../js/init.js"></script>
     <script type="text/javascript" src="../../../js/medical_update.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#s24').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+        $('#s24').parent().parent().css({'background': 'white', 'color': '#00314c'});
+        $('#s24').parent().prevUntil().css({'color': '#00314c'});
+        $('#s24').parent().nextUntil().css({'color': '#00314c'});
+        $('#s24').parent().prevUntil().children().css({'color': '#00314c'});
+        $('#s24').parent().nextUntil().children().css({'color': '#00314c'});
+        $('#s24').css({'color': '#00314c', 'text-decoration': 'underline'});
+      });
+    </script>
   </head>
   
   <body onload="getMedicalById()">
@@ -109,7 +158,7 @@
         </fieldset>
         
         <input type="submit" name="s_upd_med" value="Update Medical Aid" class="submit"/>
-        <input type="submit" name="rem" value="Remove Medical Aid" class="submit"/>
+        <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>remove medical aid</a>
         
       </form>
       

@@ -2,7 +2,7 @@
   session_start();
   
   require '../../../inc/func.php';
-  
+
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "add medical aid";
