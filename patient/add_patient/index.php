@@ -188,11 +188,11 @@
             <input type="text" name="id" placeholder="Enter patent id/passport number eg. 8612170554087" required pattern="[0-9]{13}" title="A number of 13 characters"/>
             <label for="DoB">Date of Birth:</label>
             <!--<input type="date" name="dob" placeholder="Enter date of birth eg. 1992-11-30" required title="Must match provided example format"/>-->
-            <input type="number" name="dob1" placeholder="Year" required title="Only numerical characters allowed" />
+            <input type="number" min="1930" max="2016" name="dob1" placeholder="Year" required pattern="[0-9]{4}" title="Only numerical characters allowed and maximum is current year" />
             <span>-</span>
-            <input type="number" name="dob2" placeholder="Month" required title="Only numerical characters allowed" />
+            <input type="number" min="01" max="12" name="dob2" placeholder="Month" required pattern="[0-9]{1,2}" title="Only numerical characters allowed and only a maximum of 12 months in a year" />
             <span>-</span>
-            <input type="number" name="dob3" placeholder="Day" required title="Only numerical characters allowed" />
+            <input type="number" min="01" max="31" name="dob3" placeholder="Day" required pattern="[0-9]{1,2}" title="Only numerical characters allowed and only a maximum of 31 days in a month" />
           </div>
           <div>
             <label for="proPic" class="display">profile picture:</label>
@@ -252,7 +252,7 @@
             <!--<textarea name="postal" placeholder="enter employee postal address eg. P.O.Box 4050 privatebag 9875 or 1234 some street, suburb, city - postal code" title="must match provided example format"></textarea>-->
             <input type="text" name="add_line_po1" id="add_line_po1" placeholder="address line 1"/>
             <input type="text" name="add_line_po2" id="add_line_po2" placeholder="address line 2"/>
-            <input type="text" name="add_line_po3" id="add_line_po3" placeholder="Enter suburb/ district e.g. Birchleigh" required pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
+            <input type="text" name="add_line_po3" id="add_line_po3" placeholder="Enter suburb/ district e.g. Birchleigh"  pattern="[A-Za-z ]{1,50}" title="A maximum of 50 characters with spaces"/>
             <!--<input type="text" name="add_line_po4" id="add_line_po4" placeholder="Town/ City"/>-->
             <select name="add_line_po4" id="add_line_po4">
               <option>Select city/town</option>
@@ -260,7 +260,7 @@
                 <option value="<?php echo $c['id'];?>"><?php echo $c['desc'];?></option>
               <?php endforeach;?>
             </select>
-            <input type="text" name="add_line_po5" id="add_line_po5" placeholder="Enter postal code e.g. 1618" required pattern="[0-9]{4}" title="A maximum of 4 digits with no spaces"/>
+            <input type="text" name="add_line_po5" id="add_line_po5" placeholder="Enter postal code e.g. 1618"  pattern="[0-9]{4}" title="A maximum of 4 digits with no spaces"/>
             <button class="submit" title="copy physical address to postal address" id="copy_address" onclick="copyAddress()">same postal as physical</button>
           </div>
           

@@ -51,7 +51,7 @@
     }
     else if ($r_i == "inUse")
     {
-      $o = "Cannot perform action. Patient Type is linked to an existing consultation";
+      $o = "Cannot perform action. Patient is linked to an existing consultation";
     }
     else if ($r_i == "rows")
     {
