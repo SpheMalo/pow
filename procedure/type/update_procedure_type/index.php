@@ -52,6 +52,23 @@
       $o = "The procedure type was not removed, please try again";
     }
   }
+  else if (isset($_POST['s_upd_prodT']))
+  {
+    $procT = updateProcType($_SESSION['c_p'], $_POST['code'], $_POST['desc']);
+
+    if($procT == true)
+    {
+      $o = "The procedure type was updated successfully ";
+    }
+    else if($procT == "query")
+    {
+      $o = "The procedure type was not updated successfully due to a server error.";
+    }
+    else if($procT == "rows")
+    {
+      $o = "The procedure type was not updated successfuly, please try again.";
+    }
+  }
 ?>
 
 <html>
@@ -106,7 +123,7 @@
           </div>
         </fieldset>
 
-        <input type="submit" value="Update procedure type" name="s_new_prodT" class="submit" />
+        <input type="submit" value="Update procedure type" name="s_upd_prodT" class="submit" />
         <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>remove procedure type</a>
       </form>
       

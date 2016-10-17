@@ -98,7 +98,7 @@
           </div>
           <div>
             <label for="medical" class="display">medical aid:</label> 
-            <input id="patientMedicalAid" type="text" name="medical" placeholder="patient medical aid" readonly class="display"/>
+            <input id="patientMedicalAid" type="text" name="medical" placeholder="patient medical aid" disabled class="display"/>
             <label for="surname">surname:</label>
             <input id="patientSurname" type="text" name="surname" placeholder="enter patient surname" disabled/>
           </div>

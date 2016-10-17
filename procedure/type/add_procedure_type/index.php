@@ -49,7 +49,7 @@
         $('#s54').css({'color': '#00314c', 'text-decoration': 'underline'});
       });
     </script>
-  </head>
+  </head> 
   
   <body>
     <?php

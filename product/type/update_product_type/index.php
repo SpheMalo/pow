@@ -9,7 +9,7 @@
 
     if (isset($_GET['up']))
     {
-      $_SESSION['c_p'] = $_GET['up'];
+      $_SESSION['c_p_t'] = $_GET['up'];
     }
 
     $emp = $_SESSION['emp'];
@@ -31,7 +31,7 @@
     $r_i = removeProductType($_GET['rem']);
     //echo var_dump($r_i);
 
-    if ($r_i == "remove")
+    if ($r_i == "remove") 
     {
       $o = "The product type has been successfully removed.";
     }
@@ -50,6 +50,24 @@
     else if ($r_i == "rows")
     {
       $o = "The product type was not removed, please try again";
+    }
+  }
+  else if (isset($_POST['s_new_prodT']))
+  {
+    //echo var_dump($_SESSION['c_p_t'], $_POST['name'], $_POST['desc']);
+    $u_p_t = updateProdType($_SESSION['c_p_t'], $_POST['name'], $_POST['desc']);
+
+    if($u_p_t == true)
+    {
+      $o = "The product type was updated successfully.";
+    }
+    else if($u_p_t == "rows")
+    {
+      $o = "The product type was not updated due to a server error. Try again later.";
+    }
+    else if($u_p_t == "rows")
+    {
+      $o = "The product type was not updated successfully. Please try again.";
     }
   }
 ?>

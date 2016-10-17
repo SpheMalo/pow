@@ -8,6 +8,11 @@
     $_SESSION['page'] = "add product type";
     $emp = $_SESSION['emp'];
     $o = "";
+
+    if (isset($_GET['up']))
+    {
+      $_SESSION['c_p_t'] = $_GET['up'];
+    }
   }
   else
   {
@@ -20,11 +25,15 @@
 
     if($prodT == true)
     {
-      $o = "The product type was added successfully";
+      $o = "The product type was added successfully.";
+    }
+    else if($prodT == "query")
+    {
+      $o = "The product type was not added successfully due to a server error. Try again later.";
     }
     else if($prodT == "rows")
     {
-      $o = "The product type was not added successfully, please try again";
+      $o = "The product type was not added successfully, please try again.";
     }
   }
 

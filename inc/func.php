@@ -1539,6 +1539,31 @@
     }
   }
 
+  function updateProdType($p_t_id, $name, $desc)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "UPDATE `type_product` SET `name`='$name',`description`='$desc' WHERE id = $p_t_id";
+      $r = $pdo->exec($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r > 0)
+    {
+      return true;
+    }
+    else
+    {
+      return "rows";
+    }
+
+  }
+
   function addProcType($code, $desc)
   {
     require 'dbconn.php';
@@ -1562,6 +1587,30 @@
        return "rows";
      } 
 
+  }
+
+  function updateProcType($p_t_id, $code, $desc)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "UPDATE `type_procedure` SET `code`='$code',`description`='$desc' WHERE id =$p_t_id";
+      $r = $pdo->exec($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r > 0)
+    {
+      return true;
+    }
+    else
+    {
+      return "query";
+    }
   }
 
   function addProduct($name, $price, $size, $quantity, $desc, $critical, $fav, $p_t_name, $p_t_desc, $prdList)
@@ -1791,6 +1840,52 @@
     else 
     {
       return "query ";
+    }
+  }
+
+  function updateProcedure($pID, $desc, $code, $price, $fav, $p_t_code, $p_t_desc)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select id from type_procedure where code = '". $p_t_code . "'";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      while ($row = $r->fetch())
+      {
+        $prcT = $row['id'];
+      }
+
+      try
+      {
+        $s1 = "UPDATE `procedure` SET `description`='$desc',`code`='$code',`price`='$price',`favorite`='$fav',`procedure_typeID`=$prcT WHERE id =$pID";
+        $r1 = $pdo->exec($s1);
+      }
+      catch(PDOException $e)
+      {
+        return "query1";
+      }
+
+      if ($r1 > 0)
+      {
+        return true;
+      }
+      else
+      {
+        return "rows1";
+      }
+    }
+    else
+    {
+      return "rows";
     }
   }
 
@@ -2709,230 +2804,230 @@
   }
 
   function loadPayList($id, $q)
+  {
+    require 'dbconn.php';
+
+    $s = "select payment.id, status, payment.amount, payment_date, type_payment.description as payment_typeID, invoice.number as invoiceID from payment join type_payment on payment.payment_typeID = type_payment.id join invoice on payment.invoiceID = invoice.ID";
+
+    if (isset($id) && !isset($q))
     {
-      require 'dbconn.php';
-
-      $s = "select payment.id, status, payment.amount, payment_date, type_payment.description as payment_typeID, invoice.number as invoiceID from payment join type_payment on payment.payment_typeID = type_payment.id join invoice on payment.invoiceID = invoice.ID";
-
-      if (isset($id) && !isset($q))
-      {
-        $s = "select * from payment where id = $id";
-      }
-      else if (!isset($id) && isset($q))
-      {
-        $s = "select payment.id, status, payment.amount, payment_date, type_payment.description as payment_typeID, invoice.number as invoiceID from payment join type_payment on payment.payment_typeID = type_payment.id join invoice on payment.invoiceID = invoice.ID where payment.id like '%$q%' or status like '%$q%' or payment.amount like '%$q%' or payment_date like '%$q%' or payment_typeID like '%$q%' or invoiceID like '%$q%'";
-      }
-
-      try
-      {
-        $r = $pdo->query($s);
-      }
-      catch(PDOException $e)
-      {
-        return "query";
-      }
-
-      if ($r->rowCount() > 0)
-      {
-        $c = 0;
-        while ($row = $r->fetch())
-        {
-          $id[$c] = $row['id'];
-          $amount[$c] = $row['amount'];
-          $date[$c] = $row['payment_date'];
-          $pType[$c] = $row['payment_typeID'];
-          $invLine[$c] = $row['invoiceID'];
-
-          $pay = new Payment($id[$c], $amount[$c], $date[$c], $pType[$c], $invLine[$c]);
-          $payList[] = $pay;
-
-          $c++;
-        }
-
-        return $payList;
-      }
-      else
-      {
-        return "rows";
-      }
+      $s = "select * from payment where id = $id";
+    }
+    else if (!isset($id) && isset($q))
+    {
+      $s = "select payment.id, status, payment.amount, payment_date, type_payment.description as payment_typeID, invoice.number as invoiceID from payment join type_payment on payment.payment_typeID = type_payment.id join invoice on payment.invoiceID = invoice.ID where payment.id like '%$q%' or status like '%$q%' or payment.amount like '%$q%' or payment_date like '%$q%' or payment_typeID like '%$q%' or invoiceID like '%$q%'";
     }
 
-  function addPayment($amount, $inv_num, $p, $rec)
+    try
     {
-      require 'dbconn.php';
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
 
-      try
+    if ($r->rowCount() > 0)
+    {
+      $c = 0;
+      while ($row = $r->fetch())
       {
-        $s = "SELECT id, amount, status FROM `invoice` where `number` = '" . $inv_num . "'";
-        $r = $pdo->query($s);
+        $id[$c] = $row['id'];
+        $amount[$c] = $row['amount'];
+        $date[$c] = $row['payment_date'];
+        $pType[$c] = $row['payment_typeID'];
+        $invLine[$c] = $row['invoiceID'];
+
+        $pay = new Payment($id[$c], $amount[$c], $date[$c], $pType[$c], $invLine[$c]);
+        $payList[] = $pay;
+
+        $c++;
       }
-      catch(PDOException $e)
+
+      return $payList;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
+
+  function addPayment($amount, $inv_num, $p, $rec)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "SELECT id, amount, status FROM `invoice` where `number` = '" . $inv_num . "'";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach($r as $row)
       {
-        return "query";
+        $a = $row['amount'];
+        $inv = $row['id'];
+        $st = $row['status'];
       }
 
-      if ($r->rowCount() > 0)
+      if ($amount >= $a)
       {
-        foreach($r as $row)
+        $c = $amount - $a;
+      }
+
+      if ($st != "paid")
+      {
+        $d = date("Y-m-d");
+
+        $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",1)";
+
+        if (isset($p) && !isset($rec))
         {
-          $a = $row['amount'];
-          $inv = $row['id'];
-          $st = $row['status'];
+          $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",2)";
         }
-
-        if ($amount >= $a)
+        else if (!isset($p) && isset($rec))
         {
-          $c = $amount - $a;
-        }
-
-        if ($st != "paid")
-        {
-          $d = date("Y-m-d");
-
-          $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",1)";
-
-          if (isset($p) && !isset($rec))
+          if ($rec[0]['reasonID'] != "NULL")
           {
-            $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`) VALUES (" . $amount . ", " . $d . ",'paid', " . $inv .",2)";
-          }
-          else if (!isset($p) && isset($rec))
-          {
-            if ($rec[0]['reasonID'] != "NULL")
-            {
-              $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`, `write_off_typeID`) VALUES (" . $amount . ", " . $d . ",'write off', " . $inv .", " . $rec[0]['reasonID'] . ")";
-            }
-            else
-            {
-              $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`, `write_off_typeID`) VALUES (" . $amount . ", " . $d . ",'write off', " . $inv .", " . $rec[0]['comment'] . ")";
-            }
-
-          }
-
-          try
-          {
-            $r1 = $pdo->exec($s1);
-          }
-          catch(PDOException $e)
-          {
-            return "query1";
-          }
-
-          if ($r1 > 0)
-          {
-            return true;
+            $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`, `write_off_typeID`) VALUES (" . $amount . ", " . $d . ",'write off', " . $inv .", " . $rec[0]['reasonID'] . ")";
           }
           else
           {
-            return "rows1";
+            $s1 = "INSERT INTO `payment`(`amount`, `payment_date`, `status`, `invoiceID`, `payment_typeID`, `write_off_typeID`) VALUES (" . $amount . ", " . $d . ",'write off', " . $inv .", " . $rec[0]['comment'] . ")";
           }
+
+        }
+
+        try
+        {
+          $r1 = $pdo->exec($s1);
+        }
+        catch(PDOException $e)
+        {
+          return "query1";
+        }
+
+        if ($r1 > 0)
+        {
+          return true;
         }
         else
         {
-          return "paid";
+          return "rows1";
         }
       }
       else
       {
-        return "rows";
+        return "paid";
       }
-
     }
+    else
+    {
+      return "rows";
+    }
+
+  }
 
   function loadReasonList()
+  {
+    require 'dbconn.php';
+
+    try
     {
-      require 'dbconn.php';
-
-      try
-      {
-        $s = "select * from type_write_off";
-        $r = $pdo->query($s);
-      }
-      catch(PDOException $s)
-      {
-        return "query";
-      }
-
-      if ($r->rowCount() > 0)
-      {
-        foreach ($r as $row)
-        {
-          $rList[] = array(
-            'id' => $row['id'],
-            'desc' => $row['description']
-          );
-        }
-
-        return $rList;
-      }
-      else
-      {
-        return "rows";
-      }
+      $s = "select * from type_write_off";
+      $r = $pdo->query($s);
     }
+    catch(PDOException $s)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      foreach ($r as $row)
+      {
+        $rList[] = array(
+          'id' => $row['id'],
+          'desc' => $row['description']
+        );
+      }
+
+      return $rList;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
 
   function loadprod($id, $q)
+  {
+    require 'dbconn.php';
+
+    if($id == null && $q != null)
     {
-      require 'dbconn.php';
-
-      if($id == null && $q != null)
-      {
-        $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeProd, `stockID` 
-              FROM `product` 
-              JOIN type_product on product.product_typeID = type_product.id 
-              where product.name like '%". $q . "%'";
-      }
-
-      try
-      {
-        $r = $pdo->query($s);
-      }
-      catch (PDOException $e)
-      {
-        return "query";
-      }
-
-      if ($r->rowCount() > 0)
-      {
-        $c = 0;
-        while ($row = $r->fetch())
-        {
-          $id[$c] = $row['id'];
-          $pNumber[$c] = $row['number'];
-          $name[$c] = $row['name'];
-          $desc[$c] = $row['description'];
-          $price[$c] = $row['price'];
-          $size[$c] = $row['size'];
-          $quantity[$c] = $row['quantity'];
-          $critical[$c] = $row['critical_value'];
-          $fav[$c] = $row['favorite'];
-          $type[$c] = $row['typeProd'];
-          $stock[$c] = $row['stockID'];
-
-
-          $prod = new Product($id[$c], $pNumber[$c], $name[$c], $desc[$c], $price[$c], $size[$c], $quantity[$c], $critical[$c], $fav[$c], $type[$c], $stock[$c]);
-          $prodList[] = $prod;
-
-          $c = $c + 1;
-        }
-
-        return $prodList;
-      }
-      else
-      {
-        return "rows";
-      }
+      $s = "SELECT product.id, `number`, product.name, product.description, `price`, `size`, `quantity`, `critical_value`, `favorite`, type_product.name as typeProd, `stockID` 
+            FROM `product` 
+            JOIN type_product on product.product_typeID = type_product.id 
+            where product.name like '%". $q . "%'";
     }
+
+    try
+    {
+      $r = $pdo->query($s);
+    }
+    catch (PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      $c = 0;
+      while ($row = $r->fetch())
+      {
+        $id[$c] = $row['id'];
+        $pNumber[$c] = $row['number'];
+        $name[$c] = $row['name'];
+        $desc[$c] = $row['description'];
+        $price[$c] = $row['price'];
+        $size[$c] = $row['size'];
+        $quantity[$c] = $row['quantity'];
+        $critical[$c] = $row['critical_value'];
+        $fav[$c] = $row['favorite'];
+        $type[$c] = $row['typeProd'];
+        $stock[$c] = $row['stockID'];
+
+
+        $prod = new Product($id[$c], $pNumber[$c], $name[$c], $desc[$c], $price[$c], $size[$c], $quantity[$c], $critical[$c], $fav[$c], $type[$c], $stock[$c]);
+        $prodList[] = $prod;
+
+        $c = $c + 1;
+      }
+
+      return $prodList;
+    }
+    else
+    {
+      return "rows";
+    }
+  }
 
   function backUp()
-    {
-      $dump_path = "./"; //input location for the backup to be saved
-      $host = "localhost";  //db host e.g.- localhost
-      $user = "DUser";  //user e.g.-root
-      $pass = "somePassword";  //password
-      $command='mysqldump -h localhost -u DUser -psomePassword dental > backUpFile.sql';
-      system($command);
-      return true;
-    }
+  {
+    $dump_path = "./"; //input location for the backup to be saved
+    $host = "localhost";  //db host e.g.- localhost
+    $user = "DUser";  //user e.g.-root
+    $pass = "somePassword";  //password
+    $command='mysqldump -h localhost -u DUser -psomePassword dental > backUpFile.sql';
+    system($command);
+    return true;
+  }
 
   function restore()
   {

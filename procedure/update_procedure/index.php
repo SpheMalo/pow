@@ -48,6 +48,33 @@
       $o = "The procedure was not removed, please try again";
     }
   }
+  else if (isset($_POST['s_upd_proc']))
+  {
+    if (!isset($_POST['favo']) || $_POST['favo'] == null)
+    {
+      $f = 0;
+    }
+    else 
+    {
+      $f = $_POST['favo'];
+    }
+
+    //echo var_dump($_SESSION['c_p'], $_POST['desc'], $_POST['code'], $_POST['price'], $f, $_POST['p_t_code'], $_POST['p_t_desc']);
+    $proc = updateProcedure($_SESSION['c_p'], $_POST['desc'], $_POST['code'], $_POST['price'], $f, $_POST['p_t_code'], $_POST['p_t_desc'], $prtList);
+    
+    if ($proc == true)
+    {
+      $o = "The procedure was updated successfuly";
+    }
+    else if( $proc == "query")
+    {
+      $o = "The procedure was not updated due to a server error, please try again";
+    }
+    else if( $proc == "rows")
+    {
+      $o = "The procedure was not updated, please try again";
+    }
+  }
 ?>
 
 <html>
@@ -123,7 +150,7 @@
           </div>
         </fieldset>
 
-        <input type="submit" name="s_new_proc" value="Add Procedure" class="submit"/>
+        <input type="submit" name="s_upd_proc" value="Update Procedure" class="submit"/>
         <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>remove procedure</a>
       </form>
 
