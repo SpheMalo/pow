@@ -1344,6 +1344,51 @@
     }
   }
 
+  function updatePatient($name, $surname, $id, $title, $dob, $gender, $cell, $tell, $email, $physical, $postal, $medical, $standing, $medical_m_i)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select * from address_postal where number = '" . $postal['number'] . "' and street = '" . $postal['street'] . "' and suburb = '" . $postal['suburb'] . "' and postal_code = '" . $postal['code'] . "' and cityID = " . $postal['city'];
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      $a_po = null;
+    }
+    else
+    {
+      $a_po = "";
+    }
+
+    try
+    {
+      $s1 = "select * from address_postal where number = '" . $physical['number'] . "' and street = '" . $physical['street'] . "' and suburb = '" . $physical['suburb'] . "' and postal_code = '" . $physical['code'] . "' and cityID = " . $physical['city'];
+      $r1 = $pdo->query($s1);
+    }
+    catch(PDOException $e)
+    {
+      return "query1";
+    }
+
+    if ($r1->rowCount() > 0)
+    {
+      $a_ph = null;
+    }
+    else
+    {
+      $a_ph = "";
+    }
+
+    $a_p = addAddresses($postal, $physical);
+  }
+
   function loadProcList($id, $q)
   {
     require 'dbconn.php';
