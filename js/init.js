@@ -667,7 +667,7 @@ function snap()
   var context = canvas.getContext('2d');
   context.drawImage(video, 0, 0, 640, 480);
   var dat = canvas.toDataURL('image/png', 1.0).replace('image/png', 'image/octet-stream');
-  imagejpeg(dat);
+  //imagejpeg(dat);
   //window.location.href = image;
   console.log(dat);
   $("#test").html(dat);
