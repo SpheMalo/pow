@@ -91,19 +91,7 @@
           </div>
         </fieldset>
 
-        <fieldset>
-          <legend>Audit Log</legend>
-          <div>
-            <label>types:</label>
-            <input type="text" name="type1" placeHolder="Medical Aid Type 1" pattern="[a-zA-Z0-9 ]{1,255}" title="Only alphanumeric characters"/>
-            <input type="text" name="type2" placeHolder="Medical Aid Type 2" pattern="[a-zA-Z0-9 ]{1,255}" title="Only alphanumeric characters"/>
-            <input type="text" name="type3" placeHolder="Medical Aid Type 3" pattern="[a-zA-Z0-9 ]{1,255}" title="Only alphanumeric characters"/>
-            <input type="text" name="type4" placeHolder="Medical Aid Type 4" pattern="[a-zA-Z0-9 ]{1,255}" title="Only alphanumeric characters"/>
-            <input type="text" name="type5" placeHolder="Medical Aid Type 5" pattern="[a-zA-Z0-9 ]{1,255}" title="Only alphanumeric characters"/>
-          </div>
-        </fieldset>
-
-        <input type="submit" name="add_new_med" value="Add Medical Aid" class="submit"/>
+        <input class="display" type="submit" name="add_new_med" value="Add Medical Aid" class="submit"/>
         
       </form>
       

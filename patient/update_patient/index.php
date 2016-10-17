@@ -1,12 +1,19 @@
 <?php
-  session_start();
   
   require '../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "update patient";
+
+    if (isset($_GET['up']))
+    {
+      $_SESSION['c_p'] = $_GET['up'];
+    }
+
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
     
     $tList = loadTitleList();
@@ -15,12 +22,42 @@
     $cList = loadCityList(); 
     $idList = loadIdList(" ");
 
+    unset($r_link);
+    $r_link = "?rem=" . $_SESSION['c_p'];
   }
   else
   {
     header("Location: ../../login/");
   }
 
+  if (isset($_GET['rem']))
+  {
+    unset($r_link);
+    $r_link = "";
+    $r_i = removePatient($_GET['rem']);
+    //echo var_dump($r_i);
+
+    if ($r_i == "remove")
+    {
+      $o = "The patient type has been successfully removed.";
+    }
+    //    else if ($r_i == "removed")
+    //    {
+    //      $o = "The product type has already been removed.";
+    //    }
+    else if ($r_i == "query" || $r_i == "query1")
+    {
+      $o = "The patient was not removed due to a server error. Try again later.";
+    }
+    else if ($r_i == "inUse")
+    {
+      $o = "Cannot perform action. Patient Type is linked to an existing consultation";
+    }
+    else if ($r_i == "rows")
+    {
+      $o = "The patient was not removed, please try again";
+    }
+  }
  /*if (isset($_POST['s_upd_pat']))
   {
     $patient = updPatient($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['gender'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical']);
@@ -158,7 +195,7 @@
           
           <div>
             <label for="tell">telephone:</label>
-            <input type="tel" id="tellId" name="tell" placeholder="Enter patient telephone number eg. 0112478832" required pattern="[0-9]{10,10}" title="A number of 10 characters"/>
+            <input type="tel" id="tellId" name="tell" placeholder="Enter patient telephone number eg. 0112478832"  pattern="[0-9]{10,10}" title="A number of 10 characters"/>
             <label for="t" class="display">telephone:</label>
             <input type="tel" name="t" placeholder="enter employee telephone number eg. 0112478832" pattern="[0-9]{10,10}" title="A number of 10 characters" class="display"/>
             <label for="postal">postal address:</label>
@@ -208,7 +245,7 @@
         </fieldset>
         
         <input type="submit" name="s_upd_pat" value="Update Patient" class="submit"/>
-        <input type="submit" name="rem" value="Remove Patient" class="submit"/>
+        <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>remove patient</a>
         
       </form>
       
