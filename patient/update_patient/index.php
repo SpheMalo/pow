@@ -332,7 +332,7 @@
           </div>
           <div>
             <label>main member id:</label>
-            <input type="text" id="medical_m_iId" name="medical_m_i" list="pat_id" placeholder="Enter Main member ID e.g. 9011305265088" id="main_m" pattern="[0-9]{10,13}" required autocomplete="off" title="A number of 13 characters"/>
+            <input type="text" id="medical_m_iId" name="medical_m_i" list="pat_id" placeholder="Enter Main member ID e.g. 9011305265088" id="main_m" pattern="[0-9]{10,13}"  autocomplete="off" title="A number of 13 characters"/>
 
             <datalist id="pat_id">
               <?php foreach ($idList as $i):?>
