@@ -29,7 +29,6 @@
     <script type="text/javascript" src="../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../js/jsPDF/dist/jspdf.min.js"></script>
     <script type="text/javascript" src="../../js/convertPDF.js"></script>
-
     <script type="text/javascript">
       $(document).ready(function(){
         $('#s101').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
@@ -67,8 +66,6 @@
           <div>
             <label for="DrSelect">name:</label>
             <select id="DrSelect" name="dentist" onchange="getDrSchedule()">
-              <!--<option name="jpMaponya">Dr J.P. Maponya</option>
-              <option name="yMaponya">Dr Y. Maponya</option>-->
               <option>--select dentist--</option>
               <?php foreach($dList as $d):?>
                 <?php $name = $d['name'];?>

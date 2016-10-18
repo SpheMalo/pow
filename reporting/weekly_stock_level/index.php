@@ -5,9 +5,9 @@
   
   if (isset($_SESSION['emp']))
   {
-    $_SESSION['page'] = "daily appointment schedule";
+    $_SESSION['page'] = "weekly stock level";
     $emp = $_SESSION['emp'];
-    $dList = loadDocList();
+//    $dList = loadDocList();
     $o = "";
   }
   else
@@ -25,11 +25,10 @@
     <script type="text/javascript" src="../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
-    <script type="text/javascript" src="../../js/daily_app_report.js"></script>
+    <script type="text/javascript" src="../../js/weekly_stock_rpt.js"></script>
     <script type="text/javascript" src="../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../js/jsPDF/dist/jspdf.min.js"></script>
-    <script type="text/javascript" src="../../js/convertPDF.js"></script>
-
+    <script type="text/javascript" src="../../js/generateStockLevelPDF.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
         $('#s101').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
@@ -63,17 +62,15 @@
     <div id="cont">
       <form method="post" action="">
         <fieldset>
-          <legend>doctor details</legend>
+          <legend>Stock Available</legend>
           <div>
-            <label for="DrSelect">name:</label>
-            <select id="DrSelect" name="dentist" onchange="getDrSchedule()">
-              <!--<option name="jpMaponya">Dr J.P. Maponya</option>
-              <option name="yMaponya">Dr Y. Maponya</option>-->
-              <option>--select dentist--</option>
-              <?php foreach($dList as $d):?>
-                <?php $name = $d['name'];?>
-                <option value="<?php echo $d['id'];?>">Dr. <?php echo $name[0] . ". " . $d['surname'];?></option>
-              <?php endforeach;?>
+            <label for="CurrentDate">Current Date:</label>
+            <select id="CurrentDateId" name="CurrentDate" onchange="getWeeklyStock()">
+              <option>--select current date--</option>
+              <?php ?>
+              <?php $name = $d['name'];?>
+                <option value="<?php echo date("Y-m-d");?>"><?php echo date("Y-m-d");?></option>
+              <?php;?>
             </select>
 <!--            <select id="DrSelect" onchange="getDrSchedule()">-->
 <!--              <option >-- Select Dentist --</option>-->
@@ -82,10 +79,10 @@
 <!--            </select>-->
           </div>
         </fieldset>
-        <span onclick="convertToPDF()" name="p_daily_app" class="submit" style="padding: 2px;"/><a>  Print Report  </a></span>
+        <span onclick="generateStockLevelPDF()" name="p_weekly_stock" class="submit" style="padding: 2px;"/><a>  Print Report  </a></span>
       </form>
            
-      <div id="Sphe">
+      <div id="stock">
         
       </div>
     
