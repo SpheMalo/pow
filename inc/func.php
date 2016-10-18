@@ -2545,6 +2545,35 @@
         return "rows";
       }
     }
+
+    try
+        {
+          $s3 = "select scheduleID from consultation where id = $id";
+          $r3 = $pdo->query($s3);
+        }
+        catch (PDOException $e)
+        {
+        }
+
+        if ($r3->rowCount() > 0)
+        {
+          foreach($r3 as $row)
+          {
+            $c_sID = $row['scheduleID'];
+          }
+
+          try
+          {
+            $s4 = "update `schedule` set `available`=0 where id = $c_sID";
+            $r4 = $pdo->exec($s4);
+          }
+          catch(PDOException $e)
+          {
+          }
+        }
+        else
+        {
+        }
 }
 
   function patientArrived($id)

@@ -190,7 +190,7 @@ else if (isset($_POST['s_upd_app']))
         <fieldset>
           <legend>booking details</legend>
            <div>
-            <label for="dentist">dentist:</label>
+            <label for="dentist">dentist:</label> 
             <select id="dentistSelect" name="dentist" onchange="getBookWeek()">
               <!--<option name="jpMaponya">Dr J.P. Maponya</option>
               <option name="yMaponya">Dr Y. Maponya</option>-->
@@ -231,7 +231,7 @@ else if (isset($_POST['s_upd_app']))
 
         <input type="submit" name="s_upd_app" class="submit" value="update appointment"/>
 <!--        <input type="submit" name="s_pat_arival" class="submit" value="patient arrived"/>-->
-        <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>patient arrived</a>
+        <a id="remove" onclick='confirm_app("<?php echo $_SESSION['c_p'];?>")'>patient arrived</a>
         <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>cancel appointment</a>
       </form>
 

@@ -906,6 +906,12 @@ function addProdOrderCon()
     $('<div id="proceed"><p>Are you sure you wish to continue?</p><a href="?rem=' + datt + '" id="rem_yes" style="cursor:pointer;" >yes</a><a href="" id="rem_no" style="cursor:pointer;">no</a></div>').appendTo('body').fadeIn('fast');
     e.preventDefault();
   }
+
+  function confirm_app(datt)
+  {
+    $('<div id="proceed"><p>Are you sure you wish to continue?</p><a href="?p_a=' + datt + '" id="rem_yes" style="cursor:pointer;" >yes</a><a href="" id="rem_no" style="cursor:pointer;">no</a></div>').appendTo('body').fadeIn('fast');
+    e.preventDefault();
+  }
   
 
 $(document).ready(function(){
