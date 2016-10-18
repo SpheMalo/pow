@@ -39,7 +39,7 @@
 
     if ($r_i == "remove")
     {
-      $o = "The patient type has been successfully removed.";
+      $o = "The patient has been successfully removed.";
     }
     //    else if ($r_i == "removed")
     //    {

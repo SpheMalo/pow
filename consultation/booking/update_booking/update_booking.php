@@ -16,8 +16,8 @@
               join type_booking on consultation.booking_typeID = type_booking.id
               join `schedule` on consultation.scheduleID = schedule.id
               join timeslot on consultation.timeslotID = timeslot.id
-              WHERE consultation.id = $id  
-              ORDER BY consultation.id";
+              WHERE consultation.id = $idNum 
+              ORDER BY `consultation`.id";
             
      try
      {

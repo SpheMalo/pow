@@ -13,6 +13,7 @@ function getPatientById()
         success: function (response) {
             patients = response;
 
+
             for (var i = 0; i<patients.length; i++) {
 
                 var obj = "";
@@ -89,7 +90,6 @@ function populateFields() {
             break;
         }
     }
-    console.log(patient);
 
     $("#patientName").val(patient.name);
     $("#patientSurname").val(patient.surname);

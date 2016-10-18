@@ -20,6 +20,7 @@
     <title>D+M Dental Practice System - <?php echo $_SESSION['page'];?></title>
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" type="text/css" media="all" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="css/addUpd.css" />
     <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="js/init.js"></script>
@@ -42,7 +43,13 @@
     </div>
     
     <div id="cont">
-      
+      <form method="post" action="">
+        <fieldset>
+          <legend style="padding-bottom: 25px; padding-top: 25px">Current User logged on:</legend>
+            <label ><?php echo $emp->name;?></label>
+            <label><?php echo $emp->surname;?></label>
+        </fieldset>
+      </form>
       <div id="noti"></div>
     </div>
     

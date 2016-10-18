@@ -37,7 +37,6 @@ function getEmployeeById() {
             }
 
             employee = temp[0];
-            console.log(employee);
             populateFields();
         },
         error: function (error) {
@@ -49,7 +48,6 @@ function getEmployeeById() {
 function populateFields() 
 {
     employee = JSON.parse(employee);
-    console.log(employee);
     $("#proPicId").attr("src","http://localhost/Prac/qualit1/pow/img/profilePic/"+ employee.img);
     $("#nameId").val(employee.name);
     $("#surnameId").val(employee.surname);

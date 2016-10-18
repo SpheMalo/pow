@@ -2425,6 +2425,152 @@
     }
 }
 
+////////////////////////////////////////////////// Method to remove Patient //////////////////////////////////
+  function removeSupplier($id)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s = "select * from `order` where supplierID = $id";
+      $r = $pdo->query($s);
+    }
+    catch(PDOException $e)
+    {
+      return "query";
+    }
+
+    if ($r->rowCount() > 0)
+    {
+      return "inUse";
+    }
+    else
+    {
+      try
+      {
+        $s4 = "DELETE FROM `supplier` WHERE id = $id";
+        $r4 = $pdo->exec($s4);
+      }
+      catch(PDOException $e)
+      {
+        return "query1";   //// delete
+      }
+
+      if ($r4 > 0)
+      {
+        return "remove";   ///successful
+      }
+      else
+      {
+        return "rows";   ////delete not successful
+      }
+    }
+  }
+////////////////////////////////////////////////// Method to cancel consultation ////////////////////////////////
+  function removeConsultation($id)
+{
+  require 'dbconn.php';
+
+  //$u_pList = loadProdList($id, null);
+  try
+  {
+    $s = "SELECT status FROM `consultation` WHERE `status`= 'Arrived' AND id = $id";
+    $r = $pdo->query($s);
+  }
+  catch(PDOException $e)
+  {
+    return "query";
+  }
+
+  if ($r->rowCount() == 0)
+  {
+    try
+    {
+      $s1 = "select status from consultation where id = $id";
+      $r1 = $pdo->query($s1);
+    } catch (PDOException $e)
+    {
+      return "query1";
+    }
+
+//    while ($row = $r1->fetch())
+//    {
+//      $a = $row['status'];
+//    }
+//
+//    if ($a == 0)
+//    {
+//      return "removed";
+//    }
+//    else
+    {
+      try
+      {
+//        $s2 = "UPDATE `consultation` SET `status`= 'Cancelled' WHERE  id= $id";
+        $s2 = "DELETE FROM `consultation` WHERE id= $id";
+        $r2 = $pdo->exec($s2);
+      } catch (PDOException $e)
+      {
+        return "query2";
+      }
+
+      if ($r2 > 0)
+      {
+        return "inactive";
+      }
+      else
+      {
+        return "rows";
+      }
+    }
+  }
+    else
+    {
+      try
+      {
+        $s3 = "DELETE FROM `consultation` WHERE id= $id";
+        $r3 = $pdo->exec($s3);
+      }
+      catch(PDOException $e)
+      {
+        return "query1";
+      }
+
+      if ($r3 > 0)
+      {
+        return "remove";
+      }
+      else
+      {
+        return "rows";
+      }
+    }
+}
+
+  function patientArrived($id)
+  {
+    require 'dbconn.php';
+
+    try
+    {
+      $s4 = "UPDATE `consultation` SET `status`= 'Arrived' WHERE  id= $id";
+//      $s2 = "DELETE FROM `consultation` WHERE id= $id";
+      $r4 = $pdo->exec($s4);
+    }
+    catch (PDOException $e)
+    {
+      return "query3";
+    }
+
+    if ($r4 > 0)
+    {
+      return "arrived";
+    }
+    else
+    {
+      return "rows3";
+    }
+  }
 
   function loadStockList($id, $q)
     {
@@ -2704,7 +2850,8 @@
 
     if ($r->rowCount() > 0)
     {
-      while ($row = $r->fetch()) {
+      while ($row = $r->fetch())
+      {
         $ids[] = $row["id"];
         $descriptions[] = $row["description"];
       }

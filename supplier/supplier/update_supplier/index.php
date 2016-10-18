@@ -1,21 +1,56 @@
 <?php
-  session_start();
-  
+
   require '../../../inc/func.php';
-  
+  session_start();
+
   if (isset($_SESSION['emp']))
   {
-    $_SESSION['page'] = "update supplier";
-    $emp = $_SESSION['emp'];
-    $o = "";
-
-    $cList = loadCityList();
-     
+      $_SESSION['page'] = "update supplier";
+    
+      if (isset($_GET['up']))
+      {
+          $_SESSION['c_p'] = $_GET['up'];
+      }
+          
+      $emp = $_SESSION['emp'];
+      $emp_access_level = loadEmpAccessLevel($emp->id);
+      $o = "";
+    
+      $cList = loadCityList();
+      
+      unset($r_link);
+      $r_link = "?rem=" . $_SESSION['c_p'];
   }
   else
   {
     header("Location: ../../../login/");
   }
+
+    if (isset($_GET['rem']))
+    {
+        unset($r_link);
+        $r_link = "";
+        $r_i = removeSupplier($_GET['rem']);
+    
+        if ($r_i == "remove")
+        {
+            $o = "The supplier has been successfully removed.";
+        }
+        else if ($r_i == "query" || $r_i == "query1")
+        {
+            $o = "The supplier was not removed due to a server error. Try again later.";
+        }
+        else if ($r_i == "inUse")
+        {
+            $o = "Cannot perform action. Supplier is linked to an existing order";
+        }
+        else if ($r_i == "rows")
+        {
+            $o = "The supplier was not removed, please try again";
+        }
+    }
+
+
 ?>
 
 <html>
@@ -113,7 +148,7 @@
        </fieldset>
         
          <input type="submit" name="s_upd_sup" value="Update Supplier" class="submit"/>
-         <input type="submit" name="rem" value="Remove Supplier" class="submit"/>
+         <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>remove supplier</a>
 
       </form>
       
