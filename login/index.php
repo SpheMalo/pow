@@ -2,8 +2,13 @@
   session_start();
 
   require '../inc/func.php';
+  unset($_SESSION['a_t']);
   
-  if (isset($_POST['login']))
+  if (isset($_GET['t']))
+  {
+    header("Location: inactivity.php");
+  }
+  else if (isset($_POST['login']))
   {
     $user = $_POST['user'];
     $pass = $_POST['pass'];
@@ -23,8 +28,9 @@
     }
     else
     {
-      header("Location: ../");
+      $_SESSION['a_t'] = mktime(date("h"), date("i"), date("s"), date("m"), date("d"), date("y"));
       $_SESSION['emp'] = $emp;
+      header("Location: ../");
     }
     
   }

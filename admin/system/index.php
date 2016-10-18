@@ -1,12 +1,21 @@
 <?php
+  require '../../inc/func.php';
   session_start();
   
-  require '../../inc/func.php';
-  
-  if (isset($_SESSION['emp']))
+  if (isset($_SESSION['emp']) && isset($_SESSION['a_t']))
   {
+    $l_t = date_create(date("Y-m-d h:i:s", $_SESSION['a_t']));
+    $c_t = date_create(date("Y-m-d h:i:s"));
+    $i = date_diff($l_t, $c_t);
+
+    if (intval($i->format('%i')) > 10)
+    {
+      header("Location: ../../login/?t");
+    }
+
     $_SESSION['page'] = "System";
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
 
   }
@@ -46,20 +55,39 @@
     <script type="text/javascript" src="../../js/restore.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        $('#s24').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
-        $('#s24').parent().parent().css({'background': 'white', 'color': '#00314c'});
-        $('#s24').parent().prevUntil().css({'color': '#00314c'});
-        $('#s24').parent().nextUntil().css({'color': '#00314c'});
-        $('#s24').parent().prevUntil().children().css({'color': '#00314c'});
-        $('#s24').parent().nextUntil().children().css({'color': '#00314c'});
-        $('#s24').css({'color': '#00314c', 'text-decoration': 'underline'});
+        $('#s25').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+        $('#s25').parent().parent().css({'background': 'white', 'color': '#00314c'});
+        $('#s25').parent().prevUntil().css({'color': '#00314c'});
+        $('#s25').parent().nextUntil().css({'color': '#00314c'});
+        $('#s25').parent().prevUntil().children().css({'color': '#00314c'});
+        $('#s25').parent().nextUntil().children().css({'color': '#00314c'});
+        $('#s25').css({'color': '#00314c', 'text-decoration': 'underline'});
       });
     </script>
   </head>
   
   <body>
     <?php
-      include '../../inc/menu.htm';
+      if ($emp_access_level == "A")
+      {
+        include '../../inc/menu_A.htm';
+      }
+      else if ($emp_access_level == "B")
+      {
+        include '../../inc/menu_B.htm';
+      }
+      else if ($emp_access_level == "C")
+      {
+        include '../../inc/menu_C.htm';
+      }
+      else if ($emp_access_level == "D")
+      {
+        include '../../inc/menu_D.htm';
+      }
+      else
+      {
+        include '../../inc/menu.htm';
+      }
     ?>
     
     <div id="head">
