@@ -3,7 +3,11 @@
 
   require '../inc/func.php';
   
-  if (isset($_POST['login']))
+  if (isset($_GET['t']))
+  {
+    $o = "You have been logged out due to inactivity.";
+  }
+  else if (isset($_POST['login']))
   {
     $user = $_POST['user'];
     $pass = $_POST['pass'];
@@ -23,8 +27,9 @@
     }
     else
     {
-      header("Location: ../");
+      $_SESSION['a_t'] = mktime(date("h"), date("i"), date("s"), date("m"), date("d"), date("y"));
       $_SESSION['emp'] = $emp;
+      header("Location: ../");
     }
     
   }
