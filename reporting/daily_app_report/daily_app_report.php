@@ -3,16 +3,8 @@
     require "../../inc/dbconn.php";
     $doctorName = $_REQUEST['doctorName'];
     $doctorId = $doctorName;
-echo $doctorName;
-  if (isset($doctorName)) {
-//
-//        if ($doctorName == "Dr J.P. Maponya") {
-//            $doctorId=1;
-//        }
-//        else {
-//            $doctorId=2;
-//        }
 
+  if (isset($doctorName)) {
 
         $sql = "select schedule.available_date as appointment_date, timeslot.description as appointment_time, 
                 employee.name as empl_name, employee.surname as empl_surname, patient.name as patient_name, 

@@ -1,17 +1,28 @@
 <?php
-  session_start();
   
   require '../../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "update booking";
+
+    if (isset($_GET['up']))
+    {
+      $_SESSION['c_p'] = $_GET['up'];
+    }
+
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
 
     $iList = loadIdList(null);
     $dList = loadDocList();
     $book_typeList = loadBookTypeList();
+    $book_timeSlot = loadTimeSlots();  ///--  Mate Im battling with populating the timeslot of this func is diff to the one above and didnt want to change coz now it affects something else
+
+    unset($r_link);
+    $r_link = "?rem=" . $_SESSION['c_p'];
   }
   else
   {
@@ -20,16 +31,47 @@
 
   if (isset($_GET['rem']))
   {
-    if ($u_b == "remove")
+    unset($r_link);
+    $r_link = "";
+    $r_i = removeConsultation($_GET['rem']);
+    $r_a = patientArrived($_GET['rem']);
+    //echo var_dump($r_i);
+  
+    if ($r_i == "remove")
     {
-      $o = "The booking has been successfully removed.";
+      $o = "The consultation has been successfully cancelled and removed.";
     }
-    else if ($u_b == "removed")
+    else if ($r_i == "removed")
     {
-      $o = "The booking has been removed already.";
+      $o = "The consultation has already been removed.";
+    }
+    else if ($r_i == "query" || $r_i == "query1" || $r_i == "query2")
+    {
+      $o = "The consultation was not cancelled due to a server error. Try again later.";
+    }
+    else if ($r_i == "rows")
+    {
+      $o = "The consultation was not removed, please try again";
+    }
+    else if ($r_i == "inactive")
+    {
+      $o = "The consultation has been successfully cancelled";
+    }
+
+    if ($r_a == "arrived")
+    {
+      $o = "Patient status successfully updated to 'arrived'";
+    }
+    else if ($r_a == "rows3")
+    {
+      $o = "The patient's status was not updated, please try again";
+    }
+    else if ($r_a == "query3")
+    {
+      $o = "The patient's status was not updated, due to a server error. please try again.";
     }
   }
-  else if (isset($_POST['s_upd_app']))
+else if (isset($_POST['s_upd_app']))
   {
     $u_b = updateBooking();
     if ($u_b == "query")
@@ -58,6 +100,7 @@
     <script type="text/javascript" src="../../../js/jquery.table2excel.js"></script>
     <script type="text/javascript" src="../../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../../js/init.js"></script>
+    <script type="text/javascript" src="../../../js/consultation_update.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
         $('#s32').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
@@ -71,7 +114,7 @@
     </script>
   </head>
   
-  <body>
+  <body onload="getBookingById()">
     <?php
       include '../../../inc/menu.htm';
     ?>
@@ -96,7 +139,7 @@
           <legend>patient details</legend>
           <div>
             <label for="id">id:</label>
-            <input id="ids" type="text" name="id" list="idNums" onchange="getPatientById()" placeholder="enter patient id" autofocus autocomplete="off"/>
+            <input id="ids" type="text" name="id" list="idNums" onchange="getPatientById()" placeholder="enter patient id" autofocus autocomplete="off"disabled/>
 
             <datalist id="idNums">
               <?php foreach($iList as $i):?>
@@ -130,8 +173,12 @@
                 <option value="<?php echo $d['id'];?>">Dr. <?php echo $name[0] . ". " . $d['surname'];?></option>
               <?php endforeach;?>
             </select>
-            <!--<label for="date">consultation date:</label>
-            <input type="date" name="date" placeholder="select consultation date"/>-->
+
+            <label for="date">consultation date:</label>
+            <input id="dateID" type="date" name="date" placeholder="select consultation date"/>
+            <label for="name">Status:</label>
+            <input id="statusId" type="text" name="status" placeholder="Displays booking status of a patient" disabled/>
+
           </div>
             
           <div>
@@ -139,17 +186,26 @@
             <select id="locationSelect" name="type" readonly>
               <option>--select booking type--</option>
               <?php foreach($book_typeList as $b):?>
-                <option value="<?php echo $b['id'];?>"><?php echo $b['desc'];?></option>              
-              <?php endforeach;?>              
+                <option id="<?php echo $b['desc'];?>" value="<?php echo $b['id'];?>"><?php echo $b['desc'];?></option>
+              <?php endforeach;?>
             </select>
-              
+            <label for="location">Time Slot:</label>
+            <select id="locationSelect" name="type" readonly>
+              <option>--select booking type--</option>
+              <?php foreach($book_timeSlot as $t):?>
+                <option id="<?php echo $t['descriptions'];?>" value="<?php echo $t['ids'];?>"><?php echo $t['descriptions'];?></option>
+              <?php endforeach;?>
+
+              ////This can be populated if the load func works the same as the booking type one... see comment above (top of file)
+            </select>
           </div>
           
         </fieldset>
 
         <input type="submit" name="s_upd_app" class="submit" value="update appointment"/>
-        <input type="submit" name="s_pat_arival" class="submit" value="patient arrived"/>
-        <input type="submit" name="s_new_book" class="submit" value="cancel appointment"/>
+<!--        <input type="submit" name="s_pat_arival" class="submit" value="patient arrived"/>-->
+        <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>patient arrived</a>
+        <a id="remove" onclick='confirmation("<?php echo $_SESSION['c_p'];?>")'>cancel appointment</a>
       </form>
 
       <div id="noti"></div>

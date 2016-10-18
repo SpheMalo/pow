@@ -50,7 +50,7 @@ function convertToPDF()
         function (dispose) {
             // dispose: object with X, Y of the last line add to the PDF
             //          this allow the insertion of new lines after html
-            doc.save('Test.pdf');
+            doc.save('Daily Appointment Report.pdf');
         }, margins
     );
 }

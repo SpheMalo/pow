@@ -136,7 +136,7 @@
     }
   }
 
-   class ProcedureType
+  class ProcedureType
   {
     public $id;
     public $desc;
@@ -218,7 +218,7 @@
   }
 
 
-class Supplier
+  class Supplier
   {
     public $id;
     public $name;

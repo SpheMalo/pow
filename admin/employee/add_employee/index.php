@@ -41,6 +41,10 @@
     //$empDet = addEmployee($_POST['title'], $_POST['name'], $_POST['surname'], $_POST['gender'], $_POST['id'], $_POST['banking'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['postal'], $_POST['physical'], $_POST['type']);
     $empDet = addEmployee($_POST['name'], $_POST['surname'], $_POST['id'], $_POST['cell'], $_POST['tell'], $_POST['email'], $_POST['banking'], $postal, $physical, $_POST['gender'], $_POST['title'], $_POST['type'], $_POST['loc']);
 
+//      $output = print_r($empDet,1);
+//      echo $output;
+//      echo $empDet[1];
+
     if (isset($empDet))
     {
       if ($empDet == false)
@@ -55,7 +59,7 @@
         /////////////////////EMAIL ////////////////////////////////////
         require_once '../../../swift/lib/swift_required.php';
 
-        $message = "Good day \n\nA new employee has been added to the system. \n\nContact details\n\nEmployee name: ".$_POST['name']." \nEmployee surname: ".$_POST['surname']. "\nTelephone: ".$_POST['tell']."\n\n Kind regards \n D+M Maponya Dental Practice";
+        $message = "Good day \n\nCongratulations and welcome to the family. You have been added to the system. Please confirm contact details and receive login details. \n\nContact and login details\n\nEmployee name: ".$_POST['name']." \nEmployee surname: ".$_POST['surname']. "\nCellphone: ".$_POST['cell']." \nUsername: ".$empDet[0]." \nPassword: ".$empDet[1]."\n\n Kind regards \n D+M Maponya Dental Practice";
 
         $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
             ->setUsername('ntokozo.sindane12')
@@ -65,7 +69,7 @@
 
         $message = Swift_Message::newInstance("New employee added")
             ->setFrom(array('ntokozo.sindane12@gmail.com'))
-            ->setTo(array("u12074332@tuks.co.za"))
+            ->setTo(array($_POST['email']))
             ->setBody($message);
 
         $result = $mailer->send($message);

@@ -1,13 +1,14 @@
 <?php
-  session_start();
   
   require '../../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']))
   {
     $_SESSION['page'] = "Add supplier";
     $emp = $_SESSION['emp'];
     $o = "";
+
 
     $cList = loadCityList();
   }
@@ -26,7 +27,9 @@
         'city' => $_POST['add_line_ph4']
       );
 
-    $status = "Active";
+        $status = "Active";
+
+      //  $s = "select * from `employee` where supplierID = $id";
 
     $supplier = addSupplier($_POST['supplierName'], $_POST['contactPersonName'], $_POST['supplierEmail'], $_POST['telephone'], $_POST['faxNumber'], $physical, $_POST['bankName'], $_POST['branchName'], $_POST['branchCode'], $_POST['accountNumber'], $_POST['reference'], $status);
     
@@ -39,7 +42,7 @@
 /////////////////////EMAIL ////////////////////////////////////
       require_once '../../../swift/lib/swift_required.php';
 
-      $message = "Good day \n\nA new supplier has been added to the system. \n\nContact details\n\nSupplier name: ".$_POST['supplierName']." \nContact Person: ".$_POST['supplierEmail']. "\nTelephone: ".$_POST['telephone']."\n\n Kind regards \n D+M Maponya Dental Practice";
+      $message = "Good day \n\n A new supplier has been added to the system.. \n\nContact details\n\nSupplier name: ".$_POST['supplierName']." \nContact Person: ".$_POST['contactPersonName']. "\nTelephone: ".$_POST['telephone']."\n\n Kind regards \n D+M Maponya Dental Practice";
 
       $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
           ->setUsername('ntokozo.sindane12')
@@ -49,7 +52,7 @@
 
       $message = Swift_Message::newInstance("New supplier added")
           ->setFrom(array('ntokozo.sindane12@gmail.com'))
-          ->setTo(array("u12074332@tuks.co.za"))
+          ->setTo(array($emp->email))
           ->setBody($message);
 
       $result = $mailer->send($message);
