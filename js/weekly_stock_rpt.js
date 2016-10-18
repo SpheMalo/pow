@@ -3,7 +3,7 @@ var stocked;
 function getWeeklyStock() {
     var date = $('#CurrentDateId').val();
 
-    if (date != "-- Select Dentist --") {
+    if (date != "-- select current date --") {
         $.ajax({
             url: "weekly_stock_level.php",
             type: "GET",

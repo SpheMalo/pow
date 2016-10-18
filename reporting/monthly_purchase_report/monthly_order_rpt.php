@@ -1,17 +1,15 @@
 <?php
 
     require "../../inc/dbconn.php";
-    $stock = $_REQUEST['stockWeek'];
-    $StockId = $stock;
+    $order = $_REQUEST['order'];
+    $OrderId = $order;
 
-    if (isset($stock))
+    if (isset($order))
     {
-        $sql = "SELECT product.id as prodID, product.number as prodNo, product.name as prodName, product.description as prodDesc,  product.quantity as prodQty, type_product.name as prodType, order.number as orderNo
-                FROM `stock`
-                JOIN product on stock.productID = product.id
-                JOIN `order` on stock.orderID = order.id
-                JOIN type_product on product.product_typeID = type_product.id
-                order by product.id";
+        $sql = "SELECT order.id, `number`, `order_date`, order.status, supplier.name as supplier
+                FROM `order`
+                JOIN supplier on order.supplierID = supplier.id
+                ORDER BY id";
 
         try
         {
@@ -19,24 +17,23 @@
         }
         catch(PDOException $e)
         {
-            $o = "unable to retrieve stock levels" . $e;
+            $o = "unable to retrieve order list" . $e;
             echo "Exception: ".$o;
         }
 
-        $stocked = array();
+        $orders = array();
         $c = 0;
         if ($r->rowCount() > 0){
             while($row = $r->fetch()) {
 
-                $stocked[$c]['prodID'] = $row['prodID'];
-                $stocked[$c]['prodNo'] = $row['prodNo'];
-                $stocked[$c]['prodName'] = $row['prodName'];
-                $stocked[$c]['prodDesc'] = $row['prodDesc'];
-                $stocked[$c]['prodType'] = $row['prodType'];
-                $stocked[$c]['prodQty']= $row['prodQty'];
+                $orders[$c]['number'] = $row['number'];
+                $orders[$c]['order_date'] = $row['order_date'];
+                $orders[$c]['status'] = $row['status'];
+                $orders[$c]['supplier'] = $row['supplier'];
+
                 $c++;
             }
-            echo json_encode($stocked);
+            echo json_encode($orders);
         }
         else {
             echo false;
