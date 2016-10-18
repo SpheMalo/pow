@@ -2,10 +2,11 @@
   session_start();
 
   require '../inc/func.php';
+  unset($_SESSION['a_t']);
   
   if (isset($_GET['t']))
   {
-    $o = "You have been logged out due to inactivity.";
+    header("Location: inactivity.php");
   }
   else if (isset($_POST['login']))
   {

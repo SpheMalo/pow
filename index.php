@@ -82,9 +82,6 @@
       <div id="noti"></div>
     </div>
     
-    <?php
-      echo "<p id='access_level' style='display: none;'>" . $emp_access_level . "</p>";
-    ?>
     <footer></footer>
   </body>
 </html>
