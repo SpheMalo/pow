@@ -1,7 +1,6 @@
-<?php
-  session_start();
-  
+<?php  
   require '../../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']) && isset($_SESSION['a_t']))
   {

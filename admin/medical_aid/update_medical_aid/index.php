@@ -1,5 +1,4 @@
 <?php
-  
   require '../../../inc/func.php';
   session_start();
   

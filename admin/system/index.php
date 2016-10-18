@@ -1,7 +1,6 @@
 <?php
-  session_start();
-  
   require '../../inc/func.php';
+  session_start();
   
   if (isset($_SESSION['emp']) && isset($_SESSION['a_t']))
   {
@@ -56,13 +55,13 @@
     <script type="text/javascript" src="../../js/restore.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        $('#s24').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
-        $('#s24').parent().parent().css({'background': 'white', 'color': '#00314c'});
-        $('#s24').parent().prevUntil().css({'color': '#00314c'});
-        $('#s24').parent().nextUntil().css({'color': '#00314c'});
-        $('#s24').parent().prevUntil().children().css({'color': '#00314c'});
-        $('#s24').parent().nextUntil().children().css({'color': '#00314c'});
-        $('#s24').css({'color': '#00314c', 'text-decoration': 'underline'});
+        $('#s25').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
+        $('#s25').parent().parent().css({'background': 'white', 'color': '#00314c'});
+        $('#s25').parent().prevUntil().css({'color': '#00314c'});
+        $('#s25').parent().nextUntil().css({'color': '#00314c'});
+        $('#s25').parent().prevUntil().children().css({'color': '#00314c'});
+        $('#s25').parent().nextUntil().children().css({'color': '#00314c'});
+        $('#s25').css({'color': '#00314c', 'text-decoration': 'underline'});
       });
     </script>
   </head>
