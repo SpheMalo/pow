@@ -1,16 +1,16 @@
 var stocked;
 
-function getWeeklyStock() {
-    var date = $('#CurrentDateId').val();
+function getGoodsReceiving() {
+    var date = $('#goodsRecId').val();
 
     if (date != "-- select current date --") {
         $.ajax({
-            url: "weekly_stock_level.php",
+            url: "goods_receiving_note.php",
             type: "GET",
             data: {stockWeek: date},
             success: function (response) {
                 if (response == false) {
-                    alert("No products available according to the system");
+                    alert("No orders to be received according to the system");
                 }
                 else {
                     var temp = [];
@@ -58,13 +58,15 @@ function getWeeklyStock() {
 }
 
 function generateTable() {
-    var newHtml = "<table width=''>" +
+    var newHtml = "<table width='100%'>" +
         "<colgroup>"+
         "<col width='15%'>"+
+        "<col width='12%'>"+
         "<col width='15%'>"+
-        "<col width='30%'>"+
-        "<col width='30%'>"+
+        "<col width='15%'>"+
         "<col width='10%'>"+
+        "<col width='8%'>"+
+        "<col width='8%'>"+
         "</colgroup>"+
         "</thread>"+
         "<tr>" +
@@ -72,7 +74,9 @@ function generateTable() {
         "<th>Product Name</th>"+
         "<th>Product Description</th>"+
         "<th>Product Type</th>"+
-        "<th>Quanity</th>"+
+        "<th>Product Size</th>"+
+        "<th>Quanity Ordered</th>"+
+        "<th>Quanity Received</th>"+
         "</tr>"
     "</thread>";
 
@@ -83,10 +87,12 @@ function generateTable() {
             "<td>" + stocked[i].prodName + "</td>" +
             "<td>" + stocked[i].prodDesc + "</td>"  +
             "<td>" + stocked[i].prodType + "</td>" +
+            "<td>" + stocked[i].size + "</td>" +
             "<td>" + stocked[i].prodQty + "</td>" +
+            "<td>" + " " + "</td>" +
             "</tr>"
     }
 
     newHtml += "</table>";
-    $("#stock").html(newHtml);
+    $("#receive").html(newHtml);
 }

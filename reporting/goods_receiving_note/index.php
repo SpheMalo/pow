@@ -4,6 +4,9 @@
   
   if (isset($_SESSION['emp']) && isset($_SESSION['a_t']))
   {
+
+    $_SESSION['page'] = "goods receiving note";
+
     $l_t = date_create(date("Y-m-d h:i:s", $_SESSION['a_t']));
     $c_t = date_create(date("Y-m-d h:i:s"));
     $i = date_diff($l_t, $c_t);
@@ -13,7 +16,6 @@
       header("Location: ../../login/?t");
     }
 
-    $_SESSION['page'] = "goods recieving note";
     $emp = $_SESSION['emp'];
     $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
@@ -30,10 +32,14 @@
     <title>D+M Dental Practice System - <?php echo $_SESSION['page'];?></title>
     <link rel="stylesheet" type="text/css" media="all" href="../../css/base.css" />
     <link rel="stylesheet" type="text/css" media="all" href="../../css/addUpd.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/viewBase.css" />
     <script type="text/javascript" src="../../js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="../../../js/jQueryRotate.js"></script>
     <script type="text/javascript" src="../../js/init.js"></script>
+    <script type="text/javascript" src="../../js/goods_receiving_note_rpt.js"></script>
+    <script type="text/javascript" src="../../js/jsPDF/dist/jspdf.min.js"></script>
+    <script type="text/javascript" src="../../js/generateGoodsReceivingPDF.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
         $('#s105').parent().parent().prev().css({'background': 'white', 'color': '#00314c'});
@@ -88,13 +94,23 @@
         <fieldset>
          <legend>order details</legend>
          <div>
-            <label for="ord">order number:</label>
-            <input type="text" name="ord" placeholder="enter order number" />            
+            <label for="ord">current date:</label>
+           <select id="goodsRecId" name="goodsRecId" onchange="getGoodsReceiving()">
+             <option>--select current date--</option>
+             <?php ?>
+             <?php $name = $d['name'];?>
+             <option value="<?php echo date("Y-m-d");?>"><?php echo date("Y-m-d");?></option>
+             <?php;?>
+           </select>
          </div>
         </fieldset>
 
-        <input type="submit" name="s_new_goods_recieve" value="print" class="submit"/>
+        <span onclick="generateGoodsReceivingPDF()" name="p_weekly_stock" class="submit" style="padding: 2px;"/><a>  Print Report  </a></span>
       </form>
+
+      <div id="receive">
+
+      </div>
 
       <div id="noti"></div>
     </div>

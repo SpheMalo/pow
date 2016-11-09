@@ -1,16 +1,17 @@
-var stocked;
+var orders;
 
-function getWeeklyStock() {
-    var date = $('#CurrentDateId').val();
+function getOrderList() {
+    var ordList = $('#OrderId').val();
 
-    if (date != "-- select current date --") {
+    if (ordList != "-- select current date --") {
         $.ajax({
-            url: "weekly_stock_level.php",
+            url: "monthly_order_rpt.php",
             type: "GET",
-            data: {stockWeek: date},
+            data: {order: ordList},
             success: function (response) {
+                console.log(response);
                 if (response == false) {
-                    alert("No products available according to the system");
+                    alert("No Order List available for " + ordList);
                 }
                 else {
                     var temp = [];
@@ -45,7 +46,7 @@ function getWeeklyStock() {
                         }
                     }
 
-                    stocked = temp;
+                    orders = temp;
                 }
 
                 generateTable();
@@ -60,33 +61,30 @@ function getWeeklyStock() {
 function generateTable() {
     var newHtml = "<table width=''>" +
         "<colgroup>"+
-        "<col width='15%'>"+
-        "<col width='15%'>"+
-        "<col width='30%'>"+
-        "<col width='30%'>"+
-        "<col width='10%'>"+
+        "<col width='25%'>"+
+        "<col width='25%'>"+
+        "<col width='25%'>"+
+        "<col width='25%'>"+
         "</colgroup>"+
         "</thread>"+
         "<tr>" +
-        "<th>Product No</th>"+
-        "<th>Product Name</th>"+
-        "<th>Product Description</th>"+
-        "<th>Product Type</th>"+
-        "<th>Quanity</th>"+
+        "<th>Order Number</th>"+
+        "<th>Order Date</th>"+
+        "<th>Order Status</th>"+
+        "<th>Supplier</th>"+
         "</tr>"
     "</thread>";
 
 
-    for (var i = 0; i<stocked.length; i++) {
+    for (var i = 0; i<orders.length; i++) {
         newHtml += "<tr>" +
-            "<td>" + stocked[i].prodNo + "</td>" +
-            "<td>" + stocked[i].prodName + "</td>" +
-            "<td>" + stocked[i].prodDesc + "</td>"  +
-            "<td>" + stocked[i].prodType + "</td>" +
-            "<td>" + stocked[i].prodQty + "</td>" +
+            "<td>" + orders[i].number+ "</td>" +
+            "<td>" + orders[i].order_date + "</td>" +
+            "<td>" + orders[i].status + "</td>"  +
+            "<td>" + orders[i].supplier + "</td>" +
             "</tr>"
     }
 
     newHtml += "</table>";
-    $("#stock").html(newHtml);
+    $("#order").html(newHtml);
 }
