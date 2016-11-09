@@ -166,7 +166,7 @@ else if (isset($_POST['s_upd_app']))
           <legend>patient details</legend>
           <div>
             <label for="id">id:</label>
-            <input id="ids" type="text" name="id" list="idNums" onchange="getPatientById()" placeholder="enter patient id" autofocus autocomplete="off"disabled/>
+            <input id="ids" type="text" name="id" list="idNums" onchange="getPatientById()" placeholder="enter patient id" autofocus/>
 
             <datalist id="idNums">
               <?php foreach($iList as $i):?>
@@ -177,13 +177,13 @@ else if (isset($_POST['s_upd_app']))
             <datalist id="idNums">
             </datalist>
             <label for="name">name:</label>
-            <input id="patientName" type="text" name="name" placeholder="enter patient name" disabled/>
+            <input id="patientName" type="text" name="name" placeholder="enter patient name" />
           </div>
           <div>
             <label for="medical" class="display">medical aid:</label>
-            <input id="patientMedicalAid" type="text" name="medical" placeholder="patient medical aid" disabled class="display"/>
+            <input id="patientMedicalAid" type="text" name="medical" placeholder="patient medical aid" class="display"/>
             <label for="surname">surname:</label>
-            <input id="patientSurname" type="text" name="surname" placeholder="enter patient surname" disabled/>
+            <input id="patientSurname" type="text" name="surname" placeholder="enter patient surname" />
           </div>
         </fieldset>
 

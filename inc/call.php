@@ -455,8 +455,8 @@
 ?>
 
 <ul id="call">
-  <li><p>week <?php echo date("W", $d);?></p><p>time</p></li>
-  <li>
+  <li class="blue"><p>week <?php echo date("W", $d);?></p><p>time</p></li>
+  <li class="blue">
     <?php
      //echo "<p>" . $mon . "</p>";
      if($mon > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
@@ -493,7 +493,7 @@
 
     ?>
   </li>
-  <li>
+  <li class="blue">
     <?php
      //echo "<p>" . $tue . "</p>";
      if($tue > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
@@ -530,7 +530,7 @@
 
     ?>
   </li>
-  <li>
+  <li class="blue">
     <?php
       //echo "<p>" . $wed . "</p>";
       if($wed > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
@@ -567,7 +567,7 @@
 
     ?>
   </li>
-  <li> 
+  <li class="blue"> 
     <?php
       //echo "<p>" . $thu . "</p>";
       if($thu > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
@@ -604,7 +604,7 @@
 
     ?>
   </li>
-  <li>
+  <li class="blue">
     <?php
       //echo "<p>" . $fri . "</p>";
       if($fri > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
@@ -641,7 +641,7 @@
 
     ?>
   </li>
-  <li>
+  <li class="blue">
     <?php
       //echo "<p>" . $sat . "</p>";
       if($sat > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
@@ -679,7 +679,7 @@
       
     ?>
   </li>
-  <li> 
+  <li class="blue"> 
     <?php
       //echo "<p>" . $sun . "</p>";
       if($sun > date("Y-m-d", mktime(0,0,0,date("m"), date("d") - 1, date("Y"))))
@@ -745,7 +745,7 @@
         }
         else
         {
-          echo "<a><br></a><a><br></a>";
+          echo "<a class='gray'><br></a><a class='gray'><br></a>";
         }
         
       }
@@ -785,7 +785,7 @@
           }
           else
           {
-            echo "<a><br></a><a><br></a>";
+            echo "<a class='gray'><br></a><a class='gray'><br></a>";
           }
           
         }
@@ -834,7 +834,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -873,7 +873,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -912,7 +912,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -951,7 +951,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -990,7 +990,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1033,7 +1033,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
 
     ?>
@@ -1072,7 +1072,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1111,7 +1111,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1150,7 +1150,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1189,7 +1189,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1228,7 +1228,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1267,7 +1267,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1310,7 +1310,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
 
     ?>
@@ -1349,7 +1349,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1388,7 +1388,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1427,7 +1427,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1466,7 +1466,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1505,7 +1505,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1544,7 +1544,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1587,7 +1587,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
 
     ?>
@@ -1626,7 +1626,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1665,7 +1665,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1704,7 +1704,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1743,7 +1743,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1782,7 +1782,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1821,7 +1821,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1864,7 +1864,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
 
     ?>
@@ -1903,7 +1903,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1942,7 +1942,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -1981,7 +1981,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2020,7 +2020,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2059,7 +2059,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2098,7 +2098,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2141,7 +2141,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
 
     ?>
@@ -2180,7 +2180,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2219,7 +2219,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2258,7 +2258,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2297,7 +2297,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2336,7 +2336,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2375,7 +2375,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2418,7 +2418,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
 
     ?>
@@ -2457,7 +2457,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2496,7 +2496,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2535,7 +2535,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2574,7 +2574,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2613,7 +2613,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2652,7 +2652,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2695,7 +2695,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
 
     ?>
@@ -2734,7 +2734,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2773,7 +2773,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2812,7 +2812,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2851,7 +2851,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2890,7 +2890,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2929,7 +2929,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -2972,7 +2972,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
 
     ?>
@@ -3011,7 +3011,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -3050,7 +3050,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -3089,7 +3089,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -3128,7 +3128,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -3167,7 +3167,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -3206,7 +3206,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -3249,7 +3249,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
 
     ?>
@@ -3288,7 +3288,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -3327,7 +3327,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -3366,7 +3366,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -3405,7 +3405,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -3444,7 +3444,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>
@@ -3483,7 +3483,7 @@
       }
       else
       {
-        echo "<a><br></a><a><br></a>";
+        echo "<a class='gray'><br></a><a class='gray'><br></a>";
       }
       
     ?>

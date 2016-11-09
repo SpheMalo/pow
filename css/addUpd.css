@@ -397,6 +397,12 @@
     background: red;
   }
 
+  /*.blue{
+    cursor: default;
+    background: #00314c;
+    color: white;
+  }*/
+
   .gray{
     cursor: not-allowed;
     display: block;

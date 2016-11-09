@@ -297,13 +297,13 @@
 ?>
 
 <ul id="cal">
-  <li>monday</li>
-  <li>tuesday</li>
-  <li>wednesday</li>
-  <li>thursday</li>
-  <li>friday</li>
-  <li>saturday</li>
-  <li>sunday</li>
+  <li class="blue">monday</li>
+  <li class="blue">tuesday</li>
+  <li class="blue">wednesday</li>
+  <li class="blue">thursday</li>
+  <li class="blue">friday</li>
+  <li class="blue">saturday</li>
+  <li class="blue">sunday</li>
 
   <?php
     if ($first_d > 1)
@@ -331,18 +331,18 @@
             
             if ($aa == 0)
             {
-              echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lii . "')>ma</a></p></div></li>";
+              echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,date("M", $m) -2, $a, date("y"))) . "</p><p>not in</p><p><a onclick=makeDayAv('" . $lii . "')>ma</a></p></div></li>";
             }
             else
             {
-              echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p><p><br></p><p><a onclick=makeDayUnav('" . $lii . "')>no app</a></p></div></li>";
+              echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,date("M", $m) -2, $a, date("y"))) . "</p><p><br></p><p><a onclick=makeDayUnav('" . $lii . "')>no app</a></p></div></li>";
             }
             
           }
           else
           {
             $app = count($app);
-            echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p><br><p onclick=getWeek('" . $lii . "')>" . $app . " app</p></div></li>";
+            echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,date("M", $m) -2, $a, date("y"))) . "</p><br><p onclick=getWeek('" . $lii . "')>" . $app . " app</p></div></li>";
           }
         }
         else
@@ -352,14 +352,13 @@
           {}
           else if ($app == "rows")
           {
-            echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p><br><p onclick=getWeek('" . $lii . "')>rw</p></div></li>";
+            echo "<li id=" . $lii . " class='gray_'><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,date("M", $m) -2, $a, date("y"))) . "</p><br><p onclick=getWeek('" . $lii . "')>rw</p></div></li>";
           }
           else
           {
             $app = count($app);
-            echo "<li id=" . $lii . "><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,$m - 1, $a, date("y"))) . "</p>" . $app . " app<p class='rw' onclick=getWeek('" . $lii . "')><img src='../../../../img/ico/rw.png' alt='rw'/></p></div></li>";
+            echo "<li id=" . $lii . " class='gray_'><div><p onclick=getWeek('" . $lii . "')>" . $a . " " . date("M", mktime(0,0,0,date("M", $m) -2, $a, date("y"))) . "</p>" . $app . " app<p class='rw' onclick=getWeek('" . $lii . "')><img src='../../../../img/ico/rw.png' alt='rw'/></p></div></li>";
           }
-
         }
 
         $c++;
@@ -409,12 +408,12 @@
           {}
           else if ($app == "rows")
           {
-            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
+            echo "<li id=" . $lid . " class='gray_'><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
           }
           else
           {
             $app = count($app);
-            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p>" . $app . " app<p onclick=getWeek('" . $lid . "') >rw</p></div></li>";
+            echo "<li id=" . $lid . " class='gray_'><div><p onclick=getWeek('" . $lid . "')>" . $b . " " . date("M", strtotime($lid)) . "</p>" . $app . " app<p onclick=getWeek('" . $lid . "') >rw</p></div></li>";
           } 
         }
 
@@ -524,12 +523,12 @@
           {}
           else if ($app == "rows")
           {
-            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $a . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
+            echo "<li id=" . $lid . " class='gray_'><div><p onclick=getWeek('" . $lid . "')>" . $a . " " . date("M", strtotime($lid)) . "</p><br><p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
           }
           else
           {
             $app = count($app);
-            echo "<li id=" . $lid . "><div><p onclick=getWeek('" . $lid . "')>" . $a . " " . date("M", strtotime($lid)) . "</p>" . $app . " app<p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
+            echo "<li id=" . $lid . " class='gray_'><div><p onclick=getWeek('" . $lid . "')>" . $a . " " . date("M", strtotime($lid)) . "</p>" . $app . " app<p onclick=getWeek('" . $lid . "')>rw</p></div></li>";
           }
             
         }
@@ -568,3 +567,19 @@
 
 <a id="month_p" onclick="navMonth('<?php echo date("Y-m-d", $t);?>')"></a>
 <a id="month_n" onclick="navMonth('<?php echo date("Y-m-d", $t1);?>')"></a>
+
+<!--<p id="td" style="display: none;"><?php //echo date("Y-m-d");?></p>
+<script>
+  var t_d = document.getElementById("td");
+  //alert(t_d.innerHTML);
+  //t_d.firstChild.firstChild.style.background = "lightblue";
+
+  /*$("li").filter(function(x){
+    return x.getAttribute('id') == t_d;
+
+    /*if (x.getAttribute("id") == t_d)
+    {
+      return x;
+    }*/
+  //}).css({"background: lightblue"});
+</script>-->

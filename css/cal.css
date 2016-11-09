@@ -18,8 +18,8 @@
 #cal > li, #call > li{
   width: 14%;
   float: left;
-  border-left: 1px dashed #00314c;
-  border-top: 1px dashed #00314c;
+  border-right: 1px dashed #00314c;
+  border-bottom: 1px dashed #00314c;
   list-style: none;
 }
 
@@ -34,7 +34,7 @@
 }
 
 #cal > li > div{
-  margin: 0;
+  margin: 0 0.3em 0 0;
   padding: 0.2em;
 }
 
@@ -46,6 +46,11 @@
 
 #cal > li > div > p:first-of-type, #cal > li > div > p:last-of-type{
   cursor: pointer;
+  /*text-decoration: underline; /*px dashed #00314c;*/
+}
+
+#cal > li > div > p:first-of-type{
+  text-decoration: underline;
 }
 
 #cal > li > div > p:last-of-type{
@@ -121,3 +126,27 @@
   background: url('../img/ico/forward.png') no-repeat;
   background-size: contain;
 }
+
+.blue{
+    cursor: default;
+    background: #00314c;
+    color: white;
+    padding: 0.2em 0;
+    /*padding-top: 0.2em;
+    padding-bottom: 0.2em;*/
+    border-right: 1px dashed white; 
+  }
+
+  .gray_{
+    /*cursor: not-allowed;
+    display: block;
+    text-align: center;*/
+    background: dimgray;
+  }
+
+  .gray__{
+    /*display: block;
+    text-align: center;*/
+    cursor: not-allowed;
+    background: dimgray;
+  }

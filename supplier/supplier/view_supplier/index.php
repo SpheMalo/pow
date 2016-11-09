@@ -15,6 +15,7 @@
 
     $_SESSION['page'] = "View Supplier";
     $emp = $_SESSION['emp'];
+    $emp_access_level = loadEmpAccessLevel($emp->id);
     $o = "";
     
     if (isset($_GET['id']))
